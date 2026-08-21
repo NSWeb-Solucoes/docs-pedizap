@@ -1,0 +1,77 @@
+info:
+  name: Editar webhook
+  type: http
+  seq: 4
+  tags:
+    - Webhook
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: webhookId
+      value: "{{webhookId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: webhook_url
+        value: ""
+        description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
+      - name: module_ids
+        value: ""
+        description: 'IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site'
+      - name: actived
+        value: ""
+        description: '"Y" (ativo) ou "N" (inativo)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: webhookId
+          value: "{{webhookId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: webhook_url
+            value: ""
+            description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
+          - name: module_ids
+            value: ""
+            description: 'IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site'
+          - name: actived
+            value: ""
+            description: '"Y" (ativo) ou "N" (inativo)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"N\u00e3o foi possivel validar o PUT!","errorlist":{"webhook_url":"URL obrigatoria para destino push."}}'
+
+docs: Endpoint para editar os webhooks.

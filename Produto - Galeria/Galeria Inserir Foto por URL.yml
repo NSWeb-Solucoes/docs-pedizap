@@ -1,0 +1,168 @@
+info:
+  name: Galeria Inserir Foto por URL
+  type: http
+  seq: 5
+  tags:
+    - Produtos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: produtoId
+      value: "{{produtoId}}"
+      type: path
+  body:
+    type: multipart-form
+    data:
+      - name: description
+        type: text
+        value: ""
+        description: Legenda/descricao da foto (opcional)
+      - name: photo_url
+        type: text
+        value: ""
+        description: URL publica de uma imagem para o servidor baixar e associar ao produto
+      - name: featured
+        type: text
+        value: ""
+        description: '"S"/"N" (default "N") - marca a foto como a principal/destaque do produto'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: description
+            type: text
+            value: ""
+            description: Legenda/descricao da foto (opcional)
+          - name: photo_url
+            type: text
+            value: ""
+            description: URL publica de uma imagem para o servidor baixar e associar ao produto
+          - name: featured
+            type: text
+            value: ""
+            description: '"S"/"N" (default "N") - marca a foto como a principal/destaque do produto'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","photo":{"id":"38","site_id":"5095","product_id":"6","description":"Descri\u00e7\u00e3o Teste","file_name":"photo_6_6a5a28db9d283.png","file_name_import":null,"featured":"N","published":"Y","priority":"0"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: description
+            type: text
+            value: ""
+            description: Legenda/descricao da foto (opcional)
+          - name: photo_url
+            type: text
+            value: ""
+            description: URL publica de uma imagem para o servidor baixar e associar ao produto
+          - name: featured
+            type: text
+            value: ""
+            description: '"S"/"N" (default "N") - marca a foto como a principal/destaque do produto'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: description
+            type: text
+            value: ""
+            description: Legenda/descricao da foto (opcional)
+          - name: photo_url
+            type: text
+            value: ""
+            description: URL publica de uma imagem para o servidor baixar e associar ao produto
+          - name: featured
+            type: text
+            value: ""
+            description: '"S"/"N" (default "N") - marca a foto como a principal/destaque do produto'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Erro baixar arquivo de imagem: https:\/\/semeupetfalasse.wordpress.\n\/wp-content\/uploads\/2025\/01\/cachorro-na-tv-1024x852-1.png | file_get_contents(): php_network_getaddresses: getaddrinfo failed: Name or service not known in \/home\/nsite\/www\/application\/api\/controllers\/ProdutoController.php:5852"}'
+
+docs: |-
+  <p>Campo opcional <code>featured</code> ("S"/"N", default "N") marca a foto como a principal/destaque do produto.</p>

@@ -1,0 +1,92 @@
+info:
+  name: SEO Remover
+  type: http
+  seq: 5
+  tags:
+    - SEO
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/seotool/:seoId"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: seoId
+      value: "{{seoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool/:seoId"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: seoId
+          value: "{{seoId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      headers: []
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool/:seoId"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: seoId
+          value: "{{seoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool/:seoId"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: seoId
+          value: "{{seoId}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Registro de SEO n\u00e3o informado, n\u00e3o encontrado ou atributo \"id\" faltando."}'

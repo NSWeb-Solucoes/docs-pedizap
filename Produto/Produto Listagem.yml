@@ -1,0 +1,1538 @@
+info:
+  name: Produto Listagem
+  type: http
+  seq: 1
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/produto"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: search
+      value: Teste descrição teste
+      type: query
+      description: String - Optional - Busca por textos no title, code e resume do produto
+      disabled: true
+    - name: q
+      value: Teste descrição teste
+      type: query
+      description: String - Optional - Busca por textos no title, code e resume do produto
+      disabled: true
+    - name: searchlike
+      value: "1"
+      type: query
+      description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+      disabled: true
+    - name: pids
+      value: 55,85,78,963
+      type: query
+      description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+      disabled: true
+    - name: hideids
+      value: 10,20,30
+      type: query
+      description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+      disabled: true
+    - name: promo
+      value: "1"
+      type: query
+      description: Boolean - Optional - Filtra somente produtos em promoção
+      disabled: true
+    - name: featured
+      value: "1"
+      type: query
+      description: Boolean - Optional - Filtra somente produtos em destaque
+      disabled: true
+    - name: onlysubprod
+      value: "1"
+      type: query
+      description: Boolean - Optional - Filtra somente subprodutos
+      disabled: true
+    - name: subprod
+      value: "1"
+      type: query
+      description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+      disabled: true
+    - name: code
+      value: re25df478e
+      type: query
+      description: String - Optional - Buscar pelo SKU do produto
+      disabled: true
+    - name: preco
+      value: 30-80
+      type: query
+      description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+      disabled: true
+    - name: marca
+      value: "5"
+      type: query
+      description: String - Optional - Id da marca (manufacturer_id)
+      disabled: true
+    - name: fabricante
+      value: "5"
+      type: query
+      description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+      disabled: true
+    - name: genero
+      value: M
+      type: query
+      description: String - Optional - Filtra o genêro do produto (M/F)
+      disabled: true
+    - name: category
+      value: "8"
+      type: query
+      description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+      disabled: true
+    - name: c
+      value: "52"
+      type: query
+      description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+      disabled: true
+    - name: grupo
+      value: "12"
+      type: query
+      description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+      disabled: true
+    - name: lastupdate_lte
+      value: 01/12/2024
+      type: query
+      description: String - Optional - Atualizados antes de determinada data
+      disabled: true
+    - name: lastupdate_gte
+      value: 01/12/2023
+      type: query
+      description: String - Optional - Atualizados depois de determinada data
+      disabled: true
+    - name: created_lte
+      value: 01/12/2024
+      type: query
+      description: String - Optional - Criados antes de determinada data
+      disabled: true
+    - name: created_gte
+      value: 01/12/2023
+      type: query
+      description: String - Optional - Criados depois de determinada data
+      disabled: true
+    - name: limit
+      value: "50"
+      type: query
+      description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+      disabled: true
+    - name: order
+      value: ""
+      type: query
+      description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+      disabled: true
+    - name: page
+      value: "3"
+      type: query
+      description: String - Opcional - Numero da pagina a ser buscada
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"44","totalPaginas":5,"registroInicio":1,"registroFim":10,"produtos":{"produto":[{"id":"45","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"File a Parmegiana","resume":"Batata frita, arroz e feijao.","price":"0","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:13:43","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/45-file-a-parmegiana.html","photo":""},{"id":"44","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"Escondg","resume":"Batata frita, arroz e feijao.","price":"254.9","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"20","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:12:22","lastupdate":"2026-07-17 09:14:54","cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/44-escondg.html","photo":""},{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"42","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":null,"category_path":null,"manufacturer_id":"0","genero":null,"code":"cartao1","mpn":null,"gtin":null,"name":"Cart\u00e3o CardBen Fam\u00edlia - Sa\u00fade ao Seu Alcance","resume":null,"price":"470","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-07-03 11:32:28","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/42-cartao-cardben-familia-saude-ao-seu-alcance.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""},{"id":"40","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000027","mpn":null,"gtin":null,"name":"Granola Sach\u00ea 30gr","resume":"Sem descri\u00e7\u00e3o","price":"3","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/40-granola-sache-30gr.html","photo":"\/uploads\/5095\/product\/photo_406a3425c145100.jpg"},{"id":"39","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000036","mpn":null,"gtin":null,"name":"Cobertura Marvi","resume":"Cobertura de 190g","price":"10","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"5353f506-a7e2-4118-afb3-a2951a63428e\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c4f373da-c6b0-4985-9eb7-24d406aeda29\",\"code\":\"comp-000187\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"fed97a60-068b-47a3-9e56-ee55a982d59c\",\"code\":\"comp-000185\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"44b416f2-ea03-408d-9db8-6896c240b6b3\",\"code\":\"comp-000186\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/39-cobertura-marvi.html","photo":""},{"id":"38","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000037","mpn":null,"gtin":null,"name":"Cobertura Fini","resume":"Cobertura de 190g","price":"15","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"3f9aee6e-19fa-45aa-b74d-13dd613dda86\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"e2e9c607-38ce-45c2-b31f-07f244be8f22\",\"code\":\"comp-000188\",\"image\":\"\",\"name\":\"Banana\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"e586f1b0-f4c9-460e-87a2-449d19926771\",\"code\":\"comp-000189\",\"image\":\"\",\"name\":\"Beijos\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"905d28f5-702c-4748-9f1b-45cc48275d3a\",\"code\":\"comp-000190\",\"image\":\"\",\"name\":\"Dentadura\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/38-cobertura-fini.html","photo":""},{"id":"37","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000028","mpn":null,"gtin":null,"name":"Cobertura Du Porto","resume":"Cobertura de 270g","price":"12","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"02ca5bb3-0fed-4440-b448-d91ac2897259\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"3aaf3589-beab-4d43-a027-4573590885ae\",\"code\":\"comp-000114\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"0a1564e9-5e54-4322-8236-dc89fa8afe98\",\"code\":\"comp-000112\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"73eacc2c-3740-48a9-bf45-a19a71b2da8e\",\"code\":\"comp-000113\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/37-cobertura-du-porto.html","photo":"\/uploads\/5095\/product\/photo_376a3425c13b61b.jpg"},{"id":"36","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000026","mpn":null,"gtin":null,"name":"Casquinha","resume":"Pacote com 10 unidades","price":"1","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"73b90218-b4b6-4bc0-9af4-c3b71b1ca2a0\",\"category\":\"Escolha seu tamanho\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c6bb1da1-e258-4c2f-84ca-7fba50a742ed\",\"code\":\"comp-000111\",\"image\":\"\",\"name\":\"Pacote 10 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"d06a056f-53c6-4aeb-bd0f-11bab02b4464\",\"code\":\"comp-000110\",\"image\":\"\",\"name\":\"Pacote 20 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/36-casquinha.html","photo":"\/uploads\/5095\/product\/photo_366a3425c138373.jpg"}]}}'
+  - name: 200 Search
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","produtos":{"produto":[{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""}]}}'
+  - name: 200 q
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","produtos":{"produto":[{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""}]}}'
+  - name: 200 SearchLike
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"41","totalPaginas":5,"registroInicio":1,"registroFim":10,"produtos":{"produto":[{"id":"45","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"File a Parmegiana","resume":"Batata frita, arroz e feijao.","price":"0","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:13:43","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/45-file-a-parmegiana.html","photo":""},{"id":"44","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"Escondg","resume":"Batata frita, arroz e feijao.","price":"254.9","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"20","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:12:22","lastupdate":"2026-07-17 09:14:54","cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/44-escondg.html","photo":""},{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"42","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":null,"category_path":null,"manufacturer_id":"0","genero":null,"code":"cartao1","mpn":null,"gtin":null,"name":"Cart\u00e3o CardBen Fam\u00edlia - Sa\u00fade ao Seu Alcance","resume":null,"price":"470","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-07-03 11:32:28","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/42-cartao-cardben-familia-saude-ao-seu-alcance.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""},{"id":"40","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000027","mpn":null,"gtin":null,"name":"Granola Sach\u00ea 30gr","resume":"Sem descri\u00e7\u00e3o","price":"3","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/40-granola-sache-30gr.html","photo":"\/uploads\/5095\/product\/photo_406a3425c145100.jpg"},{"id":"39","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000036","mpn":null,"gtin":null,"name":"Cobertura Marvi","resume":"Cobertura de 190g","price":"10","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"5353f506-a7e2-4118-afb3-a2951a63428e\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c4f373da-c6b0-4985-9eb7-24d406aeda29\",\"code\":\"comp-000187\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"fed97a60-068b-47a3-9e56-ee55a982d59c\",\"code\":\"comp-000185\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"44b416f2-ea03-408d-9db8-6896c240b6b3\",\"code\":\"comp-000186\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/39-cobertura-marvi.html","photo":""},{"id":"38","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000037","mpn":null,"gtin":null,"name":"Cobertura Fini","resume":"Cobertura de 190g","price":"15","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"3f9aee6e-19fa-45aa-b74d-13dd613dda86\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"e2e9c607-38ce-45c2-b31f-07f244be8f22\",\"code\":\"comp-000188\",\"image\":\"\",\"name\":\"Banana\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"e586f1b0-f4c9-460e-87a2-449d19926771\",\"code\":\"comp-000189\",\"image\":\"\",\"name\":\"Beijos\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"905d28f5-702c-4748-9f1b-45cc48275d3a\",\"code\":\"comp-000190\",\"image\":\"\",\"name\":\"Dentadura\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/38-cobertura-fini.html","photo":""},{"id":"37","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000028","mpn":null,"gtin":null,"name":"Cobertura Du Porto","resume":"Cobertura de 270g","price":"12","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"02ca5bb3-0fed-4440-b448-d91ac2897259\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"3aaf3589-beab-4d43-a027-4573590885ae\",\"code\":\"comp-000114\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"0a1564e9-5e54-4322-8236-dc89fa8afe98\",\"code\":\"comp-000112\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"73eacc2c-3740-48a9-bf45-a19a71b2da8e\",\"code\":\"comp-000113\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/37-cobertura-du-porto.html","photo":"\/uploads\/5095\/product\/photo_376a3425c13b61b.jpg"},{"id":"36","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000026","mpn":null,"gtin":null,"name":"Casquinha","resume":"Pacote com 10 unidades","price":"1","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"73b90218-b4b6-4bc0-9af4-c3b71b1ca2a0\",\"category\":\"Escolha seu tamanho\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c6bb1da1-e258-4c2f-84ca-7fba50a742ed\",\"code\":\"comp-000111\",\"image\":\"\",\"name\":\"Pacote 10 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"d06a056f-53c6-4aeb-bd0f-11bab02b4464\",\"code\":\"comp-000110\",\"image\":\"\",\"name\":\"Pacote 20 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/36-casquinha.html","photo":"\/uploads\/5095\/product\/photo_366a3425c138373.jpg"}]}}'
+  - name: 200 Pids
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"produtos":{"produto":[]}}'
+  - name: 200 hideids
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"41","totalPaginas":5,"registroInicio":1,"registroFim":10,"produtos":{"produto":[{"id":"45","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"File a Parmegiana","resume":"Batata frita, arroz e feijao.","price":"0","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:13:43","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/45-file-a-parmegiana.html","photo":""},{"id":"44","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"Escondg","resume":"Batata frita, arroz e feijao.","price":"254.9","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"20","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:12:22","lastupdate":"2026-07-17 09:14:54","cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/44-escondg.html","photo":""},{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"42","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":null,"category_path":null,"manufacturer_id":"0","genero":null,"code":"cartao1","mpn":null,"gtin":null,"name":"Cart\u00e3o CardBen Fam\u00edlia - Sa\u00fade ao Seu Alcance","resume":null,"price":"470","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-07-03 11:32:28","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/42-cartao-cardben-familia-saude-ao-seu-alcance.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""},{"id":"40","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000027","mpn":null,"gtin":null,"name":"Granola Sach\u00ea 30gr","resume":"Sem descri\u00e7\u00e3o","price":"3","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/40-granola-sache-30gr.html","photo":"\/uploads\/5095\/product\/photo_406a3425c145100.jpg"},{"id":"39","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000036","mpn":null,"gtin":null,"name":"Cobertura Marvi","resume":"Cobertura de 190g","price":"10","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"5353f506-a7e2-4118-afb3-a2951a63428e\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c4f373da-c6b0-4985-9eb7-24d406aeda29\",\"code\":\"comp-000187\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"fed97a60-068b-47a3-9e56-ee55a982d59c\",\"code\":\"comp-000185\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"44b416f2-ea03-408d-9db8-6896c240b6b3\",\"code\":\"comp-000186\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/39-cobertura-marvi.html","photo":""},{"id":"38","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000037","mpn":null,"gtin":null,"name":"Cobertura Fini","resume":"Cobertura de 190g","price":"15","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"3f9aee6e-19fa-45aa-b74d-13dd613dda86\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"e2e9c607-38ce-45c2-b31f-07f244be8f22\",\"code\":\"comp-000188\",\"image\":\"\",\"name\":\"Banana\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"e586f1b0-f4c9-460e-87a2-449d19926771\",\"code\":\"comp-000189\",\"image\":\"\",\"name\":\"Beijos\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"905d28f5-702c-4748-9f1b-45cc48275d3a\",\"code\":\"comp-000190\",\"image\":\"\",\"name\":\"Dentadura\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/38-cobertura-fini.html","photo":""},{"id":"37","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000028","mpn":null,"gtin":null,"name":"Cobertura Du Porto","resume":"Cobertura de 270g","price":"12","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"02ca5bb3-0fed-4440-b448-d91ac2897259\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"3aaf3589-beab-4d43-a027-4573590885ae\",\"code\":\"comp-000114\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"0a1564e9-5e54-4322-8236-dc89fa8afe98\",\"code\":\"comp-000112\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"73eacc2c-3740-48a9-bf45-a19a71b2da8e\",\"code\":\"comp-000113\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/37-cobertura-du-porto.html","photo":"\/uploads\/5095\/product\/photo_376a3425c13b61b.jpg"},{"id":"36","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000026","mpn":null,"gtin":null,"name":"Casquinha","resume":"Pacote com 10 unidades","price":"1","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"73b90218-b4b6-4bc0-9af4-c3b71b1ca2a0\",\"category\":\"Escolha seu tamanho\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c6bb1da1-e258-4c2f-84ca-7fba50a742ed\",\"code\":\"comp-000111\",\"image\":\"\",\"name\":\"Pacote 10 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"d06a056f-53c6-4aeb-bd0f-11bab02b4464\",\"code\":\"comp-000110\",\"image\":\"\",\"name\":\"Pacote 20 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/36-casquinha.html","photo":"\/uploads\/5095\/product\/photo_366a3425c138373.jpg"}]}}'
+  - name: 200 Promo
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","produtos":{"produto":[{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"17","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"3","category_id2":null,"category_path":"3","manufacturer_id":"0","genero":null,"code":"prod-000003","mpn":null,"gtin":null,"name":"Pote 1,5 Litros - Linha Premium","resume":"Sem descri\u00e7\u00e3o","price":"281","price_promo":"3.99","ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"a3fe3c00-f3d4-46f8-a9ab-7a7055c69a1d\",\"category\":\"Escolha o seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"b38c4430-6a74-4ef2-b4a3-5acb659e9ea0\",\"code\":\"comp-000009\",\"image\":\"\",\"name\":\"Ninho Com Morango\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"49be1ed3-0516-4f50-9799-e25207abc126\",\"code\":\"comp-000010\",\"image\":\"\",\"name\":\"Ninho Trufado\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:11","lastupdate":"2026-07-17 09:35:10","cashback_json":null,"category":{"id":"3","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Sorvetes","friendly_url":"sorvetes","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"3","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:10","lastupdate":"2026-06-18 14:07:11"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/17-pote-15-litros-linha-premium.html","photo":"\/uploads\/5095\/product\/photo_176a3425bf04de8.png"}]}}'
+  - name: 200 featured
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"produtos":{"produto":[]}}'
+  - name: 200 Onlysubprod
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"produtos":{"produto":[]}}'
+  - name: 200 Subprod
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"41","totalPaginas":5,"registroInicio":1,"registroFim":10,"produtos":{"produto":[{"id":"45","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"File a Parmegiana","resume":"Batata frita, arroz e feijao.","price":"0","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:13:43","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/45-file-a-parmegiana.html","photo":""},{"id":"44","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"Escondg","resume":"Batata frita, arroz e feijao.","price":"254.9","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"20","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:12:22","lastupdate":"2026-07-17 09:14:54","cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/44-escondg.html","photo":""},{"id":"43","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":"0","category_path":"6","manufacturer_id":"0","genero":"","code":"00000000000000000306","mpn":"","gtin":"","name":"teste","resume":"teste","price":"281","price_promo":"3.99","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"7","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"category\": \"Escolha marca\",\"required\": true,\"rule\": \"\",\"min\": \"1\",\"max\": \"1\",\"items\": [{\"name\": \"Marca 1\",        \"code\": \"00000000000000000669\",        \"desc\": \"\",        \"price\": \"0.00\",        \"published\": true} ]}]","horarios_json":"","created":"2026-07-03 15:22:54","lastupdate":"2026-07-17 09:32:57","cashback_json":"","category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/43-teste.html","photo":""},{"id":"42","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":null,"category_path":null,"manufacturer_id":"0","genero":null,"code":"cartao1","mpn":null,"gtin":null,"name":"Cart\u00e3o CardBen Fam\u00edlia - Sa\u00fade ao Seu Alcance","resume":null,"price":"470","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-07-03 11:32:28","lastupdate":null,"cashback_json":null,"category":[],"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/42-cartao-cardben-familia-saude-ao-seu-alcance.html","photo":""},{"id":"41","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"1","category_id2":"0","category_path":"1","manufacturer_id":"0","genero":"","code":"123456789","mpn":"","gtin":"","name":"Teste","resume":"","price":"0.5","price_promo":"0","ncm":"","featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"","horarios_json":"","created":"2026-06-18 14:15:12","lastupdate":"2026-07-01 09:27:05","cashback_json":"","category":{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/41-teste.html","photo":""},{"id":"40","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000027","mpn":null,"gtin":null,"name":"Granola Sach\u00ea 30gr","resume":"Sem descri\u00e7\u00e3o","price":"3","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/40-granola-sache-30gr.html","photo":"\/uploads\/5095\/product\/photo_406a3425c145100.jpg"},{"id":"39","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000036","mpn":null,"gtin":null,"name":"Cobertura Marvi","resume":"Cobertura de 190g","price":"10","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"5353f506-a7e2-4118-afb3-a2951a63428e\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c4f373da-c6b0-4985-9eb7-24d406aeda29\",\"code\":\"comp-000187\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"fed97a60-068b-47a3-9e56-ee55a982d59c\",\"code\":\"comp-000185\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"44b416f2-ea03-408d-9db8-6896c240b6b3\",\"code\":\"comp-000186\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/39-cobertura-marvi.html","photo":""},{"id":"38","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000037","mpn":null,"gtin":null,"name":"Cobertura Fini","resume":"Cobertura de 190g","price":"15","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"3f9aee6e-19fa-45aa-b74d-13dd613dda86\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"e2e9c607-38ce-45c2-b31f-07f244be8f22\",\"code\":\"comp-000188\",\"image\":\"\",\"name\":\"Banana\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"e586f1b0-f4c9-460e-87a2-449d19926771\",\"code\":\"comp-000189\",\"image\":\"\",\"name\":\"Beijos\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"905d28f5-702c-4748-9f1b-45cc48275d3a\",\"code\":\"comp-000190\",\"image\":\"\",\"name\":\"Dentadura\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/38-cobertura-fini.html","photo":""},{"id":"37","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000028","mpn":null,"gtin":null,"name":"Cobertura Du Porto","resume":"Cobertura de 270g","price":"12","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"02ca5bb3-0fed-4440-b448-d91ac2897259\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"3aaf3589-beab-4d43-a027-4573590885ae\",\"code\":\"comp-000114\",\"image\":\"\",\"name\":\"Caramelo\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"0a1564e9-5e54-4322-8236-dc89fa8afe98\",\"code\":\"comp-000112\",\"image\":\"\",\"name\":\"Chocolate\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"73eacc2c-3740-48a9-bf45-a19a71b2da8e\",\"code\":\"comp-000113\",\"image\":\"\",\"name\":\"Morango\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/37-cobertura-du-porto.html","photo":"\/uploads\/5095\/product\/photo_376a3425c13b61b.jpg"},{"id":"36","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"6","category_id2":null,"category_path":"6","manufacturer_id":"0","genero":null,"code":"prod-000026","mpn":null,"gtin":null,"name":"Casquinha","resume":"Pacote com 10 unidades","price":"1","price_promo":null,"ncm":null,"featured":"N","file_name":"","video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":null,"largura":null,"altura":null,"peso":null,"prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":"[{\"ref\":\"73b90218-b4b6-4bc0-9af4-c3b71b1ca2a0\",\"category\":\"Escolha seu tamanho\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"c6bb1da1-e258-4c2f-84ca-7fba50a742ed\",\"code\":\"comp-000111\",\"image\":\"\",\"name\":\"Pacote 10 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true},{\"ref\":\"d06a056f-53c6-4aeb-bd0f-11bab02b4464\",\"code\":\"comp-000110\",\"image\":\"\",\"name\":\"Pacote 20 Unidades\",\"desc\":\"\",\"price\":13,\"published\":true}]}]","horarios_json":null,"created":"2026-06-18 14:07:13","lastupdate":null,"cashback_json":null,"category":{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"},"category2":[],"manufacturer":[],"link":"https:\/\/cardapio.pedizap.com.br\/site\/produtos\/36-casquinha.html","photo":"\/uploads\/5095\/product\/photo_366a3425c138373.jpg"}]}}'
+  - name: 200 Code
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"produtos":{"produto":[]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: search
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: q
+          value: Teste descrição teste
+          type: query
+          description: String - Optional - Busca por textos no title, code e resume do produto
+        - name: searchlike
+          value: "1"
+          type: query
+          description: Boolean - Optional - Força a busca do 'search' e 'q', á usarem LIKE nos campos 'title', 'code' e 'resume', dessa forma você evita o cache do FULLTEXT.
+        - name: pids
+          value: 55,85,78,963
+          type: query
+          description: String - Optional - Buscar por ids especificos (Se caso usar as queries 'search' ou 'q', a busca por id não será feita).
+        - name: hideids
+          value: 10,20,30
+          type: query
+          description: String - Optional - Ids de produtos que tevem ser removidos da busca. Será considerado indepedente do 'search' e 'q'
+        - name: promo
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em promoção
+        - name: featured
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente produtos em destaque
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra somente subprodutos
+        - name: subprod
+          value: "1"
+          type: query
+          description: Boolean - Optional - Filtra tanto produtos e subprodutos. Por padrão mostra somente produtos
+        - name: code
+          value: re25df478e
+          type: query
+          description: String - Optional - Buscar pelo SKU do produto
+        - name: preco
+          value: 30-80
+          type: query
+          description: String - Optional - Filtro por faixa de preço {[min]-[max]}
+        - name: marca
+          value: "5"
+          type: query
+          description: String - Optional - Id da marca (manufacturer_id)
+        - name: fabricante
+          value: "5"
+          type: query
+          description: String - Optional - Id do fabricante (manufacturer_id), mantendo a retrocompatibilidade com integração antiga
+        - name: genero
+          value: M
+          type: query
+          description: String - Optional - Filtra o genêro do produto (M/F)
+        - name: category
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id), com essa query também é pego o limit e order da categoria passada
+        - name: c
+          value: "52"
+          type: query
+          description: String - Optional - Id da categoria (category_id). não é pego limit e order da categoria.
+        - name: grupo
+          value: "12"
+          type: query
+          description: String - Optional - Produtos listados dentro de um grupo de vitrine. Caso queira respeitar as regras do grupo independente da 'category' informata da query use 'grupofu' ao invês de 'grupo'. A query 'c' sempre afetará a busca por grupo.
+        - name: lastupdate_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Atualizados antes de determinada data
+        - name: lastupdate_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Atualizados depois de determinada data
+        - name: created_lte
+          value: 01/12/2024
+          type: query
+          description: String - Optional - Criados antes de determinada data
+        - name: created_gte
+          value: 01/12/2023
+          type: query
+          description: String - Optional - Criados depois de determinada data
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina. Se caso for usado a query 'category' ele pegará o limit da categoria.
+        - name: order
+          value: ""
+          type: query
+          description: String - Optional - Ordenação da lista. Se caso for usado a query 'category' ele pegará a ordenação da categoria
+          disabled: true
+        - name: page
+          value: "3"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

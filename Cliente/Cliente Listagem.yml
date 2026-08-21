@@ -1,0 +1,281 @@
+info:
+  name: Cliente Listagem
+  type: http
+  seq: 1
+  tags:
+    - Clientes
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/cliente"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: filter_tipo
+      value: "1"
+      type: query
+      description: Filtrando o ID do tipo de cadastro
+      disabled: true
+    - name: q
+      value: ""
+      type: query
+      description: Pesquisa textual nos dados do cliente.
+      disabled: true
+    - name: alfa
+      value: r
+      type: query
+      description: "Primeira letra do nome a ser pesquisado. Ex: a"
+      disabled: true
+    - name: vendedor
+      value: "524"
+      type: query
+      description: ID do vendedor do cliente
+      disabled: true
+    - name: limit
+      value: ""
+      type: query
+      description: Quantidade de resultados por página
+      disabled: true
+    - name: page
+      value: "2"
+      type: query
+      description: Número da página referente a paginação de resultados
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de resultados por página
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"29","totalPaginas":3,"registroInicio":1,"registroFim":10,"clientes":{"cliente":[{"id":"91","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Bruno Vendramin","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998789808","email":null},{"id":"90","cadastro_tipo":"1","tipo_pessoa":"F","nome":"rodrigo marques pinheiros","cpfcnpj":"09233118312","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"85","celular":"994285201","email":"pedrosampio@gmail.com"},{"id":"89","cadastro_tipo":null,"tipo_pessoa":"F","nome":"lucas gianezi - pedido teste","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"997124419","email":null},{"id":"88","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Henrique","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981794480","email":null},{"id":"87","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Pedido Exemplo Pedizap","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"991618018","email":null},{"id":"85","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Odair Cesar Ferreira","cpfcnpj":"42672500819","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"14","celular":"991434273","email":"odairferreira97@gmail.com"},{"id":"80","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Paulo nunes","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"996559331","email":null},{"id":"79","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Sandra Carvalho","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"988145160","email":null},{"id":"78","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Thiago Spanholo","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998221899","email":null},{"id":"77","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Richard Salvaia","cpfcnpj":"34658097850","data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981157377","email":null}]}}'
+  - name: 200 FilterTipo
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de resultados por página
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":10,"totalGeralRegistros":"12","totalPaginas":2,"registroInicio":1,"registroFim":10,"clientes":{"cliente":[{"id":"92","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da Silva","cpfcnpj":"","data_nascimento":null,"sexo":"M","fone_ddd":"14","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"},{"id":"90","cadastro_tipo":"1","tipo_pessoa":"F","nome":"rodrigo marques pinheiros","cpfcnpj":"09233118312","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"85","celular":"994285201","email":"pedrosampio@gmail.com"},{"id":"85","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Odair Cesar Ferreira","cpfcnpj":"42672500819","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"14","celular":"991434273","email":"odairferreira97@gmail.com"},{"id":"79","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Sandra Carvalho","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"988145160","email":null},{"id":"74","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da S\u00edlva","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"18","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"},{"id":"71","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Carlos Gardel","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"996415347","email":null},{"id":"70","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Thiago Pilastre","cpfcnpj":null,"data_nascimento":null,"sexo":"M","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"997799538","email":null},{"id":"69","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Jose NS","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"991046924","email":null},{"id":"67","cadastro_tipo":"1","tipo_pessoa":"","nome":"Craudin","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"","fone":"","celular_ddd":"","celular":"","email":""},{"id":"54","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Rodrigo Ravagnolli","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981181741","email":null}]}}'
+  - name: 200 Alfa
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de resultados por página
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":4,"totalGeralRegistros":"4","totalPaginas":1,"registroInicio":1,"registroFim":"4","clientes":{"cliente":[{"id":"90","cadastro_tipo":"1","tipo_pessoa":"F","nome":"rodrigo marques pinheiros","cpfcnpj":"09233118312","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"85","celular":"994285201","email":"pedrosampio@gmail.com"},{"id":"77","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Richard","cpfcnpj":"34658097850","data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981157377","email":null},{"id":"54","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Rodrigo Ravagnolli","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981181741","email":null},{"id":"53","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Ricardo da STi3","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"981412491","email":null}]}}'
+  - name: 200 Page
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de resultados por página
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":2,"totalRegistros":10,"totalGeralRegistros":"29","totalPaginas":3,"registroInicio":11,"registroFim":20,"clientes":{"cliente":[{"id":"74","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da S\u00edlva","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"18","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"},{"id":"71","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Carlos Gardel","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"996415347","email":null},{"id":"70","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Thiago Pilastre","cpfcnpj":null,"data_nascimento":null,"sexo":"M","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"997799538","email":null},{"id":"69","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Jose NS","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"991046924","email":null},{"id":"68","cadastro_tipo":"0","tipo_pessoa":"F","nome":"craudete","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"35","celular":"99401023","email":""},{"id":"67","cadastro_tipo":"1","tipo_pessoa":"","nome":"Craudin","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"","fone":"","celular_ddd":"","celular":"","email":""},{"id":"63","cadastro_tipo":null,"tipo_pessoa":"J","nome":"Bruno","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998749808","email":null},{"id":"61","cadastro_tipo":null,"tipo_pessoa":"F","nome":null,"cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"91","celular":"984645268","email":null},{"id":"60","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Junior","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998961404","email":null},{"id":"59","cadastro_tipo":"0","tipo_pessoa":"F","nome":"Humberto","cpfcnpj":"","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"55","celular":"96752216","email":"contato@nsweb.com.br"}]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de resultados por página
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

@@ -1,0 +1,106 @@
+info:
+  name: Período Remover
+  type: http
+  seq: 5
+  tags:
+    - Entrega
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo/:periodoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+    - name: periodoId
+      value: "{{periodoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo/:periodoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: periodoId
+          value: "{{periodoId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo/:periodoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: periodoId
+          value: "{{periodoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 404 Response
+    description: Not Found
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo/:periodoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: periodoId
+          value: "{{periodoId}}"
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Periodo nao encontrado."}'

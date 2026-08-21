@@ -1,0 +1,609 @@
+info:
+  name: Produto Inserir
+  type: http
+  seq: 4
+  tags:
+    - Produtos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/produto"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "File a Parmegiana",
+        "code": "00000000000000000010",
+        "category_id": "",
+        "estoque_quantidade": 0,
+        "price": 0,
+        "price_promo": 0,
+        "resume": "Batata frita, arroz e feijao.",
+        "published": "N",
+        "show_price": "Y",
+        "regra_exibicao": "A",
+        "extras_json": [
+          {
+            "category": "",
+            "required": true,
+            "rule": "",
+            "min": "1",
+            "max": "3",
+            "items": [
+              {
+                "name": "BATATA PALHA",
+                "code": "00000000000000000135",
+                "desc": "",
+                "price": "3.00",
+                "published": true
+              },
+              {
+                "name": "OVO FRITO",
+                "code": "00000000000000000133",
+                "desc": "",
+                "price": "2.50",
+                "published": true
+              },
+              {
+                "name": "SALADA",
+                "code": "00000000000000000136",
+                "desc": "",
+                "price": "6.00",
+                "published": true
+              },
+              {
+                "name": "TORRESMO",
+                "code": "00000000000000000134",
+                "desc": "",
+                "price": "9.00",
+                "published": true
+              }
+            ]
+          },
+          {
+            "category": "Adicional de mistura (File a Parmegiana)",
+            "required": true,
+            "rule": "",
+            "min": "1",
+            "max": "3",
+            "items": [
+              {
+                "name": "BIFE ACEBOLADO",
+                "code": "00000000000000000142",
+                "desc": "",
+                "price": "12.00",
+                "published": true
+              },
+              {
+                "name": "FILe à PARMEGIANA",
+                "code": "00000000000000000144",
+                "desc": "",
+                "price": "14.00",
+                "published": true
+              },
+              {
+                "name": "FILe DE FRANGO GRELHADO",
+                "code": "00000000000000000143",
+                "desc": "",
+                "price": "9.00",
+                "published": true
+              }
+            ]
+          },
+          {
+            "category": "Escolha o seu Tamanho:",
+            "required": true,
+            "rule": "",
+            "min": "1",
+            "max": "1",
+            "items": [
+              {
+                "name": "FAMiLIA",
+                "code": "00000000000000000124",
+                "desc": "",
+                "price": "70.00",
+                "published": true
+              },
+              {
+                "name": "GRANDE",
+                "code": "00000000000000000132",
+                "desc": "",
+                "price": "48.00",
+                "published": true
+              },
+              {
+                "name": "MeDIA",
+                "code": "00000000000000000131",
+                "desc": "",
+                "price": "40.00",
+                "published": true
+              },
+              {
+                "name": "MINI",
+                "code": "00000000000000000121",
+                "desc": "",
+                "price": "22.00",
+                "published": true
+              }
+            ]
+          }
+        ],
+        "horarios_json": {
+          "Qua": [
+            {
+              "ini": "00:00",
+              "fim": "23:59"
+            }
+          ]
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: json
+        data: |-
+          {
+            "name": "File a Parmegiana",
+            "code": "00000000000000000010",
+            "category_id": "",
+            "estoque_quantidade": 0,
+            "price": 0,
+            "price_promo": 0,
+            "resume": "Batata frita, arroz e feijao.",
+            "published": "N",
+            "show_price": "Y",
+            "regra_exibicao": "A",
+            "extras_json": [
+              {
+                "category": "",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BATATA PALHA",
+                    "code": "00000000000000000135",
+                    "desc": "",
+                    "price": "3.00",
+                    "published": true
+                  },
+                  {
+                    "name": "OVO FRITO",
+                    "code": "00000000000000000133",
+                    "desc": "",
+                    "price": "2.50",
+                    "published": true
+                  },
+                  {
+                    "name": "SALADA",
+                    "code": "00000000000000000136",
+                    "desc": "",
+                    "price": "6.00",
+                    "published": true
+                  },
+                  {
+                    "name": "TORRESMO",
+                    "code": "00000000000000000134",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Adicional de mistura (File a Parmegiana)",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BIFE ACEBOLADO",
+                    "code": "00000000000000000142",
+                    "desc": "",
+                    "price": "12.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe à PARMEGIANA",
+                    "code": "00000000000000000144",
+                    "desc": "",
+                    "price": "14.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe DE FRANGO GRELHADO",
+                    "code": "00000000000000000143",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Escolha o seu Tamanho:",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "1",
+                "items": [
+                  {
+                    "name": "FAMiLIA",
+                    "code": "00000000000000000124",
+                    "desc": "",
+                    "price": "70.00",
+                    "published": true
+                  },
+                  {
+                    "name": "GRANDE",
+                    "code": "00000000000000000132",
+                    "desc": "",
+                    "price": "48.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MeDIA",
+                    "code": "00000000000000000131",
+                    "desc": "",
+                    "price": "40.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MINI",
+                    "code": "00000000000000000121",
+                    "desc": "",
+                    "price": "22.00",
+                    "published": true
+                  }
+                ]
+              }
+            ],
+            "horarios_json": {
+              "Qua": [
+                {
+                  "ini": "00:00",
+                  "fim": "23:59"
+                }
+              ]
+            }
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","produto":{"id":"44","site_id":"5095","parent_id":"0","kit":"N","attribute_json":null,"category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":"","code":"00000000000000000010","mpn":"","gtin":"","name":"File a Parmegiana","resume":"Batata frita, arroz e feijao.","price":"0","price_promo":"0","ncm":"","content":null,"featured":"N","file_name":null,"video":null,"color":null,"model":null,"size":null,"priority":"0","published":"N","regra_exibicao":"A","show_price":"Y","fulltextsearch":null,"estoque_controle":"S","estoque_quantidade":"0","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":"","subprods":"0","extras_json":"[{\"category\":\"\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BATATA PALHA\",\"code\":\"00000000000000000135\",\"desc\":\"\",\"price\":\"3.00\",\"published\":true},{\"name\":\"OVO FRITO\",\"code\":\"00000000000000000133\",\"desc\":\"\",\"price\":\"2.50\",\"published\":true},{\"name\":\"SALADA\",\"code\":\"00000000000000000136\",\"desc\":\"\",\"price\":\"6.00\",\"published\":true},{\"name\":\"TORRESMO\",\"code\":\"00000000000000000134\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Adicional de mistura (File a Parmegiana)\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"3\",\"items\":[{\"name\":\"BIFE ACEBOLADO\",\"code\":\"00000000000000000142\",\"desc\":\"\",\"price\":\"12.00\",\"published\":true},{\"name\":\"FILe \\u00e0 PARMEGIANA\",\"code\":\"00000000000000000144\",\"desc\":\"\",\"price\":\"14.00\",\"published\":true},{\"name\":\"FILe DE FRANGO GRELHADO\",\"code\":\"00000000000000000143\",\"desc\":\"\",\"price\":\"9.00\",\"published\":true}]},{\"category\":\"Escolha o seu Tamanho:\",\"required\":true,\"rule\":\"\",\"min\":\"1\",\"max\":\"1\",\"items\":[{\"name\":\"FAMiLIA\",\"code\":\"00000000000000000124\",\"desc\":\"\",\"price\":\"70.00\",\"published\":true},{\"name\":\"GRANDE\",\"code\":\"00000000000000000132\",\"desc\":\"\",\"price\":\"48.00\",\"published\":true},{\"name\":\"MeDIA\",\"code\":\"00000000000000000131\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"MINI\",\"code\":\"00000000000000000121\",\"desc\":\"\",\"price\":\"22.00\",\"published\":true}]}]","horarios_json":"Array","created":"2026-07-17 09:12:22","lastupdate":null,"cashback_json":null}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: json
+        data: |-
+          {
+            "name": "File a Parmegiana",
+            "code": "00000000000000000010",
+            "category_id": "",
+            "estoque_quantidade": 0,
+            "price": 0,
+            "price_promo": 0,
+            "resume": "Batata frita, arroz e feijao.",
+            "published": "N",
+            "show_price": "Y",
+            "regra_exibicao": "A",
+            "extras_json": [
+              {
+                "category": "",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BATATA PALHA",
+                    "code": "00000000000000000135",
+                    "desc": "",
+                    "price": "3.00",
+                    "published": true
+                  },
+                  {
+                    "name": "OVO FRITO",
+                    "code": "00000000000000000133",
+                    "desc": "",
+                    "price": "2.50",
+                    "published": true
+                  },
+                  {
+                    "name": "SALADA",
+                    "code": "00000000000000000136",
+                    "desc": "",
+                    "price": "6.00",
+                    "published": true
+                  },
+                  {
+                    "name": "TORRESMO",
+                    "code": "00000000000000000134",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Adicional de mistura (File a Parmegiana)",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BIFE ACEBOLADO",
+                    "code": "00000000000000000142",
+                    "desc": "",
+                    "price": "12.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe à PARMEGIANA",
+                    "code": "00000000000000000144",
+                    "desc": "",
+                    "price": "14.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe DE FRANGO GRELHADO",
+                    "code": "00000000000000000143",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Escolha o seu Tamanho:",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "1",
+                "items": [
+                  {
+                    "name": "FAMiLIA",
+                    "code": "00000000000000000124",
+                    "desc": "",
+                    "price": "70.00",
+                    "published": true
+                  },
+                  {
+                    "name": "GRANDE",
+                    "code": "00000000000000000132",
+                    "desc": "",
+                    "price": "48.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MeDIA",
+                    "code": "00000000000000000131",
+                    "desc": "",
+                    "price": "40.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MINI",
+                    "code": "00000000000000000121",
+                    "desc": "",
+                    "price": "22.00",
+                    "published": true
+                  }
+                ]
+              }
+            ],
+            "horarios_json": {
+              "Qua": [
+                {
+                  "ini": "00:00",
+                  "fim": "23:59"
+                }
+              ]
+            }
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/produto"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: json
+        data: |-
+          {
+            "name": "File a Parmegiana",
+            "code": "00000000000000000010",
+            "category_id": "",
+            "estoque_quantidade": 0,
+            "price": 0,
+            "price_promo": 0,
+            "resume": "Batata frita, arroz e feijao.",
+            "published": "N",
+            "show_price": "Y",
+            "regra_exibicao": "A",
+            "extras_json": [
+              {
+                "category": "",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BATATA PALHA",
+                    "code": "00000000000000000135",
+                    "desc": "",
+                    "price": "3.00",
+                    "published": true
+                  },
+                  {
+                    "name": "OVO FRITO",
+                    "code": "00000000000000000133",
+                    "desc": "",
+                    "price": "2.50",
+                    "published": true
+                  },
+                  {
+                    "name": "SALADA",
+                    "code": "00000000000000000136",
+                    "desc": "",
+                    "price": "6.00",
+                    "published": true
+                  },
+                  {
+                    "name": "TORRESMO",
+                    "code": "00000000000000000134",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Adicional de mistura (File a Parmegiana)",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "3",
+                "items": [
+                  {
+                    "name": "BIFE ACEBOLADO",
+                    "code": "00000000000000000142",
+                    "desc": "",
+                    "price": "12.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe à PARMEGIANA",
+                    "code": "00000000000000000144",
+                    "desc": "",
+                    "price": "14.00",
+                    "published": true
+                  },
+                  {
+                    "name": "FILe DE FRANGO GRELHADO",
+                    "code": "00000000000000000143",
+                    "desc": "",
+                    "price": "9.00",
+                    "published": true
+                  }
+                ]
+              },
+              {
+                "category": "Escolha o seu Tamanho:",
+                "required": true,
+                "rule": "",
+                "min": "1",
+                "max": "1",
+                "items": [
+                  {
+                    "name": "FAMiLIA",
+                    "code": "00000000000000000124",
+                    "desc": "",
+                    "price": "70.00",
+                    "published": true
+                  },
+                  {
+                    "name": "GRANDE",
+                    "code": "00000000000000000132",
+                    "desc": "",
+                    "price": "48.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MeDIA",
+                    "code": "00000000000000000131",
+                    "desc": "",
+                    "price": "40.00",
+                    "published": true
+                  },
+                  {
+                    "name": "MINI",
+                    "code": "00000000000000000121",
+                    "desc": "",
+                    "price": "22.00",
+                    "published": true
+                  }
+                ]
+              }
+            ],
+            "horarios_json": {
+              "Qua": [
+                {
+                  "ini": "00:00",
+                  "fim": "23:59"
+                }
+              ]
+            }
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","errorlist":{"category_id":["Desculpe, categoria n\u00e3o selecionada ou n\u00e3o existe!"]}}'
+
+docs: |-
+  <p>Os únicos campos realmente obrigatórios são:</p>
+
+  <ul>
+      <li> <strong>name:</strong> O nome do produto </li>
+      <li> <strong>category_id:</strong> O id da categoria ao qual o produto pertence </li>
+  </ul>
+
+  <p>Os demais campos do exemplo (<code>code, estoque_quantidade, price, price_promo, resume, published, show_price, regra_exibicao</code>) são opcionais. Também existem outros campos do formulário não presentes no exemplo, todos opcionais: <code>category_id2, mpn, gtin, ncm, genero, manufacturer_id, featured, priority, color, model, size, estoque_controle, estoque_minimo, comprimento, largura, altura, peso, prazo_entrega, prazo_unidade, prazo_usa_quantidade, content, video, cross_sell, relateds, goto, cashback_json</code>.</p>
+
+  <p>É possível anexar uma foto já na criação do produto (sem precisar de uma chamada separada em <code>/api/produto/:id/fotos</code>), enviando um dos três conjuntos de campos: <code>photo_url</code> (URL da imagem), <code>photo_file</code> (upload multipart) ou <code>photo_data</code>+<code>photo_filename</code> (base64) — mais opcionalmente <code>photo_description</code> e <code>photo_featured</code> ("S"/"N"). O mesmo funciona no PUT de edição.</p>

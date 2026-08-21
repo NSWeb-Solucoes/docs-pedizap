@@ -1,0 +1,7 @@
+info:
+  name: Produto - Marca
+  type: folder
+  seq: 4
+
+request:
+  auth: inherit

@@ -1,0 +1,68 @@
+name: cardapio
+variables:
+  - name: proto
+    value: https
+    description: ""
+  - name: domain
+    value: domain.pedizap.com.br
+    description: ""
+  - name: format
+    value: application/json
+    description: ""
+  - name: produtoId
+    value: "208"
+    description: ""
+  - name: produtoSKU
+    value: 268d40d2
+    description: ""
+  - name: categoriaId
+    value: "1"
+    description: ""
+  - name: marcaId
+    value: "1"
+    description: ""
+  - name: precoId
+    value: "2"
+    description: ""
+  - name: preco
+    value: "1"
+    description: ""
+  - name: clienteId
+    value: "43308"
+    description: ""
+  - name: pedidoId
+    value: "553"
+    description: ""
+  - name: servicoId
+    value: "14"
+    description: ""
+  - name: zonaId
+    value: "40"
+    description: ""
+  - name: uf
+    value: SP
+    description: ""
+  - name: cidadeId
+    value: "55"
+    description: ""
+  - name: periodoId
+    value: "36"
+    description: ""
+  - name: webhookId
+    value: "3"
+    description: ""
+  - name: conteudoId
+    value: "121"
+    description: ""
+  - name: conteudoCategoriaId
+    value: "121"
+    description: ""
+  - name: fotoId
+    value: "1"
+    description: ""
+  - name: seoId
+    value: "1"
+    description: ""
+  - secret: true
+    name: token
+    description: ""

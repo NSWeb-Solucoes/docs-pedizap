@@ -1,0 +1,144 @@
+info:
+  name: Complemento Listagem
+  type: http
+  seq: 1
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/complemento/categoria"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: name
+      value: Escolha sua Bor
+      type: query
+      description: String - Optional - Nome do grupo de complementos (atencao, o parametro e "name", nao "nome")
+    - name: sku
+      value: ""
+      type: query
+      disabled: true
+      description: String - Optional - Filtra por code (SKU) exato da categoria
+    - name: min
+      value: "0"
+      type: query
+      description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+    - name: max
+      value: "1"
+      type: query
+      description: Integer - Optional - Maximo de items a serem escolhidos (grupo.max <= max)
+    - name: required
+      value: Y
+      type: query
+      description: Enum('Y', 'N') - Optional - É obrigatório a escolha de items
+    - name: rule
+      value: price_higher
+      type: query
+      description: Enum('price_higher') - Optional - Usar regra adicional no valor dos items. Disponivel apenas 'price_higher', para usar em pizzas meia
+    - name: returnLayout
+      value: new,items
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/categoria"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: name
+          value: Escolha sua Bor
+          type: query
+          description: String - Optional - Nome do grupo de complementos (atencao, o parametro e "name", nao "nome")
+        - name: min
+          value: "0"
+          type: query
+          description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+        - name: max
+          value: "1"
+          type: query
+          description: Integer - Optional - Maximo de items a serem escolhidos (grupo.max <= max)
+        - name: required
+          value: Y
+          type: query
+          description: Enum('Y', 'N') - Optional - É obrigatório a escolha de items
+        - name: rule
+          value: price_higher
+          type: query
+          description: Enum('price_higher') - Optional - Usar regra adicional no valor dos items. Disponivel apenas 'price_higher', para usar em pizzas meia
+        - name: returnLayout
+          value: new,items
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"grupos":[]}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/categoria"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: name
+          value: Escolha sua Bor
+          type: query
+          description: String - Optional - Nome do grupo de complementos (atencao, o parametro e "name", nao "nome")
+        - name: min
+          value: "0"
+          type: query
+          description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+        - name: max
+          value: "1"
+          type: query
+          description: Integer - Optional - Maximo de items a serem escolhidos (grupo.max <= max)
+        - name: required
+          value: Y
+          type: query
+          description: Enum('Y', 'N') - Optional - É obrigatório a escolha de items
+        - name: rule
+          value: price_higher
+          type: query
+          description: Enum('price_higher') - Optional - Usar regra adicional no valor dos items. Disponivel apenas 'price_higher', para usar em pizzas meia
+        - name: returnLayout
+          value: new,items
+          type: query
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Sem <code>ref</code>/<code>reference_id</code>, retorna a lista paginada de grupos de complemento filtrada pelos par\u00e2metros de query acima. Tamb\u00e9m aceita <code>page</code> e <code>limit</code> (default 200) para pagina\u00e7\u00e3o, e <code>result_order</code>/<code>reverte_order</code> para ordena\u00e7\u00e3o.</p>
+
+  <p>Com <code>ref</code> ou <code>reference_id</code> na query, retorna um \u00fanico grupo (equivalente a <a href="./Complemento%20Detalhe.yml">Complemento Detalhe</a>).</p>

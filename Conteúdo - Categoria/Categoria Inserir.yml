@@ -1,0 +1,245 @@
+info:
+  name: Categoria Inserir
+  type: http
+  seq: 4
+  tags:
+    - Conteúdos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/content/categorias"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  body:
+    type: form-urlencoded
+    data:
+      - name: name
+        value: 'Nova categoria'
+        description: 'Nome da categoria (obrigatorio, ate 100 caracteres)'
+      - name: parent_id
+        value: '0'
+        description: 'Id da categoria pai, 0 para raiz (obrigatorio)'
+      - name: friendly_url
+        value: ''
+        description: 'Url amigavel unica. Se nao informada e gerada a partir do nome'
+      - name: description
+        value: ''
+        description: 'Descricao da categoria (opcional)'
+      - name: image
+        value: ''
+        description: 'Caminho da imagem na galeria de midia (opcional)'
+      - name: icon
+        value: ''
+        description: 'Caminho do icone na galeria de midia (opcional)'
+      - name: result_order
+        value: ''
+        description: 'Ordenacao dos conteudos da categoria, ex: "date DESC" (opcional)'
+      - name: count
+        value: '0'
+        description: 'Quantidade de conteudos por pagina (opcional)'
+      - name: priority
+        value: '1'
+        description: 'Posicao de 1 a 49 (opcional)'
+      - name: published
+        value: 'Y'
+        description: '"Y"/"N" (default "Y") - publica a categoria'
+      - name: show_date
+        value: 'N'
+        description: '"Y"/"N" - exibe a data dos conteudos'
+      - name: template_name
+        value: ''
+        description: 'Template da categoria (opcional)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/content/categorias"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ''
+            description: 'Nome da categoria (obrigatorio, ate 100 caracteres)'
+          - name: parent_id
+            value: ''
+            description: 'Id da categoria pai, 0 para raiz (obrigatorio)'
+          - name: friendly_url
+            value: ''
+            description: 'Url amigavel unica. Se nao informada e gerada a partir do nome'
+          - name: description
+            value: ''
+            description: 'Descricao da categoria (opcional)'
+          - name: image
+            value: ''
+            description: 'Caminho da imagem na galeria de midia (opcional)'
+          - name: icon
+            value: ''
+            description: 'Caminho do icone na galeria de midia (opcional)'
+          - name: result_order
+            value: ''
+            description: 'Ordenacao dos conteudos da categoria, ex: "date DESC" (opcional)'
+          - name: count
+            value: ''
+            description: 'Quantidade de conteudos por pagina (opcional)'
+          - name: priority
+            value: ''
+            description: 'Posicao de 1 a 49 (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica a categoria'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" - exibe a data dos conteudos'
+          - name: template_name
+            value: ''
+            description: 'Template da categoria (opcional)'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","categoria":{"id":"361","site_id":"109","parent_id":"0","template_name":"","name":"Categoria API Teste","friendly_url":"categoria-api-teste","icon":"","image":"","description":"","result_order":"","count":"0","priority":"1","show_date":"N","published":"Y","link":"https:\/\/loja.com.br\/site\/conteudo\/categoria-api-teste"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/categorias"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ''
+            description: 'Nome da categoria (obrigatorio, ate 100 caracteres)'
+          - name: parent_id
+            value: ''
+            description: 'Id da categoria pai, 0 para raiz (obrigatorio)'
+          - name: friendly_url
+            value: ''
+            description: 'Url amigavel unica. Se nao informada e gerada a partir do nome'
+          - name: description
+            value: ''
+            description: 'Descricao da categoria (opcional)'
+          - name: image
+            value: ''
+            description: 'Caminho da imagem na galeria de midia (opcional)'
+          - name: icon
+            value: ''
+            description: 'Caminho do icone na galeria de midia (opcional)'
+          - name: result_order
+            value: ''
+            description: 'Ordenacao dos conteudos da categoria, ex: "date DESC" (opcional)'
+          - name: count
+            value: ''
+            description: 'Quantidade de conteudos por pagina (opcional)'
+          - name: priority
+            value: ''
+            description: 'Posicao de 1 a 49 (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica a categoria'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" - exibe a data dos conteudos'
+          - name: template_name
+            value: ''
+            description: 'Template da categoria (opcional)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/categorias"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ''
+            description: 'Nome da categoria (obrigatorio, ate 100 caracteres)'
+          - name: parent_id
+            value: ''
+            description: 'Id da categoria pai, 0 para raiz (obrigatorio)'
+          - name: friendly_url
+            value: ''
+            description: 'Url amigavel unica. Se nao informada e gerada a partir do nome'
+          - name: description
+            value: ''
+            description: 'Descricao da categoria (opcional)'
+          - name: image
+            value: ''
+            description: 'Caminho da imagem na galeria de midia (opcional)'
+          - name: icon
+            value: ''
+            description: 'Caminho do icone na galeria de midia (opcional)'
+          - name: result_order
+            value: ''
+            description: 'Ordenacao dos conteudos da categoria, ex: "date DESC" (opcional)'
+          - name: count
+            value: ''
+            description: 'Quantidade de conteudos por pagina (opcional)'
+          - name: priority
+            value: ''
+            description: 'Posicao de 1 a 49 (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica a categoria'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" - exibe a data dos conteudos'
+          - name: template_name
+            value: ''
+            description: 'Template da categoria (opcional)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","errorlist":{"friendly_url":["URL amig\u00e1vel j\u00e1 em uso."]}}'
+
+docs: |-
+  <p>Os únicos campos obrigatórios são <strong>name</strong> e <strong>parent_id</strong>
+  (use <code>0</code> para categoria raiz).</p>
+
+  <p>Quando <code>friendly_url</code> não é informada, ela é gerada automaticamente a partir do nome.
+  A url amigável precisa ser única no site — se já existir, a resposta é 422 com
+  <code>errorlist.friendly_url</code>.</p>

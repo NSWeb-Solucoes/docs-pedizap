@@ -1,0 +1,170 @@
+info:
+  name: Cliente Inserir
+  type: http
+  seq: 3
+  tags:
+    - Clientes
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/cliente"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: multipart-form
+    data:
+      - name: nome
+        type: text
+        value: Ola meus amigos
+        description: Nome completo do cliente
+      - name: tipo_pessoa
+        type: text
+        value: ""
+        description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+      - name: cpfcnpj
+        type: text
+        value: ""
+        description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+      - name: rgie
+        type: text
+        value: ""
+        description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+      - name: fone_ddd
+        type: text
+        value: ""
+        description: DDD do telefone fixo
+      - name: fone
+        type: text
+        value: ""
+        description: Numero do telefone fixo, sem o DDD
+      - name: email
+        type: text
+        value: ""
+        description: E-mail do cliente
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            type: text
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            type: text
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            type: text
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            type: text
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            type: text
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            type: text
+            value: ""
+            description: E-mail do cliente
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","cliente":{"id":"92","site_id":"5095","parent_id":null,"mktplace_reference":null,"vendedor_id":null,"vendedor_code":null,"cadastro_tipo":"1","pricetable_id":null,"afiliado_code":null,"afiliado_referer":null,"tipo_pessoa":"F","nome":"Fulano da Silva","razao_social":"","contato":"","cpfcnpj":"","rgie":"27997887879","isento":"N","data_nascimento":null,"sexo":"","fone_ddd":"14","fone":"981157879","celular_ddd":"","celular":"","endereco":"","geolocation":null,"numero":"","bairro":"","bairro_custom":null,"complemento":"","cep":"","cidade":"","uf":"","pais":null,"geo_latitude":null,"geo_longitude":null,"email":"emailcliente@provedor.com.br","usuario":null,"senha":"","code":null,"token":null,"anexo":null,"order_payments":null,"cashback_value":"0","ativo":"S","ip":null,"created":"2026-07-17 11:02:13","lastupdate":null,"observacao":"","facebook_userid":null,"google_userid":null,"last_login":null,"campaign_optout":"","site":"","modulos_perm":null}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            type: text
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            type: text
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            type: text
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            type: text
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            type: text
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            type: text
+            value: ""
+            description: E-mail do cliente
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p> Para inserir novos clientes, os campos a seguir devem ser passados pelo body </p>
+
+  <ul>
+  <li> <strong> nome: </strong> O nome do novo cliente a ser inserido </li>
+  <li> <strong> tipo_pessoa: </strong> Nesse campo é especificado se a pessoa é fisica ou juridica, "F" para física e "J" para jurídica</li>
+  <li> <strong> cpfcnpj: </strong> O número do documento, sendo cpf ou o cnpj </li>
+  <li> <strong> rgie: </strong> Número do RG </li>
+  <li> <strong> fone_ddd: </strong> O número do ddd do telefone do cliente </li>
+  <li> <strong> fone: </strong> O numero de telefone do cliente</li>
+  <li> <strong> email: </strong> O email do cliente </li>
+  </ul>
+
+  <p> Os campos acimas são os campos obrigatórios, os outros campos estão na response do exemplo da requisição </p>

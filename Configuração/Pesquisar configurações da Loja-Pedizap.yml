@@ -1,0 +1,62 @@
+info:
+  name: Pesquisar configurações da Loja/Pedizap
+  type: http
+  seq: 1
+  tags:
+    - Configurações
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/conf"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/conf"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"infoSite":{"site_id":"5095","nome":"&#127829; Card\u00e1pio","razao_social":"&#127829; Card\u00e1pio","cnpj":"23988859000156","ie":"209889420114","enderecos":"Na\u00e7\u00f5es Unidas 17-17, Sala 604\r\nBauru, S\u00e3o Paulo\r\nCEP 17013-905","fones":"+55 (14) 3042-3722\r\n+55 (14) 99161-8018\r\n+55 (14) 98804-2850","email":"contato@nsweb.com.br","cep":"17013034","endereco":"Rua Rodrigo Romeiro","numero":"550","complemento":"","bairro":"Vila Santo Ant\u00f4nio","cidade":"Bauru","uf":"SP","geolocation":null,"whatsapp":"+5514991233389","facebook_perfil":"","youtube_canal":"","instagram_perfil":"","twitter_perfil":"","linkedin_perfil":"","pinterest_perfil":"","googleplus_perfil":"","spotfy_perfil":"","tiktok_perfil":""},"lojaConfig":{"id":"1","site_id":"5095","tipo":"L","subproduto":"N","show_price":"S","valor_minimo":"0","estoque_ativo":"N","estoque_minimo":"0","estoque_baixa":"pedido","estoque_reserva":"N","vitrine_grupo":"N","vitrine_tipo":"S","vitrine_quantidade":"6","vitrine_categoria":null,"modulos_extra":null,"moeda":"BRL","cadastro_tipo_vendedor":"2","cadastro_tipo_cliente":"1","carrinho_abandonadoauto":"S","carrinho_abandonadotimer":"0:30","checkout_vendedor":"N","checkout_vendedor_obrigatorio":"N","checkout_vendedor_tipoid":"0","pagamento_metodos":"pagtoentrega,cartao,pix","pagamento_metodos_ordem":"pagseguro,pix,mercadopago,paypal,deposito,pagtoentrega,pagtoifood,boleto,cartao,custom","pagseguro_mode":"T","pagseguro_email":null,"pagseguro_semjuros_parcelas":"1","pagseguro_semjuros_valorminimo":"0","pagseguro_semjuros_valormaximo":"350","paypal_usuario":"sb-ogrnw30888475_api1.business.example.com","paypal_assinatura":"A0uEaIiR68-zbTrTIDvzrysBqj-hAmOujJIz-Ow1SfiSUHMiTEFf5mhs","paypal_semjuros_parcelas":"0","paypal_semjuros_valorminimo":"0","paypal_semjuros_valorminparc":"0","moip_mode":null,"moip_receiver":"","moip_semjuros_parcelas":"0","moip_taxajuros":"1.99","moip_semjuros_valorminimo":"0","moip_semjuros_valormaximo":"0","mp_clientid":null,"mp_clientsecret":null,"mp_semjuros_parcelas":"1","mp_semjuros_valorminimo":"0","mp_semjuros_valormaximo":"0","pix_gateway":"bart","deposito_titular":"Nome do titular da conta","deposito_cnpj":"00000000000","deposito_banco":"Nome do banco","deposito_agencia":"0000","deposito_conta":"0000","deposito_chavepix":"chave pix","deposito_email":"contato@seusite.com.br","paghiper_boleto":"N","paghiper_email":"richard@nsweb.com.br","itau_client_id":"","itau_client_secret":"","itau_chave":"","boleto_gateway":"paghiper","boleto_valormin":"3","boleto_automatico":"N","boleto_prazodias":"0","boleto_codigo":"4","boleto_codcedentepsk":null,"boleto_bco_codigo":null,"boleto_bco_aceite":null,"boleto_bco_agencia":"","boleto_bco_conta":"","boleto_bco_dac":null,"boleto_bco_carteira":"","boleto_bco_carteira_semreg":null,"boleto_endereco":null,"boleto_numero":null,"boleto_bairro":null,"boleto_cidade":null,"boleto_uf":null,"pagtoentrega_metodos":"dinheiro,credito,debito,pix","pagtoentrega_apenasretirada":"N","pagtoentrega_bandeiras_credito":"Visa\r\nMastercard\r\nElo","pagtoentrega_bandeiras_debito":"Visa\r\nMastercard\r\nElo","pagtoentrega_bandeiras_vale":"Conv\u00eanio","boleto_intrucoes1":"","boleto_intrucoes2":"","boleto_intrucoes3":"","boleto_intrucoes4":"","boleto_formatconv":null,"boleto_formatnn":null,"boleto_convenio":null,"frete":"frete_calculado","frete_calculadopor":"geolocalizacao","frete_combinar":"N","frete_unidadeprazo":"minuto","frete_metodos":"custom","frete_retirar":"S","frete_retirar_info":null,"frete_retirar_prazo":"80","frete_retirar_unidadeprazo":"minuto","frete_cep":"17013034","frete_prazominimo":"60","frete_prazopostagem":"70","frete_correio_servicos":"04510,04014","frete_correios_valordeclarado":"N","frete_correios_usuario":null,"frete_correios_contrato":null,"frete_dimensoes_comprimento":"0","frete_dimensoes_largura":"0","frete_dimensoes_altura":"0","frete_valorfixo":"0","frete_preco_embalagem":"0","frete_perc_acrescimo":"0","fretegratis_mostraroutros":"S","frete_melhorapenas":"N","frete_expfacil_uforigem":null,"frete_expfacil_localidade":"I","frete_expfacil_servicos":null,"frete_expfacil_cambio":null,"frete_jadlog_usuario":null,"frete_jadlog_codigo":null,"frete_jadlog_conta":null,"frete_jadlog_servicos":null,"frete_jadlog_tpseguro":null,"frete_jadlog_vlcoleta":null,"frete_jadlog_prazoini":null,"frete_jadlog_prazofim":null,"frete_jadlog_descricao":null,"frete_tnt_usuario":null,"frete_tnt_servicos":null,"frete_tnt_descricao":null,"frete_tnt_divisaocliente":null,"frete_tnt_sittributaria":null,"frete_jamef_cnpj":null,"frete_jamef_ceporigem":null,"frete_jamef_uforigem":null,"frete_jamef_localidade":null,"frete_jamef_prazofim":null,"frete_gollog_cnpj":null,"pagamento_direto":"S","enviarpedido_msginfo":"","enviarpedido_msgconfirm":"","venda_internacional":"0","entrega_info":"","pagamento_descavista":"15","pagamento_info":"","clearsale_ativo":"N","clearsale_codigo":null,"cc_gateway":"bart","cc_bandeiras":"diners,mastercard,visa,amex,elo","cc_maxparc":"3","cc_parcmin":"5","cc_cielonumero":"","cc_cielochave":"","cc_cielov3_merchantid":"bafb04d4-efda-4739-a167-5af422336fea","cc_rede_pv":"85619119","cc_getnet_clientid":"","cc_getnet_clientsecret":"","cc_getnet_sellerid":"","cc_elavonterminalid":"","cc_payzensiteid":"","cc_payzencertificado":"","cc_capturadireta":"S","cc_parcsemjuros":"3","cc_parcjuros":"0.8","bc_email":"","bc_maxparc":"1","bc_parcsemjuros":"0","bc_parcmin":"5","bc_parcjuros":"0","email_vendas":null,"cadastro_tipo":"S","estoque_retornar_dias":"1","cadastro_restricao":"F","cadastro_moderacao":"N","pedido_obs":"S","pedido_obsinfo":"Alguma observa\u00e7\u00e3o do pedido","pedido_cancelamento_automatico":"S","produtoxml_servicos":"GeraXmlGoogleshop","anuncio_avisovenctodias":null,"anuncio_atraso_suspender":"N","anuncio_atraso_suspenderdias":null,"anuncio_atraso_suspenderedicao":"N","anuncio_prodcategory_id":null,"anuncio_moderar":"N","anuncio_autorenova":"N","assinatura_avisovenctodias":null,"assinatura_atraso_suspenderlogin":"N","assinatura_atraso_suspenderlogindias":null,"assinatura_prodcategory_id":null},"configuration":{"configurationQZTray":{"isConfig":false,"printers":[]},"configurationBling":{"isConfig":false}}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/conf"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

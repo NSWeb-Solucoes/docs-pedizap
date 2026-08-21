@@ -1,0 +1,201 @@
+info:
+  name: Criar checkout de pedido
+  type: http
+  seq: 1
+  tags:
+    - Pedidos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/pedido/criarcheckout?produto_id=208&cadastro_id=43309&cadastro_nome=rodrigo marques pinheiros"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: produto_id
+      value: "208"
+      type: query
+    - name: produto_qtde
+      value: ""
+      type: query
+      disabled: true
+    - name: cadastro_id
+      value: "43309"
+      type: query
+    - name: cadastro_nome
+      value: rodrigo marques pinheiros
+      type: query
+    - name: cadastro_email
+      value: ""
+      type: query
+      disabled: true
+    - name: cadastro_enviaremail
+      value: ""
+      type: query
+      disabled: true
+    - name: carrinho_existente
+      value: ""
+      type: query
+      disabled: true
+    - name: cliente_id
+      value: ""
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/criarcheckout"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produto_id
+          value: "41"
+          type: query
+        - name: produto_qtde
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_id
+          value: "90"
+          type: query
+        - name: cadastro_nome
+          value: rodrigo marques pinheiros
+          type: query
+        - name: cadastro_email
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_enviaremail
+          value: ""
+          type: query
+          disabled: true
+        - name: carrinho_existente
+          value: ""
+          type: query
+          disabled: true
+        - name: cliente_id
+          value: ""
+          type: query
+          disabled: true
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/criarcheckout"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produto_id
+          value: "41"
+          type: query
+        - name: produto_qtde
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_id
+          value: "90"
+          type: query
+        - name: cadastro_nome
+          value: rodrigo marques pinheiros
+          type: query
+        - name: cadastro_email
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_enviaremail
+          value: ""
+          type: query
+          disabled: true
+        - name: carrinho_existente
+          value: ""
+          type: query
+          disabled: true
+        - name: cliente_id
+          value: ""
+          type: query
+          disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/criarcheckout"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produto_id
+          value: "41"
+          type: query
+        - name: produto_qtde
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_id
+          value: "90"
+          type: query
+        - name: cadastro_nome
+          value: rodrigo marques pinheiros
+          type: query
+        - name: cadastro_email
+          value: ""
+          type: query
+          disabled: true
+        - name: cadastro_enviaremail
+          value: ""
+          type: query
+          disabled: true
+        - name: carrinho_existente
+          value: ""
+          type: query
+          disabled: true
+        - name: cliente_id
+          value: ""
+          type: query
+          disabled: true
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Nenhum produto informado (produto_id, produto_qtde)"}'

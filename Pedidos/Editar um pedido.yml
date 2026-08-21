@@ -1,0 +1,531 @@
+info:
+  name: Editar um pedido
+  type: http
+  seq: 3
+  tags:
+    - Pedidos
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: pedidoId
+      value: "{{pedidoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: status
+        value: "3"
+        description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+      - name: observacao
+        value: ""
+        description: Texto livre com observacao/nota interna sobre o pedido
+      - name: obs_cancelamento
+        value: ""
+        description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+      - name: pago
+        value: Y
+        description: '"Y" (pago) ou "N" (nao pago)'
+      - name: entrega_rastreiocodigo
+        value: ""
+        description: Codigo de rastreio da entrega
+      - name: entrega_rastreiolink
+        value: ""
+        description: URL/link de rastreio da entrega
+      - name: revisado_loja
+        value: ""
+        description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+      - name: nfe_situacao
+        value: ""
+        description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+      - name: nfe_dataemissao
+        value: ""
+        description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+      - name: nfe_numero
+        value: ""
+        description: Numero da nota fiscal emitida
+      - name: nfe_linkimpressao
+        value: ""
+        description: URL para impressao/visualizacao do DANFE
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Status
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Obs
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Pago
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Entrega
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Revisado
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Nfe
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: status
+            value: ""
+            description: Codigo numerico do status do pedido (1=Aberto, 2=Confirmado, 3=Cancelado, 4=Em Separacao, 5=Postado, 6=Finalizado); lista completa em GET /api/pedido/status
+          - name: observacao
+            value: ""
+            description: Texto livre com observacao/nota interna sobre o pedido
+          - name: obs_cancelamento
+            value: ""
+            description: Motivo do cancelamento; enviado junto com status=3 (Cancelado), fica registrado no historico do pedido
+          - name: pago
+            value: ""
+            description: '"Y" (pago) ou "N" (nao pago)'
+          - name: entrega_rastreiocodigo
+            value: ""
+            description: Codigo de rastreio da entrega
+          - name: entrega_rastreiolink
+            value: ""
+            description: URL/link de rastreio da entrega
+          - name: revisado_loja
+            value: ""
+            description: '"S" (revisado) ou "N" (nao revisado) - atencao, usa S/N e nao Y/N como o campo pago'
+          - name: nfe_situacao
+            value: ""
+            description: "Situacao da NFe emitida para o pedido (ex: digitacao, validada, assinada, processamento, autorizada, cancelada, erro_denegada, erro_rejeitada, erro_transmissao, erro_pendenteretorno)"
+          - name: nfe_dataemissao
+            value: ""
+            description: Data/hora de emissao da NFe, formato YYYY-MM-DD HH:MM:SS
+          - name: nfe_numero
+            value: ""
+            description: Numero da nota fiscal emitida
+          - name: nfe_linkimpressao
+            value: ""
+            description: URL para impressao/visualizacao do DANFE
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: "Campos disponíveis para editar: status, obs_cancelamento, pago, pagto_status, entrega_rastreiocodigo, entrega_rastreiolink, observacao, revisado_loja."

@@ -1,0 +1,508 @@
+info:
+  name: Preço por Tabela Listagem
+  type: http
+  seq: 1
+  tags:
+    - Tabelas de Preço
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: precoId
+      value: "{{precoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.27.3
+        - name: date
+          value: Wed, 29 Jul 2026 15:40:22 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785354022"
+        - name: strict-transport-security
+          value: "Strict-Transport-Security: max-age=31536000; includeSubDomains"
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "prices": [
+              {
+                "id": "33",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "62674caa",
+                "product_id": "33",
+                "price": "23.75",
+                "price_promo": "0",
+                "product_name": "Suco de Maracujá Polpa 1lt",
+                "code": "62674caa",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "32",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "1ab24285",
+                "product_id": "32",
+                "price": "23.75",
+                "price_promo": "0",
+                "product_name": "Suco de Abacaxi Polpa 1lt",
+                "code": "1ab24285",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "31",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "2099435c",
+                "product_id": "31",
+                "price": "23.75",
+                "price_promo": "0",
+                "product_name": "Suco de Uva Polpa 1lt",
+                "code": "2099435c",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "30",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "f92141e3",
+                "product_id": "30",
+                "price": "23.75",
+                "price_promo": "0",
+                "product_name": "Suco de Morango Polpa 1lt",
+                "code": "f92141e3",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "29",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "364f476b",
+                "product_id": "29",
+                "price": "23.75",
+                "price_promo": "0",
+                "product_name": "Suco de Laranja Natural 1lt",
+                "code": "364f476b",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "28",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "f3ff41f6",
+                "product_id": "28",
+                "price": "17.1",
+                "price_promo": "0",
+                "product_name": "Suco de Maracujá Polpa 500ml",
+                "code": "f3ff41f6",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "27",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "abee4ab8",
+                "product_id": "27",
+                "price": "17.1",
+                "price_promo": "0",
+                "product_name": "Suco de Abacaxi Polpa 500ml",
+                "code": "abee4ab8",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "26",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "15cd4ee2",
+                "product_id": "26",
+                "price": "17.1",
+                "price_promo": "0",
+                "product_name": "Suco de Uva Polpa 500ml",
+                "code": "15cd4ee2",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "25",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "e5cf4348",
+                "product_id": "25",
+                "price": "17.1",
+                "price_promo": "0",
+                "product_name": "Suco de Morango Polpa 500ml",
+                "code": "e5cf4348",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "24",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "cdab41a2",
+                "product_id": "24",
+                "price": "17.1",
+                "price_promo": "0",
+                "product_name": "Suco de Laranja natural 500ml",
+                "code": "cdab41a2",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "23",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "794a4d58",
+                "product_id": "23",
+                "price": "30.31",
+                "price_promo": "0",
+                "product_name": "Vinho Tinto Mioranza Seco Garrafa 750ml",
+                "code": "794a4d58",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "22",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "d56d4b8e",
+                "product_id": "22",
+                "price": "34.2",
+                "price_promo": "0",
+                "product_name": "Vinho Tinto Mioranza Suave Garrafa 750ml",
+                "code": "d56d4b8e",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "21",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "58014c1e",
+                "product_id": "21",
+                "price": "26.13",
+                "price_promo": "0",
+                "product_name": "Vinho Tinto Seco Dom Bosco",
+                "code": "58014c1e",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "20",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "83454484",
+                "product_id": "20",
+                "price": "26.13",
+                "price_promo": "0",
+                "product_name": "Vinho Tinto Dom Bosco Suave 750ml",
+                "code": "83454484",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "19",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "883a416a",
+                "product_id": "19",
+                "price": "6.27",
+                "price_promo": "0",
+                "product_name": "Cerveja Amstel Lata 350ml",
+                "code": "883a416a",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "18",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "8c9340b2",
+                "product_id": "18",
+                "price": "9.41",
+                "price_promo": "0",
+                "product_name": "Cerveja Lata Heineken 350ml",
+                "code": "8c9340b2",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "17",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "3eef47f0",
+                "product_id": "17",
+                "price": "9.5",
+                "price_promo": "0",
+                "product_name": "Cerveja Heineken Long Neckk 330ml",
+                "code": "3eef47f0",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "16",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "f51e4ce4",
+                "product_id": "16",
+                "price": "6.65",
+                "price_promo": "0",
+                "product_name": "Cerveja Brahma 350ml Lata",
+                "code": "f51e4ce4",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "15",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "4aeb48a0",
+                "product_id": "15",
+                "price": "16.72",
+                "price_promo": "0",
+                "product_name": "Energético Monster 473ml",
+                "code": "4aeb48a0",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "14",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "1bc24c02",
+                "product_id": "14",
+                "price": "15.19",
+                "price_promo": "0",
+                "product_name": "Sprite Original 2l",
+                "code": "1bc24c02",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "13",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "2aa142be",
+                "product_id": "13",
+                "price": "15.19",
+                "price_promo": "0",
+                "product_name": "Refrigerante Guaraná Antarctica Garrafa 2l",
+                "code": "2aa142be",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "12",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "fdb9427a",
+                "product_id": "12",
+                "price": "7.32",
+                "price_promo": "0",
+                "product_name": "Refrigerante Coca-Cola sem Açúcar 350 Ml",
+                "code": "fdb9427a",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "11",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "5f904d58",
+                "product_id": "11",
+                "price": "12.54",
+                "price_promo": "0",
+                "product_name": "Coca-Cola sem Açúcar 1l",
+                "code": "5f904d58",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "10",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "0fe147c5",
+                "product_id": "10",
+                "price": "12.54",
+                "price_promo": "0",
+                "product_name": "Coca-Cola Original 1l",
+                "code": "0fe147c5",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "9",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "f3154c31",
+                "product_id": "9",
+                "price": "17.09",
+                "price_promo": "0",
+                "product_name": "Coca-Cola sem Açúcar 2l",
+                "code": "f3154c31",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "8",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "537e4039",
+                "product_id": "8",
+                "price": "17.09",
+                "price_promo": "0",
+                "product_name": "Coca-Cola Original 2l",
+                "code": "537e4039",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "7",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "c2293049",
+                "product_id": "7",
+                "price": "0",
+                "price_promo": "0",
+                "product_name": "Pré Assadas Tamanho 30cm 8 Pedaços BROTO PRE ASSADA (4 PEDAÇOS)",
+                "code": "c2293049",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "6",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "f28e3903",
+                "product_id": "6",
+                "price": "0",
+                "price_promo": "0",
+                "product_name": "Pré Assadas Tamanho 30cm 8 Pedaços PRE ASSADA PADRÃO 30CM 2 SABORES (8 PEDAÇOS)",
+                "code": "f28e3903",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "5",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "ab234254",
+                "product_id": "5",
+                "price": "75.05",
+                "price_promo": "0",
+                "product_name": "Uva Premium",
+                "code": "ab234254",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "4",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "ea8e4fe6",
+                "product_id": "4",
+                "price": "83.6",
+                "price_promo": "0",
+                "product_name": "Nutella Gold",
+                "code": "ea8e4fe6",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "3",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "b45b4746",
+                "product_id": "3",
+                "price": "43.7",
+                "price_promo": "0",
+                "product_name": "Pizza Assada brotinho - 4 pedaços 20 Cm",
+                "code": "b45b4746",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "2",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "b0ac43ac",
+                "product_id": "2",
+                "price": "52.25",
+                "price_promo": "0",
+                "product_name": "Pizza  Assada broto média 25cm - 6 pedaços",
+                "code": "b0ac43ac",
+                "pricetable_name": "Filial Bauru"
+              },
+              {
+                "id": "1",
+                "site_id": "6",
+                "pricetable_id": "1",
+                "product_code": "7e76421c",
+                "product_id": "1",
+                "price": "95",
+                "price_promo": "0",
+                "product_name": "Pizza Assada Grande 8 pedaços 35 cm ( Meio a meio )",
+                "code": "7e76421c",
+                "pricetable_name": "Filial Bauru"
+              }
+            ],
+            "infoPager": {
+              "itemsPerPage": 50,
+              "totalRows": "33",
+              "totalPages": 1,
+              "currentPage": 1,
+              "startRow": 1,
+              "endRow": "33"
+            }
+          }
+
+docs: Lista todos os preços cadastradas dentro da tabela de preço.

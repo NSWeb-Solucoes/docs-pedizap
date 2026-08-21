@@ -1,0 +1,40 @@
+info:
+  name: Complemento CSV - Atualizar preço em lote
+  type: http
+  seq: 2
+  tags:
+    - Produtos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/complemento/csv"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: multipart-form
+    data:
+      - name: csvdata
+        type: text
+        value: "123"
+        description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  <p>Processa uma string CSV (parâmetro <code>csvdata</code>, separador <code>;</code>) contendo as colunas <code>code;price</code> pra atualizar em lote o preço de itens de complemento (<code>product_extras_item</code>).</p>
+
+  <p>As colunas devem estar explícitas na primeira linha; <strong>code é obrigatório</strong> e <strong>price também</strong> (diferente do CSV de produto, aqui os dois são exigidos — sem <code>price</code> a requisição retorna erro).</p>
+
+  <p>Exemplo:</p>
+
+  <p>"code";"price"<br>"456789";"12.00"<br>"12356";"8.50"</p>
+
+  <p>Endpoint irmão de <a href="../Produto%20-%20CSV/CSV%20-%20Atualizar%20estoque%20e%20preço%20em%20lote.yml">CSV - Atualizar estoque e preço em lote</a> (produto), mas só aceita <code>code</code>/<code>price</code> — não tem <code>estoque_quantidade</code> nem <code>price_promo</code>.</p>

@@ -1,0 +1,272 @@
+info:
+  name: Produto Inserir Sub-Produto
+  type: http
+  seq: 5
+  tags:
+    - Produtos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/produto?parent_id={{produtoId}}"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: parent_id
+      value: "{{produtoId}}"
+      type: query
+  body:
+    type: form-urlencoded
+    data:
+      - name: code
+        value: 12345ab
+        description: SKU do sub-produto; se omitido, herda o code do produto pai
+      - name: price
+        value: "32"
+        description: Preco base do sub-produto; se omitido, herda o preco do produto pai
+      - name: price_promo
+        value: "12"
+        description: Preco promocional do sub-produto; se omitido, herda o do produto pai
+      - name: estoque_quantidade
+        value: "3"
+        description: Quantidade em estoque disponivel
+      - name: attr_1
+        value: amarelo
+        description: "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja"
+      - name: attr_2
+        value: "38"
+        description: Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado
+      - name: attr_3
+        value: "40"
+        description: Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/produto?parent_id={{produtoId}}"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "{{produtoId}}"
+          type: query
+      body:
+        type: form-urlencoded
+        data:
+          - name: code
+            value: 12345ab
+            description: SKU do sub-produto; se omitido, herda o code do produto pai
+          - name: price
+            value: "32"
+            description: Preco base do sub-produto; se omitido, herda o preco do produto pai
+          - name: price_promo
+            value: "12"
+            description: Preco promocional do sub-produto; se omitido, herda o do produto pai
+          - name: estoque_quantidade
+            value: "3"
+            description: Quantidade em estoque disponivel
+          - name: attr_1
+            value: amarelo
+            description: "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja"
+          - name: attr_2
+            value: "38"
+            description: Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado
+          - name: attr_3
+            value: "40"
+            description: Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 12:09:08 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785427748"
+        - name: location
+          value: /api/produto/204
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: text
+        data: '{"status":"success","produto":{"id":"204","site_id":"582","parent_id":"203","kit":"N","attribute_json":"[{\"label\":\"Tamanho\",\"value\":\"amarelo\"},{\"label\":\"Cor\",\"value\":\"38\"},{\"label\":\"Modelo\",\"value\":\"40\"}]","category_id":"0","category_id2":"0","category_path":null,"manufacturer_id":"0","genero":null,"code":"12345ab","mpn":null,"gtin":null,"name":"Novo Nome","resume":null,"price":"32","price_promo":"12","ncm":null,"content":null,"featured":"N","file_name":null,"video":null,"color":null,"model":null,"size":null,"priority":"0","published":"Y","regra_exibicao":"A","show_price":"Y","fulltextsearch":null,"estoque_controle":"S","estoque_quantidade":"3","estoque_minimo":"0","estoque_reserva":"0","comprimento":"0","largura":"0","altura":"0","peso":"0","prazo_entrega":"0","prazo_unidade":"dia","prazo_usa_quantidade":"N","photo_id":null,"upsell":null,"cross_sell":null,"relateds":null,"subprods":"0","extras_json":null,"horarios_json":null,"created":"2026-07-30 09:09:08","lastupdate":"2026-07-30 09:09:08","cashback_json":null,"attr_1":"amarelo","attr_2":"38","attr_3":"40"}}'
+  - name: 422 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/produto?parent_id={{produtoId}}"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "{{produtoId}}"
+          type: query
+      body:
+        type: form-urlencoded
+        data:
+          - name: code
+            value: 12345ab
+            description: SKU do sub-produto; se omitido, herda o code do produto pai
+          - name: price
+            value: "32"
+            description: Preco base do sub-produto; se omitido, herda o preco do produto pai
+          - name: price_promo
+            value: "12"
+            description: Preco promocional do sub-produto; se omitido, herda o do produto pai
+          - name: estoque_quantidade
+            value: "3"
+            description: Quantidade em estoque disponivel
+          - name: attr_1
+            value: amarelo
+            description: "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja"
+          - name: attr_2
+            value: "38"
+            description: Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado
+          - name: attr_3
+            value: "40"
+            description: Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 12:10:01 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785427801"
+      body:
+        type: text
+        data: '{"status":"error","msg":"Produto pai n\u00e3o existe."}'
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/produto?parent_id={{produtoId}}"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "{{produtoId}}"
+          type: query
+      body:
+        type: form-urlencoded
+        data:
+          - name: code
+            value: 12345ab
+            description: SKU do sub-produto; se omitido, herda o code do produto pai
+          - name: price
+            value: "32"
+            description: Preco base do sub-produto; se omitido, herda o preco do produto pai
+          - name: price_promo
+            value: "12"
+            description: Preco promocional do sub-produto; se omitido, herda o do produto pai
+          - name: estoque_quantidade
+            value: "3"
+            description: Quantidade em estoque disponivel
+          - name: attr_1
+            value: amarelo
+            description: "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja"
+          - name: attr_2
+            value: "38"
+            description: Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado
+          - name: attr_3
+            value: "40"
+            description: Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 12:10:41 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785427841"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href="./Produto%20Inserir.yml">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>
+
+  <ul>
+    <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>
+    <li><code>category_id</code> não é necessário (nem usado) num sub-produto — ele pertence à mesma categoria do pai.</li>
+    <li><code>attr_1</code>, <code>attr_2</code>, <code>attr_3</code>... são os atributos de variação configurados na loja (ex: tamanho, cor) — o número de campos <code>attr_N</code> disponíveis depende de quantos atributos a loja tem cadastrados.</li>
+    <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro "Nenhum atributo informado para o subproduto !").</li>
+  </ul>
+
+  <p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href="./Produto%20Editar%20Sub-Produto.yml">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>

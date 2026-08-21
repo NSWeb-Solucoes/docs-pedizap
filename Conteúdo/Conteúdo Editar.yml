@@ -1,0 +1,264 @@
+info:
+  name: Conteúdo Editar
+  type: http
+  seq: 5
+  tags:
+    - Conteúdos
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/content/:conteudoId"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: conteudoId
+      value: "{{conteudoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: category_id
+        value: '121'
+        description: 'Id da categoria do conteudo (obrigatorio)'
+      - name: title
+        value: 'Novo conteudo'
+        description: 'Titulo do conteudo (obrigatorio, ate 255 caracteres)'
+      - name: date
+        value: '16/08/2026'
+        description: 'Data do conteudo no formato dd/mm/aaaa (opcional)'
+      - name: resume
+        value: 'Resumo do conteudo'
+        description: 'Resumo/chamada (opcional)'
+      - name: content
+        value: '<p>Corpo do conteudo</p>'
+        description: 'Corpo do conteudo em HTML (opcional)'
+      - name: tags
+        value: 'tag1,tag2'
+        description: 'Palavras chave separadas por virgula (opcional)'
+      - name: published
+        value: 'Y'
+        description: '"Y"/"N" (default "Y") - publica o conteudo'
+      - name: show_date
+        value: 'N'
+        description: '"Y"/"N" (default "N") - exibe a data no site'
+      - name: priority
+        value: '1'
+        description: 'Ordenacao dentro da categoria (opcional)'
+      - name: image_preview
+        value: ''
+        description: 'Caminho da imagem de destaque na galeria de midia (opcional)'
+      - name: template_name
+        value: ''
+        description: 'Template do conteudo (opcional)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: category_id
+            value: ''
+            description: 'Id da categoria do conteudo (obrigatorio)'
+          - name: title
+            value: ''
+            description: 'Titulo do conteudo (obrigatorio, ate 255 caracteres)'
+          - name: date
+            value: ''
+            description: 'Data do conteudo no formato dd/mm/aaaa (opcional)'
+          - name: resume
+            value: ''
+            description: 'Resumo/chamada (opcional)'
+          - name: content
+            value: ''
+            description: 'Corpo do conteudo em HTML (opcional)'
+          - name: tags
+            value: ''
+            description: 'Palavras chave separadas por virgula (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica o conteudo'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" (default "N") - exibe a data no site'
+          - name: priority
+            value: ''
+            description: 'Ordenacao dentro da categoria (opcional)'
+          - name: image_preview
+            value: ''
+            description: 'Caminho da imagem de destaque na galeria de midia (opcional)'
+          - name: template_name
+            value: ''
+            description: 'Template do conteudo (opcional)'
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","conteudo":{"id":"258","site_id":"109","category_id":"121","template_name":"","title":"Conteudo via JSON","date":null,"resume":null,"content":"<p>corpo json<\/p>","image_preview":"","priority":"1","show_date":"N","published":"Y","tags":"","reads":"0","created":"2026-08-16 13:19:51","user_created":"0","lastupdate":null,"user_lastupdate":null,"filtro_teste":"extra-json","sobre":null,"link":"https:\/\/loja.com.br\/site\/conteudo\/258-conteudo-via-json.html","image_preview_url":null,"fotos":{"foto":[]},"seo":{"id":"10067","site_id":"109","item_type":"content","item_id":"258","custom_meta":"Y","custom_link":"N","sitemap":"Y","link":null,"link_destino":null,"meta_title":"SEO via JSON","meta_appendtitle":"Y","meta_description":null,"meta_keywords":null,"custom_og":"N","og_title":null,"og_description":null,"og_image":null}}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: category_id
+            value: ''
+            description: 'Id da categoria do conteudo (obrigatorio)'
+          - name: title
+            value: ''
+            description: 'Titulo do conteudo (obrigatorio, ate 255 caracteres)'
+          - name: date
+            value: ''
+            description: 'Data do conteudo no formato dd/mm/aaaa (opcional)'
+          - name: resume
+            value: ''
+            description: 'Resumo/chamada (opcional)'
+          - name: content
+            value: ''
+            description: 'Corpo do conteudo em HTML (opcional)'
+          - name: tags
+            value: ''
+            description: 'Palavras chave separadas por virgula (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica o conteudo'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" (default "N") - exibe a data no site'
+          - name: priority
+            value: ''
+            description: 'Ordenacao dentro da categoria (opcional)'
+          - name: image_preview
+            value: ''
+            description: 'Caminho da imagem de destaque na galeria de midia (opcional)'
+          - name: template_name
+            value: ''
+            description: 'Template do conteudo (opcional)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: category_id
+            value: ''
+            description: 'Id da categoria do conteudo (obrigatorio)'
+          - name: title
+            value: ''
+            description: 'Titulo do conteudo (obrigatorio, ate 255 caracteres)'
+          - name: date
+            value: ''
+            description: 'Data do conteudo no formato dd/mm/aaaa (opcional)'
+          - name: resume
+            value: ''
+            description: 'Resumo/chamada (opcional)'
+          - name: content
+            value: ''
+            description: 'Corpo do conteudo em HTML (opcional)'
+          - name: tags
+            value: ''
+            description: 'Palavras chave separadas por virgula (opcional)'
+          - name: published
+            value: ''
+            description: '"Y"/"N" (default "Y") - publica o conteudo'
+          - name: show_date
+            value: ''
+            description: '"Y"/"N" (default "N") - exibe a data no site'
+          - name: priority
+            value: ''
+            description: 'Ordenacao dentro da categoria (opcional)'
+          - name: image_preview
+            value: ''
+            description: 'Caminho da imagem de destaque na galeria de midia (opcional)'
+          - name: template_name
+            value: ''
+            description: 'Template do conteudo (opcional)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Conte\u00fado n\u00e3o informado, n\u00e3o encontrado ou atributo \"id\" faltando."}'
+
+docs: |-
+  <p>Não é necessário reenviar todos os campos — os que não forem informados são mantidos como estão.</p>
+
+  <p>Os únicos campos obrigatórios são <strong>category_id</strong> e <strong>title</strong>.</p>
+
+  <p><strong>Campos extras (extrafields):</strong> basta enviar cada campo pela própria <code>key</code> do
+  extrafield, junto dos demais campos do formulário. Para descobrir quais chaves valem para uma categoria,
+  consulte <code>GET /api/content/extrafields?category_id=:id</code>.</p>
+
+  <p><strong>SEO:</strong> os campos de SEO podem ser gravados na mesma chamada usando o prefixo
+  <code>seo_</code> (<code>seo_link</code>, <code>seo_meta_title</code>, <code>seo_meta_description</code>,
+  <code>seo_meta_keywords</code>, <code>seo_og_title</code>, <code>seo_og_description</code>,
+  <code>seo_og_image</code>). Os blocos <code>custom_meta</code> e <code>custom_og</code> são ligados
+  automaticamente quando algum campo do bloco é informado.</p>
+
+  <p><strong>Foto:</strong> é possível anexar a primeira foto do álbum já na criação, enviando um dos três
+  conjuntos de campos: <code>photo_url</code> (URL da imagem), <code>photo_file</code> (upload multipart) ou
+  <code>photo_data</code>+<code>photo_filename</code> (base64), mais opcionalmente
+  <code>photo_description</code>. Para as demais fotos use <code>/api/content/:id/fotos</code>.</p>
+
+  <p><strong>Encoding:</strong> em <code>application/x-www-form-urlencoded</code> o payload deve estar em
+  ISO-8859-1. Enviando o corpo como <code>application/json</code> o UTF-8 é convertido automaticamente.</p>

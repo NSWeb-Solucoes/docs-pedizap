@@ -1,0 +1,157 @@
+info:
+  name: Zona Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Entrega
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/:zonaId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+    - name: zonaId
+      value: "{{zonaId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/:zonaId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: zonaId
+          value: "{{zonaId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 14:05:48 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785348348"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "zona": {
+              "id": "49",
+              "site_id": "582",
+              "servico_id": "16",
+              "nome": "Nobuji",
+              "bairro": "Nobuji",
+              "bairro_custom": "S",
+              "cidade_id": "439",
+              "uf": "SP",
+              "bairro_id": null,
+              "km": null,
+              "cep_ini": null,
+              "cep_fim": null,
+              "frete_gratis": "N",
+              "frete_gratis_minimo": null,
+              "frete_gratis_produtoregra": "N",
+              "frete_gratis_produtosids": null,
+              "produtoregra": "N",
+              "produtosids": null,
+              "prazo_unidade": "minuto",
+              "prazo_qtde": "60",
+              "prazo_desc": null,
+              "valor_fixo": "S",
+              "valor": "8"
+            }
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/:zonaId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: zonaId
+          value: "{{zonaId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 14:07:25 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785348445"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

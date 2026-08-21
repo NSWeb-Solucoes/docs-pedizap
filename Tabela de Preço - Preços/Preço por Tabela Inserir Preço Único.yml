@@ -1,0 +1,118 @@
+info:
+  name: Preço por Tabela Inserir Preço Único
+  type: http
+  seq: 3
+  tags:
+    - Tabelas de Preço
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: precoId
+      value: "{{precoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: product_id
+        value: "208"
+        description: ID do produto ao qual esse preco especifico se aplica dentro da tabela (obrigatorio junto com price)
+      - name: price
+        value: "32"
+        description: Preco fixo do produto dentro dessa tabela de preco (obrigatorio junto com product_id)
+      - name: price_promo
+        value: "12"
+        description: Preco promocional do produto dentro dessa tabela de preco (opcional, default 0)
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: product_id
+            value: ""
+            description: ID do produto ao qual esse preco especifico se aplica dentro da tabela (obrigatorio junto com price)
+          - name: price
+            value: ""
+            description: Preco fixo do produto dentro dessa tabela de preco (obrigatorio junto com product_id)
+          - name: price_promo
+            value: ""
+            description: Preco promocional do produto dentro dessa tabela de preco (opcional, default 0)
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "msg": "Operação realizada com sucesso",
+            "created_count": 0,
+            "updated_count": 1
+          }
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: product_id
+            value: ""
+            description: ID do produto ao qual esse preco especifico se aplica dentro da tabela (obrigatorio junto com price)
+          - name: price
+            value: ""
+            description: Preco fixo do produto dentro dessa tabela de preco (obrigatorio junto com product_id)
+          - name: price_promo
+            value: ""
+            description: Preco promocional do produto dentro dessa tabela de preco (opcional, default 0)
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Esse outro faz a edição simples, por registro, criando ou atualizando o registro conforme necessário.

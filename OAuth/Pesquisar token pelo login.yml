@@ -1,0 +1,83 @@
+info:
+  name: Pesquisar token pelo login
+  type: http
+  seq: 2
+  tags:
+    - OAuth
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/oauth/jwtlogin?email=teste@teste.com.br&password=teste123"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: email
+      value: teste@teste.com.br
+      type: query
+    - name: password
+      value: teste123
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/oauth/jwtlogin"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: email
+          value: teste@teste.com.br
+          type: query
+        - name: password
+          value: teste123
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL2NhcmRhcGlvLnBlZGl6YXAuY29tLmJyIiwiYXVkIjoiaHR0cHM6Ly9jYXJkYXBpby5wZWRpemFwLmNvbS5iciIsImp0aSI6IjE1IiwiaWF0IjoxNzg0Mjk4MzI5Ljg3NzE2MiwibmJmIjoxNzg0Mjk4Mzg5Ljg3NzE2MiwiZXhwIjoxNzg0MzAxOTI5Ljg3NzE2MiwidWlkIjoiNGNkNzYwNWNlODA0NmQ2NjY4NzM1YjE5MjkxOGFkMDgiLCJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbS5iciIsImFkbWluX2lkIjoiMTUiLCJzdXBlciI6dHJ1ZX0.","user":{"id":"15","name":"teste","phone":"","email":"teste@teste.com.br","token":null,"token_expiration":null,"super":"S","perfil":null,"modulos":null,"modulos_perm":null,"last_login":"2026-07-17 11:25:29"}}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/oauth/jwtlogin"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: email
+          value: teste@teste.com.br
+          type: query
+        - name: password
+          value: teste123
+          type: query
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"E-mail ou senha inv\ufffdlido(s)."}'

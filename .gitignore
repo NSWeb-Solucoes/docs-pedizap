@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Bruno
+.bruno/
+*.bru.local
+
+# Ambientes locais com segredos
+environments/*.local.yml

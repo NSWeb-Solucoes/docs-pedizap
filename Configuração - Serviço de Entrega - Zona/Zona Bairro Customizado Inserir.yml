@@ -1,0 +1,275 @@
+info:
+  name: Zona Bairro Customizado Inserir
+  type: http
+  seq: 7
+  tags:
+    - Entrega
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  body:
+    type: multipart-form
+    data:
+      - name: nome
+        type: text
+        value: |-
+          Centro
+          Vila São Paulo
+        description: Um bairro por linha; cada linha vira uma zona bairro_custom.
+      - name: cidade_id
+        type: text
+        value: "439"
+        description: ID da cidade (Model_Cidade) a qual o(s) bairro(s) customizado(s) pertence(m)
+      - name: uf
+        type: text
+        value: SP
+        description: Sigla do estado (UF) da cidade
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: |-
+              Centro
+              Vila São Paulo
+            description: Um bairro por linha; cada linha vira uma zona bairro_custom.
+          - name: cidade_id
+            type: text
+            value: "439"
+            description: ID da cidade (Model_Cidade) a qual o(s) bairro(s) customizado(s) pertence(m)
+          - name: uf
+            type: text
+            value: SP
+            description: Sigla do estado (UF) da cidade
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:08:16 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431296"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "bairros": [
+              {
+                "servico_id": "14",
+                "module": "api",
+                "controller": "entrega",
+                "action": "zonabairrocustom",
+                "nome": "Centro",
+                "cidade_id": "439",
+                "uf": "SP",
+                "bairro_custom": "S",
+                "bairro": "Centro",
+                "id": "55"
+              },
+              {
+                "servico_id": "14",
+                "module": "api",
+                "controller": "entrega",
+                "action": "zonabairrocustom",
+                "nome": "Vila São Paulo",
+                "cidade_id": "439",
+                "uf": "SP",
+                "bairro_custom": "S",
+                "bairro": "Vila São Paulo",
+                "id": "56"
+              }
+            ]
+          }
+  - name: 404 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: |-
+              Centro
+              Vila São Paulo
+            description: Um bairro por linha; cada linha vira uma zona bairro_custom.
+          - name: cidade_id
+            type: text
+            value: "439"
+            description: ID da cidade (Model_Cidade) a qual o(s) bairro(s) customizado(s) pertence(m)
+          - name: uf
+            type: text
+            value: SP
+            description: Sigla do estado (UF) da cidade
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:14:16 GMT
+        - name: content-type
+          value: text/html
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+      body:
+        type: html
+        data: |-
+          <html>
+              <head>
+                  <title>404 Not Found</title>
+              </head>
+              <body bgcolor="white">
+                  <center>
+                      <h1>404 Not Found</h1>
+                  </center>
+                  <hr>
+                      <center>nginx/1.14.1</center>
+                  </hr>
+              </body>
+          </html>
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: |-
+              Centro
+              Vila São Paulo
+            description: Um bairro por linha; cada linha vira uma zona bairro_custom.
+          - name: cidade_id
+            type: text
+            value: "439"
+            description: ID da cidade (Model_Cidade) a qual o(s) bairro(s) customizado(s) pertence(m)
+          - name: uf
+            type: text
+            value: SP
+            description: Sigla do estado (UF) da cidade
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:14:35 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431675"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Cria uma ou mais zonas do tipo bairro_custom a partir de nomes digitados livremente (um por linha em <code>nome</code>). Só faz sentido para serviços com <code>zona_tipo=bairro_custom</code>.</p>
+
+  <p>Bairro duplicado (mesmo serviço + <code>cidade_id</code> + nome do bairro) não gera zona nova; a existente é reaproveitada silenciosamente.</p>
+
+  <p>Equivalente REST de <code>Class_EntregaZona::addBairroCustom</code> / <code>Model_Entrega_BairroCustom::addBairro</code>. Resposta sempre <code>{"status": "success", "bairros": [...]}</code> (201), mesmo que algum nome individual tenha sido rejeitado — bairros inválidos são descartados silenciosamente da lista de retorno (mesmo comportamento do CMS).</p>

@@ -1,0 +1,97 @@
+info:
+  name: Cliente Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Clientes
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: clienteId
+      value: "{{clienteId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"clientes":{"cliente":{"id":"90","parent_id":null,"mktplace_reference":null,"vendedor_id":null,"vendedor_code":null,"cadastro_tipo":"1","pricetable_id":null,"afiliado_code":null,"afiliado_referer":null,"tipo_pessoa":"F","nome":"rodrigo marques pinheiros","razao_social":"","contato":"","cpfcnpj":"09233118312","rgie":"","isento":"N","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"85","celular":"994285201","endereco":"","geolocation":null,"numero":"","bairro":"","bairro_custom":null,"complemento":"","cep":"","cidade":"","uf":"AC","pais":null,"geo_latitude":null,"geo_longitude":null,"email":"pedrosampio@gmail.com","usuario":null,"code":null,"token":null,"order_payments":null,"cashback_value":"0","ativo":"S","ip":"201.20.66.217","created":"2026-06-26 17:54:27","lastupdate":"2026-07-17 11:00:12","observacao":"","facebook_userid":null,"google_userid":null,"last_login":null,"campaign_optout":"N","site":"","modulos_perm":null}}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Cliente n\u00e3o informado, ou atributo \"id\" faltando."}'

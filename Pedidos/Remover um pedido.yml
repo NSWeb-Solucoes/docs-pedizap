@@ -1,0 +1,68 @@
+info:
+  name: Remover um pedido
+  type: http
+  seq: 4
+  tags:
+    - Pedidos
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: pedidoId
+      value: "{{pedidoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      body:
+        type: text
+        data: ""

@@ -1,0 +1,59 @@
+info:
+  name: Galeria Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos/:fotoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: fotoId
+      value: "{{fotoId}}"
+      type: path
+    - name: produtoId
+      value: "{{produtoid}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+        - name: produtoId
+          value: "{{produtoid}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"ID de foto ou produto n\u00e3o encontrado ou faltando."}'
+
+docs: <p>Para selecionar somente uma foto, deve-se colocar o id da foto ao final da url</p>

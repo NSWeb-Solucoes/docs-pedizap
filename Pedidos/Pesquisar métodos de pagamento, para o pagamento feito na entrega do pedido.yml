@@ -1,0 +1,62 @@
+info:
+  name: Pesquisar métodos de pagamento, para o pagamento feito na entrega do pedido
+  type: http
+  seq: 6
+  tags:
+    - Pedidos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/pedido/getpagtoentregametodos"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/getpagtoentregametodos"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '[{"id":"dinheiro","nome":"Dinheiro","options":[]},{"id":"credito","nome":"Cart\u00e3o de Cr\u00e9dito","options":["Visa","Mastercard","Elo"]},{"id":"debito","nome":"Cart\u00e3o de D\u00e9bito","options":["Visa","Mastercard","Elo"]},{"id":"vale","nome":"Vale","options":["Conv\u00eanio"]},{"id":"pix","nome":"PIX","options":[]}]'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/getpagtoentregametodos"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

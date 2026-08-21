@@ -1,0 +1,109 @@
+info:
+  name: Galeria Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Conteúdos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos/:fotoId"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: conteudoId
+      value: "{{conteudoId}}"
+      type: path
+    - name: fotoId
+      value: "{{fotoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"fotos":{"foto":[{"id":"632","site_id":"109","content_id":"257","file_name":"photo_257_6a81e26d9893e.png","file_name_import":null,"description":"Legenda da foto","priority":"1","url":"\/custom\/109\/uploads\/album\/257\/photo_257_6a81e26d9893e.png"}]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"ID de foto ou conte\u00fado n\u00e3o encontrado ou faltando."}'

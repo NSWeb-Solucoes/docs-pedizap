@@ -1,0 +1,206 @@
+info:
+  name: Serviço Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Entrega
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:12:15 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345135"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "servico": {
+              "id": "18",
+              "site_id": "582",
+              "nome": "Motoboy",
+              "descricao": "",
+              "icon": "",
+              "zona_tipo": "cep",
+              "km_cep_origem": "",
+              "retirada": "N",
+              "retirada_endereco": "",
+              "polygonatendida": null,
+              "polygonsuspensa": null,
+              "polygoncenter": null,
+              "peso_min": "0",
+              "peso_max": "50",
+              "aceita_volumosos": "S",
+              "comprimento_max": "0",
+              "largura_max": "0",
+              "altura_max": "0",
+              "soma_max": "0",
+              "ativo": "N",
+              "calcular_cubagem": "N",
+              "fator_cubagem": "0",
+              "seguro": "N",
+              "seguro_acrescimo": "50",
+              "agendamento": "N",
+              "agendamento_diasexibidos": "0",
+              "agendamento_maxdia": "0",
+              "agendamento_maxperiodo": "0",
+              "cep_exclusao": null
+            }
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:13:51 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345231"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 404 Response nao encontrado
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:14:10 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345250"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "error",
+            "msg": "Servico nao encontrado."
+          }

@@ -1,0 +1,136 @@
+info:
+  name: Galeria Inserir Foto por URL
+  type: http
+  seq: 3
+  tags:
+    - Conteúdos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: conteudoId
+      value: "{{conteudoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: photo_url
+        value: 'https://exemplo.com.br/imagem.png'
+        description: 'URL publica da imagem a ser baixada'
+      - name: description
+        value: ''
+        description: 'Legenda/descricao da foto (opcional)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_url
+            value: ''
+            description: 'URL publica da imagem a ser baixada'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","foto":{"id":"632","site_id":"109","content_id":"257","file_name":"photo_257_6a81e26d9893e.png","file_name_import":null,"description":"Legenda da foto","priority":"1","url":"\/custom\/109\/uploads\/album\/257\/photo_257_6a81e26d9893e.png"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_url
+            value: ''
+            description: 'URL publica da imagem a ser baixada'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_url
+            value: ''
+            description: 'URL publica da imagem a ser baixada'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"N\u00e3o foi poss\u00edvel baixar a imagem: https:\/\/exemplo.com.br\/imagem.png"}'
+
+docs: |-
+  <p>A imagem é baixada pelo servidor a partir da URL informada. A URL precisa ser acessível publicamente e ter certificado válido quando for HTTPS.</p>

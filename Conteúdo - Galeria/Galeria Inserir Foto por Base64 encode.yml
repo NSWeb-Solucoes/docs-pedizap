@@ -1,0 +1,145 @@
+info:
+  name: Galeria Inserir Foto por Base64 encode
+  type: http
+  seq: 5
+  tags:
+    - Conteúdos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: conteudoId
+      value: "{{conteudoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: photo_filename
+        value: 'imagem.png'
+        description: 'Nome do arquivo da imagem, usado para validar a extensao'
+      - name: photo_data
+        value: ''
+        description: 'Conteudo da imagem em base64'
+      - name: description
+        value: ''
+        description: 'Legenda/descricao da foto (opcional)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_filename
+            value: ''
+            description: 'Nome do arquivo da imagem, usado para validar a extensao'
+          - name: photo_data
+            value: ''
+            description: 'Conteudo da imagem em base64'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","foto":{"id":"632","site_id":"109","content_id":"257","file_name":"photo_257_6a81e26d9893e.png","file_name_import":null,"description":"Legenda da foto","priority":"1","url":"\/custom\/109\/uploads\/album\/257\/photo_257_6a81e26d9893e.png"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_filename
+            value: ''
+            description: 'Nome do arquivo da imagem, usado para validar a extensao'
+          - name: photo_data
+            value: ''
+            description: 'Conteudo da imagem em base64'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: photo_filename
+            value: ''
+            description: 'Nome do arquivo da imagem, usado para validar a extensao'
+          - name: photo_data
+            value: ''
+            description: 'Conteudo da imagem em base64'
+          - name: description
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"A extens\u00e3o de arquivo php n\u00e3o \u00e9 permitida. Extens\u00f5es jpg,jpeg,png,gif,webp."}'

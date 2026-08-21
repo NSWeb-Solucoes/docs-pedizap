@@ -1,0 +1,118 @@
+info:
+  name: Pesquisar histórico do pedido
+  type: http
+  seq: 5
+  tags:
+    - Pedidos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/pedido/histories?pedidoId={{pedidoId}}"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: pedidoId
+      value: "{{pedidoId}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/histories"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "2658"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"historico":[{"id":"8868","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status alterado: Aberto -> Confirmado"},{"id":"8869","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Pedido marcado como PAGO"},{"id":"8870","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status alterado: Aberto -> Confirmado"},{"id":"8867","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status Pagamento alterado: Em An\u00e1lise -> Aprovado"},{"id":"8866","user_name":"system","publico":"N","data":"29\/05\/2026 17:24","observacao":"Status Pagamento alterado: Nenhum -> Em An\u00e1lise"},{"id":"8865","user_name":"system","publico":"N","data":"29\/05\/2026 17:24","observacao":"Status alterado: Carrinho -> Aberto"}]}'
+  - name: 200 Pedidoid
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/histories"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "2658"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"historico":[{"id":"8868","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status alterado: Aberto -> Confirmado"},{"id":"8869","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Pedido marcado como PAGO"},{"id":"8870","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status alterado: Aberto -> Confirmado"},{"id":"8867","user_name":"system","publico":"N","data":"29\/05\/2026 17:31","observacao":"Status Pagamento alterado: Em An\u00e1lise -> Aprovado"},{"id":"8866","user_name":"system","publico":"N","data":"29\/05\/2026 17:24","observacao":"Status Pagamento alterado: Nenhum -> Em An\u00e1lise"},{"id":"8865","user_name":"system","publico":"N","data":"29\/05\/2026 17:24","observacao":"Status alterado: Carrinho -> Aberto"}]}'
+  - name: 400 Response
+    description: Bad Request
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/histories"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "2658"
+          type: query
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"message":"Desculpe o pedido n\u00e3o foi encontrado"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/histories"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "2658"
+          type: query
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

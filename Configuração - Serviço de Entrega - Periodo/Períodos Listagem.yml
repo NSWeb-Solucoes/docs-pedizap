@@ -1,0 +1,166 @@
+info:
+  name: Períodos Listagem
+  type: http
+  seq: 1
+  tags:
+    - Entrega
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.27.3
+        - name: date
+          value: Wed, 29 Jul 2026 16:09:22 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785355762"
+        - name: strict-transport-security
+          value: "Strict-Transport-Security: max-age=31536000; includeSubDomains"
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "periodos": [
+              {
+                "id": "30",
+                "site_id": "6",
+                "servico_id": "17",
+                "descricao": "08:00 - 10:00",
+                "hora_ini": "08:00",
+                "hora_fim": "10:00",
+                "seg": "1",
+                "ter": "1",
+                "qua": "1",
+                "qui": "1",
+                "sex": "1",
+                "sab": "1",
+                "dom": "0",
+                "published": "Y",
+                "priority": "0"
+              },
+              {
+                "id": "31",
+                "site_id": "6",
+                "servico_id": "17",
+                "descricao": "10:00 - 12:00",
+                "hora_ini": "10:00",
+                "hora_fim": "12:00",
+                "seg": "1",
+                "ter": "1",
+                "qua": "1",
+                "qui": "1",
+                "sex": "1",
+                "sab": "1",
+                "dom": "0",
+                "published": "Y",
+                "priority": "1"
+              },
+              {
+                "id": "33",
+                "site_id": "6",
+                "servico_id": "17",
+                "descricao": "12:00 - 14:00",
+                "hora_ini": "12:00",
+                "hora_fim": "14:00",
+                "seg": "1",
+                "ter": "1",
+                "qua": "1",
+                "qui": "1",
+                "sex": "1",
+                "sab": "1",
+                "dom": "0",
+                "published": "Y",
+                "priority": "2"
+              },
+              {
+                "id": "34",
+                "site_id": "6",
+                "servico_id": "17",
+                "descricao": "14:00 - 18:00",
+                "hora_ini": "14:00",
+                "hora_fim": "18:00",
+                "seg": "1",
+                "ter": "1",
+                "qua": "1",
+                "qui": "1",
+                "sex": "1",
+                "sab": "1",
+                "dom": "0",
+                "published": "Y",
+                "priority": "3"
+              },
+              {
+                "id": "32",
+                "site_id": "6",
+                "servico_id": "17",
+                "descricao": "18:00 - 20:00",
+                "hora_ini": "18:00",
+                "hora_fim": "20:00",
+                "seg": "1",
+                "ter": "1",
+                "qua": "1",
+                "qui": "1",
+                "sex": "1",
+                "sab": "1",
+                "dom": "0",
+                "published": "Y",
+                "priority": "4"
+              }
+            ]
+          }
+
+docs: '<p>Período de agenda (horário/dias da semana) de um serviço, usado quando o serviço tem <code>agendamento="S"</code>. A prioridade (<code>priority</code>) de exibição é controlada pelo servidor: novos períodos entram sempre no final da lista.</p>'

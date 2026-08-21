@@ -1,0 +1,82 @@
+info:
+  name: Preço por Tabela Remover Preço Único
+  type: http
+  seq: 5
+  tags:
+    - Tabelas de Preço
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices/:preco"
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: preco
+      value: "{{preco}}"
+      type: path
+    - name: precoId
+      value: "{{precoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices/:preco"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: preco
+          value: "{{preco}}"
+          type: path
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices/:preco"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: preco
+          value: "{{preco}}"
+          type: path
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Esse endpoint remove um registro de preço da tabela. Caso deseje remover vários registros em uma única requisição, use o metodo de edição JSON com o parâmetro removeAll e mande o array "prices" vazio.

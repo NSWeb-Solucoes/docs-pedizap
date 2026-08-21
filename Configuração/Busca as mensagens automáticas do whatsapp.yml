@@ -1,0 +1,62 @@
+info:
+  name: Busca as mensagens automáticas do whatsapp
+  type: http
+  seq: 3
+  tags:
+    - OAuth
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/conf/whatsmessages"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/whatsmessages"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"configurationWhatsApp":[{"status":"Aberto","message":"Ol\u00e1 {CLIENTE_NOME}, tudo bem ? Seu pedido #{NUMERO_PEDIDO} foi aberto no site {SITE_URL}. Em aguardo de confirma\u00e7\u00e3o...","msgDefault":"Ol\u00e1 {CLIENTE_NOME}, tudo bem ? Seu pedido #{NUMERO_PEDIDO} foi aberto no site {SITE_URL}. Em aguardo de confirma\u00e7\u00e3o..."},{"status":"Confirmado","message":"O pedido #{NUMERO_PEDIDO} foi recebido. Logo estaremos preparando para voc\u00ea","msgDefault":"O pedido #{NUMERO_PEDIDO} foi recebido. Logo estaremos preparando para voc\u00ea"},{"status":"Cancelado","message":"O pedido #{NUMERO_PEDIDO} foi cancelado","msgDefault":"O pedido #{NUMERO_PEDIDO} foi cancelado"},{"status":"Em preparo","message":"Seu pedido #{NUMERO_PEDIDO} est\u00e1 sendo preparado...","msgDefault":"Seu pedido #{NUMERO_PEDIDO} est\u00e1 sendo preparado..."},{"status":"Saiu para Entrega","message":{"retirada":"O pedido #{NUMERO_PEDIDO} j\u00e1 pode ser retirado em nosso estabelecimento...","entrega":"O pedido #{NUMERO_PEDIDO} saiu para entrega!"},"msgDefault":{"retirada":"O pedido #{NUMERO_PEDIDO} j\u00e1 pode ser retirado em nosso estabelecimento...","entrega":"O pedido #{NUMERO_PEDIDO} saiu para entrega!"}},{"status":"Finalizado","message":"Seu pedido j\u00e1 foi entregue. Muito obrigado pela prefer\u00eancia {CLIENTE_NOME}!","msgDefault":"Seu pedido j\u00e1 foi entregue. Muito obrigado pela prefer\u00eancia {CLIENTE_NOME}!"},{"status":"Carrinho","message":"Ol\u00e1 {CLIENTE_NOME}, voc\u00ea esqueceu algo no carrinho, acesse nosso site {SITE_URL} para mais informa\u00e7\u00f5es","msgDefault":"Ol\u00e1 {CLIENTE_NOME}, voc\u00ea esqueceu algo no carrinho, acesse nosso site {SITE_URL} para mais informa\u00e7\u00f5es"},{"chatbot":"Chatbot Pedizap","status":"menu","message":"_Atendente Virtual:_ Agilize seu pedido\n\nOl\u00e1! Bem-vindo ao :pizza: Card\u00e1pio :fork_knife_plate:. Como posso ajud\u00e1-lo hoje? Escolha uma das op\u00e7\u00f5es abaixo respondendo com o *n\u00famero correspondente*:\n\n1 - Fazer um Pedido :shopping_cart:{SITE_URL}\n\n2 - Hor\u00e1rio de Atendimento :alarm_clock:: Saiba mais sobre nossos hor\u00e1rios de funcionamento.\n\n3 - Localiza\u00e7\u00e3o :round_pushpin:: Encontre-nos facilmente com o endere\u00e7o.\n\n4 - Taxa de Entrega :truck:: Informa\u00e7\u00f5es sobre \u00e1reas de entrega e taxas aplic\u00e1veis.\n\n5 - Status do Pedido :package:: Acompanhe o status do seu pedido em tempo real.\n\n6 - Falar com Atendente :bust_in_silhouette:: Precisa de ajuda? Conecte-se diretamente com nossa equipe.\n\n9 - Mostrar este menu novamente!\n{AVISO_LOJA_FECHADA}","title":"Menu de op\u00e7\u00f5es","description":"Mensagem quando o cliente acessa o chatbot","example":"Bom dia! Vi seu cardapio no instagram e gostaria de fazer um pedido","msgDefault":"_Atendente Virtual:_ Agilize seu pedido\n\nOl\u00e1! Bem-vindo ao &#127829; Card\u00e1pio :fork_knife_plate:. Como posso ajud\u00e1-lo hoje? Escolha uma das op\u00e7\u00f5es abaixo respondendo com o *n\u00famero correspondente*:\n\n1 - Fazer um Pedido :shopping_cart:{SITE_URL}\n\n2 - Hor\u00e1rio de Atendimento :alarm_clock:: Saiba mais sobre nossos hor\u00e1rios de funcionamento.\n\n3 - Localiza\u00e7\u00e3o :round_pushpin:: Encontre-nos facilmente com o endere\u00e7o.\n\n4 - Taxa de Entrega :truck:: Informa\u00e7\u00f5es sobre \u00e1reas de entrega e taxas aplic\u00e1veis.\n\n5 - Status do Pedido :package:: Acompanhe o status do seu pedido em tempo real.\n\n6 - Falar com Atendente :bust_in_silhouette:: Precisa de ajuda? Conecte-se diretamente com nossa equipe.\n\n9 - Mostrar este menu novamente!\n{AVISO_LOJA_FECHADA}"},{"chatbot":"Chatbot Pedizap","status":"pedidoFazer","message":"_Atendente Virtual:_\n            \n\u00d3timo! Utilize nosso aplicativo de pedidos acessando o link abaixo {SITE_URL}","title":"Fazer um pedido","description":"Mensagem quando o cliente quer fazer um pedido","example":"1","msgDefault":"_Atendente Virtual:_\n            \n\u00d3timo! Utilize nosso aplicativo de pedidos acessando o link abaixo {SITE_URL}"},{"chatbot":"Chatbot Pedizap","status":"horario","message":"_Atendente Virtual:_\n\n{HORARIO_ATENDIMENTO}","title":"Horario de atendimento","description":"Mensagem para mostrar hor\u00e1rios de atendimento","example":"2","msgDefault":"_Atendente Virtual:_\n\n{HORARIO_ATENDIMENTO}"},{"chatbot":"Chatbot Pedizap","status":"localizacao","message":"_Atendente Virtual:_\n\nEstamos localizados em:\n{ENDERECO_SITE}.","title":"Localiza\u00e7\u00e3o","description":"Mensagem na consulta de localiza\u00e7\u00e3o","example":"3","msgDefault":"_Atendente Virtual:_\n\nEstamos localizados em:\n{ENDERECO_SITE}."},{"chatbot":"Chatbot Pedizap","status":"taxaEntrega","message":"_Atendente Virtual:_\n\nPara verificar a taxa de entrega, por favor informe o seu n\u00famero do CEP: _Ex: 17026999_","title":"Taxa de entrega","description":"Mensagem na consulta da Taxa de Entrega","example":"4","msgDefault":"_Atendente Virtual:_\n\nPara verificar a taxa de entrega, por favor informe o seu n\u00famero do CEP: _Ex: 17026999_"},{"chatbot":"Chatbot Pedizap","status":"atendente","message":":red_circle: _Atendente Virtual:_\n\nUm atendente em breve falar\u00e1 com voc\u00ea. Obrigado","title":"Solicitar Atendente","description":"Mensagem quando \u00e9 solicitado um atendente","example":"6","msgDefault":":red_circle: _Atendente Virtual:_\n\nUm atendente em breve falar\u00e1 com voc\u00ea. Obrigado"}]}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/whatsmessages"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

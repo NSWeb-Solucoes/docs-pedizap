@@ -1,0 +1,145 @@
+info:
+  name: Tabela Editar
+  type: http
+  seq: 4
+  tags:
+    - Tabelas de Preço
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: precoId
+      value: "{{precoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: name
+        value: oi
+        description: Nome da tabela de preco (obrigatorio, ate 50 caracteres)
+      - name: description
+        value: ""
+        description: Descricao livre da tabela de preco (opcional)
+      - name: price_fixed
+        value: Y
+        description: '"Y" ou "N" (default "N"). Quando "Y", os precos nao vem de registros individuais e sim de um desconto percentual (price_perc) aplicado sobre o preco atual do produto'
+      - name: products_fixed
+        value: Y
+        description: '"Y" ou "N" (default "N"). Quando "Y", restringe o cliente a comprar somente os produtos cadastrados nesta tabela; independente de price_fixed'
+      - name: price_perc
+        value: ""
+        description: Percentual de desconto aplicado sobre o preco do produto; usado somente quando price_fixed = "Y"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ""
+            description: Nome da tabela de preco (obrigatorio, ate 50 caracteres)
+          - name: description
+            value: ""
+            description: Descricao livre da tabela de preco (opcional)
+          - name: price_fixed
+            value: ""
+            description: '"Y" ou "N" (default "N"). Quando "Y", os precos nao vem de registros individuais e sim de um desconto percentual (price_perc) aplicado sobre o preco atual do produto'
+          - name: products_fixed
+            value: ""
+            description: '"Y" ou "N" (default "N"). Quando "Y", restringe o cliente a comprar somente os produtos cadastrados nesta tabela; independente de price_fixed'
+          - name: price_perc
+            value: ""
+            description: Percentual de desconto aplicado sobre o preco do produto; usado somente quando price_fixed = "Y"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "priceTable": {
+              "id": "2",
+              "site_id": "5095",
+              "name": "Teste Preço 13/AGO",
+              "description": "",
+              "price_fixed": "N",
+              "products_fixed": "N",
+              "price_perc": "0",
+              "lastupdate": null,
+              "lastupdate_user": null,
+              "rows": "0"
+            }
+          }
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ""
+            description: Nome da tabela de preco (obrigatorio, ate 50 caracteres)
+          - name: description
+            value: ""
+            description: Descricao livre da tabela de preco (opcional)
+          - name: price_fixed
+            value: ""
+            description: '"Y" ou "N" (default "N"). Quando "Y", os precos nao vem de registros individuais e sim de um desconto percentual (price_perc) aplicado sobre o preco atual do produto'
+          - name: products_fixed
+            value: ""
+            description: '"Y" ou "N" (default "N"). Quando "Y", restringe o cliente a comprar somente os produtos cadastrados nesta tabela; independente de price_fixed'
+          - name: price_perc
+            value: ""
+            description: Percentual de desconto aplicado sobre o preco do produto; usado somente quando price_fixed = "Y"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Atualiza as informações de uma tabela de preço já existente

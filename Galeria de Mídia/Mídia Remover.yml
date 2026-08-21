@@ -1,0 +1,126 @@
+info:
+  name: Mídia Remover
+  type: http
+  seq: 7
+  tags:
+    - Mídia
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/media?file=logo.png"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: path
+      value: '/pasta'
+      type: query
+      description: 'Pasta onde esta o arquivo (opcional)'
+      disabled: true
+    - name: file
+      value: 'logo.png'
+      type: query
+      description: 'Nome do arquivo ou pasta a remover'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/media?file=logo.png"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta onde esta o arquivo (opcional)'
+          disabled: true
+        - name: file
+          value: 'logo.png'
+          type: query
+          description: 'Nome do arquivo ou pasta a remover'
+    response:
+      status: 204
+      statusText: No Content
+      headers: []
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/media?file=logo.png"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta onde esta o arquivo (opcional)'
+          disabled: true
+        - name: file
+          value: 'logo.png'
+          type: query
+          description: 'Nome do arquivo ou pasta a remover'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/media?file=logo.png"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta onde esta o arquivo (opcional)'
+          disabled: true
+        - name: file
+          value: 'logo.png'
+          type: query
+          description: 'Nome do arquivo ou pasta a remover'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Arquivo n\u00e3o informado, atributo \"file\" faltando."}'
+
+docs: |-
+  <p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação
+  acontece na raiz.</p>
+
+  <p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,
+  <code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,
+  <code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.
+  As fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>
+  <p>Remove tanto arquivos quanto pastas (a pasta é removida com o conteúdo).</p>

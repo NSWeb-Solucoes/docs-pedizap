@@ -1,0 +1,189 @@
+info:
+  name: Zona Bairros Lote
+  type: http
+  seq: 6
+  tags:
+    - Entrega
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairros"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "bairros": [
+          {
+            "bairro_id": 123,
+            "nome": "Centro",
+            "prazo_unidade": "minuto",
+            "prazo_qtde": 60,
+            "frete_gratis": "N",
+            "frete_gratis_minimo": 0,
+            "valor": 8
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairros"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "bairros": [
+              {
+                "bairro_id": 123,
+                "nome": "Centro",
+                "prazo_unidade": "minuto",
+                "prazo_qtde": 60,
+                "frete_gratis": "N",
+                "frete_gratis_minimo": 0,
+                "valor": 8
+              }
+            ]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:08:09 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431289"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "message": "Bairros salvos com sucesso!"
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairros"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "bairros": [
+              {
+                "bairro_id": 123,
+                "nome": "Centro",
+                "prazo_unidade": "minuto",
+                "prazo_qtde": 60,
+                "frete_gratis": "N",
+                "frete_gratis_minimo": 0,
+                "valor": 8
+              }
+            ]
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:12:00 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431520"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Substitui em lote as zonas do tipo <code>bairro</code>/<code>bairro_custom</code> do serviço pela lista enviada em <code>bairros</code> (array obrigatório, mesmo com o corpo vazio "[]" para limpar tudo). Cada item é um upsert: se já existir uma zona com o mesmo <code>id</code> (bairro_custom) ou <code>bairro_id</code> (bairro), ela é atualizada; senão é criada. Zonas existentes que não aparecerem na lista são removidas.</p>
+
+  <p>Precisa de <code>Content-Type: application/json</code> (o array de <code>bairros</code> não é representável em multipart/form-data).</p>
+
+  <p>Campos por item de zona_tipo=bairro: <code>bairro_id</code>, <code>nome</code>, <code>prazo_unidade</code>, <code>prazo_qtde</code>, <code>frete_gratis</code>, <code>frete_gratis_minimo</code>, <code>valor</code>. Para zona_tipo=bairro_custom: <code>id</code> (se editando uma zona existente), <code>nome</code>, <code>cidade_id</code>, <code>uf</code>, mais os mesmos campos de frete/prazo/valor.</p>
+
+  <p>Equivalente REST do salvamento em lote do mapa de bairros do CMS (<code>Class_EntregaZona::saveJsonBairros</code>). Não passa pela validação de <code>Cms_Form_EntregaZona</code> (mesmo comportamento do CMS) — cada item é gravado como veio, então valide os dados antes de enviar.</p>
+
+  <p>Resposta: <code>{"status": "success", "message": "..."}</code> em 200, ou 422 com <code>msg</code> de erro caso o corpo não seja um objeto com <code>bairros</code> array.</p>

@@ -1,0 +1,208 @@
+info:
+  name: Zona Inserir
+  type: http
+  seq: 3
+  tags:
+    - Entrega
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  body:
+    type: multipart-form
+    data:
+      - name: nome
+        type: text
+        value: Ate 2 Km
+        description: Nome da zona
+      - name: km
+        type: text
+        value: "2"
+        description: Distancia em KM
+      - name: valor_fixo
+        type: text
+        value: "2"
+        disabled: true
+        description: '"S" cobra o valor fixo do campo valor; "N" usa a tabela de peso da zona (endpoint de Zona Valor) - default "S"'
+      - name: valor
+        type: text
+        value: "5.0"
+        description: Valor da zona
+      - name: prazo_qtde
+        type: text
+        value: "75"
+        description: Tempo estimado
+      - name: prazo_unidade
+        type: text
+        value: minuto
+        description: Unidade de medida do tempo (segundo, minuto, hora e dia)
+      - name: frete_gratis
+        type: text
+        value: "2"
+        disabled: true
+        description: '"S" ou "N" (default "N") - ativa frete gratis para esta zona'
+      - name: frete_gratis_minimo
+        type: text
+        value: "2"
+        disabled: true
+        description: Valor minimo de compra para o frete gratis ser aplicado
+      - name: frete_gratis_produtosids
+        type: text
+        value: ""
+        disabled: true
+        description: IDs de produtos separados por virgula aos quais a regra de frete_gratis_produtoregra se aplica; obrigatorio quando frete_gratis_produtoregra for diferente de "N"
+      - name: frete_gratis_produtoregra
+        type: text
+        value: N
+        description: '"N" (usa apenas frete_gratis_minimo), "ONLY" (frete gratis se o carrinho tiver ao menos 1 produto de frete_gratis_produtosids - substitui a checagem por valor minimo) ou "NOT ONLY" (frete gratis se o carrinho nao tiver nenhum produto da lista)'
+      - name: produtoregra
+        type: text
+        value: N
+        description: '"N" (zona sempre disponivel), "ONLY" (zona so fica disponivel se TODOS os itens do carrinho estiverem em produtosids) ou "NOT ONLY" (zona so fica disponivel se NENHUM item do carrinho estiver em produtosids)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: Ate 2 Km
+            description: Nome da zona
+          - name: km
+            type: text
+            value: "2"
+            description: Distancia em KM
+          - name: valor_fixo
+            type: text
+            value: "2"
+            disabled: true
+            description: '"S" cobra o valor fixo do campo valor; "N" usa a tabela de peso da zona (endpoint de Zona Valor) - default "S"'
+          - name: valor
+            type: text
+            value: "5.0"
+            description: Valor da zona
+          - name: prazo_qtde
+            type: text
+            value: "75"
+            description: Tempo estimado
+          - name: prazo_unidade
+            type: text
+            value: minuto
+            description: Unidade de medida do tempo (segundo, minuto, hora e dia)
+          - name: frete_gratis
+            type: text
+            value: "2"
+            disabled: true
+            description: '"S" ou "N" (default "N") - ativa frete gratis para esta zona'
+          - name: frete_gratis_minimo
+            type: text
+            value: "2"
+            disabled: true
+            description: Valor minimo de compra para o frete gratis ser aplicado
+          - name: frete_gratis_produtosids
+            type: text
+            value: ""
+            disabled: true
+            description: IDs de produtos separados por virgula aos quais a regra de frete_gratis_produtoregra se aplica; obrigatorio quando frete_gratis_produtoregra for diferente de "N"
+          - name: frete_gratis_produtoregra
+            type: text
+            value: N
+            description: '"N" (usa apenas frete_gratis_minimo), "ONLY" (frete gratis se o carrinho tiver ao menos 1 produto de frete_gratis_produtosids - substitui a checagem por valor minimo) ou "NOT ONLY" (frete gratis se o carrinho nao tiver nenhum produto da lista)'
+          - name: produtoregra
+            type: text
+            value: N
+            description: '"N" (zona sempre disponivel), "ONLY" (zona so fica disponivel se TODOS os itens do carrinho estiverem em produtosids) ou "NOT ONLY" (zona so fica disponivel se NENHUM item do carrinho estiver em produtosids)'
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.27.3
+        - name: date
+          value: Wed, 29 Jul 2026 16:21:31 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785356491"
+        - name: strict-transport-security
+          value: "Strict-Transport-Security: max-age=31536000; includeSubDomains"
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "zona": {
+              "id": "70",
+              "site_id": "6",
+              "servico_id": "17",
+              "nome": "Ate 2 KM",
+              "bairro": null,
+              "bairro_custom": "N",
+              "cidade_id": null,
+              "uf": null,
+              "bairro_id": null,
+              "km": "2",
+              "cep_ini": null,
+              "cep_fim": null,
+              "frete_gratis": "N",
+              "frete_gratis_minimo": "0",
+              "frete_gratis_produtoregra": "N",
+              "frete_gratis_produtosids": "",
+              "produtoregra": "N",
+              "produtosids": "",
+              "prazo_unidade": "minuto",
+              "prazo_qtde": "75",
+              "prazo_desc": null,
+              "valor_fixo": "S",
+              "valor": "5"
+            }
+          }

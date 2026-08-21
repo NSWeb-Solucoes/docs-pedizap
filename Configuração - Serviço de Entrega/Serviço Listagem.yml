@@ -1,0 +1,310 @@
+info:
+  name: Serviço Listagem
+  type: http
+  seq: 1
+  tags:
+    - Entrega
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/entrega/servico"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 12:27:15 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: set-cookie
+          value: PHPSESSID=u19nppdgh4i9cbjnvqjtbve4u2; path=/,PHPSESSID=u19nppdgh4i9cbjnvqjtbve4u2; expires=Thu, 30-Jul-2026 12:27:15 GMT; Max-Age=86400; path=/; HttpOnly
+        - name: expires
+          value: Thu, 19 Nov 1981 08:52:00 GMT
+        - name: cache-control
+          value: no-store, no-cache, must-revalidate
+        - name: pragma
+          value: no-cache
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "servicos": [
+              {
+                "id": "18",
+                "site_id": "582",
+                "nome": "Motoboy",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "cep",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": null,
+                "polygonsuspensa": null,
+                "polygoncenter": null,
+                "peso_min": "0",
+                "peso_max": "50",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "N",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "N",
+                "agendamento_diasexibidos": "0",
+                "agendamento_maxdia": "0",
+                "agendamento_maxperiodo": "0",
+                "cep_exclusao": null
+              },
+              {
+                "id": "16",
+                "site_id": "582",
+                "nome": "Motoboy Bairro Personalizado",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "bairro_custom",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": null,
+                "polygonsuspensa": null,
+                "polygoncenter": null,
+                "peso_min": "0",
+                "peso_max": "50",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "N",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "N",
+                "agendamento_diasexibidos": "0",
+                "agendamento_maxdia": "0",
+                "agendamento_maxperiodo": "0",
+                "cep_exclusao": null
+              },
+              {
+                "id": "14",
+                "site_id": "582",
+                "nome": "Motoboy Bauru",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "polygon",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": "[[{\"lat\": -22.325147349455, \"lng\": -48.99009518248105}, {\"lat\": -22.30196962401602, \"lng\": -48.99451320193887}, {\"lat\": -22.28158747433178, \"lng\": -49.0072343819627}, {\"lat\": -22.266459288462688, \"lng\": -49.02672436049703}, {\"lat\": -22.2584097488928, \"lng\": -49.050632358489175}, {\"lat\": -22.2584097488928, \"lng\": -49.07607471853682}, {\"lat\": -22.266459288462688, \"lng\": -49.09998271652897}, {\"lat\": -22.28158747433178, \"lng\": -49.1194726950633}, {\"lat\": -22.30196962401602, \"lng\": -49.132193875087125}, {\"lat\": -22.325147349455, \"lng\": -49.13661189454495}, {\"lat\": -22.34832507489398, \"lng\": -49.132193875087125}, {\"lat\": -22.368707224578223, \"lng\": -49.1194726950633}, {\"lat\": -22.383835410447315, \"lng\": -49.09998271652897}, {\"lat\": -22.3918849500172, \"lng\": -49.07607471853682}, {\"lat\": -22.3918849500172, \"lng\": -49.050632358489175}, {\"lat\": -22.383835410447315, \"lng\": -49.02672436049703}, {\"lat\": -22.368707224578223, \"lng\": -49.0072343819627}, {\"lat\": -22.34832507489398, \"lng\": -48.99451320193887}, {\"lat\": -22.325147349455, \"lng\": -48.99009518248105}]]",
+                "polygonsuspensa": "[]",
+                "polygoncenter": "{\"lat\": -22.325147349455, \"lng\": -49.063353538513}",
+                "peso_min": "0",
+                "peso_max": "7.5",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "N",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "N",
+                "agendamento_diasexibidos": "0",
+                "agendamento_maxdia": "0",
+                "agendamento_maxperiodo": "0",
+                "cep_exclusao": null
+              },
+              {
+                "id": "17",
+                "site_id": "582",
+                "nome": "Motoboy Bauru Agendamento",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "polygon",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": "[[{\"lat\": -22.325147349455285, \"lng\": -49.00065735115292}, {\"lat\": -22.305369023747357, \"lng\": -49.00442739442359}, {\"lat\": -22.287976256016805, \"lng\": -49.01528280137725}, {\"lat\": -22.27506687074185, \"lng\": -49.03191424972655}, {\"lat\": -22.268197930308876, \"lng\": -49.05231574134652}, {\"lat\": -22.268197930308876, \"lng\": -49.07402655525384}, {\"lat\": -22.27506687074185, \"lng\": -49.09442804687381}, {\"lat\": -22.287976256016805, \"lng\": -49.1110594952231}, {\"lat\": -22.305369023747357, \"lng\": -49.12191490217677}, {\"lat\": -22.325147349455285, \"lng\": -49.12568494544744}, {\"lat\": -22.344925675163218, \"lng\": -49.12191490217677}, {\"lat\": -22.362318442893766, \"lng\": -49.1110594952231}, {\"lat\": -22.375227828168725, \"lng\": -49.09442804687381}, {\"lat\": -22.382096768601695, \"lng\": -49.07402655525384}, {\"lat\": -22.382096768601695, \"lng\": -49.05231574134652}, {\"lat\": -22.375227828168725, \"lng\": -49.03191424972655}, {\"lat\": -22.362318442893766, \"lng\": -49.01528280137725}, {\"lat\": -22.344925675163218, \"lng\": -49.00442739442359}, {\"lat\": -22.325147349455285, \"lng\": -49.00065735115292}]]",
+                "polygonsuspensa": "[]",
+                "polygoncenter": "{\"lat\": -22.325147349455285, \"lng\": -49.06317114830018}",
+                "peso_min": "0",
+                "peso_max": "0",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "S",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "S",
+                "agendamento_diasexibidos": "5",
+                "agendamento_maxdia": "10",
+                "agendamento_maxperiodo": "50",
+                "cep_exclusao": null
+              },
+              {
+                "id": "15",
+                "site_id": "582",
+                "nome": "Motoboy Jaú",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "polygon",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": "[[{\"lat\": -22.283378235748653, \"lng\": -48.50593949309172}, {\"lat\": -22.267926418789333, \"lng\": -48.50888395871816}, {\"lat\": -22.25433831899984, \"lng\": -48.51736220958725}, {\"lat\": -22.24425286175378, \"lng\": -48.530351643518514}, {\"lat\": -22.23888650204052, \"lng\": -48.54628554307623}, {\"lat\": -22.23888650204052, \"lng\": -48.56324204481441}, {\"lat\": -22.24425286175378, \"lng\": -48.579175944372125}, {\"lat\": -22.25433831899984, \"lng\": -48.59216537830339}, {\"lat\": -22.267926418789333, \"lng\": -48.60064362917248}, {\"lat\": -22.283378235748653, \"lng\": -48.60358809479892}, {\"lat\": -22.298830052707977, \"lng\": -48.60064362917248}, {\"lat\": -22.312418152497468, \"lng\": -48.59216537830339}, {\"lat\": -22.322503609743528, \"lng\": -48.579175944372125}, {\"lat\": -22.32786996945679, \"lng\": -48.56324204481441}, {\"lat\": -22.32786996945679, \"lng\": -48.54628554307623}, {\"lat\": -22.322503609743528, \"lng\": -48.530351643518514}, {\"lat\": -22.312418152497468, \"lng\": -48.51736220958725}, {\"lat\": -22.298830052707977, \"lng\": -48.50888395871816}, {\"lat\": -22.283378235748653, \"lng\": -48.50593949309172}]]",
+                "polygonsuspensa": "[]",
+                "polygoncenter": "{\"lat\": -22.283378235748653, \"lng\": -48.55476379394532}",
+                "peso_min": "0",
+                "peso_max": "5",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "N",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "N",
+                "agendamento_diasexibidos": "0",
+                "agendamento_maxdia": "0",
+                "agendamento_maxperiodo": "0",
+                "cep_exclusao": null
+              },
+              {
+                "id": "13",
+                "site_id": "582",
+                "nome": "Motoboy Jaú Agendamento",
+                "descricao": "",
+                "icon": "",
+                "zona_tipo": "polygon",
+                "km_cep_origem": "",
+                "retirada": "N",
+                "retirada_endereco": "",
+                "polygonatendida": "[[{\"lat\": -22.289414088697, \"lng\": -48.51638931229843}, {\"lat\": -22.277052635129547, \"lng\": -48.51874498650627}, {\"lat\": -22.26618215529795, \"lng\": -48.52552788005428}, {\"lat\": -22.2581137895011, \"lng\": -48.53591987587571}, {\"lat\": -22.253820701730493, \"lng\": -48.54866754590499}, {\"lat\": -22.253820701730493, \"lng\": -48.56223333300101}, {\"lat\": -22.2581137895011, \"lng\": -48.57498100303028}, {\"lat\": -22.26618215529795, \"lng\": -48.58537299885172}, {\"lat\": -22.277052635129547, \"lng\": -48.59215589239973}, {\"lat\": -22.289414088697, \"lng\": -48.594511566607565}, {\"lat\": -22.301775542264455, \"lng\": -48.59215589239973}, {\"lat\": -22.31264602209605, \"lng\": -48.58537299885172}, {\"lat\": -22.320714387892902, \"lng\": -48.57498100303028}, {\"lat\": -22.325007475663508, \"lng\": -48.56223333300101}, {\"lat\": -22.325007475663508, \"lng\": -48.54866754590499}, {\"lat\": -22.320714387892902, \"lng\": -48.53591987587571}, {\"lat\": -22.31264602209605, \"lng\": -48.52552788005428}, {\"lat\": -22.301775542264455, \"lng\": -48.51874498650627}, {\"lat\": -22.289414088697, \"lng\": -48.51638931229843}]]",
+                "polygonsuspensa": "[]",
+                "polygoncenter": "{\"lat\": -22.289414088697, \"lng\": -48.555450439453}",
+                "peso_min": "0",
+                "peso_max": "4",
+                "aceita_volumosos": "S",
+                "comprimento_max": "0",
+                "largura_max": "0",
+                "altura_max": "0",
+                "soma_max": "0",
+                "ativo": "N",
+                "calcular_cubagem": "N",
+                "fator_cubagem": "0",
+                "seguro": "N",
+                "seguro_acrescimo": "50",
+                "agendamento": "S",
+                "agendamento_diasexibidos": "5",
+                "agendamento_maxdia": "10",
+                "agendamento_maxperiodo": "50",
+                "cep_exclusao": null
+              }
+            ]
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 12:28:56 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: expires
+          value: Thu, 19 Nov 1981 08:52:00 GMT
+        - name: cache-control
+          value: no-store, no-cache, must-revalidate
+        - name: pragma
+          value: no-cache
+        - name: set-cookie
+          value: PHPSESSID=u19nppdgh4i9cbjnvqjtbve4u2; expires=Thu, 30-Jul-2026 12:28:56 GMT; Max-Age=86400; path=/; HttpOnly
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Serviços de entrega/retirada. O campo <code>zona_tipo</code> define como as zonas (sub-recurso <code>/zona</code>) desse serviço calculam o frete: <code>cep</code> (faixa de CEP), <code>km</code> (distância), <code>bairro</code> (bairro cadastrado na base de CEPs), <code>bairro_custom</code> (bairro cadastrado manualmente) ou <code>polygon</code> (área de geolocalização).</p>
+
+  <p><code>zona_tipo</code> não pode ser alterado por PUT depois que o serviço já tiver zonas cadastradas.</p>
+
+  <p>Os campos <code>polygonatendida</code>, <code>polygonsuspensa</code> e <code>polygoncenter</code> (GeoJSON/array de coordenadas) só se aplicam a zona_tipo="polygon" e não fazem parte do formulário padrão acima; consulte o suporte para o formato aceito antes de enviá-los.</p>
+
+  <p><code>cep_exclusao</code>: uma faixa/CEP por linha. Cada linha é um CEP único (<code>NNNNN-NNN</code> ou <code>NNNNNNNN</code>) ou uma faixa <code>cepInicial|cepFinal</code> (nesse caso <code>cepInicial</code> precisa ser menor que <code>cepFinal</code>). Linha inválida retorna 422 com <code>errorlist.cep_exclusao</code> listando o número da linha e o motivo.</p>
+
+  <p>Criar ou editar um serviço (POST/PUT) sincroniza automaticamente a configuração de frete da loja: se <code>lojaConfig.frete</code> não estiver como <code>frete_calculado</code> ou <code>frete_metodos</code> não incluir <code>custom</code>, ambos são ajustados e salvos — do contrário o serviço fica configurado mas invisível no checkout. Isso acontece em toda gravação, não só quando <code>ativo</code> muda.</p>

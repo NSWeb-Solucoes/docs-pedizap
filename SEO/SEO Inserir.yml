@@ -1,0 +1,269 @@
+info:
+  name: SEO Inserir
+  type: http
+  seq: 3
+  tags:
+    - SEO
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/seotool"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  body:
+    type: form-urlencoded
+    data:
+      - name: item_type
+        value: 'content'
+        description: 'Tipo do item (obrigatorio). Ver lista na descricao'
+      - name: item_id
+        value: '258'
+        description: 'Id do item. Obrigatorio, exceto para "custom" e "redirect"'
+      - name: custom_link
+        value: 'Y'
+        description: '"Y"/"N" - liga o link personalizado'
+      - name: link
+        value: '/minha-url'
+        description: 'URL personalizada de origem. Obrigatoria quando custom_link = "Y"'
+      - name: link_destino
+        value: ''
+        description: 'URL de destino. Usada apenas em item_type "custom" e "redirect"'
+      - name: sitemap
+        value: 'Y'
+        description: '"Y"/"N" (default "Y") - indexar em buscadores'
+      - name: meta_title
+        value: ''
+        description: 'Meta title da pagina'
+      - name: meta_appendtitle
+        value: 'N'
+        description: '"Y"/"N" - concatena com o titulo padrao do site'
+      - name: meta_description
+        value: ''
+        description: 'Meta description da pagina'
+      - name: meta_keywords
+        value: ''
+        description: 'Palavras chave separadas por virgula'
+      - name: og_title
+        value: ''
+        description: 'OpenGraph title'
+      - name: og_description
+        value: ''
+        description: 'OpenGraph description'
+      - name: og_image
+        value: ''
+        description: 'Caminho da imagem de OpenGraph na galeria de midia'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: item_type
+            value: ''
+            description: 'Tipo do item (obrigatorio). Ver lista na descricao'
+          - name: item_id
+            value: ''
+            description: 'Id do item. Obrigatorio, exceto para "custom" e "redirect"'
+          - name: custom_link
+            value: ''
+            description: '"Y"/"N" - liga o link personalizado'
+          - name: link
+            value: ''
+            description: 'URL personalizada de origem. Obrigatoria quando custom_link = "Y"'
+          - name: link_destino
+            value: ''
+            description: 'URL de destino. Usada apenas em item_type "custom" e "redirect"'
+          - name: sitemap
+            value: ''
+            description: '"Y"/"N" (default "Y") - indexar em buscadores'
+          - name: meta_title
+            value: ''
+            description: 'Meta title da pagina'
+          - name: meta_appendtitle
+            value: ''
+            description: '"Y"/"N" - concatena com o titulo padrao do site'
+          - name: meta_description
+            value: ''
+            description: 'Meta description da pagina'
+          - name: meta_keywords
+            value: ''
+            description: 'Palavras chave separadas por virgula'
+          - name: og_title
+            value: ''
+            description: 'OpenGraph title'
+          - name: og_description
+            value: ''
+            description: 'OpenGraph description'
+          - name: og_image
+            value: ''
+            description: 'Caminho da imagem de OpenGraph na galeria de midia'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","seo":{"id":"10066","site_id":"109","item_type":"content_category","item_id":"361","custom_meta":"Y","custom_link":"Y","sitemap":"Y","link":"\/promo-api-teste","link_destino":"\/site\/conteudo\/categoria-api-teste","meta_title":"SEO Categoria API","meta_appendtitle":"N","meta_description":null,"meta_keywords":null,"custom_og":"N","og_title":null,"og_description":null,"og_image":null,"admin_link":"\/cms\/seotool\/form\/item_type\/seotool\/item_id\/10066"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: item_type
+            value: ''
+            description: 'Tipo do item (obrigatorio). Ver lista na descricao'
+          - name: item_id
+            value: ''
+            description: 'Id do item. Obrigatorio, exceto para "custom" e "redirect"'
+          - name: custom_link
+            value: ''
+            description: '"Y"/"N" - liga o link personalizado'
+          - name: link
+            value: ''
+            description: 'URL personalizada de origem. Obrigatoria quando custom_link = "Y"'
+          - name: link_destino
+            value: ''
+            description: 'URL de destino. Usada apenas em item_type "custom" e "redirect"'
+          - name: sitemap
+            value: ''
+            description: '"Y"/"N" (default "Y") - indexar em buscadores'
+          - name: meta_title
+            value: ''
+            description: 'Meta title da pagina'
+          - name: meta_appendtitle
+            value: ''
+            description: '"Y"/"N" - concatena com o titulo padrao do site'
+          - name: meta_description
+            value: ''
+            description: 'Meta description da pagina'
+          - name: meta_keywords
+            value: ''
+            description: 'Palavras chave separadas por virgula'
+          - name: og_title
+            value: ''
+            description: 'OpenGraph title'
+          - name: og_description
+            value: ''
+            description: 'OpenGraph description'
+          - name: og_image
+            value: ''
+            description: 'Caminho da imagem de OpenGraph na galeria de midia'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/seotool"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: item_type
+            value: ''
+            description: 'Tipo do item (obrigatorio). Ver lista na descricao'
+          - name: item_id
+            value: ''
+            description: 'Id do item. Obrigatorio, exceto para "custom" e "redirect"'
+          - name: custom_link
+            value: ''
+            description: '"Y"/"N" - liga o link personalizado'
+          - name: link
+            value: ''
+            description: 'URL personalizada de origem. Obrigatoria quando custom_link = "Y"'
+          - name: link_destino
+            value: ''
+            description: 'URL de destino. Usada apenas em item_type "custom" e "redirect"'
+          - name: sitemap
+            value: ''
+            description: '"Y"/"N" (default "Y") - indexar em buscadores'
+          - name: meta_title
+            value: ''
+            description: 'Meta title da pagina'
+          - name: meta_appendtitle
+            value: ''
+            description: '"Y"/"N" - concatena com o titulo padrao do site'
+          - name: meta_description
+            value: ''
+            description: 'Meta description da pagina'
+          - name: meta_keywords
+            value: ''
+            description: 'Palavras chave separadas por virgula'
+          - name: og_title
+            value: ''
+            description: 'OpenGraph title'
+          - name: og_description
+            value: ''
+            description: 'OpenGraph description'
+          - name: og_image
+            value: ''
+            description: 'Caminho da imagem de OpenGraph na galeria de midia'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Este item j\u00e1 possui configura\u00e7\u00e3o de SEO (id 10066), utilize PUT para alterar."}'
+
+docs: |-
+  <p>Os registros de SEO são polimórficos, identificados pelo par
+  <strong>item_type</strong> + <strong>item_id</strong>. Valores aceitos em <code>item_type</code>:</p>
+
+  <ul>
+      <li><code>content</code>, <code>content_category</code></li>
+      <li><code>product</code>, <code>product_category</code>, <code>product_grupo</code>, <code>product_manufacturer</code></li>
+      <li><code>anuncio_category</code></li>
+      <li><code>veiculo</code>, <code>veiculo_tipo</code>, <code>veiculo_marca</code></li>
+      <li><code>custom</code>, <code>redirect</code> — não usam <code>item_id</code></li>
+  </ul>
+
+  <p><strong>link x link_destino:</strong> <code>link</code> é a URL bonita de origem e
+  <code>link_destino</code> é a URL real de destino. Para os itens do catálogo o
+  <code>link_destino</code> é calculado automaticamente a partir do próprio item — só é informado
+  manualmente em <code>custom</code> e <code>redirect</code>.</p>
+
+  <p>Cada item pode ter apenas um registro de SEO. Os blocos <code>custom_meta</code> e
+  <code>custom_og</code> são ligados automaticamente quando algum campo do bloco é informado.</p>

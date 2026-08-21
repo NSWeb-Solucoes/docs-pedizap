@@ -1,0 +1,294 @@
+info:
+  name: Período Inserir
+  type: http
+  seq: 3
+  tags:
+    - Entrega
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  body:
+    type: multipart-form
+    data:
+      - name: hora_ini
+        type: text
+        value: 21:00
+        description: Hora de inicio do periodo, formato HH:mm
+      - name: hora_fim
+        type: text
+        value: 22:00
+        description: Hora de fim do periodo, formato HH:mm
+      - name: descricao
+        type: text
+        value: awdawdadwadwadw
+        description: Descricao do periodo (obrigatorio)
+      - name: dom
+        type: text
+        value: ""
+        description: '"1" disponivel aos domingos; "0"/vazio indisponivel'
+      - name: seg
+        type: text
+        value: ""
+        description: '"1" disponivel as segundas; "0"/vazio indisponivel'
+        disabled: true
+      - name: ter
+        type: text
+        value: ""
+        description: '"1" disponivel as tercas; "0"/vazio indisponivel'
+        disabled: true
+      - name: qua
+        type: text
+        value: ""
+        description: '"1" disponivel as quartas; "0"/vazio indisponivel'
+        disabled: true
+      - name: qui
+        type: text
+        value: ""
+        description: '"1" disponivel as quintas; "0"/vazio indisponivel'
+        disabled: true
+      - name: sex
+        type: text
+        value: ""
+        description: '"1" disponivel as sextas; "0"/vazio indisponivel'
+        disabled: true
+      - name: sab
+        type: text
+        value: ""
+        description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
+        disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: hora_ini
+            type: text
+            value: 21:00
+            description: Hora de inicio do periodo, formato HH:mm
+          - name: hora_fim
+            type: text
+            value: 22:00
+            description: Hora de fim do periodo, formato HH:mm
+          - name: descricao
+            type: text
+            value: awdawdadwadwadw
+            description: Descricao do periodo (obrigatorio)
+          - name: dom
+            type: text
+            value: ""
+            description: '"1" disponivel aos domingos; "0"/vazio indisponivel'
+          - name: seg
+            type: text
+            value: ""
+            description: '"1" disponivel as segundas; "0"/vazio indisponivel'
+            disabled: true
+          - name: ter
+            type: text
+            value: ""
+            description: '"1" disponivel as tercas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qua
+            type: text
+            value: ""
+            description: '"1" disponivel as quartas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qui
+            type: text
+            value: ""
+            description: '"1" disponivel as quintas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sex
+            type: text
+            value: ""
+            description: '"1" disponivel as sextas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sab
+            type: text
+            value: ""
+            description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
+            disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 14:13:56 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785348836"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "periodo": {
+              "id": "35",
+              "site_id": "582",
+              "servico_id": "19",
+              "descricao": "awdawdadwadwadw",
+              "hora_ini": "21:00",
+              "hora_fim": "22:00",
+              "seg": "0",
+              "ter": "0",
+              "qua": "0",
+              "qui": "0",
+              "sex": "0",
+              "sab": "0",
+              "dom": "0",
+              "published": "Y",
+              "priority": "0"
+            }
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: hora_ini
+            type: text
+            value: 21:00
+            description: Hora de inicio do periodo, formato HH:mm
+            disabled: true
+          - name: hora_fim
+            type: text
+            value: 22:00
+            description: Hora de fim do periodo, formato HH:mm
+          - name: descricao
+            type: text
+            value: awdawdadwadwadw
+            description: Descricao do periodo (obrigatorio)
+          - name: dom
+            type: text
+            value: ""
+            description: '"1" disponivel aos domingos; "0"/vazio indisponivel'
+          - name: seg
+            type: text
+            value: ""
+            description: '"1" disponivel as segundas; "0"/vazio indisponivel'
+            disabled: true
+          - name: ter
+            type: text
+            value: ""
+            description: '"1" disponivel as tercas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qua
+            type: text
+            value: ""
+            description: '"1" disponivel as quartas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qui
+            type: text
+            value: ""
+            description: '"1" disponivel as quintas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sex
+            type: text
+            value: ""
+            description: '"1" disponivel as sextas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sab
+            type: text
+            value: ""
+            description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
+            disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 14:14:34 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785348874"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'

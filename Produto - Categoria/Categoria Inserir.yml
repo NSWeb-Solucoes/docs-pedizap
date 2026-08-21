@@ -1,0 +1,241 @@
+info:
+  name: Categoria Inserir
+  type: http
+  seq: 3
+  tags:
+    - Categorias
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/categoria"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: multipart-form
+    data:
+      - name: name
+        type: text
+        value: Abu
+        description: Nome da categoria (obrigatorio)
+      - name: description
+        type: text
+        value: ""
+        description: Descricao da categoria (opcional)
+      - name: parent_id
+        type: text
+        value: "1"
+        description: ID da categoria pai; se omitido e a categoria for criada via URL aninhada, usa o id da URL
+      - name: friendly_url
+        type: text
+        value: ""
+        description: URL amigavel da categoria; gerada automaticamente a partir do name se nao for enviada
+      - name: published
+        type: text
+        value: ""
+        description: '"Y" ou "N" (default "Y")'
+      - name: count
+        type: text
+        value: ""
+        description: Quantidade de produtos exibidos por pagina na categoria
+      - name: result_order
+        type: text
+        value: ""
+        description: 'Ordenacao padrao dos produtos na categoria (ex: "name ASC", "priority ASC", "code ASC", "price ASC", "price DESC", "created DESC", "created ASC"); default "name ASC"'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: name
+            type: text
+            value: ""
+            description: Nome da categoria (obrigatorio)
+          - name: description
+            type: text
+            value: ""
+            description: Descricao da categoria (opcional)
+          - name: parent_id
+            type: text
+            value: ""
+            description: ID da categoria pai; se omitido e a categoria for criada via URL aninhada, usa o id da URL
+          - name: friendly_url
+            type: text
+            value: ""
+            description: URL amigavel da categoria; gerada automaticamente a partir do name se nao for enviada
+          - name: published
+            type: text
+            value: ""
+            description: '"Y" ou "N" (default "Y")'
+          - name: priority
+            type: text
+            value: ""
+          - name: count
+            type: text
+            value: ""
+            description: Quantidade de produtos exibidos por pagina na categoria
+          - name: result_order
+            type: text
+            value: ""
+            description: 'Ordenacao padrao dos produtos na categoria (ex: "name ASC", "priority ASC", "code ASC", "price ASC", "price DESC", "created DESC", "created ASC"); default "name ASC"'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","category":{"id":"7","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Teste Nova Categoria","friendly_url":"teste-nova-categoria02","friendly_url_path":null,"icon":"","image":"","description":"Descri\u00e7\u00e3o da categoria teste","google_category":"","cashback_multiplier":null,"result_order":"name ASC","count":"20","priority":"8","prodqtde":"0","prodqtde_active":"0","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-07-17 10:44:23","lastupdate":"2026-07-17 10:44:23"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: name
+            type: text
+            value: ""
+            description: Nome da categoria (obrigatorio)
+          - name: description
+            type: text
+            value: ""
+            description: Descricao da categoria (opcional)
+          - name: parent_id
+            type: text
+            value: ""
+            description: ID da categoria pai; se omitido e a categoria for criada via URL aninhada, usa o id da URL
+          - name: friendly_url
+            type: text
+            value: ""
+            description: URL amigavel da categoria; gerada automaticamente a partir do name se nao for enviada
+          - name: published
+            type: text
+            value: ""
+            description: '"Y" ou "N" (default "Y")'
+          - name: priority
+            type: text
+            value: ""
+          - name: count
+            type: text
+            value: ""
+            description: Quantidade de produtos exibidos por pagina na categoria
+          - name: result_order
+            type: text
+            value: ""
+            description: 'Ordenacao padrao dos produtos na categoria (ex: "name ASC", "priority ASC", "code ASC", "price ASC", "price DESC", "created DESC", "created ASC"); default "name ASC"'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: name
+            type: text
+            value: ""
+            description: Nome da categoria (obrigatorio)
+          - name: description
+            type: text
+            value: ""
+            description: Descricao da categoria (opcional)
+          - name: parent_id
+            type: text
+            value: ""
+            description: ID da categoria pai; se omitido e a categoria for criada via URL aninhada, usa o id da URL
+          - name: friendly_url
+            type: text
+            value: ""
+            description: URL amigavel da categoria; gerada automaticamente a partir do name se nao for enviada
+          - name: published
+            type: text
+            value: ""
+            description: '"Y" ou "N" (default "Y")'
+          - name: priority
+            type: text
+            value: ""
+          - name: count
+            type: text
+            value: ""
+            description: Quantidade de produtos exibidos por pagina na categoria
+          - name: result_order
+            type: text
+            value: ""
+            description: 'Ordenacao padrao dos produtos na categoria (ex: "name ASC", "priority ASC", "code ASC", "price ASC", "price DESC", "created DESC", "created ASC"); default "name ASC"'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","errorlist":{"name":["Nome n\u00e3o preenchido !"]}}'
+
+docs: |-
+  <p>Para inserir uma nova categoria, o nome dela deve ser passado pelo body com a chave <code>name</code></p>
+
+  <p>Alguns comportamentos automáticos quando os campos não são enviados:</p>
+  <ul>
+    <li><code>friendly_url</code>: gerada a partir do <code>name</code> se não for enviada.</li>
+    <li><code>parent_id</code>: quando a categoria é criada como filha via URL aninhada, usa o id da URL como padrão.</li>
+    <li><code>result_order</code>: padrão <code>"name ASC"</code>.</li>
+    <li><code>published</code>: padrão <code>"Y"</code>.</li>
+  </ul>
+
+  <p>Outros campos do formulário não presentes no exemplo, todos opcionais: <code>icon, image, google_category, cashback_multiplier</code>.</p>
+
+  Valores possiveis no **result_order**:
+
+  - name ASC - Nome dos produtos em ordem albabetica.
+      
+  - code ASC - Codigo SKU dos produto em ordem crescente.
+      
+  - price ASC - Preço dos produtos menor pro maior.
+      
+  - price DESC - Preço dos produtos maior pro menor.
+      
+  - created DESC - Produtos recém cadatrados.
+      
+  - created ASC - Produtos mais antigos.

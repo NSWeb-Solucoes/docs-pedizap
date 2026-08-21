@@ -1,0 +1,152 @@
+info:
+  name: Galeria Inserir Foto por HTTP Upload
+  type: http
+  seq: 4
+  tags:
+    - Conteúdos
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+  headers:
+    - name: Content-Type
+      value: "multipart/form-data"
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: conteudoId
+      value: "{{conteudoId}}"
+      type: path
+  body:
+    type: multipart-form
+    data:
+      - name: photo_file
+        type: text
+        value: ''
+        description: 'Arquivo de imagem enviado via upload multipart'
+      - name: description
+        type: text
+        value: ''
+        description: 'Legenda/descricao da foto (opcional)'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: "multipart/form-data"
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: photo_file
+            type: text
+            value: ''
+            description: 'Arquivo de imagem enviado via upload multipart'
+          - name: description
+            type: text
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","foto":{"id":"632","site_id":"109","content_id":"257","file_name":"photo_257_6a81e26d9893e.png","file_name_import":null,"description":"Legenda da foto","priority":"1","url":"\/custom\/109\/uploads\/album\/257\/photo_257_6a81e26d9893e.png"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: "multipart/form-data"
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: photo_file
+            type: text
+            value: ''
+            description: 'Arquivo de imagem enviado via upload multipart'
+          - name: description
+            type: text
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/content/:conteudoId/fotos"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: "multipart/form-data"
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: conteudoId
+          value: "{{conteudoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: photo_file
+            type: text
+            value: ''
+            description: 'Arquivo de imagem enviado via upload multipart'
+          - name: description
+            type: text
+            value: ''
+            description: 'Legenda/descricao da foto (opcional)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Conte\u00fado n\u00e3o informado, n\u00e3o encontrado ou atributo \"content_id\" faltando."}'
+
+docs: |-
+  <p>Extensões aceitas: <code>gif</code>, <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>webp</code>.</p>

@@ -1,0 +1,7 @@
+info:
+  name: Conteúdo - Campos Extras
+  type: folder
+  seq: 21
+
+request:
+  auth: inherit

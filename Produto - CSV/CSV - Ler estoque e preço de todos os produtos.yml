@@ -1,0 +1,122 @@
+info:
+  name: CSV - Ler estoque e preço de todos os produtos
+  type: http
+  seq: 1
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/produto/csv"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: pricetable_id
+      value: ""
+      type: query
+      description: Optional - filtra o export por uma tabela de preço específica
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/csv"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/csv;charset=ISO-8859-1
+      body:
+        type: text
+        data: |
+          "code";"price";"price_promo";"estoque_quantidade"
+          "prod-000017";"6";"";"0"
+          "prod-000031";"6";"";"0"
+          "prod-000018";"4";"";"0"
+          "prod-000019";"0";"";"0"
+          "prod-000022";"7";"";"0"
+          "prod-000020";"7";"";"0"
+          "prod-000033";"6";"";"0"
+          "prod-000021";"7";"";"0"
+          "prod-000002";"7";"";"0"
+          "prod-000015";"0";"";"0"
+          "prod-000014";"0";"";"0"
+          "prod-000016";"0";"";"0"
+          "prod-000040";"15";"";"0"
+          "prod-000001";"8";"";"0"
+          "prod-000023";"29";"";"0"
+          "prod-000003";"281";"3.99";"7"
+          "prod-000004";"21";"";"0"
+          "prod-000005";"29";"";"0"
+          "prod-000006";"9";"";"0"
+          "prod-000007";"38";"";"0"
+          "prod-000008";"25";"";"0"
+          "prod-000009";"8";"";"0"
+          "prod-000010";"125";"";"0"
+          "prod-000013";"37";"";"0"
+          "prod-000011";"29";"";"0"
+          "prod-000012";"9.5";"";"0"
+          "prod-000030";"155";"";"0"
+          "prod-000038";"252";"";"0"
+          "prod-000029";"135";"";"0"
+          "prod-000035";"122";"";"0"
+          "prod-000039";"185";"";"0"
+          "prod-000034";"105";"";"0"
+          "prod-000024";"0.5";"";"0"
+          "prod-000025";"9";"";"0"
+          "prod-000026";"1";"";"0"
+          "prod-000028";"12";"";"0"
+          "prod-000037";"15";"";"0"
+          "prod-000036";"10";"";"0"
+          "prod-000027";"3";"";"0"
+          "123456789";"0.5";"0";"0"
+          "cartao1";"470";"";"0"
+          "00000000000000000306";"281";"3.99";"7"
+          "00000000000000000010";"254.9";"0";"20"
+          "00000000000000000010";"0";"0";"0"
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/csv"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Retorna uma string CSV contendo as colunas code;price;price_promo;estoque_quantidade.</p>
+
+  <p>Este mesmo layout poderá ser submitado via POST neste mesmo método para atualizar os dados em lote.</p>
+
+  <p>Todos os produtos devem estar com o campo Código/SKU corretamente preenchido.</p>
+
+  <p>Parâmetro opcional <code>pricetable_id</code> (query string) filtra o export pelos preços de uma tabela de preço específica em vez do preço padrão do produto.</p>

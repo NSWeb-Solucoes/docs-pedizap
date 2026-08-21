@@ -1,0 +1,2813 @@
+info:
+  name: Zona Bairro Menu
+  type: http
+  seq: 8
+  tags:
+    - Entrega
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu?uf={{uf}}&cidade={{cidadeId}}"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: uf
+      value: "{{uf}}"
+      type: query
+    - name: cidade
+      value: "{{cidadeId}}"
+      type: query
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu?uf={{uf}}&cidade={{cidadeId}}"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+        - name: uf
+          value: "{{uf}}"
+          type: query
+        - name: cidade
+          value: "{{cidadeId}}"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:15:47 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431747"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "return": {
+              "bairros": [
+                {
+                  "bairro_id": "5840",
+                  "bairro": "Ana Dias",
+                  "latitude": "-24.30275",
+                  "longitude": "-47.07045",
+                  "cidade_id": "55",
+                  "estado": "SP",
+                  "cidade": "Itariri"
+                },
+                {
+                  "bairro_id": "5839",
+                  "bairro": "Centro",
+                  "latitude": "-24.29092",
+                  "longitude": "-47.17479",
+                  "cidade_id": "55",
+                  "estado": "SP",
+                  "cidade": "Itariri"
+                }
+              ],
+              "cidades": [
+                {
+                  "id_cidade": "492",
+                  "cidade": "Adamantina"
+                },
+                {
+                  "id_cidade": "294",
+                  "cidade": "Adolfo"
+                },
+                {
+                  "id_cidade": "186",
+                  "cidade": "Aguaí"
+                },
+                {
+                  "id_cidade": "189",
+                  "cidade": "Águas da Prata"
+                },
+                {
+                  "id_cidade": "193",
+                  "cidade": "Águas de Lindóia"
+                },
+                {
+                  "id_cidade": "580",
+                  "cidade": "Águas de Santa Bárbara"
+                },
+                {
+                  "id_cidade": "153",
+                  "cidade": "Águas de São Pedro"
+                },
+                {
+                  "id_cidade": "440",
+                  "cidade": "Agudos"
+                },
+                {
+                  "id_cidade": "523",
+                  "cidade": "Alambari"
+                },
+                {
+                  "id_cidade": "599",
+                  "cidade": "Alfredo Marcondes"
+                },
+                {
+                  "id_cidade": "322",
+                  "cidade": "Altair"
+                },
+                {
+                  "id_cidade": "215",
+                  "cidade": "Altinópolis"
+                },
+                {
+                  "id_cidade": "410",
+                  "cidade": "Alto Alegre"
+                },
+                {
+                  "id_cidade": "512",
+                  "cidade": "Alumínio"
+                },
+                {
+                  "id_cidade": "334",
+                  "cidade": "Álvares Florence"
+                },
+                {
+                  "id_cidade": "598",
+                  "cidade": "Álvares Machado"
+                },
+                {
+                  "id_cidade": "461",
+                  "cidade": "Álvaro de Carvalho"
+                },
+                {
+                  "id_cidade": "463",
+                  "cidade": "Alvinlândia"
+                },
+                {
+                  "id_cidade": "145",
+                  "cidade": "Americana"
+                },
+                {
+                  "id_cidade": "257",
+                  "cidade": "Américo Brasiliense"
+                },
+                {
+                  "id_cidade": "335",
+                  "cidade": "Américo de Campos"
+                },
+                {
+                  "id_cidade": "190",
+                  "cidade": "Amparo"
+                },
+                {
+                  "id_cidade": "157",
+                  "cidade": "Analândia"
+                },
+                {
+                  "id_cidade": "434",
+                  "cidade": "Andradina"
+                },
+                {
+                  "id_cidade": "526",
+                  "cidade": "Angatuba"
+                },
+                {
+                  "id_cidade": "565",
+                  "cidade": "Anhembi"
+                },
+                {
+                  "id_cidade": "623",
+                  "cidade": "Anhumas"
+                },
+                {
+                  "id_cidade": "90",
+                  "cidade": "Aparecida"
+                },
+                {
+                  "id_cidade": "356",
+                  "cidade": "Aparecida DOeste"
+                },
+                {
+                  "id_cidade": "538",
+                  "cidade": "Apiaí"
+                },
+                {
+                  "id_cidade": "514",
+                  "cidade": "Araçariguama"
+                },
+                {
+                  "id_cidade": "397",
+                  "cidade": "Araçatuba"
+                },
+                {
+                  "id_cidade": "520",
+                  "cidade": "Araçoiaba da Serra"
+                },
+                {
+                  "id_cidade": "230",
+                  "cidade": "Aramina"
+                },
+                {
+                  "id_cidade": "574",
+                  "cidade": "Arandu"
+                },
+                {
+                  "id_cidade": "103",
+                  "cidade": "Arapeí"
+                },
+                {
+                  "id_cidade": "254",
+                  "cidade": "Araraquara"
+                },
+                {
+                  "id_cidade": "161",
+                  "cidade": "Araras"
+                },
+                {
+                  "id_cidade": "479",
+                  "cidade": "Arco-Íris"
+                },
+                {
+                  "id_cidade": "442",
+                  "cidade": "Arealva"
+                },
+                {
+                  "id_cidade": "100",
+                  "cidade": "Areias"
+                },
+                {
+                  "id_cidade": "569",
+                  "cidade": "Areiópolis"
+                },
+                {
+                  "id_cidade": "393",
+                  "cidade": "Ariranha"
+                },
+                {
+                  "id_cidade": "117",
+                  "cidade": "Artur Nogueira"
+                },
+                {
+                  "id_cidade": "19",
+                  "cidade": "Arujá"
+                },
+                {
+                  "id_cidade": "363",
+                  "cidade": "Aspásia"
+                },
+                {
+                  "id_cidade": "634",
+                  "cidade": "Assis"
+                },
+                {
+                  "id_cidade": "107",
+                  "cidade": "Atibaia"
+                },
+                {
+                  "id_cidade": "311",
+                  "cidade": "Auriflama"
+                },
+                {
+                  "id_cidade": "427",
+                  "cidade": "Avaí"
+                },
+                {
+                  "id_cidade": "413",
+                  "cidade": "Avanhandava"
+                },
+                {
+                  "id_cidade": "573",
+                  "cidade": "Avaré"
+                },
+                {
+                  "id_cidade": "279",
+                  "cidade": "Bady Bassitt"
+                },
+                {
+                  "id_cidade": "423",
+                  "cidade": "Balbinos"
+                },
+                {
+                  "id_cidade": "282",
+                  "cidade": "Bálsamo"
+                },
+                {
+                  "id_cidade": "102",
+                  "cidade": "Bananal"
+                },
+                {
+                  "id_cidade": "553",
+                  "cidade": "Barão de Antonina"
+                },
+                {
+                  "id_cidade": "412",
+                  "cidade": "Barbosa"
+                },
+                {
+                  "id_cidade": "448",
+                  "cidade": "Bariri"
+                },
+                {
+                  "id_cidade": "455",
+                  "cidade": "Barra Bonita"
+                },
+                {
+                  "id_cidade": "539",
+                  "cidade": "Barra do Chapéu"
+                },
+                {
+                  "id_cidade": "66",
+                  "cidade": "Barra do Turvo"
+                },
+                {
+                  "id_cidade": "251",
+                  "cidade": "Barretos"
+                },
+                {
+                  "id_cidade": "263",
+                  "cidade": "Barrinha"
+                },
+                {
+                  "id_cidade": "4",
+                  "cidade": "Barueri"
+                },
+                {
+                  "id_cidade": "483",
+                  "cidade": "Bastos"
+                },
+                {
+                  "id_cidade": "213",
+                  "cidade": "Batatais"
+                },
+                {
+                  "id_cidade": "439",
+                  "cidade": "Bauru"
+                },
+                {
+                  "id_cidade": "240",
+                  "cidade": "Bebedouro"
+                },
+                {
+                  "id_cidade": "430",
+                  "cidade": "Bento de Abreu"
+                },
+                {
+                  "id_cidade": "594",
+                  "cidade": "Bernardino de Campos"
+                },
+                {
+                  "id_cidade": "43",
+                  "cidade": "Bertioga"
+                },
+                {
+                  "id_cidade": "400",
+                  "cidade": "Bilac"
+                },
+                {
+                  "id_cidade": "399",
+                  "cidade": "Birigüi"
+                },
+                {
+                  "id_cidade": "32",
+                  "cidade": "Biritiba-Mirim"
+                },
+                {
+                  "id_cidade": "268",
+                  "cidade": "Boa Esperança do Sul"
+                },
+                {
+                  "id_cidade": "447",
+                  "cidade": "Bocaina"
+                },
+                {
+                  "id_cidade": "563",
+                  "cidade": "Bofete"
+                },
+                {
+                  "id_cidade": "559",
+                  "cidade": "Boituva"
+                },
+                {
+                  "id_cidade": "108",
+                  "cidade": "Bom Jesus dos Perdões"
+                },
+                {
+                  "id_cidade": "551",
+                  "cidade": "Bom Sucesso de Itararé"
+                },
+                {
+                  "id_cidade": "630",
+                  "cidade": "Borá"
+                },
+                {
+                  "id_cidade": "450",
+                  "cidade": "Boracéia"
+                },
+                {
+                  "id_cidade": "271",
+                  "cidade": "Borborema"
+                },
+                {
+                  "id_cidade": "570",
+                  "cidade": "Borebi"
+                },
+                {
+                  "id_cidade": "564",
+                  "cidade": "Botucatu"
+                },
+                {
+                  "id_cidade": "104",
+                  "cidade": "Bragança Paulista"
+                },
+                {
+                  "id_cidade": "408",
+                  "cidade": "Braúna"
+                },
+                {
+                  "id_cidade": "406",
+                  "cidade": "Brejo Alegre"
+                },
+                {
+                  "id_cidade": "214",
+                  "cidade": "Brodowski"
+                },
+                {
+                  "id_cidade": "459",
+                  "cidade": "Brotas"
+                },
+                {
+                  "id_cidade": "534",
+                  "cidade": "Buri"
+                },
+                {
+                  "id_cidade": "303",
+                  "cidade": "Buritama"
+                },
+                {
+                  "id_cidade": "231",
+                  "cidade": "Buritizal"
+                },
+                {
+                  "id_cidade": "469",
+                  "cidade": "Cabrália Paulista"
+                },
+                {
+                  "id_cidade": "133",
+                  "cidade": "Cabreúva"
+                },
+                {
+                  "id_cidade": "79",
+                  "cidade": "Caçapava"
+                },
+                {
+                  "id_cidade": "95",
+                  "cidade": "Cachoeira Paulista"
+                },
+                {
+                  "id_cidade": "175",
+                  "cidade": "Caconde"
+                },
+                {
+                  "id_cidade": "420",
+                  "cidade": "Cafelândia"
+                },
+                {
+                  "id_cidade": "620",
+                  "cidade": "Caiabu"
+                },
+                {
+                  "id_cidade": "22",
+                  "cidade": "Caieiras"
+                },
+                {
+                  "id_cidade": "617",
+                  "cidade": "Caiuá"
+                },
+                {
+                  "id_cidade": "23",
+                  "cidade": "Cajamar"
+                },
+                {
+                  "id_cidade": "65",
+                  "cidade": "Cajati"
+                },
+                {
+                  "id_cidade": "319",
+                  "cidade": "Cajobi"
+                },
+                {
+                  "id_cidade": "209",
+                  "cidade": "Cajuru"
+                },
+                {
+                  "id_cidade": "527",
+                  "cidade": "Campina do Monte Alegre"
+                },
+                {
+                  "id_cidade": "114",
+                  "cidade": "Campinas"
+                },
+                {
+                  "id_cidade": "124",
+                  "cidade": "Campo Limpo Paulista"
+                },
+                {
+                  "id_cidade": "85",
+                  "cidade": "Campos do Jordão"
+                },
+                {
+                  "id_cidade": "646",
+                  "cidade": "Campos Novos Paulista"
+                },
+                {
+                  "id_cidade": "68",
+                  "cidade": "Cananéia"
+                },
+                {
+                  "id_cidade": "93",
+                  "cidade": "Canas"
+                },
+                {
+                  "id_cidade": "641",
+                  "cidade": "Cândido Mota"
+                },
+                {
+                  "id_cidade": "390",
+                  "cidade": "Cândido Rodrigues"
+                },
+                {
+                  "id_cidade": "596",
+                  "cidade": "Canitar"
+                },
+                {
+                  "id_cidade": "535",
+                  "cidade": "Capão Bonito"
+                },
+                {
+                  "id_cidade": "521",
+                  "cidade": "Capela do Alto"
+                },
+                {
+                  "id_cidade": "137",
+                  "cidade": "Capivari"
+                },
+                {
+                  "id_cidade": "49",
+                  "cidade": "Caraguatatuba"
+                },
+                {
+                  "id_cidade": "3",
+                  "cidade": "Carapicuíba"
+                },
+                {
+                  "id_cidade": "337",
+                  "cidade": "Cardoso"
+                },
+                {
+                  "id_cidade": "169",
+                  "cidade": "Casa Branca"
+                },
+                {
+                  "id_cidade": "211",
+                  "cidade": "Cássia dos Coqueiros"
+                },
+                {
+                  "id_cidade": "435",
+                  "cidade": "Castilho"
+                },
+                {
+                  "id_cidade": "372",
+                  "cidade": "Catanduva"
+                },
+                {
+                  "id_cidade": "382",
+                  "cidade": "Catiguá"
+                },
+                {
+                  "id_cidade": "386",
+                  "cidade": "Cedral"
+                },
+                {
+                  "id_cidade": "579",
+                  "cidade": "Cerqueira César"
+                },
+                {
+                  "id_cidade": "555",
+                  "cidade": "Cerquilho"
+                },
+                {
+                  "id_cidade": "533",
+                  "cidade": "Cesário Lange"
+                },
+                {
+                  "id_cidade": "151",
+                  "cidade": "Charqueada"
+                },
+                {
+                  "id_cidade": "595",
+                  "cidade": "Chavantes"
+                },
+                {
+                  "id_cidade": "404",
+                  "cidade": "Clementina"
+                },
+                {
+                  "id_cidade": "249",
+                  "cidade": "Colina"
+                },
+                {
+                  "id_cidade": "253",
+                  "cidade": "Colômbia"
+                },
+                {
+                  "id_cidade": "183",
+                  "cidade": "Conchal"
+                },
+                {
+                  "id_cidade": "561",
+                  "cidade": "Conchas"
+                },
+                {
+                  "id_cidade": "147",
+                  "cidade": "Cordeirópolis"
+                },
+                {
+                  "id_cidade": "405",
+                  "cidade": "Coroados"
+                },
+                {
+                  "id_cidade": "578",
+                  "cidade": "Coronel Macedo"
+                },
+                {
+                  "id_cidade": "156",
+                  "cidade": "Corumbataí"
+                },
+                {
+                  "id_cidade": "116",
+                  "cidade": "Cosmópolis"
+                },
+                {
+                  "id_cidade": "333",
+                  "cidade": "Cosmorama"
+                },
+                {
+                  "id_cidade": "9",
+                  "cidade": "Cotia"
+                },
+                {
+                  "id_cidade": "202",
+                  "cidade": "Cravinhos"
+                },
+                {
+                  "id_cidade": "224",
+                  "cidade": "Cristais Paulista"
+                },
+                {
+                  "id_cidade": "638",
+                  "cidade": "Cruzália"
+                },
+                {
+                  "id_cidade": "97",
+                  "cidade": "Cruzeiro"
+                },
+                {
+                  "id_cidade": "46",
+                  "cidade": "Cubatão"
+                },
+                {
+                  "id_cidade": "89",
+                  "cidade": "Cunha"
+                },
+                {
+                  "id_cidade": "168",
+                  "cidade": "Descalvado"
+                },
+                {
+                  "id_cidade": "41",
+                  "cidade": "Diadema"
+                },
+                {
+                  "id_cidade": "352",
+                  "cidade": "Dirce Reis"
+                },
+                {
+                  "id_cidade": "176",
+                  "cidade": "Divinolândia"
+                },
+                {
+                  "id_cidade": "395",
+                  "cidade": "Dobrada"
+                },
+                {
+                  "id_cidade": "453",
+                  "cidade": "Dois Córregos"
+                },
+                {
+                  "id_cidade": "357",
+                  "cidade": "Dolcinópolis"
+                },
+                {
+                  "id_cidade": "160",
+                  "cidade": "Dourado"
+                },
+                {
+                  "id_cidade": "500",
+                  "cidade": "Dracena"
+                },
+                {
+                  "id_cidade": "467",
+                  "cidade": "Duartina"
+                },
+                {
+                  "id_cidade": "201",
+                  "cidade": "Dumont"
+                },
+                {
+                  "id_cidade": "636",
+                  "cidade": "Echaporã"
+                },
+                {
+                  "id_cidade": "67",
+                  "cidade": "Eldorado"
+                },
+                {
+                  "id_cidade": "136",
+                  "cidade": "Elias Fausto"
+                },
+                {
+                  "id_cidade": "374",
+                  "cidade": "Elisiário"
+                },
+                {
+                  "id_cidade": "321",
+                  "cidade": "Embaúba"
+                },
+                {
+                  "id_cidade": "12",
+                  "cidade": "Embu das Artes"
+                },
+                {
+                  "id_cidade": "16",
+                  "cidade": "Embu-Guaçu"
+                },
+                {
+                  "id_cidade": "611",
+                  "cidade": "Emilianópolis"
+                },
+                {
+                  "id_cidade": "118",
+                  "cidade": "Engenheiro Coelho"
+                },
+                {
+                  "id_cidade": "197",
+                  "cidade": "Espírito Santo do Pinhal"
+                },
+                {
+                  "id_cidade": "591",
+                  "cidade": "Espírito Santo do Turvo"
+                },
+                {
+                  "id_cidade": "185",
+                  "cidade": "Estiva Gerbi"
+                },
+                {
+                  "id_cidade": "604",
+                  "cidade": "Estrela do Norte"
+                },
+                {
+                  "id_cidade": "344",
+                  "cidade": "Estrela DOeste"
+                },
+                {
+                  "id_cidade": "608",
+                  "cidade": "Euclides da Cunha Paulista"
+                },
+                {
+                  "id_cidade": "588",
+                  "cidade": "Fartura"
+                },
+                {
+                  "id_cidade": "391",
+                  "cidade": "Fernando Prestes"
+                },
+                {
+                  "id_cidade": "339",
+                  "cidade": "Fernandópolis"
+                },
+                {
+                  "id_cidade": "466",
+                  "cidade": "Fernão"
+                },
+                {
+                  "id_cidade": "26",
+                  "cidade": "Ferraz de Vasconcelos"
+                },
+                {
+                  "id_cidade": "497",
+                  "cidade": "Flora Rica"
+                },
+                {
+                  "id_cidade": "308",
+                  "cidade": "Floreal"
+                },
+                {
+                  "id_cidade": "495",
+                  "cidade": "Flórida Paulista"
+                },
+                {
+                  "id_cidade": "640",
+                  "cidade": "Florínea"
+                },
+                {
+                  "id_cidade": "217",
+                  "cidade": "Franca"
+                },
+                {
+                  "id_cidade": "25",
+                  "cidade": "Francisco Morato"
+                },
+                {
+                  "id_cidade": "24",
+                  "cidade": "Franco da Rocha"
+                },
+                {
+                  "id_cidade": "401",
+                  "cidade": "Gabriel Monteiro"
+                },
+                {
+                  "id_cidade": "465",
+                  "cidade": "Gália"
+                },
+                {
+                  "id_cidade": "460",
+                  "cidade": "Garça"
+                },
+                {
+                  "id_cidade": "309",
+                  "cidade": "Gastão Vidigal"
+                },
+                {
+                  "id_cidade": "255",
+                  "cidade": "Gavião Peixoto"
+                },
+                {
+                  "id_cidade": "304",
+                  "cidade": "General Salgado"
+                },
+                {
+                  "id_cidade": "418",
+                  "cidade": "Getulina"
+                },
+                {
+                  "id_cidade": "407",
+                  "cidade": "Glicério"
+                },
+                {
+                  "id_cidade": "416",
+                  "cidade": "Guaiçara"
+                },
+                {
+                  "id_cidade": "419",
+                  "cidade": "Guaimbê"
+                },
+                {
+                  "id_cidade": "252",
+                  "cidade": "Guaíra"
+                },
+                {
+                  "id_cidade": "278",
+                  "cidade": "Guapiaçu"
+                },
+                {
+                  "id_cidade": "536",
+                  "cidade": "Guapiara"
+                },
+                {
+                  "id_cidade": "232",
+                  "cidade": "Guará"
+                },
+                {
+                  "id_cidade": "438",
+                  "cidade": "Guaraçaí"
+                },
+                {
+                  "id_cidade": "320",
+                  "cidade": "Guaraci"
+                },
+                {
+                  "id_cidade": "346",
+                  "cidade": "Guarani DOeste"
+                },
+                {
+                  "id_cidade": "421",
+                  "cidade": "Guarantã"
+                },
+                {
+                  "id_cidade": "428",
+                  "cidade": "Guararapes"
+                },
+                {
+                  "id_cidade": "31",
+                  "cidade": "Guararema"
+                },
+                {
+                  "id_cidade": "87",
+                  "cidade": "Guaratinguetá"
+                },
+                {
+                  "id_cidade": "528",
+                  "cidade": "Guareí"
+                },
+                {
+                  "id_cidade": "261",
+                  "cidade": "Guariba"
+                },
+                {
+                  "id_cidade": "45",
+                  "cidade": "Guarujá"
+                },
+                {
+                  "id_cidade": "18",
+                  "cidade": "Guarulhos"
+                },
+                {
+                  "id_cidade": "200",
+                  "cidade": "Guatapará"
+                },
+                {
+                  "id_cidade": "312",
+                  "cidade": "Guzolândia"
+                },
+                {
+                  "id_cidade": "480",
+                  "cidade": "Herculândia"
+                },
+                {
+                  "id_cidade": "181",
+                  "cidade": "Holambra"
+                },
+                {
+                  "id_cidade": "120",
+                  "cidade": "Hortolândia"
+                },
+                {
+                  "id_cidade": "443",
+                  "cidade": "Iacanga"
+                },
+                {
+                  "id_cidade": "482",
+                  "cidade": "Iacri"
+                },
+                {
+                  "id_cidade": "581",
+                  "cidade": "Iaras"
+                },
+                {
+                  "id_cidade": "256",
+                  "cidade": "Ibaté"
+                },
+                {
+                  "id_cidade": "381",
+                  "cidade": "Ibirá"
+                },
+                {
+                  "id_cidade": "645",
+                  "cidade": "Ibirarema"
+                },
+                {
+                  "id_cidade": "270",
+                  "cidade": "Ibitinga"
+                },
+                {
+                  "id_cidade": "515",
+                  "cidade": "Ibiúna"
+                },
+                {
+                  "id_cidade": "325",
+                  "cidade": "Icém"
+                },
+                {
+                  "id_cidade": "626",
+                  "cidade": "Iepê"
+                },
+                {
+                  "id_cidade": "456",
+                  "cidade": "Igaraçu do Tietê"
+                },
+                {
+                  "id_cidade": "229",
+                  "cidade": "Igarapava"
+                },
+                {
+                  "id_cidade": "81",
+                  "cidade": "Igaratá"
+                },
+                {
+                  "id_cidade": "61",
+                  "cidade": "Iguape"
+                },
+                {
+                  "id_cidade": "62",
+                  "cidade": "Ilha Comprida"
+                },
+                {
+                  "id_cidade": "316",
+                  "cidade": "Ilha Solteira"
+                },
+                {
+                  "id_cidade": "48",
+                  "cidade": "Ilhabela"
+                },
+                {
+                  "id_cidade": "135",
+                  "cidade": "Indaiatuba"
+                },
+                {
+                  "id_cidade": "621",
+                  "cidade": "Indiana"
+                },
+                {
+                  "id_cidade": "348",
+                  "cidade": "Indiaporã"
+                },
+                {
+                  "id_cidade": "489",
+                  "cidade": "Inúbia Paulista"
+                },
+                {
+                  "id_cidade": "593",
+                  "cidade": "Ipaussu"
+                },
+                {
+                  "id_cidade": "560",
+                  "cidade": "Iperó"
+                },
+                {
+                  "id_cidade": "155",
+                  "cidade": "Ipeúna"
+                },
+                {
+                  "id_cidade": "277",
+                  "cidade": "Ipiguá"
+                },
+                {
+                  "id_cidade": "540",
+                  "cidade": "Iporanga"
+                },
+                {
+                  "id_cidade": "234",
+                  "cidade": "Ipuã"
+                },
+                {
+                  "id_cidade": "148",
+                  "cidade": "Iracemápolis"
+                },
+                {
+                  "id_cidade": "274",
+                  "cidade": "Irapuã"
+                },
+                {
+                  "id_cidade": "498",
+                  "cidade": "Irapuru"
+                },
+                {
+                  "id_cidade": "548",
+                  "cidade": "Itaberá"
+                },
+                {
+                  "id_cidade": "576",
+                  "cidade": "Itaí"
+                },
+                {
+                  "id_cidade": "378",
+                  "cidade": "Itajobi"
+                },
+                {
+                  "id_cidade": "449",
+                  "cidade": "Itaju"
+                },
+                {
+                  "id_cidade": "53",
+                  "cidade": "Itanhaém"
+                },
+                {
+                  "id_cidade": "541",
+                  "cidade": "Itaóca"
+                },
+                {
+                  "id_cidade": "14",
+                  "cidade": "Itapecerica da Serra"
+                },
+                {
+                  "id_cidade": "522",
+                  "cidade": "Itapetininga"
+                },
+                {
+                  "id_cidade": "544",
+                  "cidade": "Itapeva"
+                },
+                {
+                  "id_cidade": "8",
+                  "cidade": "Itapevi"
+                },
+                {
+                  "id_cidade": "196",
+                  "cidade": "Itapira"
+                },
+                {
+                  "id_cidade": "543",
+                  "cidade": "Itapirapuã Paulista"
+                },
+                {
+                  "id_cidade": "265",
+                  "cidade": "Itápolis"
+                },
+                {
+                  "id_cidade": "552",
+                  "cidade": "Itaporanga"
+                },
+                {
+                  "id_cidade": "446",
+                  "cidade": "Itapuí"
+                },
+                {
+                  "id_cidade": "317",
+                  "cidade": "Itapura"
+                },
+                {
+                  "id_cidade": "28",
+                  "cidade": "Itaquaquecetuba"
+                },
+                {
+                  "id_cidade": "549",
+                  "cidade": "Itararé"
+                },
+                {
+                  "id_cidade": "55",
+                  "cidade": "Itariri"
+                },
+                {
+                  "id_cidade": "126",
+                  "cidade": "Itatiba"
+                },
+                {
+                  "id_cidade": "572",
+                  "cidade": "Itatinga"
+                },
+                {
+                  "id_cidade": "154",
+                  "cidade": "Itirapina"
+                },
+                {
+                  "id_cidade": "219",
+                  "cidade": "Itirapuã"
+                },
+                {
+                  "id_cidade": "171",
+                  "cidade": "Itobi"
+                },
+                {
+                  "id_cidade": "132",
+                  "cidade": "Itu"
+                },
+                {
+                  "id_cidade": "131",
+                  "cidade": "Itupeva"
+                },
+                {
+                  "id_cidade": "227",
+                  "cidade": "Ituverava"
+                },
+                {
+                  "id_cidade": "250",
+                  "cidade": "Jaborandi"
+                },
+                {
+                  "id_cidade": "264",
+                  "cidade": "Jaboticabal"
+                },
+                {
+                  "id_cidade": "80",
+                  "cidade": "Jacareí"
+                },
+                {
+                  "id_cidade": "285",
+                  "cidade": "Jaci"
+                },
+                {
+                  "id_cidade": "64",
+                  "cidade": "Jacupiranga"
+                },
+                {
+                  "id_cidade": "180",
+                  "cidade": "Jaguariúna"
+                },
+                {
+                  "id_cidade": "349",
+                  "cidade": "Jales"
+                },
+                {
+                  "id_cidade": "78",
+                  "cidade": "Jambeiro"
+                },
+                {
+                  "id_cidade": "7",
+                  "cidade": "Jandira"
+                },
+                {
+                  "id_cidade": "239",
+                  "cidade": "Jardinópolis"
+                },
+                {
+                  "id_cidade": "125",
+                  "cidade": "Jarinu"
+                },
+                {
+                  "id_cidade": "445",
+                  "cidade": "Jaú"
+                },
+                {
+                  "id_cidade": "223",
+                  "cidade": "Jeriquara"
+                },
+                {
+                  "id_cidade": "111",
+                  "cidade": "Joanópolis"
+                },
+                {
+                  "id_cidade": "628",
+                  "cidade": "João Ramalho"
+                },
+                {
+                  "id_cidade": "290",
+                  "cidade": "José Bonifácio"
+                },
+                {
+                  "id_cidade": "473",
+                  "cidade": "Júlio Mesquita"
+                },
+                {
+                  "id_cidade": "557",
+                  "cidade": "Jumirim"
+                },
+                {
+                  "id_cidade": "122",
+                  "cidade": "Jundiaí"
+                },
+                {
+                  "id_cidade": "499",
+                  "cidade": "Junqueirópolis"
+                },
+                {
+                  "id_cidade": "57",
+                  "cidade": "Juquiá"
+                },
+                {
+                  "id_cidade": "17",
+                  "cidade": "Juquitiba"
+                },
+                {
+                  "id_cidade": "71",
+                  "cidade": "Lagoinha"
+                },
+                {
+                  "id_cidade": "554",
+                  "cidade": "Laranjal Paulista"
+                },
+                {
+                  "id_cidade": "432",
+                  "cidade": "Lavínia"
+                },
+                {
+                  "id_cidade": "98",
+                  "cidade": "Lavrinhas"
+                },
+                {
+                  "id_cidade": "162",
+                  "cidade": "Leme"
+                },
+                {
+                  "id_cidade": "571",
+                  "cidade": "Lençóis Paulista"
+                },
+                {
+                  "id_cidade": "146",
+                  "cidade": "Limeira"
+                },
+                {
+                  "id_cidade": "194",
+                  "cidade": "Lindóia"
+                },
+                {
+                  "id_cidade": "415",
+                  "cidade": "Lins"
+                },
+                {
+                  "id_cidade": "92",
+                  "cidade": "Lorena"
+                },
+                {
+                  "id_cidade": "302",
+                  "cidade": "Lourdes"
+                },
+                {
+                  "id_cidade": "130",
+                  "cidade": "Louveira"
+                },
+                {
+                  "id_cidade": "490",
+                  "cidade": "Lucélia"
+                },
+                {
+                  "id_cidade": "468",
+                  "cidade": "Lucianópolis"
+                },
+                {
+                  "id_cidade": "207",
+                  "cidade": "Luís Antônio"
+                },
+                {
+                  "id_cidade": "411",
+                  "cidade": "Luiziânia"
+                },
+                {
+                  "id_cidade": "462",
+                  "cidade": "Lupércio"
+                },
+                {
+                  "id_cidade": "631",
+                  "cidade": "Lutécia"
+                },
+                {
+                  "id_cidade": "452",
+                  "cidade": "Macatuba"
+                },
+                {
+                  "id_cidade": "299",
+                  "cidade": "Macaubal"
+                },
+                {
+                  "id_cidade": "340",
+                  "cidade": "Macedônia"
+                },
+                {
+                  "id_cidade": "305",
+                  "cidade": "Magda"
+                },
+                {
+                  "id_cidade": "511",
+                  "cidade": "Mairinque"
+                },
+                {
+                  "id_cidade": "21",
+                  "cidade": "Mairiporã"
+                },
+                {
+                  "id_cidade": "582",
+                  "cidade": "Manduri"
+                },
+                {
+                  "id_cidade": "616",
+                  "cidade": "Marabá Paulista"
+                },
+                {
+                  "id_cidade": "637",
+                  "cidade": "Maracaí"
+                },
+                {
+                  "id_cidade": "379",
+                  "cidade": "Marapoama"
+                },
+                {
+                  "id_cidade": "493",
+                  "cidade": "Mariápolis"
+                },
+                {
+                  "id_cidade": "471",
+                  "cidade": "Marília"
+                },
+                {
+                  "id_cidade": "355",
+                  "cidade": "Marinópolis"
+                },
+                {
+                  "id_cidade": "619",
+                  "cidade": "Martinópolis"
+                },
+                {
+                  "id_cidade": "396",
+                  "cidade": "Matão"
+                },
+                {
+                  "id_cidade": "35",
+                  "cidade": "Mauá"
+                },
+                {
+                  "id_cidade": "292",
+                  "cidade": "Mendonça"
+                },
+                {
+                  "id_cidade": "341",
+                  "cidade": "Meridiano"
+                },
+                {
+                  "id_cidade": "359",
+                  "cidade": "Mesópolis"
+                },
+                {
+                  "id_cidade": "228",
+                  "cidade": "Miguelópolis"
+                },
+                {
+                  "id_cidade": "454",
+                  "cidade": "Mineiros do Tietê"
+                },
+                {
+                  "id_cidade": "338",
+                  "cidade": "Mira Estrela"
+                },
+                {
+                  "id_cidade": "58",
+                  "cidade": "Miracatu"
+                },
+                {
+                  "id_cidade": "431",
+                  "cidade": "Mirandópolis"
+                },
+                {
+                  "id_cidade": "606",
+                  "cidade": "Mirante do Paranapanema"
+                },
+                {
+                  "id_cidade": "281",
+                  "cidade": "Mirassol"
+                },
+                {
+                  "id_cidade": "283",
+                  "cidade": "Mirassolândia"
+                },
+                {
+                  "id_cidade": "173",
+                  "cidade": "Mococa"
+                },
+                {
+                  "id_cidade": "30",
+                  "cidade": "Mogi das Cruzes"
+                },
+                {
+                  "id_cidade": "184",
+                  "cidade": "Mogi Guaçu"
+                },
+                {
+                  "id_cidade": "178",
+                  "cidade": "Mogi Mirim"
+                },
+                {
+                  "id_cidade": "139",
+                  "cidade": "Mombuca"
+                },
+                {
+                  "id_cidade": "300",
+                  "cidade": "Monções"
+                },
+                {
+                  "id_cidade": "52",
+                  "cidade": "Mongaguá"
+                },
+                {
+                  "id_cidade": "179",
+                  "cidade": "Monte Alegre do Sul"
+                },
+                {
+                  "id_cidade": "388",
+                  "cidade": "Monte Alto"
+                },
+                {
+                  "id_cidade": "284",
+                  "cidade": "Monte Aprazível"
+                },
+                {
+                  "id_cidade": "243",
+                  "cidade": "Monte Azul Paulista"
+                },
+                {
+                  "id_cidade": "505",
+                  "cidade": "Monte Castelo"
+                },
+                {
+                  "id_cidade": "121",
+                  "cidade": "Monte Mor"
+                },
+                {
+                  "id_cidade": "76",
+                  "cidade": "Monteiro Lobato"
+                },
+                {
+                  "id_cidade": "236",
+                  "cidade": "Morro Agudo"
+                },
+                {
+                  "id_cidade": "127",
+                  "cidade": "Morungaba"
+                },
+                {
+                  "id_cidade": "260",
+                  "cidade": "Motuca"
+                },
+                {
+                  "id_cidade": "437",
+                  "cidade": "Murutinga do Sul"
+                },
+                {
+                  "id_cidade": "627",
+                  "cidade": "Nantes"
+                },
+                {
+                  "id_cidade": "603",
+                  "cidade": "Narandiba"
+                },
+                {
+                  "id_cidade": "74",
+                  "cidade": "Natividade da Serra"
+                },
+                {
+                  "id_cidade": "109",
+                  "cidade": "Nazaré Paulista"
+                },
+                {
+                  "id_cidade": "280",
+                  "cidade": "Neves Paulista"
+                },
+                {
+                  "id_cidade": "289",
+                  "cidade": "Nhandeara"
+                },
+                {
+                  "id_cidade": "295",
+                  "cidade": "Nipoã"
+                },
+                {
+                  "id_cidade": "291",
+                  "cidade": "Nova Aliança"
+                },
+                {
+                  "id_cidade": "547",
+                  "cidade": "Nova Campina"
+                },
+                {
+                  "id_cidade": "367",
+                  "cidade": "Nova Canaã Paulista"
+                },
+                {
+                  "id_cidade": "306",
+                  "cidade": "Nova Castilho"
+                },
+                {
+                  "id_cidade": "267",
+                  "cidade": "Nova Europa"
+                },
+                {
+                  "id_cidade": "323",
+                  "cidade": "Nova Granada"
+                },
+                {
+                  "id_cidade": "504",
+                  "cidade": "Nova Guataporanga"
+                },
+                {
+                  "id_cidade": "436",
+                  "cidade": "Nova Independência"
+                },
+                {
+                  "id_cidade": "310",
+                  "cidade": "Nova Luzitânia"
+                },
+                {
+                  "id_cidade": "140",
+                  "cidade": "Nova Odessa"
+                },
+                {
+                  "id_cidade": "384",
+                  "cidade": "Novais"
+                },
+                {
+                  "id_cidade": "272",
+                  "cidade": "Novo Horizonte"
+                },
+                {
+                  "id_cidade": "238",
+                  "cidade": "Nuporanga"
+                },
+                {
+                  "id_cidade": "472",
+                  "cidade": "Ocauçu"
+                },
+                {
+                  "id_cidade": "583",
+                  "cidade": "Óleo"
+                },
+                {
+                  "id_cidade": "318",
+                  "cidade": "Olímpia"
+                },
+                {
+                  "id_cidade": "324",
+                  "cidade": "Onda Verde"
+                },
+                {
+                  "id_cidade": "475",
+                  "cidade": "Oriente"
+                },
+                {
+                  "id_cidade": "327",
+                  "cidade": "Orindiúva"
+                },
+                {
+                  "id_cidade": "235",
+                  "cidade": "Orlândia"
+                },
+                {
+                  "id_cidade": "2",
+                  "cidade": "Osasco"
+                },
+                {
+                  "id_cidade": "632",
+                  "cidade": "Oscar Bressane"
+                },
+                {
+                  "id_cidade": "484",
+                  "cidade": "Osvaldo Cruz"
+                },
+                {
+                  "id_cidade": "642",
+                  "cidade": "Ourinhos"
+                },
+                {
+                  "id_cidade": "501",
+                  "cidade": "Ouro Verde"
+                },
+                {
+                  "id_cidade": "347",
+                  "cidade": "Ouroeste"
+                },
+                {
+                  "id_cidade": "496",
+                  "cidade": "Pacaembu"
+                },
+                {
+                  "id_cidade": "326",
+                  "cidade": "Palestina"
+                },
+                {
+                  "id_cidade": "376",
+                  "cidade": "Palmares Paulista"
+                },
+                {
+                  "id_cidade": "354",
+                  "cidade": "Palmeira DOeste"
+                },
+                {
+                  "id_cidade": "647",
+                  "cidade": "Palmital"
+                },
+                {
+                  "id_cidade": "507",
+                  "cidade": "Panorama"
+                },
+                {
+                  "id_cidade": "629",
+                  "cidade": "Paraguaçu Paulista"
+                },
+                {
+                  "id_cidade": "77",
+                  "cidade": "Paraibuna"
+                },
+                {
+                  "id_cidade": "375",
+                  "cidade": "Paraíso"
+                },
+                {
+                  "id_cidade": "575",
+                  "cidade": "Paranapanema"
+                },
+                {
+                  "id_cidade": "358",
+                  "cidade": "Paranapuã"
+                },
+                {
+                  "id_cidade": "487",
+                  "cidade": "Parapuã"
+                },
+                {
+                  "id_cidade": "566",
+                  "cidade": "Pardinho"
+                },
+                {
+                  "id_cidade": "63",
+                  "cidade": "Pariquera-Açu"
+                },
+                {
+                  "id_cidade": "332",
+                  "cidade": "Parisi"
+                },
+                {
+                  "id_cidade": "218",
+                  "cidade": "Patrocínio Paulista"
+                },
+                {
+                  "id_cidade": "508",
+                  "cidade": "Paulicéia"
+                },
+                {
+                  "id_cidade": "115",
+                  "cidade": "Paulínia"
+                },
+                {
+                  "id_cidade": "441",
+                  "cidade": "Paulistânia"
+                },
+                {
+                  "id_cidade": "328",
+                  "cidade": "Paulo de Faria"
+                },
+                {
+                  "id_cidade": "451",
+                  "cidade": "Pederneiras"
+                },
+                {
+                  "id_cidade": "112",
+                  "cidade": "Pedra Bela"
+                },
+                {
+                  "id_cidade": "342",
+                  "cidade": "Pedranópolis"
+                },
+                {
+                  "id_cidade": "225",
+                  "cidade": "Pedregulho"
+                },
+                {
+                  "id_cidade": "191",
+                  "cidade": "Pedreira"
+                },
+                {
+                  "id_cidade": "639",
+                  "cidade": "Pedrinhas Paulista"
+                },
+                {
+                  "id_cidade": "56",
+                  "cidade": "Pedro de Toledo"
+                },
+                {
+                  "id_cidade": "409",
+                  "cidade": "Penápolis"
+                },
+                {
+                  "id_cidade": "314",
+                  "cidade": "Pereira Barreto"
+                },
+                {
+                  "id_cidade": "562",
+                  "cidade": "Pereiras"
+                },
+                {
+                  "id_cidade": "54",
+                  "cidade": "Peruíbe"
+                },
+                {
+                  "id_cidade": "402",
+                  "cidade": "Piacatu"
+                },
+                {
+                  "id_cidade": "517",
+                  "cidade": "Piedade"
+                },
+                {
+                  "id_cidade": "519",
+                  "cidade": "Pilar do Sul"
+                },
+                {
+                  "id_cidade": "83",
+                  "cidade": "Pindamonhangaba"
+                },
+                {
+                  "id_cidade": "377",
+                  "cidade": "Pindorama"
+                },
+                {
+                  "id_cidade": "113",
+                  "cidade": "Pinhalzinho"
+                },
+                {
+                  "id_cidade": "615",
+                  "cidade": "Piquerobi"
+                },
+                {
+                  "id_cidade": "94",
+                  "cidade": "Piquete"
+                },
+                {
+                  "id_cidade": "110",
+                  "cidade": "Piracaia"
+                },
+                {
+                  "id_cidade": "142",
+                  "cidade": "Piracicaba"
+                },
+                {
+                  "id_cidade": "584",
+                  "cidade": "Piraju"
+                },
+                {
+                  "id_cidade": "422",
+                  "cidade": "Pirajuí"
+                },
+                {
+                  "id_cidade": "373",
+                  "cidade": "Pirangi"
+                },
+                {
+                  "id_cidade": "6",
+                  "cidade": "Pirapora do Bom Jesus"
+                },
+                {
+                  "id_cidade": "601",
+                  "cidade": "Pirapozinho"
+                },
+                {
+                  "id_cidade": "164",
+                  "cidade": "Pirassununga"
+                },
+                {
+                  "id_cidade": "470",
+                  "cidade": "Piratininga"
+                },
+                {
+                  "id_cidade": "247",
+                  "cidade": "Pitangueiras"
+                },
+                {
+                  "id_cidade": "297",
+                  "cidade": "Planalto"
+                },
+                {
+                  "id_cidade": "648",
+                  "cidade": "Platina"
+                },
+                {
+                  "id_cidade": "27",
+                  "cidade": "Poá"
+                },
+                {
+                  "id_cidade": "286",
+                  "cidade": "Poloni"
+                },
+                {
+                  "id_cidade": "476",
+                  "cidade": "Pompéia"
+                },
+                {
+                  "id_cidade": "425",
+                  "cidade": "Pongaí"
+                },
+                {
+                  "id_cidade": "205",
+                  "cidade": "Pontal"
+                },
+                {
+                  "id_cidade": "353",
+                  "cidade": "Pontalinda"
+                },
+                {
+                  "id_cidade": "336",
+                  "cidade": "Pontes Gestal"
+                },
+                {
+                  "id_cidade": "345",
+                  "cidade": "Populina"
+                },
+                {
+                  "id_cidade": "530",
+                  "cidade": "Porangaba"
+                },
+                {
+                  "id_cidade": "558",
+                  "cidade": "Porto Feliz"
+                },
+                {
+                  "id_cidade": "166",
+                  "cidade": "Porto Ferreira"
+                },
+                {
+                  "id_cidade": "88",
+                  "cidade": "Potim"
+                },
+                {
+                  "id_cidade": "276",
+                  "cidade": "Potirendaba"
+                },
+                {
+                  "id_cidade": "491",
+                  "cidade": "Pracinha"
+                },
+                {
+                  "id_cidade": "262",
+                  "cidade": "Pradópolis"
+                },
+                {
+                  "id_cidade": "51",
+                  "cidade": "Praia Grande"
+                },
+                {
+                  "id_cidade": "568",
+                  "cidade": "Pratânia"
+                },
+                {
+                  "id_cidade": "426",
+                  "cidade": "Presidente Alves"
+                },
+                {
+                  "id_cidade": "610",
+                  "cidade": "Presidente Bernardes"
+                },
+                {
+                  "id_cidade": "618",
+                  "cidade": "Presidente Epitácio"
+                },
+                {
+                  "id_cidade": "597",
+                  "cidade": "Presidente Prudente"
+                },
+                {
+                  "id_cidade": "614",
+                  "cidade": "Presidente Venceslau"
+                },
+                {
+                  "id_cidade": "414",
+                  "cidade": "Promissão"
+                },
+                {
+                  "id_cidade": "529",
+                  "cidade": "Quadra"
+                },
+                {
+                  "id_cidade": "633",
+                  "cidade": "Quatá"
+                },
+                {
+                  "id_cidade": "477",
+                  "cidade": "Queiroz"
+                },
+                {
+                  "id_cidade": "99",
+                  "cidade": "Queluz"
+                },
+                {
+                  "id_cidade": "481",
+                  "cidade": "Quintana"
+                },
+                {
+                  "id_cidade": "138",
+                  "cidade": "Rafard"
+                },
+                {
+                  "id_cidade": "625",
+                  "cidade": "Rancharia"
+                },
+                {
+                  "id_cidade": "73",
+                  "cidade": "Redenção da Serra"
+                },
+                {
+                  "id_cidade": "622",
+                  "cidade": "Regente Feijó"
+                },
+                {
+                  "id_cidade": "444",
+                  "cidade": "Reginópolis"
+                },
+                {
+                  "id_cidade": "59",
+                  "cidade": "Registro"
+                },
+                {
+                  "id_cidade": "220",
+                  "cidade": "Restinga"
+                },
+                {
+                  "id_cidade": "542",
+                  "cidade": "Ribeira"
+                },
+                {
+                  "id_cidade": "159",
+                  "cidade": "Ribeirão Bonito"
+                },
+                {
+                  "id_cidade": "546",
+                  "cidade": "Ribeirão Branco"
+                },
+                {
+                  "id_cidade": "222",
+                  "cidade": "Ribeirão Corrente"
+                },
+                {
+                  "id_cidade": "644",
+                  "cidade": "Ribeirão do Sul"
+                },
+                {
+                  "id_cidade": "613",
+                  "cidade": "Ribeirão dos Índios"
+                },
+                {
+                  "id_cidade": "537",
+                  "cidade": "Ribeirão Grande"
+                },
+                {
+                  "id_cidade": "36",
+                  "cidade": "Ribeirão Pires"
+                },
+                {
+                  "id_cidade": "199",
+                  "cidade": "Ribeirão Preto"
+                },
+                {
+                  "id_cidade": "226",
+                  "cidade": "Rifaina"
+                },
+                {
+                  "id_cidade": "259",
+                  "cidade": "Rincão"
+                },
+                {
+                  "id_cidade": "488",
+                  "cidade": "Rinópolis"
+                },
+                {
+                  "id_cidade": "149",
+                  "cidade": "Rio Claro"
+                },
+                {
+                  "id_cidade": "141",
+                  "cidade": "Rio das Pedras"
+                },
+                {
+                  "id_cidade": "37",
+                  "cidade": "Rio Grande da Serra"
+                },
+                {
+                  "id_cidade": "329",
+                  "cidade": "Riolândia"
+                },
+                {
+                  "id_cidade": "550",
+                  "cidade": "Riversul"
+                },
+                {
+                  "id_cidade": "607",
+                  "cidade": "Rosana"
+                },
+                {
+                  "id_cidade": "91",
+                  "cidade": "Roseira"
+                },
+                {
+                  "id_cidade": "429",
+                  "cidade": "Rubiácea"
+                },
+                {
+                  "id_cidade": "371",
+                  "cidade": "Rubinéia"
+                },
+                {
+                  "id_cidade": "417",
+                  "cidade": "Sabino"
+                },
+                {
+                  "id_cidade": "485",
+                  "cidade": "Sagres"
+                },
+                {
+                  "id_cidade": "273",
+                  "cidade": "Sales"
+                },
+                {
+                  "id_cidade": "237",
+                  "cidade": "Sales Oliveira"
+                },
+                {
+                  "id_cidade": "33",
+                  "cidade": "Salesópolis"
+                },
+                {
+                  "id_cidade": "486",
+                  "cidade": "Salmourão"
+                },
+                {
+                  "id_cidade": "143",
+                  "cidade": "Saltinho"
+                },
+                {
+                  "id_cidade": "134",
+                  "cidade": "Salto"
+                },
+                {
+                  "id_cidade": "516",
+                  "cidade": "Salto de Pirapora"
+                },
+                {
+                  "id_cidade": "643",
+                  "cidade": "Salto Grande"
+                },
+                {
+                  "id_cidade": "605",
+                  "cidade": "Sandovalina"
+                },
+                {
+                  "id_cidade": "392",
+                  "cidade": "Santa Adélia"
+                },
+                {
+                  "id_cidade": "360",
+                  "cidade": "Santa Albertina"
+                },
+                {
+                  "id_cidade": "144",
+                  "cidade": "Santa Bárbara DOeste"
+                },
+                {
+                  "id_cidade": "82",
+                  "cidade": "Santa Branca"
+                },
+                {
+                  "id_cidade": "370",
+                  "cidade": "Santa Clara DOeste"
+                },
+                {
+                  "id_cidade": "163",
+                  "cidade": "Santa Cruz da Conceição"
+                },
+                {
+                  "id_cidade": "210",
+                  "cidade": "Santa Cruz da Esperança"
+                },
+                {
+                  "id_cidade": "165",
+                  "cidade": "Santa Cruz das Palmeiras"
+                },
+                {
+                  "id_cidade": "590",
+                  "cidade": "Santa Cruz do Rio Pardo"
+                },
+                {
+                  "id_cidade": "394",
+                  "cidade": "Santa Ernestina"
+                },
+                {
+                  "id_cidade": "368",
+                  "cidade": "Santa Fé do Sul"
+                },
+                {
+                  "id_cidade": "150",
+                  "cidade": "Santa Gertrudes"
+                },
+                {
+                  "id_cidade": "20",
+                  "cidade": "Santa Isabel"
+                },
+                {
+                  "id_cidade": "258",
+                  "cidade": "Santa Lúcia"
+                },
+                {
+                  "id_cidade": "458",
+                  "cidade": "Santa Maria da Serra"
+                },
+                {
+                  "id_cidade": "503",
+                  "cidade": "Santa Mercedes"
+                },
+                {
+                  "id_cidade": "167",
+                  "cidade": "Santa Rita do Passa Quatro"
+                },
+                {
+                  "id_cidade": "369",
+                  "cidade": "Santa Rita DOeste"
+                },
+                {
+                  "id_cidade": "212",
+                  "cidade": "Santa Rosa de Viterbo"
+                },
+                {
+                  "id_cidade": "365",
+                  "cidade": "Santa Salete"
+                },
+                {
+                  "id_cidade": "364",
+                  "cidade": "Santana da Ponte Pensa"
+                },
+                {
+                  "id_cidade": "5",
+                  "cidade": "Santana de Parnaíba"
+                },
+                {
+                  "id_cidade": "612",
+                  "cidade": "Santo Anastácio"
+                },
+                {
+                  "id_cidade": "34",
+                  "cidade": "Santo André"
+                },
+                {
+                  "id_cidade": "216",
+                  "cidade": "Santo Antônio da Alegria"
+                },
+                {
+                  "id_cidade": "182",
+                  "cidade": "Santo Antônio de Posse"
+                },
+                {
+                  "id_cidade": "398",
+                  "cidade": "Santo Antônio do Aracanguá"
+                },
+                {
+                  "id_cidade": "198",
+                  "cidade": "Santo Antônio do Jardim"
+                },
+                {
+                  "id_cidade": "84",
+                  "cidade": "Santo Antônio do Pinhal"
+                },
+                {
+                  "id_cidade": "600",
+                  "cidade": "Santo Expedito"
+                },
+                {
+                  "id_cidade": "403",
+                  "cidade": "Santópolis do Aguapeí"
+                },
+                {
+                  "id_cidade": "42",
+                  "cidade": "Santos"
+                },
+                {
+                  "id_cidade": "86",
+                  "cidade": "São Bento do Sapucaí"
+                },
+                {
+                  "id_cidade": "39",
+                  "cidade": "São Bernardo do Campo"
+                },
+                {
+                  "id_cidade": "38",
+                  "cidade": "São Caetano do Sul"
+                },
+                {
+                  "id_cidade": "158",
+                  "cidade": "São Carlos"
+                },
+                {
+                  "id_cidade": "350",
+                  "cidade": "São Francisco"
+                },
+                {
+                  "id_cidade": "187",
+                  "cidade": "São João da Boa Vista"
+                },
+                {
+                  "id_cidade": "343",
+                  "cidade": "São João das Duas Pontes"
+                },
+                {
+                  "id_cidade": "307",
+                  "cidade": "São João de Iracema"
+                },
+                {
+                  "id_cidade": "506",
+                  "cidade": "São João do Pau dAlho"
+                },
+                {
+                  "id_cidade": "233",
+                  "cidade": "São Joaquim da Barra"
+                },
+                {
+                  "id_cidade": "221",
+                  "cidade": "São José da Bela Vista"
+                },
+                {
+                  "id_cidade": "101",
+                  "cidade": "São José do Barreiro"
+                },
+                {
+                  "id_cidade": "172",
+                  "cidade": "São José do Rio Pardo"
+                },
+                {
+                  "id_cidade": "275",
+                  "cidade": "São José do Rio Preto"
+                },
+                {
+                  "id_cidade": "75",
+                  "cidade": "São José dos Campos"
+                },
+                {
+                  "id_cidade": "15",
+                  "cidade": "São Lourenço da Serra"
+                },
+                {
+                  "id_cidade": "72",
+                  "cidade": "São Luiz do Paraitinga"
+                },
+                {
+                  "id_cidade": "567",
+                  "cidade": "São Manuel"
+                },
+                {
+                  "id_cidade": "525",
+                  "cidade": "São Miguel Arcanjo"
+                },
+                {
+                  "id_cidade": "1",
+                  "cidade": "São Paulo"
+                },
+                {
+                  "id_cidade": "152",
+                  "cidade": "São Pedro"
+                },
+                {
+                  "id_cidade": "592",
+                  "cidade": "São Pedro do Turvo"
+                },
+                {
+                  "id_cidade": "513",
+                  "cidade": "São Roque"
+                },
+                {
+                  "id_cidade": "47",
+                  "cidade": "São Sebastião"
+                },
+                {
+                  "id_cidade": "177",
+                  "cidade": "São Sebastião da Grama"
+                },
+                {
+                  "id_cidade": "206",
+                  "cidade": "São Simão"
+                },
+                {
+                  "id_cidade": "44",
+                  "cidade": "São Vicente"
+                },
+                {
+                  "id_cidade": "524",
+                  "cidade": "Sarapuí"
+                },
+                {
+                  "id_cidade": "586",
+                  "cidade": "Sarutaiá"
+                },
+                {
+                  "id_cidade": "288",
+                  "cidade": "Sebastianópolis do Sul"
+                },
+                {
+                  "id_cidade": "208",
+                  "cidade": "Serra Azul"
+                },
+                {
+                  "id_cidade": "192",
+                  "cidade": "Serra Negra"
+                },
+                {
+                  "id_cidade": "203",
+                  "cidade": "Serrana"
+                },
+                {
+                  "id_cidade": "204",
+                  "cidade": "Sertãozinho"
+                },
+                {
+                  "id_cidade": "60",
+                  "cidade": "Sete Barras"
+                },
+                {
+                  "id_cidade": "244",
+                  "cidade": "Severínia"
+                },
+                {
+                  "id_cidade": "96",
+                  "cidade": "Silveiras"
+                },
+                {
+                  "id_cidade": "195",
+                  "cidade": "Socorro"
+                },
+                {
+                  "id_cidade": "509",
+                  "cidade": "Sorocaba"
+                },
+                {
+                  "id_cidade": "313",
+                  "cidade": "Sud Mennucci"
+                },
+                {
+                  "id_cidade": "119",
+                  "cidade": "Sumaré"
+                },
+                {
+                  "id_cidade": "315",
+                  "cidade": "Suzanápolis"
+                },
+                {
+                  "id_cidade": "29",
+                  "cidade": "Suzano"
+                },
+                {
+                  "id_cidade": "383",
+                  "cidade": "Tabapuã"
+                },
+                {
+                  "id_cidade": "266",
+                  "cidade": "Tabatinga"
+                },
+                {
+                  "id_cidade": "11",
+                  "cidade": "Taboão da Serra"
+                },
+                {
+                  "id_cidade": "624",
+                  "cidade": "Taciba"
+                },
+                {
+                  "id_cidade": "589",
+                  "cidade": "Taguaí"
+                },
+                {
+                  "id_cidade": "242",
+                  "cidade": "Taiaçu"
+                },
+                {
+                  "id_cidade": "241",
+                  "cidade": "Taiúva"
+                },
+                {
+                  "id_cidade": "170",
+                  "cidade": "Tambaú"
+                },
+                {
+                  "id_cidade": "287",
+                  "cidade": "Tanabi"
+                },
+                {
+                  "id_cidade": "518",
+                  "cidade": "Tapiraí"
+                },
+                {
+                  "id_cidade": "174",
+                  "cidade": "Tapiratiba"
+                },
+                {
+                  "id_cidade": "248",
+                  "cidade": "Taquaral"
+                },
+                {
+                  "id_cidade": "387",
+                  "cidade": "Taquaritinga"
+                },
+                {
+                  "id_cidade": "577",
+                  "cidade": "Taquarituba"
+                },
+                {
+                  "id_cidade": "545",
+                  "cidade": "Taquarivaí"
+                },
+                {
+                  "id_cidade": "602",
+                  "cidade": "Tarabai"
+                },
+                {
+                  "id_cidade": "635",
+                  "cidade": "Tarumã"
+                },
+                {
+                  "id_cidade": "532",
+                  "cidade": "Tatuí"
+                },
+                {
+                  "id_cidade": "69",
+                  "cidade": "Taubaté"
+                },
+                {
+                  "id_cidade": "585",
+                  "cidade": "Tejupá"
+                },
+                {
+                  "id_cidade": "609",
+                  "cidade": "Teodoro Sampaio"
+                },
+                {
+                  "id_cidade": "246",
+                  "cidade": "Terra Roxa"
+                },
+                {
+                  "id_cidade": "556",
+                  "cidade": "Tietê"
+                },
+                {
+                  "id_cidade": "587",
+                  "cidade": "Timburi"
+                },
+                {
+                  "id_cidade": "531",
+                  "cidade": "Torre de Pedra"
+                },
+                {
+                  "id_cidade": "457",
+                  "cidade": "Torrinha"
+                },
+                {
+                  "id_cidade": "269",
+                  "cidade": "Trabiju"
+                },
+                {
+                  "id_cidade": "70",
+                  "cidade": "Tremembé"
+                },
+                {
+                  "id_cidade": "366",
+                  "cidade": "Três Fronteiras"
+                },
+                {
+                  "id_cidade": "105",
+                  "cidade": "Tuiuti"
+                },
+                {
+                  "id_cidade": "478",
+                  "cidade": "Tupã"
+                },
+                {
+                  "id_cidade": "502",
+                  "cidade": "Tupi Paulista"
+                },
+                {
+                  "id_cidade": "301",
+                  "cidade": "Turiúba"
+                },
+                {
+                  "id_cidade": "361",
+                  "cidade": "Turmalina"
+                },
+                {
+                  "id_cidade": "293",
+                  "cidade": "Ubarana"
+                },
+                {
+                  "id_cidade": "50",
+                  "cidade": "Ubatuba"
+                },
+                {
+                  "id_cidade": "464",
+                  "cidade": "Ubirajara"
+                },
+                {
+                  "id_cidade": "385",
+                  "cidade": "Uchoa"
+                },
+                {
+                  "id_cidade": "296",
+                  "cidade": "União Paulista"
+                },
+                {
+                  "id_cidade": "362",
+                  "cidade": "Urânia"
+                },
+                {
+                  "id_cidade": "424",
+                  "cidade": "Uru"
+                },
+                {
+                  "id_cidade": "380",
+                  "cidade": "Urupês"
+                },
+                {
+                  "id_cidade": "331",
+                  "cidade": "Valentim Gentil"
+                },
+                {
+                  "id_cidade": "128",
+                  "cidade": "Valinhos"
+                },
+                {
+                  "id_cidade": "433",
+                  "cidade": "Valparaíso"
+                },
+                {
+                  "id_cidade": "106",
+                  "cidade": "Vargem"
+                },
+                {
+                  "id_cidade": "188",
+                  "cidade": "Vargem Grande do Sul"
+                },
+                {
+                  "id_cidade": "10",
+                  "cidade": "Vargem Grande Paulista"
+                },
+                {
+                  "id_cidade": "123",
+                  "cidade": "Várzea Paulista"
+                },
+                {
+                  "id_cidade": "474",
+                  "cidade": "Vera Cruz"
+                },
+                {
+                  "id_cidade": "129",
+                  "cidade": "Vinhedo"
+                },
+                {
+                  "id_cidade": "245",
+                  "cidade": "Viradouro"
+                },
+                {
+                  "id_cidade": "389",
+                  "cidade": "Vista Alegre do Alto"
+                },
+                {
+                  "id_cidade": "351",
+                  "cidade": "Vitória Brasil"
+                },
+                {
+                  "id_cidade": "510",
+                  "cidade": "Votorantim"
+                },
+                {
+                  "id_cidade": "330",
+                  "cidade": "Votuporanga"
+                },
+                {
+                  "id_cidade": "298",
+                  "cidade": "Zacarias"
+                }
+              ]
+            }
+          }
+  - name: 400 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: uf
+          value: "{{uf}}"
+          type: query
+          disabled: true
+        - name: cidade
+          value: "{{cidadeId}}"
+          type: query
+          disabled: true
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:16:42 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785431802"
+      body:
+        type: json
+        data: |-
+          {
+            "status": "error",
+            "message": "Nenhum parametro foi informado"
+          }
+  - name: 404 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu?uf={{uf}}&cidade={{cidadeId}}"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: uf
+          value: "{{uf}}"
+          type: query
+        - name: cidade
+          value: "{{cidadeId}}"
+          type: query
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Thu, 30 Jul 2026 13:18:47 GMT
+        - name: content-type
+          value: text/html
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+      body:
+        type: html
+        data: |-
+          <html>
+              <head>
+                  <title>404 Not Found</title>
+              </head>
+              <body bgcolor="white">
+                  <center>
+                      <h1>404 Not Found</h1>
+                  </center>
+                  <hr>
+                      <center>nginx/1.14.1</center>
+                  </hr>
+              </body>
+          </html>
+
+docs: |-
+  <p>Lookup de cidades/bairros para descobrir <code>bairro_id</code> (zona_tipo=bairro) ou os bairros já cadastrados (zona_tipo=bairro_custom) antes de criar uma zona.</p>
+
+  <ul>
+  <li>Só <code>uf</code>: retorna <code>{"status": "success", "return": {"cidades": [...]}}</code> — lista de cidades da UF.</li>
+  <li><code>uf</code> e <code>cidade</code> (id da cidade): retorna também <code>bairros</code> — para zona_tipo=bairro, os bairros do catálogo (<code>Model_Cep_Bairro</code>) com <code>bairro_id</code>; para zona_tipo=bairro_custom, as zonas bairro_custom já cadastradas nesse serviço/cidade.</li>
+  <li>Sem <code>uf</code>: 400 com <code>{"status": "error", "message": "..."}</code>.</li>
+  </ul>
+
+  <p>Equivalente REST de <code>Class_EntregaZona::bairroMenu</code>.</p>

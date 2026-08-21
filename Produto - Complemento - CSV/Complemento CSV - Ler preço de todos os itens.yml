@@ -1,0 +1,29 @@
+info:
+  name: Complemento CSV - Ler preço de todos os itens
+  type: http
+  seq: 1
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/complemento/csv"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  <p>Retorna uma string CSV contendo as colunas <code>code;price</code> de todos os itens de complemento (<code>product_extras_item</code>) do site.</p>
+
+  <p>Este mesmo layout pode ser submetido via POST neste mesmo endpoint para atualizar os preços em lote — veja <a href="./Complemento%20CSV%20-%20Atualizar%20preço%20em%20lote.yml">Complemento CSV - Atualizar preço em lote</a>.</p>
+
+  <p>Endpoint irmão de <a href="../Produto%20-%20CSV/CSV%20-%20Ler%20estoque%20e%20preço%20de%20todos%20os%20produtos.yml">CSV - Ler estoque e preço de todos os produtos</a>, mas para itens de complemento (aceita só <code>code</code>/<code>price</code>, não tem <code>estoque_quantidade</code> nem <code>price_promo</code>).</p>

@@ -1,0 +1,924 @@
+info:
+  name: Serviço Inserir
+  type: http
+  seq: 3
+  tags:
+    - Entrega
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/entrega/servico"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: multipart-form
+    data:
+      - name: nome
+        type: text
+        value: Serviço Geolocalização
+        description: Nome do servico de entrega (obrigatorio)
+      - name: descricao
+        type: text
+        value: ""
+        description: Descricao livre do servico (opcional)
+        disabled: true
+      - name: icon
+        type: text
+        value: ""
+        description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+        disabled: true
+      - name: zona_tipo
+        type: text
+        value: polygon
+        description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+      - name: km_cep_origem
+        type: text
+        value: "17063280"
+        description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+        disabled: true
+      - name: retirada
+        type: text
+        value: N
+        description: '"N" (Entrega) ou "S" (Retirada)'
+      - name: retirada_endereco
+        type: text
+        value: Rua adalberto
+        description: Endereco de retirada, usado quando retirada = "S"
+        disabled: true
+      - name: peso_min
+        type: text
+        value: "0"
+        description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+      - name: peso_max
+        type: text
+        value: "10"
+        description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+      - name: seguro
+        type: text
+        value: ""
+        description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+        disabled: true
+      - name: seguro_acrescimo
+        type: text
+        value: "12"
+        description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+        disabled: true
+      - name: calcular_cubagem
+        type: text
+        value: ""
+        description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+        disabled: true
+      - name: fator_cubagem
+        type: text
+        value: ""
+        description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+        disabled: true
+      - name: ativo
+        type: text
+        value: S
+        description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+      - name: agendamento
+        type: text
+        value: ""
+        description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+        disabled: true
+      - name: agendamento_diasexibidos
+        type: text
+        value: ""
+        description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+        disabled: true
+      - name: agendamento_maxdia
+        type: text
+        value: ""
+        description: Quantidade maxima de agendamentos permitidos por dia
+        disabled: true
+      - name: agendamento_maxperiodo
+        type: text
+        value: ""
+        description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+        disabled: true
+      - name: cep_exclusao
+        type: text
+        value: ""
+        description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+        disabled: true
+      - name: polygoncenter
+        type: text
+        value: '{"lat": -22.325147349455,"lng": -49.063353538513}'
+      - name: polygonatendida
+        type: text
+        value: '[[{"lat":-22.325147349455285,"lng":-49.00065735115292},{"lat":-22.305369023747357,"lng":-49.00442739442359},{"lat":-22.287976256016805,"lng":-49.01528280137725},{"lat":-22.27506687074185,"lng":-49.03191424972655},{"lat":-22.268197930308876,"lng":-49.05231574134652},{"lat":-22.268197930308876,"lng":-49.07402655525384},{"lat":-22.27506687074185,"lng":-49.09442804687381},{"lat":-22.287976256016805,"lng":-49.1110594952231},{"lat":-22.305369023747357,"lng":-49.12191490217677},{"lat":-22.325147349455285,"lng":-49.12568494544744},{"lat":-22.344925675163218,"lng":-49.12191490217677},{"lat":-22.362318442893766,"lng":-49.1110594952231},{"lat":-22.375227828168725,"lng":-49.09442804687381},{"lat":-22.382096768601695,"lng":-49.07402655525384},{"lat":-22.382096768601695,"lng":-49.05231574134652},{"lat":-22.375227828168725,"lng":-49.03191424972655},{"lat":-22.362318442893766,"lng":-49.01528280137725},{"lat":-22.344925675163218,"lng":-49.00442739442359},{"lat":-22.325147349455285,"lng":-49.00065735115292}]]'
+      - name: polygonsuspensa
+        type: text
+        value: "[]"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: opa
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: awd
+            description: Descricao livre do servico (opcional)
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+          - name: retirada
+            type: text
+            value: ""
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+          - name: peso_min
+            type: text
+            value: "10"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "23"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+          - name: ativo
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            type: text
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+          - name: agendamento_maxdia
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+          - name: agendamento_maxperiodo
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+          - name: cep_exclusao
+            type: text
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:08:12 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785344892"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "servico": {
+              "id": "19",
+              "site_id": "582",
+              "nome": "opa",
+              "descricao": "awd",
+              "icon": "",
+              "zona_tipo": "polygon",
+              "km_cep_origem": "17063280",
+              "retirada": "",
+              "retirada_endereco": "Rua adalberto",
+              "polygonatendida": null,
+              "polygonsuspensa": null,
+              "polygoncenter": null,
+              "peso_min": "10",
+              "peso_max": "23",
+              "aceita_volumosos": "S",
+              "comprimento_max": "0",
+              "largura_max": "0",
+              "altura_max": "0",
+              "soma_max": "0",
+              "ativo": "N",
+              "calcular_cubagem": "N",
+              "fator_cubagem": null,
+              "seguro": "N",
+              "seguro_acrescimo": "12",
+              "agendamento": "",
+              "agendamento_diasexibidos": "0",
+              "agendamento_maxdia": "0",
+              "agendamento_maxperiodo": "0",
+              "cep_exclusao": ""
+            }
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: opa
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: awd
+            description: Descricao livre do servico (opcional)
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+          - name: retirada
+            type: text
+            value: ""
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+          - name: peso_min
+            type: text
+            value: "10"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "23"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+          - name: ativo
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            type: text
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+          - name: agendamento_maxdia
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+          - name: agendamento_maxperiodo
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+          - name: cep_exclusao
+            type: text
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:10:13 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345013"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 200 Inserir Entrega por Geolocalização
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: Serviço Geolocalização
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: ""
+            description: Descricao livre do servico (opcional)
+            disabled: true
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+            disabled: true
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+            disabled: true
+          - name: retirada
+            type: text
+            value: N
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+            disabled: true
+          - name: peso_min
+            type: text
+            value: "0"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "10"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+            disabled: true
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+            disabled: true
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+            disabled: true
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+            disabled: true
+          - name: ativo
+            type: text
+            value: S
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: N
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            type: text
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+            disabled: true
+          - name: agendamento_maxdia
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+            disabled: true
+          - name: agendamento_maxperiodo
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+            disabled: true
+          - name: cep_exclusao
+            type: text
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+            disabled: true
+          - name: polygoncenter
+            type: text
+            value: '{"lat": -22.325147349455,"lng": -49.063353538513}'
+          - name: polygonatendida
+            type: text
+            value: '[[{"lat":-22.325147349455285,"lng":-49.00065735115292},{"lat":-22.305369023747357,"lng":-49.00442739442359},{"lat":-22.287976256016805,"lng":-49.01528280137725},{"lat":-22.27506687074185,"lng":-49.03191424972655},{"lat":-22.268197930308876,"lng":-49.05231574134652},{"lat":-22.268197930308876,"lng":-49.07402655525384},{"lat":-22.27506687074185,"lng":-49.09442804687381},{"lat":-22.287976256016805,"lng":-49.1110594952231},{"lat":-22.305369023747357,"lng":-49.12191490217677},{"lat":-22.325147349455285,"lng":-49.12568494544744},{"lat":-22.344925675163218,"lng":-49.12191490217677},{"lat":-22.362318442893766,"lng":-49.1110594952231},{"lat":-22.375227828168725,"lng":-49.09442804687381},{"lat":-22.382096768601695,"lng":-49.07402655525384},{"lat":-22.382096768601695,"lng":-49.05231574134652},{"lat":-22.375227828168725,"lng":-49.03191424972655},{"lat":-22.362318442893766,"lng":-49.01528280137725},{"lat":-22.344925675163218,"lng":-49.00442739442359},{"lat":-22.325147349455285,"lng":-49.00065735115292}]]'
+          - name: polygonsuspensa
+            type: text
+            value: "[]"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 21:07:14 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785373634"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "servico": {
+              "id": "33",
+              "site_id": "582",
+              "nome": "Serviço Geolocalização",
+              "descricao": null,
+              "icon": "",
+              "zona_tipo": "polygon",
+              "km_cep_origem": "",
+              "retirada": "N",
+              "retirada_endereco": null,
+              "polygonatendida": [
+                [
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.00065735115292
+                  },
+                  {
+                    "lat": -22.305369023747357,
+                    "lng": -49.00442739442359
+                  },
+                  {
+                    "lat": -22.287976256016805,
+                    "lng": -49.01528280137725
+                  },
+                  {
+                    "lat": -22.27506687074185,
+                    "lng": -49.03191424972655
+                  },
+                  {
+                    "lat": -22.268197930308876,
+                    "lng": -49.05231574134652
+                  },
+                  {
+                    "lat": -22.268197930308876,
+                    "lng": -49.07402655525384
+                  },
+                  {
+                    "lat": -22.27506687074185,
+                    "lng": -49.09442804687381
+                  },
+                  {
+                    "lat": -22.287976256016805,
+                    "lng": -49.1110594952231
+                  },
+                  {
+                    "lat": -22.305369023747357,
+                    "lng": -49.12191490217677
+                  },
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.12568494544744
+                  },
+                  {
+                    "lat": -22.344925675163218,
+                    "lng": -49.12191490217677
+                  },
+                  {
+                    "lat": -22.362318442893766,
+                    "lng": -49.1110594952231
+                  },
+                  {
+                    "lat": -22.375227828168725,
+                    "lng": -49.09442804687381
+                  },
+                  {
+                    "lat": -22.382096768601695,
+                    "lng": -49.07402655525384
+                  },
+                  {
+                    "lat": -22.382096768601695,
+                    "lng": -49.05231574134652
+                  },
+                  {
+                    "lat": -22.375227828168725,
+                    "lng": -49.03191424972655
+                  },
+                  {
+                    "lat": -22.362318442893766,
+                    "lng": -49.01528280137725
+                  },
+                  {
+                    "lat": -22.344925675163218,
+                    "lng": -49.00442739442359
+                  },
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.00065735115292
+                  }
+                ]
+              ],
+              "polygonsuspensa": [],
+              "polygoncenter": {
+                "lat": -22.325147349455,
+                "lng": -49.063353538513
+              },
+              "peso_min": "0",
+              "peso_max": "10",
+              "aceita_volumosos": "S",
+              "comprimento_max": "0",
+              "largura_max": "0",
+              "altura_max": "0",
+              "soma_max": "0",
+              "ativo": "S",
+              "calcular_cubagem": "N",
+              "fator_cubagem": null,
+              "seguro": "N",
+              "seguro_acrescimo": null,
+              "agendamento": "N",
+              "agendamento_diasexibidos": "0",
+              "agendamento_maxdia": "0",
+              "agendamento_maxperiodo": "0",
+              "cep_exclusao": null
+            }
+          }
+  - name: 200 inserir Entrega por Geolocalização com Agendamento
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: Serviço Geolocalização
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: ""
+            description: Descricao livre do servico (opcional)
+            disabled: true
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+            disabled: true
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+            disabled: true
+          - name: retirada
+            type: text
+            value: N
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+            disabled: true
+          - name: peso_min
+            type: text
+            value: "0"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "10"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+            disabled: true
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+            disabled: true
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+            disabled: true
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+            disabled: true
+          - name: ativo
+            type: text
+            value: S
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: S
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            type: text
+            value: "6"
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+          - name: agendamento_maxdia
+            type: text
+            value: "10"
+            description: Quantidade maxima de agendamentos permitidos por dia
+          - name: agendamento_maxperiodo
+            type: text
+            value: "5"
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+          - name: cep_exclusao
+            type: text
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+            disabled: true
+          - name: polygoncenter
+            type: text
+            value: '{"lat": -22.325147349455,"lng": -49.063353538513}'
+          - name: polygonatendida
+            type: text
+            value: '[[{"lat":-22.325147349455285,"lng":-49.00065735115292},{"lat":-22.305369023747357,"lng":-49.00442739442359},{"lat":-22.287976256016805,"lng":-49.01528280137725},{"lat":-22.27506687074185,"lng":-49.03191424972655},{"lat":-22.268197930308876,"lng":-49.05231574134652},{"lat":-22.268197930308876,"lng":-49.07402655525384},{"lat":-22.27506687074185,"lng":-49.09442804687381},{"lat":-22.287976256016805,"lng":-49.1110594952231},{"lat":-22.305369023747357,"lng":-49.12191490217677},{"lat":-22.325147349455285,"lng":-49.12568494544744},{"lat":-22.344925675163218,"lng":-49.12191490217677},{"lat":-22.362318442893766,"lng":-49.1110594952231},{"lat":-22.375227828168725,"lng":-49.09442804687381},{"lat":-22.382096768601695,"lng":-49.07402655525384},{"lat":-22.382096768601695,"lng":-49.05231574134652},{"lat":-22.375227828168725,"lng":-49.03191424972655},{"lat":-22.362318442893766,"lng":-49.01528280137725},{"lat":-22.344925675163218,"lng":-49.00442739442359},{"lat":-22.325147349455285,"lng":-49.00065735115292}]]'
+          - name: polygonsuspensa
+            type: text
+            value: "[]"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 21:08:35 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785373715"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "success",
+            "servico": {
+              "id": "34",
+              "site_id": "582",
+              "nome": "Serviço Geolocalização",
+              "descricao": null,
+              "icon": "",
+              "zona_tipo": "polygon",
+              "km_cep_origem": "",
+              "retirada": "N",
+              "retirada_endereco": null,
+              "polygonatendida": [
+                [
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.00065735115292
+                  },
+                  {
+                    "lat": -22.305369023747357,
+                    "lng": -49.00442739442359
+                  },
+                  {
+                    "lat": -22.287976256016805,
+                    "lng": -49.01528280137725
+                  },
+                  {
+                    "lat": -22.27506687074185,
+                    "lng": -49.03191424972655
+                  },
+                  {
+                    "lat": -22.268197930308876,
+                    "lng": -49.05231574134652
+                  },
+                  {
+                    "lat": -22.268197930308876,
+                    "lng": -49.07402655525384
+                  },
+                  {
+                    "lat": -22.27506687074185,
+                    "lng": -49.09442804687381
+                  },
+                  {
+                    "lat": -22.287976256016805,
+                    "lng": -49.1110594952231
+                  },
+                  {
+                    "lat": -22.305369023747357,
+                    "lng": -49.12191490217677
+                  },
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.12568494544744
+                  },
+                  {
+                    "lat": -22.344925675163218,
+                    "lng": -49.12191490217677
+                  },
+                  {
+                    "lat": -22.362318442893766,
+                    "lng": -49.1110594952231
+                  },
+                  {
+                    "lat": -22.375227828168725,
+                    "lng": -49.09442804687381
+                  },
+                  {
+                    "lat": -22.382096768601695,
+                    "lng": -49.07402655525384
+                  },
+                  {
+                    "lat": -22.382096768601695,
+                    "lng": -49.05231574134652
+                  },
+                  {
+                    "lat": -22.375227828168725,
+                    "lng": -49.03191424972655
+                  },
+                  {
+                    "lat": -22.362318442893766,
+                    "lng": -49.01528280137725
+                  },
+                  {
+                    "lat": -22.344925675163218,
+                    "lng": -49.00442739442359
+                  },
+                  {
+                    "lat": -22.325147349455285,
+                    "lng": -49.00065735115292
+                  }
+                ]
+              ],
+              "polygonsuspensa": [],
+              "polygoncenter": {
+                "lat": -22.325147349455,
+                "lng": -49.063353538513
+              },
+              "peso_min": "0",
+              "peso_max": "10",
+              "aceita_volumosos": "S",
+              "comprimento_max": "0",
+              "largura_max": "0",
+              "altura_max": "0",
+              "soma_max": "0",
+              "ativo": "S",
+              "calcular_cubagem": "N",
+              "fator_cubagem": null,
+              "seguro": "N",
+              "seguro_acrescimo": null,
+              "agendamento": "S",
+              "agendamento_diasexibidos": "6",
+              "agendamento_maxdia": "10",
+              "agendamento_maxperiodo": "5",
+              "cep_exclusao": null
+            }
+          }

@@ -1,0 +1,176 @@
+info:
+  name: Editar configurações de pagamento
+  type: http
+  seq: 5
+  tags:
+    - Configurações
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/conf/pagamento"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  body:
+    type: form-urlencoded
+    data:
+      - name: pagamento_metodos[]
+        value: ""
+        description: Metodo de pagamento a habilitar/desabilitar na loja; envie um campo pagamento_metodos[] por metodo (veja valores possiveis nos docs abaixo)
+        disabled: true
+      - name: pagtoentrega_metodos[]
+        value: ""
+        description: Forma aceita no pagamento feito na entrega (dinheiro, credito, debito, vale ou pix); requer pagtoentrega habilitado em pagamento_metodos
+        disabled: true
+      - name: pagtoentrega_bandeiras_credito[]
+        value: ""
+        description: Bandeira de cartao de credito aceita no pagamento na entrega (texto livre, uma por campo)
+        disabled: true
+      - name: pagtoentrega_bandeiras_debito[]
+        value: ""
+        description: Bandeira de cartao de debito aceita no pagamento na entrega (texto livre, uma por campo)
+        disabled: true
+      - name: pagtoentrega_bandeiras_vale[]
+        value: ""
+        description: Bandeira de vale (refeicao/alimentacao) aceita no pagamento na entrega (texto livre, uma por campo)
+        disabled: true
+      - name: config_PIX_CHAVE
+        value: ""
+        description: Chave PIX usada para recebimento via deposito/transferencia
+        disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/pagamento"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: pagamento_metodos[]
+            value: ""
+            description: Metodo de pagamento a habilitar/desabilitar na loja; envie um campo pagamento_metodos[] por metodo (veja valores possiveis nos docs abaixo)
+          - name: pagtoentrega_metodos[]
+            value: ""
+            description: Forma aceita no pagamento feito na entrega (dinheiro, credito, debito, vale ou pix); requer pagtoentrega habilitado em pagamento_metodos
+          - name: pagtoentrega_bandeiras_credito[]
+            value: ""
+            description: Bandeira de cartao de credito aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: pagtoentrega_bandeiras_debito[]
+            value: ""
+            description: Bandeira de cartao de debito aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: pagtoentrega_bandeiras_vale[]
+            value: ""
+            description: Bandeira de vale (refeicao/alimentacao) aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: config_PIX_CHAVE
+            value: ""
+            description: Chave PIX usada para recebimento via deposito/transferencia
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","msg":"Informa\u00e7\u00f5es salvas","pagamento":{"bc_email":"","bc_maxparc":"1","bc_parcjuros":"0","bc_parcmin":"5","bc_parcsemjuros":"0","boleto_automatico":"N","boleto_bairro":null,"boleto_bco_aceite":null,"boleto_bco_agencia":"","boleto_bco_carteira":"","boleto_bco_carteira_semreg":null,"boleto_bco_codigo":null,"boleto_bco_conta":"","boleto_bco_dac":null,"boleto_cidade":null,"boleto_codcedentepsk":null,"boleto_codigo":"4","boleto_convenio":null,"boleto_endereco":null,"boleto_formatconv":null,"boleto_formatnn":null,"boleto_gateway":"paghiper","boleto_intrucoes1":"","boleto_intrucoes2":"","boleto_intrucoes3":"","boleto_intrucoes4":"","boleto_numero":null,"boleto_prazodias":"0","boleto_uf":null,"boleto_valormin":"3","cc_bandeiras":"diners,mastercard,visa,amex,elo","cc_capturadireta":"S","cc_cielonumero":"","cc_cielov3_merchantid":"bafb04d4-efda-4739-a167-5af422336fea","cc_elavonterminalid":"","cc_gateway":"bart","cc_getnet_clientid":"","cc_getnet_sellerid":"","cc_maxparc":"3","cc_parcjuros":"0.8","cc_parcmin":"5","cc_parcsemjuros":"3","cc_payzencertificado":"","cc_payzensiteid":"","cc_rede_pv":"85619119","clearsale_ativo":"N","clearsale_codigo":null,"config_C6BANK_CHAVE_PIX":"c455ef27-fb63-4520-80bc-ef0d73cc84b8","config_INTER_CHAVE_PIX":"","config_INTER_CLIENT_ID":"","config_INTER_CNPJ":"","config_INTER_CONTA":"","config_MERCADOPAGO_APENASENTREGA":"off","config_MERCADOPAGO_CHECKOUTMODE":"L","config_MERCADOPAGO_SANDBOX":"on","config_PAGHIPER_PIX_VALMIN":"3","config_PAGSEGURO_APENASENTREGA":"on","config_PAGSEGURO_JUROS":"","config_PAGSEGURO_MINIMOPARCELA":"","config_PAGSEGURO_PAGBANK":"on","config_PAGSEGURO_PAGBANK_USEAPPLICATION":"on","config_PAGSEGURO_SANDBOX":"on","config_PAGSEGURO_TIPOMAXIMO":"off","config_PIX_CHAVE":"42672500819","deposito_agencia":"0000","deposito_banco":"Nome do banco","deposito_chavepix":"chave pix","deposito_cnpj":"00000000000","deposito_conta":"0000","deposito_email":"contato@seusite.com.br","deposito_titular":"Nome do titular da conta","frete_dimensoes_comprimento":"0","itau_client_id":"","moip_mode":null,"moip_receiver":"","moip_semjuros_parcelas":"0","moip_semjuros_valormaximo":"0","moip_semjuros_valorminimo":"0","moip_taxajuros":"1.99","mp_clientid":null,"mp_semjuros_parcelas":"1","mp_semjuros_valormaximo":"0","mp_semjuros_valorminimo":"0","pagamento_descavista":"15","pagamento_direto":"S","pagamento_info":"","pagamento_metodos":"pagseguro,paypal,pagtoentrega","pagamento_metodos_ordem":"pagseguro,pix,mercadopago,paypal,deposito,pagtoentrega,pagtoifood,boleto,cartao,custom","paghiper_boleto":"N","paghiper_email":"richard@nsweb.com.br","pagseguro_appauthcode":"7db4ea6934d442a8badf49e62a79c9a8","pagseguro_email":null,"pagseguro_mode":"T","pagseguro_semjuros_parcelas":"1","pagseguro_semjuros_valormaximo":"350","pagseguro_semjuros_valorminimo":"0","pagtoentrega_apenasretirada":"N","pagtoentrega_bandeiras_credito":"Visa\nMastercard","pagtoentrega_bandeiras_debito":"Visa\nMastercard","pagtoentrega_bandeiras_vale":"Alelo Refei\u00e7\u00e3o\nSodexo","pagtoentrega_metodos":"dinheiro,credito,debito,vale","paypal_semjuros_parcelas":"0","paypal_semjuros_valorminimo":"0","paypal_semjuros_valorminparc":"0","paypal_usuario":"sb-ogrnw30888475_api1.business.example.com","pix_gateway":"bart"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/pagamento"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: pagamento_metodos[]
+            value: ""
+            description: Metodo de pagamento a habilitar/desabilitar na loja; envie um campo pagamento_metodos[] por metodo (veja valores possiveis nos docs abaixo)
+          - name: pagtoentrega_metodos[]
+            value: ""
+            description: Forma aceita no pagamento feito na entrega (dinheiro, credito, debito, vale ou pix); requer pagtoentrega habilitado em pagamento_metodos
+          - name: pagtoentrega_bandeiras_credito[]
+            value: ""
+            description: Bandeira de cartao de credito aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: pagtoentrega_bandeiras_debito[]
+            value: ""
+            description: Bandeira de cartao de debito aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: pagtoentrega_bandeiras_vale[]
+            value: ""
+            description: Bandeira de vale (refeicao/alimentacao) aceita no pagamento na entrega (texto livre, uma por campo)
+          - name: config_PIX_CHAVE
+            value: ""
+            description: Chave PIX usada para recebimento via deposito/transferencia
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  Endpoint criado para configurar o pagamento.
+
+  **IMPORTANTE!!** Somente é permitido alteração para o pagtoentrega, qualquer tentativa de alterar outro método de pagamento retornará erro.
+
+  - Para mudar os métodos de pagamento habilitados, use o campo **pagamento_metodos.**
+      
+  - Para mudar os métodos de pagamento feitos na entrega, use o **pagtoentrega_metodos** (Lembrando que precisa estar habilitado o **pagtoentrega** no **pagamento_metodos**).
+      
+  - Para escolher quais bandeiras é usado nos cartões de débito, crédito e vale, use o **pagtoentrega_bandeiras_debito**, **pagtoentrega_bandeiras_credito** e **pagtoentrega_bandeiras_vale**, os valores neles são livres podendo ser qualquer informação.
+      
+  - Para configurar qual a chave pix, use o **config_PIX_CHAVE**.
+      
+
+  Valores possiveis no **pagamento_metodos:**
+
+  - **pagtoentrega** - pessoalmete - Pagar ao receber ou no local.
+      
+  - **deposito** - pessoalmente - Pagar por transferência bancaria.
+      
+  - **cartao** - online - Pagar usando cartão de crédito. Gateway disponiveis: Cielo, e.Rede, Getnet, Elavon, Payzen e Stone.
+      
+  - **boleto** - online - Pagar usando boleto bancario. Gateway disponiveis: PagHiper e Itaú.
+      
+  - **pix** - online - Pagar usando Pix através do qrcode ou copia/cola. Gateway disponiveis: PagHiper e Inter.
+      
+  - **pagseguro** - online - Pagar usando integração com o PagSeguro/PagBank.
+      
+  - **mercadopago** - online - Pagar usando integração com o MercadoPago.
+      
+  - **paypal** - online - Pagar usando integração com o PayPal.
+      
+
+  Valores possiveis no **pagtoentrega_metodos**:
+
+  - **dinheiro**
+      
+  - **credito**
+      
+  - **debito**
+      
+  - **vale**
+      
+  - **pix**

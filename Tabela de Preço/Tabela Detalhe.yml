@@ -1,0 +1,133 @@
+info:
+  name: Tabela Detalhe
+  type: http
+  seq: 2
+  tags:
+    - Tabelas de Preço
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: precoId
+      value: "{{precoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx/1.27.3
+        - name: date
+          value: Wed, 29 Jul 2026 15:38:04 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785353884"
+        - name: strict-transport-security
+          value: "Strict-Transport-Security: max-age=31536000; includeSubDomains"
+      body:
+        type: json
+        data: |-
+          {
+            "id": "1",
+            "site_id": "6",
+            "name": "Filial Bauru",
+            "description": "",
+            "price_fixed": "N",
+            "products_fixed": "Y",
+            "price_perc": "0",
+            "lastupdate": "2026-07-29 12:35:04",
+            "lastupdate_user": "1",
+            "rows": "33"
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+          disabled: true
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.27.3
+        - name: date
+          value: Wed, 29 Jul 2026 15:38:56 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785353936"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Lista todos os preços cadastradas dentro da tabela de preço.

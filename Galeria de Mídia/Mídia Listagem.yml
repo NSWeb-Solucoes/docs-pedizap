@@ -1,0 +1,157 @@
+info:
+  name: Mídia Listagem
+  type: http
+  seq: 1
+  tags:
+    - Mídia
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/media"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: path
+      value: '/pasta'
+      type: query
+      description: 'Pasta a ser listada. Sem esse parametro lista a raiz'
+      disabled: true
+    - name: limit
+      value: '200'
+      type: query
+      description: 'Itens por pagina (default 200)'
+      disabled: true
+    - name: page
+      value: ''
+      type: query
+      description: 'Pagina da listagem (opcional)'
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta a ser listada. Sem esse parametro lista a raiz'
+          disabled: true
+        - name: limit
+          value: '200'
+          type: query
+          description: 'Itens por pagina (default 200)'
+          disabled: true
+        - name: page
+          value: ''
+          type: query
+          description: 'Pagina da listagem (opcional)'
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"path":"\/custom\/109\/uploads\/api-teste","pagina":1,"totalRegistros":2,"totalGeralRegistros":2,"totalPaginas":1,"registroInicio":1,"registroFim":2,"arquivos":{"arquivo":[{"type":"dir","name":"PDF","path":"\/custom\/109\/uploads\/PDF","count":1},{"type":"file","name":"logo.png","path":"\/custom\/109\/uploads\/logo.png","url":"https:\/\/loja.com.br\/custom\/109\/uploads\/logo.png","extension":"png","size":12005,"lastmod":"16\/08\/2026 13:19:27","thumbnail":"\/imgcache\/109\/150x\/custom\/109\/uploads\/logo.png.webp"}]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta a ser listada. Sem esse parametro lista a raiz'
+          disabled: true
+        - name: limit
+          value: '200'
+          type: query
+          description: 'Itens por pagina (default 200)'
+          disabled: true
+        - name: page
+          value: ''
+          type: query
+          description: 'Pagina da listagem (opcional)'
+          disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta a ser listada. Sem esse parametro lista a raiz'
+          disabled: true
+        - name: limit
+          value: '200'
+          type: query
+          description: 'Itens por pagina (default 200)'
+          disabled: true
+        - name: page
+          value: ''
+          type: query
+          description: 'Pagina da listagem (opcional)'
+          disabled: true
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Pasta inv\u00e1lida: \/naoexiste. "}'
+
+docs: |-
+  <p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação
+  acontece na raiz.</p>
+
+  <p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,
+  <code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,
+  <code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.
+  As fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>
+
+  <p>Cada item traz <code>type</code> (<code>file</code> ou <code>dir</code>). Arquivos de imagem trazem
+  também <code>thumbnail</code>.</p>

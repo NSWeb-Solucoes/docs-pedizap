@@ -1,0 +1,7 @@
+info:
+  name: Galeria de Mídia
+  type: folder
+  seq: 23
+
+request:
+  auth: inherit

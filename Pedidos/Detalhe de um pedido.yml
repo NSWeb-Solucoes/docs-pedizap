@@ -1,0 +1,83 @@
+info:
+  name: Detalhe de um pedido
+  type: http
+  seq: 2
+  tags:
+    - Pedidos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: pedidoId
+      value: "{{pedidoId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"totalRegistros":0,"pedidos":{"pedido":[]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p><b>Tabela de métodos de entrega (<code>entrega_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pedido sem entrega definida (ex.: PDV/balcão)</td></tr><tr><td><code>retirar_loja</code></td><td>Retirar na loja</td></tr><tr><td><code>retirar_custom</code></td><td>Retirada em ponto/zona configurada</td></tr><tr><td><code>frete_fixo</code></td><td>Frete fixo (ou &quot;A Combinar&quot;, quando a loja estiver configurada assim)</td></tr><tr><td><code>custom</code></td><td>Entrega própria (zona/bairro cadastrado na loja)</td></tr><tr><td><code>correios</code></td><td>Correios</td></tr><tr><td><code>expfacil</code></td><td>Correios Exporta Fácil</td></tr><tr><td><code>jadlog</code></td><td>JadLog</td></tr><tr><td><code>tnt</code></td><td>TNT</td></tr><tr><td><code>jamef</code></td><td>Jamef</td></tr><tr><td><code>gollog</code></td><td>GolLog</td></tr><tr><td><code>azulbauru</code></td><td>Azul Bauru</td></tr><tr><td><code>braspress</code></td><td>Braspress</td></tr><tr><td><code>melhorenvio</code></td><td>Melhor Envio</td></tr><tr><td><code>ifood</code></td><td>Entrega parceira iFood</td></tr><tr><td><code>opendelivery</code></td><td>Entrega parceira OpenDelivery</td></tr><tr><td><code>machine</code></td><td>Entrega parceira Machine</td></tr></tbody></table>
+
+  <p>O campo <code>entrega_servico</code> complementa o método (código do serviço da transportadora, ou o ID do serviço/zona no caso de entrega própria) e <code>entrega_descricao</code> traz o nome exibido ao cliente.</p>
+
+  <p><b>Tabela de métodos de pagamento (<code>pagto_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td><td><b>Momento</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pagamento ainda não escolhido (carrinho ou pedido aberto)</td><td>&mdash;</td></tr><tr><td><code>pix</code></td><td>PIX QRCode</td><td>Online</td></tr><tr><td><code>cartao</code></td><td>Cartão de crédito pelo gateway configurado na loja</td><td>Online</td></tr><tr><td><code>boleto</code></td><td>Boleto bancário</td><td>Online</td></tr><tr><td><code>mercadopago</code></td><td>MercadoPago</td><td>Online</td></tr><tr><td><code>pagseguro</code></td><td>PagSeguro</td><td>Online</td></tr><tr><td><code>pagbank</code></td><td>PagBank</td><td>Online</td></tr><tr><td><code>paypal</code></td><td>PayPal</td><td>Online</td></tr><tr><td><code>payzen</code></td><td>Payzen</td><td>Online</td></tr><tr><td><code>pagtoifood</code></td><td>Pagar ao receber via parceiro iFood</td><td>Online</td></tr><tr><td><code>opendelivery</code></td><td>Pedido recebido já pago pelo parceiro OpenDelivery</td><td>Online</td></tr><tr><td><code>deposito</code></td><td>Transferência/Depósito (exibido como &quot;PIX / Transferência&quot; quando a loja tem contas PIX cadastradas)</td><td>Presencial</td></tr><tr><td><code>pagtoentrega</code></td><td>Pagar ao receber</td><td>Presencial</td></tr><tr><td><code>custom</code></td><td>Forma de pagamento personalizada da loja</td><td>Presencial</td></tr><tr><td><code>gratis</code></td><td>Pedido gratuito (promoção/cashback), sem cobrança</td><td>&mdash;</td></tr></tbody></table>
+
+  <p>Os métodos online só aparecem quando o gateway correspondente está habilitado na loja.</p><p>Quando <code>pagto_metodo</code> = <code>pagtoentrega</code>, o campo <code>pagto_metododesc</code> detalha a forma escolhida para pagar na entrega: <code>dinheiro</code>, <code>credito</code>, <code>debito</code>, <code>vale</code> ou <code>pix</code>. A lista ativa da loja (com as bandeiras aceitas) pode ser consultada em <code>GET /api/pedido/getpagtoentregametodos</code>. O campo <code>pagto_bandeira</code> traz a bandeira do cartão quando aplicável.</p>

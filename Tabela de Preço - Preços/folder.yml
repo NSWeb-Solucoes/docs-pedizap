@@ -1,0 +1,7 @@
+info:
+  name: Tabela de Preço - Preços
+  type: folder
+  seq: 10
+
+request:
+  auth: inherit

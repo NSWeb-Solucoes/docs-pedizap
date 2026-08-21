@@ -1,0 +1,219 @@
+info:
+  name: Cliente Editar
+  type: http
+  seq: 4
+  tags:
+    - Clientes
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: clienteId
+      value: "{{clienteId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: nome
+        value: opa
+        description: Nome completo do cliente
+      - name: tipo_pessoa
+        value: ""
+        description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+      - name: cpfcnpj
+        value: ""
+        description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+      - name: rgie
+        value: ""
+        description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+      - name: fone_ddd
+        value: ""
+        description: DDD do telefone fixo
+      - name: fone
+        value: ""
+        description: Numero do telefone fixo, sem o DDD
+      - name: email
+        value: ""
+        description: E-mail do cliente
+      - name: pricetable_id
+        value: ""
+        description: ID da tabela de preco vinculada ao cliente; vazio usa a tabela padrao da loja
+      - name: data_nascimento
+        value: ""
+        description: Data de nascimento no formato dd/mm/aaaa
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            value: ""
+            description: E-mail do cliente
+          - name: pricetable_id
+            value: ""
+            description: ID da tabela de preco vinculada ao cliente; vazio usa a tabela padrao da loja
+          - name: data_nascimento
+            value: ""
+            description: Data de nascimento no formato dd/mm/aaaa
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            value: ""
+            description: E-mail do cliente
+          - name: pricetable_id
+            value: ""
+            description: ID da tabela de preco vinculada ao cliente; vazio usa a tabela padrao da loja
+          - name: data_nascimento
+            value: ""
+            description: Data de nascimento no formato dd/mm/aaaa
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente/:clienteId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: clienteId
+          value: "{{cliente_id}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            value: ""
+            description: E-mail do cliente
+          - name: pricetable_id
+            value: ""
+            description: ID da tabela de preco vinculada ao cliente; vazio usa a tabela padrao da loja
+          - name: data_nascimento
+            value: ""
+            description: Data de nascimento no formato dd/mm/aaaa
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Cliente n\u00e3o informado, ou atributo \"id\" faltando."}'

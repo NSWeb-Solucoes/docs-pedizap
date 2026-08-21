@@ -1,0 +1,479 @@
+info:
+  name: Buscar webhooks
+  type: http
+  seq: 5
+  tags:
+    - Webhook
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/webhook"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: modules_names
+      value: product,order
+      type: query
+      description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+    - name: modules
+      value: 7,11,3
+      type: query
+      description: String - Optional - Filtra os webhooks por módulos
+    - name: url
+      value: proto://domain/path
+      type: query
+      description: String - Opcional - Filtra pela url cadastrada no webhook
+    - name: actived
+      value: Y
+      type: query
+      description: Enum('Y','N') - String - Filtra webhooks ativos
+    - name: page
+      value: "1"
+      type: query
+      description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+    - name: order
+      value: webhook_url
+      type: query
+      description: String - Optional - Ordenação da lista.
+    - name: limit
+      value: "20"
+      type: query
+      description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+  auth: inherit
+ 
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","webhooks":[{"id":"30","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-426614174000","credential_id":"1","actived":"Y","created_at":"2026-07-16 11:01:59","updated_at":"2026-07-16 11:29:53"},{"id":"31","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-42661417400","credential_id":"1","actived":"Y","created_at":"2026-07-16 15:17:25","updated_at":"2026-07-16 15:17:25"}]}'
+  - name: 200 Modules_Names
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"webhooks":[]}'
+  - name: 200 Modules
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"webhooks":[]}'
+  - name: 200 Url
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"webhooks":[]}'
+  - name: 200 Actived
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":1,"totalGeralRegistros":"1","totalPaginas":1,"registroInicio":1,"registroFim":"1","webhooks":[{"id":"31","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-42661417400","credential_id":"1","actived":"Y","created_at":"2026-07-16 15:17:25","updated_at":"2026-07-16 15:17:25"}]}'
+  - name: 200 Page
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":1,"totalGeralRegistros":"1","totalPaginas":1,"registroInicio":1,"registroFim":"1","webhooks":[{"id":"31","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-42661417400","credential_id":"1","actived":"Y","created_at":"2026-07-16 15:17:25","updated_at":"2026-07-16 15:17:25"}]}'
+  - name: 200  Order
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":1,"totalGeralRegistros":"1","totalPaginas":1,"registroInicio":1,"registroFim":"1","webhooks":[{"id":"31","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-42661417400","credential_id":"1","actived":"Y","created_at":"2026-07-16 15:17:25","updated_at":"2026-07-16 15:17:25"}]}'
+  - name: 200 Limit
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":1,"totalGeralRegistros":"1","totalPaginas":1,"registroInicio":1,"registroFim":"1","webhooks":[{"id":"31","site_id":"5095","module_ids":"11","webhook_url":"https:\/\/cardapioqrcode.pedizap.com.br\/opendelivery\/v1\/newEvent","delivery_mode":"push","client_id":null,"merchant_id":"123e4567-e89b-412d-a456-42661417400","credential_id":"1","actived":"Y","created_at":"2026-07-16 15:17:25","updated_at":"2026-07-16 15:17:25"}]}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: modules_names
+          value: product,order
+          type: query
+          description: String - String - Filtra os webhooks por módulos. Se o name passado não existir, não será considerado no filtro
+        - name: modules
+          value: 7,11,3
+          type: query
+          description: String - Optional - Filtra os webhooks por módulos
+        - name: url
+          value: proto://domain/path
+          type: query
+          description: String - Opcional - Filtra pela url cadastrada no webhook
+        - name: actived
+          value: Y
+          type: query
+          description: Enum('Y','N') - String - Filtra webhooks ativos
+        - name: page
+          value: "1"
+          type: query
+          description: Integer - Opcional - Apartir do limit é criado a paginação da busca. Por padrão será a page 1
+        - name: order
+          value: webhook_url
+          type: query
+          description: String - Optional - Ordenação da lista.
+        - name: limit
+          value: "20"
+          type: query
+          description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Endpoint para buscar todos os webhooks de um dominio.

@@ -1,0 +1,150 @@
+info:
+  name: Mídia Enviar Arquivo por Base64 encode
+  type: http
+  seq: 4
+  tags:
+    - Mídia
+
+http:
+  method: POST
+  url: "{{proto}}://{{domain}}/api/media"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: path
+      value: '/pasta'
+      type: query
+      description: 'Pasta de destino. Sem esse parametro envia para a raiz'
+      disabled: true
+  body:
+    type: form-urlencoded
+    data:
+      - name: file_name
+        value: 'arquivo.png'
+        description: 'Nome do arquivo no destino (obrigatorio)'
+      - name: file_data
+        value: ''
+        description: 'Conteudo do arquivo em base64'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta de destino. Sem esse parametro envia para a raiz'
+          disabled: true
+      body:
+        type: form-urlencoded
+        data:
+          - name: file_name
+            value: ''
+            description: 'Nome do arquivo no destino (obrigatorio)'
+          - name: file_data
+            value: ''
+            description: 'Conteudo do arquivo em base64'
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","arquivo":{"name":"logo.png","path":"\/custom\/109\/uploads\/api-teste\/logo.png","url":"https:\/\/loja.com.br\/custom\/109\/uploads\/api-teste\/logo.png"}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta de destino. Sem esse parametro envia para a raiz'
+          disabled: true
+      body:
+        type: form-urlencoded
+        data:
+          - name: file_name
+            value: ''
+            description: 'Nome do arquivo no destino (obrigatorio)'
+          - name: file_data
+            value: ''
+            description: 'Conteudo do arquivo em base64'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/media"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: path
+          value: '/pasta'
+          type: query
+          description: 'Pasta de destino. Sem esse parametro envia para a raiz'
+          disabled: true
+      body:
+        type: form-urlencoded
+        data:
+          - name: file_name
+            value: ''
+            description: 'Nome do arquivo no destino (obrigatorio)'
+          - name: file_data
+            value: ''
+            description: 'Conteudo do arquivo em base64'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"N\u00e3o foi informado o nome do arquivo (Par\u00e2metro: file_name)."}'
+
+docs: |-
+  <p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação
+  acontece na raiz.</p>
+
+  <p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,
+  <code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,
+  <code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.
+  As fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>

@@ -1,0 +1,461 @@
+info:
+  name: Serviço Editar
+  type: http
+  seq: 4
+  tags:
+    - Entrega
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+  headers:
+    - name: Content-Type
+      value: multipart/form-data
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: servicoId
+      value: "{{servicoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: nome
+        value: aoba
+        description: Nome do servico de entrega (obrigatorio)
+      - name: descricao
+        value: ""
+        description: Descricao livre do servico (opcional)
+        disabled: true
+      - name: icon
+        value: ""
+        description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+        disabled: true
+      - name: zona_tipo
+        value: bairro_custom
+        description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja'
+      - name: km_cep_origem
+        value: ""
+        description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+        disabled: true
+      - name: retirada
+        value: ""
+        description: '"N" (Entrega) ou "S" (Retirada)'
+        disabled: true
+      - name: retirada_endereco
+        value: ""
+        description: Endereco de retirada, usado quando retirada = "S"
+        disabled: true
+      - name: peso_min
+        value: ""
+        description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+        disabled: true
+      - name: peso_max
+        value: ""
+        description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+        disabled: true
+      - name: seguro
+        value: ""
+        description: '"S" ou "N" - inclui valor de seguro no calculo do frete'
+        disabled: true
+      - name: seguro_acrescimo
+        value: ""
+        description: Percentual de seguro cobrado sobre o valor dos produtos
+        disabled: true
+      - name: calcular_cubagem
+        value: ""
+        description: '"S" ou "N" - considera o peso cubico (volumetrico) no calculo do frete'
+        disabled: true
+      - name: fator_cubagem
+        value: ""
+        description: Fator usado no calculo do peso cubico, quando calcular_cubagem = "S"
+        disabled: true
+      - name: ativo
+        value: ""
+        description: '"S" ou "N" - ativa/desativa o servico'
+        disabled: true
+      - name: agendamento
+        value: ""
+        description: '"S" ou "N" - permite agendar a entrega em um Periodo cadastrado'
+        disabled: true
+      - name: agendamento_diasexibidos
+        value: ""
+        description: Quantidade de dias exibidos para escolha na hora de agendar a entrega
+        disabled: true
+      - name: agendamento_maxdia
+        value: ""
+        description: Quantidade maxima de agendamentos permitidos por dia
+        disabled: true
+      - name: agendamento_maxperiodo
+        value: ""
+        description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+        disabled: true
+      - name: cep_exclusao
+        value: ""
+        description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+        disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 404 Response Nao encontrado
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: ""
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            value: ""
+            description: Descricao livre do servico (opcional)
+          - name: icon
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+          - name: zona_tipo
+            value: ""
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja'
+          - name: km_cep_origem
+            value: ""
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+          - name: retirada
+            value: ""
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            value: ""
+            description: Endereco de retirada, usado quando retirada = "S"
+          - name: peso_min
+            value: ""
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            value: ""
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            value: ""
+            description: '"S" ou "N" - inclui valor de seguro no calculo do frete'
+          - name: seguro_acrescimo
+            value: ""
+            description: Percentual de seguro cobrado sobre o valor dos produtos
+          - name: calcular_cubagem
+            value: ""
+            description: '"S" ou "N" - considera o peso cubico (volumetrico) no calculo do frete'
+          - name: fator_cubagem
+            value: ""
+            description: Fator usado no calculo do peso cubico, quando calcular_cubagem = "S"
+          - name: ativo
+            value: ""
+            description: '"S" ou "N" - ativa/desativa o servico'
+          - name: agendamento
+            value: ""
+            description: '"S" ou "N" - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega
+          - name: agendamento_maxdia
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+          - name: agendamento_maxperiodo
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+          - name: cep_exclusao
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:18:11 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345491"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "error",
+            "msg": "Servico nao encontrado."
+          }
+  - name: 422 Response Dados Inválidos
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: ""
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            value: ""
+            description: Descricao livre do servico (opcional)
+          - name: icon
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+          - name: zona_tipo
+            value: ""
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja'
+          - name: km_cep_origem
+            value: ""
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+          - name: retirada
+            value: ""
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            value: ""
+            description: Endereco de retirada, usado quando retirada = "S"
+          - name: peso_min
+            value: ""
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            value: ""
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            value: ""
+            description: '"S" ou "N" - inclui valor de seguro no calculo do frete'
+          - name: seguro_acrescimo
+            value: ""
+            description: Percentual de seguro cobrado sobre o valor dos produtos
+          - name: calcular_cubagem
+            value: ""
+            description: '"S" ou "N" - considera o peso cubico (volumetrico) no calculo do frete'
+          - name: fator_cubagem
+            value: ""
+            description: Fator usado no calculo do peso cubico, quando calcular_cubagem = "S"
+          - name: ativo
+            value: ""
+            description: '"S" ou "N" - ativa/desativa o servico'
+          - name: agendamento
+            value: ""
+            description: '"S" ou "N" - permite agendar a entrega em um Periodo cadastrado'
+          - name: agendamento_diasexibidos
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega
+          - name: agendamento_maxdia
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+          - name: agendamento_maxperiodo
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+          - name: cep_exclusao
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:19:22 GMT
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: vary
+          value: Accept-Encoding
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345562"
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+      body:
+        type: json
+        data: |-
+          {
+            "status": "error",
+            "msg": "Dados invalidos.",
+            "errorlist": {
+              "zona_tipo": []
+            }
+          }
+  - name: 401 Response
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: nome
+            value: aoba
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            value: ""
+            description: Descricao livre do servico (opcional)
+            disabled: true
+          - name: icon
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+            disabled: true
+          - name: zona_tipo
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja'
+          - name: km_cep_origem
+            value: ""
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+            disabled: true
+          - name: retirada
+            value: ""
+            description: '"N" (Entrega) ou "S" (Retirada)'
+            disabled: true
+          - name: retirada_endereco
+            value: ""
+            description: Endereco de retirada, usado quando retirada = "S"
+            disabled: true
+          - name: peso_min
+            value: ""
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+            disabled: true
+          - name: peso_max
+            value: ""
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+            disabled: true
+          - name: seguro
+            value: ""
+            description: '"S" ou "N" - inclui valor de seguro no calculo do frete'
+            disabled: true
+          - name: seguro_acrescimo
+            value: ""
+            description: Percentual de seguro cobrado sobre o valor dos produtos
+            disabled: true
+          - name: calcular_cubagem
+            value: ""
+            description: '"S" ou "N" - considera o peso cubico (volumetrico) no calculo do frete'
+            disabled: true
+          - name: fator_cubagem
+            value: ""
+            description: Fator usado no calculo do peso cubico, quando calcular_cubagem = "S"
+            disabled: true
+          - name: ativo
+            value: ""
+            description: '"S" ou "N" - ativa/desativa o servico'
+            disabled: true
+          - name: agendamento
+            value: ""
+            description: '"S" ou "N" - permite agendar a entrega em um Periodo cadastrado'
+            disabled: true
+          - name: agendamento_diasexibidos
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega
+            disabled: true
+          - name: agendamento_maxdia
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+            disabled: true
+          - name: agendamento_maxperiodo
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+            disabled: true
+          - name: cep_exclusao
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+            disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx/1.14.1
+        - name: date
+          value: Wed, 29 Jul 2026 13:24:58 GMT
+        - name: content-type
+          value: text/json;charset=UTF-8
+        - name: transfer-encoding
+          value: chunked
+        - name: connection
+          value: keep-alive
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Content-Type, Authorization, X-ApiRequest, X-ApiSession,Cache-Control
+        - name: access-control-allow-methods
+          value: POST, GET, PUT, DELETE, OPTIONS
+        - name: access-control-max-age
+          value: "1785345898"
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
