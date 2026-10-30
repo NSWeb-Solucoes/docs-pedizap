@@ -10,6 +10,7 @@ const YAML = require('yaml');
 
 const RAIZ = path.resolve(__dirname, '..');
 const SAIDA = path.join(RAIZ, 'openapi.json');
+const DOMINIO_PADRAO = 'minhaloja.pedizap.com.br';
 
 const PASTAS_IGNORADAS = new Set(['environments', 'node_modules', 'scripts']);
 const HEADERS_PADRAO = new Set(['accept', 'authorization', 'content-type']);
@@ -92,35 +93,42 @@ function carregarColecao() {
     .map((pasta) => ({ ...pasta, requisicoes: carregarRequisicoes(pasta.dir, pasta.nome) }));
 }
 
-function adicionarParametro(op, nome, local, { descricao, valor, rotulo }) {
+function adicionarParametro(op, nome, local, { descricao, valor }) {
   const chave = `${local}:${nome}`;
 
   // Exemplo antigo pode citar um trecho que nao existe mais na rota
   if (local === 'path' && !op.parametros[chave]) return;
 
-  op.parametros[chave] ??= { nome, local, valores: new Map() };
+  op.parametros[chave] ??= { nome, local };
 
   const parametro = op.parametros[chave];
   if (descricao) parametro.descricao ??= String(descricao);
-
-  const exemplo = valorOuNada(valor);
-  if (exemplo !== undefined && !parametro.valores.has(exemplo)) parametro.valores.set(exemplo, rotulo);
+  parametro.exemplo ??= valorOuNada(valor);
 }
 
-function montarParametro({ nome, local, descricao, valores }) {
+function montarParametro({ nome, local, descricao, exemplo }) {
   const parametro = { name: nome, in: local, required: local === 'path', schema: { type: 'string' } };
   if (descricao) parametro.description = descricao;
-
-  if (valores.size === 1) {
-    [parametro.example] = valores.keys();
-  } else if (valores.size > 1) {
-    parametro.examples = {};
-    for (const [value, summary] of valores) {
-      parametro.examples[chaveUnica(parametro.examples, slug(summary))] = { summary, value };
-    }
-  }
+  if (exemplo !== undefined) parametro.example = exemplo;
 
   return parametro;
+}
+
+const consultaDe = (params = []) => params
+  .filter((p) => p.type === 'query' && !p.disabled && valorOuNada(p.value) !== undefined)
+  .map((p) => `${p.name}=${p.value}`);
+
+// O Scalar nao troca o codigo da requisicao junto com o exemplo de resposta.
+// Quando a busca do exemplo difere da requisicao base, ela vai na descricao, ao lado da resposta.
+// Cada filtro fica em uma linha: dentro da URL ele seria cortado no painel estreito.
+function requisicaoDoExemplo(metodo, rota, consulta) {
+  const linhas = [`curl 'https://${DOMINIO_PADRAO}${rota}'`];
+
+  if (metodo !== 'GET') linhas.push(`--request ${metodo}`);
+  for (const filtro of consulta) linhas.push(`--url-query '${filtro.replace(/'/g, "'\\''")}'`);
+  linhas.push("--header 'Authorization: SUA_CHAVE'");
+
+  return ['**Requisição deste exemplo:**', '', '```bash', linhas.join(' \\\n  '), '```'].join('\n');
 }
 
 function adicionarCorpo(op, body, rotulo) {
@@ -159,7 +167,7 @@ function adicionarCorpo(op, body, rotulo) {
   exemplos[chaveUnica(exemplos, slug(rotulo))] = { summary: rotulo, value: valor };
 }
 
-function adicionarResposta(op, exemplo, rotulo) {
+function adicionarResposta(op, exemplo, rotulo, requisicao) {
   const resposta = exemplo.response ?? {};
   const status = String(resposta.status ?? 200);
   const destino = (op.responses[status] ??= { description: resposta.statusText || status });
@@ -173,7 +181,8 @@ function adicionarResposta(op, exemplo, rotulo) {
   const exemplos = ((destino.content ??= {})[mediaType] ??= { examples: {} }).examples;
 
   const entrada = { summary: rotulo, value: interpretar(corpo) };
-  if (exemplo.description) entrada.description = exemplo.description;
+  const descricao = [exemplo.description, requisicao].filter(Boolean).join('\n\n');
+  if (descricao) entrada.description = descricao;
   exemplos[chaveUnica(exemplos, slug(rotulo))] = entrada;
 }
 
@@ -184,29 +193,34 @@ function montarOperacao(rota, variantes) {
   const op = { parametros: {}, responses: {} };
 
   for (const [, nome] of rota.matchAll(/\{(\w+)\}/g)) {
-    op.parametros[`path:${nome}`] = { nome, local: 'path', valores: new Map() };
+    op.parametros[`path:${nome}`] = { nome, local: 'path' };
   }
 
+  // O nome da requisicao so vai na frente do exemplo quando dois exemplos teriam o mesmo nome
+  const nomes = variantes.flatMap((v) => (v.examples ?? []).map((e) => e.name));
+  const repetidos = new Set(nomes.filter((nome, i) => nomes.indexOf(nome) !== i));
+
   for (const { nome, http, examples = [] } of variantes) {
+    const consultaBase = consultaDe(http.params);
+
     for (const p of http.params ?? []) {
-      adicionarParametro(op, p.name, p.type, { descricao: p.description, valor: p.disabled ? undefined : p.value, rotulo: nome });
+      adicionarParametro(op, p.name, p.type, { descricao: p.description, valor: p.disabled ? undefined : p.value });
     }
 
     for (const h of http.headers ?? []) {
-      if (!HEADERS_PADRAO.has(h.name.toLowerCase())) adicionarParametro(op, h.name, 'header', { valor: h.value, rotulo: nome });
+      if (!HEADERS_PADRAO.has(h.name.toLowerCase())) adicionarParametro(op, h.name, 'header', { valor: h.value });
     }
 
     adicionarCorpo(op, http.body, nome);
 
     for (const exemplo of examples) {
-      const rotulo = unificada ? `${nome}: ${exemplo.name}` : exemplo.name;
+      const rotulo = repetidos.has(exemplo.name) ? `${nome}: ${exemplo.name}` : exemplo.name;
+      const consulta = consultaDe(exemplo.request?.params);
+      const mudou = exemplo.request && consulta.join('&') !== consultaBase.join('&');
+      const requisicao = mudou ? requisicaoDoExemplo(http.method, rota, consulta) : null;
 
-      adicionarResposta(op, exemplo, rotulo);
+      adicionarResposta(op, exemplo, rotulo, requisicao);
       adicionarCorpo(op, exemplo.request?.body, rotulo);
-
-      for (const p of exemplo.request?.params ?? []) {
-        if (!p.disabled) adicionarParametro(op, p.name, p.type, { valor: p.value, rotulo });
-      }
     }
   }
 
@@ -223,6 +237,11 @@ function montarOperacao(rota, variantes) {
     ...(op.requestBody && { requestBody: op.requestBody }),
     responses: Object.keys(op.responses).length ? op.responses : { 200: { description: 'OK' } }
   };
+}
+
+function tituloDaColecao() {
+  const arquivo = path.join(RAIZ, 'opencollection.yml');
+  return fs.existsSync(arquivo) ? lerYaml(arquivo).info.name : 'Pedizap - API';
 }
 
 function gerarOpenApi() {
@@ -245,12 +264,12 @@ function gerarOpenApi() {
 
   return {
     openapi: '3.0.3',
-    info: { title: lerYaml(path.join(RAIZ, 'opencollection.yml')).info.name, version: '1.0.0' },
+    info: { title: tituloDaColecao(), version: '1.0.0' },
     servers: [{
       url: '{proto}://{domain}',
       variables: {
         proto: { default: 'https', enum: ['https', 'http'] },
-        domain: { default: 'minhaloja.pedizap.com.br', description: 'Domínio da loja' }
+        domain: { default: DOMINIO_PADRAO, description: 'Domínio da loja' }
       }
     }],
     security: [{ chaveApi: [] }],
