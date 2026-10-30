@@ -1,7 +1,7 @@
 info:
   name: Configuração - Serviço de Entrega
   type: folder
-  seq: 14
+  seq: 20
 
 request:
   auth: inherit

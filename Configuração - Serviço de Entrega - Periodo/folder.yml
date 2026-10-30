@@ -1,7 +1,7 @@
 info:
   name: Configuração - Serviço de Entrega - Periodo
   type: folder
-  seq: 16
+  seq: 22
 
 request:
   auth: inherit

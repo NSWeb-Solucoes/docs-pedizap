@@ -1,0 +1,11 @@
+{
+  "name": "docs-pedizap",
+  "private": true,
+  "scripts": {
+    "openapi": "node scripts/gerar-openapi.js",
+    "openapi:check": "node scripts/gerar-openapi.js --check"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}

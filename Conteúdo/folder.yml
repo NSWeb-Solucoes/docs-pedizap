@@ -1,7 +1,7 @@
 info:
   name: Conteúdo
   type: folder
-  seq: 18
+  seq: 13
 
 request:
   auth: inherit

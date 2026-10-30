@@ -7,7 +7,7 @@ info:
 
 http:
   method: GET
-  url: "{{proto}}://{{domain}}/api/complemento/categoria"
+  url: "{{proto}}://{{domain}}/api/complemento/categoria?name=Escolha sua Bor&sku=&min=0&max=1&required=Y&rule=price_higher&returnLayout=new,items"
   headers:
     - name: Authorization
       value: "{{token}}"
@@ -21,7 +21,6 @@ http:
     - name: sku
       value: ""
       type: query
-      disabled: true
       description: String - Optional - Filtra por code (SKU) exato da categoria
     - name: min
       value: "0"
@@ -49,6 +48,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

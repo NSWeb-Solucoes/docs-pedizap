@@ -1,7 +1,7 @@
 info:
   name: Conteúdo - Galeria
   type: folder
-  seq: 20
+  seq: 15
 
 request:
   auth: inherit
