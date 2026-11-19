@@ -1,5 +1,5 @@
 info:
-  name: Buscar modules disponíveis
+  name: Modules Listagem
   type: http
   seq: 1
   tags:
@@ -14,12 +14,13 @@ http:
     - name: Accept
       value: "{{format}}"
   auth: inherit
- 
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

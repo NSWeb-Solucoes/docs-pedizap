@@ -1,7 +1,7 @@
 info:
-  name: Pesquisar histórico do pedido
+  name: Pedido - Histórico Listagem
   type: http
-  seq: 5
+  seq: 8
   tags:
     - Pedidos
 
@@ -24,6 +24,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response
@@ -116,3 +117,5 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: Pesquisa historico dos pedidos no sistema

@@ -1,7 +1,7 @@
 info:
-  name: Buscar webhooks
+  name: Webhooks Listagem
   type: http
-  seq: 5
+  seq: 2
   tags:
     - Webhook
 
@@ -43,12 +43,13 @@ http:
       type: query
       description: Integer - Opcional - Qtde retornada de registros. O padrão do sistema é 20
   auth: inherit
- 
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

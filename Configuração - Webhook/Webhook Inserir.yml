@@ -1,7 +1,7 @@
 info:
-  name: Criar/Editar webhook
+  name: Webhook Inserir
   type: http
-  seq: 6
+  seq: 4
   tags:
     - Webhook
 
@@ -32,6 +32,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

@@ -1,7 +1,7 @@
 info:
-  name: Pesquisar Pedidos (Importar Últimos)
+  name: Pedidos Listagem (Importar Últimos)
   type: http
-  seq: 8
+  seq: 2
   tags:
     - Pedidos
 
@@ -17,17 +17,17 @@ http:
     - name: lastid
       value: "3200"
       type: query
-      description: "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+      description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
       disabled: true
     - name: data_gte
-      value: "2026-10-20 20:40:00"
+      value: 2026-10-20 20:40:00
       type: query
-      description: "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data."
+      description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data.
       disabled: true
     - name: status
       value: "2"
       type: query
-      description: "INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora."
+      description: INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora.
       disabled: true
     - name: order
       value: id ASC
@@ -36,12 +36,12 @@ http:
     - name: limit
       value: "10"
       type: query
-      description: "INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100."
+      description: INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100.
       disabled: true
     - name: pago
       value: S
       type: query
-      description: "Filtra os pedidos pagos pago=S ou não pagos pago=N."
+      description: Filtra os pedidos pagos pago=S ou não pagos pago=N.
       disabled: true
     - name: created_gte
       value: 2026-07-20
@@ -60,6 +60,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Filtrar últimos pedidos considerando o último pedido
@@ -76,16 +77,16 @@ examples:
         - name: lastid
           value: "3200"
           type: query
-          description: "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+          description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
         - name: data_gte
-          value: "2026-10-20 20:40:00"
+          value: 2026-10-20 20:40:00
           type: query
-          description: "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data."
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data.
           disabled: true
         - name: status
           value: "2"
           type: query
-          description: "INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora."
+          description: INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora.
           disabled: true
         - name: order
           value: id ASC
@@ -93,11 +94,11 @@ examples:
         - name: limit
           value: "10"
           type: query
-          description: "INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100."
+          description: INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100.
         - name: pago
           value: S
           type: query
-          description: "Filtra os pedidos pagos pago=S ou não pagos pago=N."
+          description: Filtra os pedidos pagos pago=S ou não pagos pago=N.
           disabled: true
         - name: created_gte
           value: 2026-07-20
@@ -384,28 +385,28 @@ examples:
         - name: lastid
           value: "3200"
           type: query
-          description: "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+          description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
           disabled: true
         - name: data_gte
-          value: "2026-10-20 20:40:00"
+          value: 2026-10-20 20:40:00
           type: query
-          description: "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data."
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data.
           disabled: true
         - name: status
           value: "2"
           type: query
-          description: "INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora."
+          description: INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora.
         - name: order
           value: id ASC
           type: query
         - name: limit
           value: "10"
           type: query
-          description: "INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100."
+          description: INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100.
         - name: pago
           value: S
           type: query
-          description: "Filtra os pedidos pagos pago=S ou não pagos pago=N."
+          description: Filtra os pedidos pagos pago=S ou não pagos pago=N.
           disabled: true
         - name: created_gte
           value: 2026-07-20
@@ -692,27 +693,27 @@ examples:
         - name: lastid
           value: "3200"
           type: query
-          description: "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+          description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
           disabled: true
         - name: data_gte
-          value: "2026-10-20 20:40:00"
+          value: 2026-10-20 20:40:00
           type: query
-          description: "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data."
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data.
         - name: status
           value: "2"
           type: query
-          description: "INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora."
+          description: INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora.
         - name: order
           value: data ASC
           type: query
         - name: limit
           value: "10"
           type: query
-          description: "INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100."
+          description: INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100.
         - name: pago
           value: S
           type: query
-          description: "Filtra os pedidos pagos pago=S ou não pagos pago=N."
+          description: Filtra os pedidos pagos pago=S ou não pagos pago=N.
           disabled: true
         - name: created_gte
           value: 2026-07-20
@@ -999,17 +1000,17 @@ examples:
         - name: lastid
           value: "3200"
           type: query
-          description: "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+          description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
           disabled: true
         - name: data_gte
-          value: "2026-10-20 20:40:00"
+          value: 2026-10-20 20:40:00
           type: query
-          description: "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data."
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data da confirmação do pedido. Maior ou igual a data.
           disabled: true
         - name: status
           value: "2"
           type: query
-          description: "INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora."
+          description: INT - Opcional - Filtra pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora.
           disabled: true
         - name: order
           value: id ASC
@@ -1018,12 +1019,12 @@ examples:
         - name: limit
           value: "10"
           type: query
-          description: "INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100."
+          description: INT - Opcional - Quantidade de pedidos por página. Padrão 10, máximo 100.
           disabled: true
         - name: pago
           value: S
           type: query
-          description: "Filtra os pedidos pagos pago=S ou não pagos pago=N."
+          description: Filtra os pedidos pagos pago=S ou não pagos pago=N.
           disabled: true
         - name: created_gte
           value: 2026-07-20

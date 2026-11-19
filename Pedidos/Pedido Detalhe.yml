@@ -1,7 +1,7 @@
 info:
-  name: Detalhe de um pedido
+  name: Pedido Detalhe
   type: http
-  seq: 2
+  seq: 3
   tags:
     - Pedidos
 
@@ -24,6 +24,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Produto comum
@@ -1751,7 +1752,7 @@ examples:
             }
           }
   - name: 200 Entrega com frete fixo
-    description: "Entrega com frete fixo (`entrega_metodo=frete_fixo`), sem `entrega_servico`. Em loja com frete a combinar, `entrega_descricao` vem \"A Combinar\" e `entrega_valor` vem 0. Pagamento na entrega em dinheiro: `pagto_troco` é o valor da nota do cliente (troco para)."
+    description: 'Entrega com frete fixo (`entrega_metodo=frete_fixo`), sem `entrega_servico`. Em loja com frete a combinar, `entrega_descricao` vem "A Combinar" e `entrega_valor` vem 0. Pagamento na entrega em dinheiro: `pagto_troco` é o valor da nota do cliente (troco para).'
     request:
       url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
       method: GET
@@ -2459,7 +2460,7 @@ examples:
             }
           }
   - name: 200 Entrega na logística parceira
-    description: "Logística parceira cotada e escolhida no checkout: `entrega_metodo` é o parceiro (`ifood`, `opendelivery` ou `machine`), `entrega_descricao` é \"Entrega Parceira\" e `entrega_servico` é a referência da cotação. O parceiro preenche `entrega_rastreiocodigo`, `entrega_rastreiolink`, `entregador_nome` e `entregador_veiculo`. Quem está com a entrega fica em `logisticaParceira.parceiro`, dentro de `config_json`, que pode ter outras chaves internas."
+    description: 'Logística parceira cotada e escolhida no checkout: `entrega_metodo` é o parceiro (`ifood`, `opendelivery` ou `machine`), `entrega_descricao` é "Entrega Parceira" e `entrega_servico` é a referência da cotação. O parceiro preenche `entrega_rastreiocodigo`, `entrega_rastreiolink`, `entregador_nome` e `entregador_veiculo`. Quem está com a entrega fica em `logisticaParceira.parceiro`, dentro de `config_json`, que pode ter outras chaves internas.'
     request:
       url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
       method: GET

@@ -1,7 +1,7 @@
 info:
-  name: Editar webhook
+  name: Webhook Editar
   type: http
-  seq: 4
+  seq: 5
   tags:
     - Webhook
 
@@ -25,7 +25,7 @@ http:
         description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
       - name: module_ids
         value: ""
-        description: 'IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site'
+        description: "IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site"
       - name: actived
         value: ""
         description: '"Y" (ativo) ou "N" (inativo)'
@@ -36,6 +36,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 422 Response
@@ -60,7 +61,7 @@ examples:
             description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
           - name: module_ids
             value: ""
-            description: 'IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site'
+            description: "IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site"
           - name: actived
             value: ""
             description: '"Y" (ativo) ou "N" (inativo)'

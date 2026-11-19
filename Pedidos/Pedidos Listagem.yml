@@ -1,7 +1,7 @@
 info:
-  name: Pesquisar Pedidos
+  name: Pedidos Listagem
   type: http
-  seq: 7
+  seq: 1
   tags:
     - Pedidos
 
@@ -87,6 +87,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Sem filtros

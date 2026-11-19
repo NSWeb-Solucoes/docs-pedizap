@@ -1,7 +1,7 @@
 info:
-  name: Importar pedido
+  name: Pedido Inserir
   type: http
-  seq: 10
+  seq: 4
   tags:
     - Pedidos
 
@@ -57,6 +57,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 201 Retirada no balcão com Pix

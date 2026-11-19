@@ -1,7 +1,7 @@
 info:
-  name: Remover um pedido
+  name: Pedido Remover
   type: http
-  seq: 4
+  seq: 6
   tags:
     - Pedidos
 
@@ -24,6 +24,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 204 Response
