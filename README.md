@@ -24,7 +24,7 @@ Cada pasta de recurso corresponde a uma área da API:
 | `OAuth` | Autenticação (obtenção e renovação de token) |
 | `Cliente` | Cadastro de clientes |
 | `Produto`, `Produto - Categoria`, `Produto - Marca`, `Produto - Complemento`, `Produto - Galeria`, `Produto - CSV`, `Produto - Complemento - CSV` | Catálogo de produtos e seus relacionamentos |
-| `Pedidos` | Criação, consulta, edição e status de pedidos |
+| `Pedidos` | Criação, importação (ERP/PDV), consulta, edição e status de pedidos |
 | `Tabela de Preço`, `Tabela de Preço - Preços` | Tabelas de preço |
 | `Configuração`, `Configuração - Webhook` | Configurações gerais da loja e webhooks |
 | `Configuração - Serviço de Entrega`, `... - Periodo`, `... - Zona` | Áreas, períodos e zonas de entrega |
