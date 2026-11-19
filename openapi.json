@@ -5342,7 +5342,8 @@
                     "description": "Ordenacao padrao dos produtos na categoria (ex: \"name ASC\", \"priority ASC\", \"code ASC\", \"price ASC\", \"price DESC\", \"created DESC\", \"created ASC\"); default \"name ASC\""
                   },
                   "priority": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Ignorado na inserção, a categoria nova vai para o fim da lista. Para mudar a posição, use o PUT /api/categoria/:categoriaId"
                   }
                 }
               },
@@ -5541,6 +5542,7 @@
         "tags": [
           "Produto - Categoria"
         ],
+        "description": "<p>Envie só os campos que vão mudar: os que não forem enviados mantêm o valor atual.</p>\n\n<p><b>Ordem das categorias (<code>priority</code>):</b> número inteiro que define a posição da categoria na listagem. A menor aparece primeiro e, em caso de empate, vale a ordem de criação. Aceita só dígitos; outro valor retorna 422 com o erro em <code>errorlist.priority</code>.</p>\n\n<p>Na inserção (<code>POST /api/categoria</code>) o <code>priority</code> é ignorado e a categoria nova vai para o fim da lista. Para mudar a posição, use este endpoint.</p>",
         "parameters": [
           {
             "name": "categoriaId",
@@ -5566,6 +5568,10 @@
                   "published": {
                     "type": "string",
                     "description": "\"Y\" ou \"N\""
+                  },
+                  "priority": {
+                    "type": "string",
+                    "description": "Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual"
                   }
                 }
               },
@@ -5574,6 +5580,12 @@
                   "summary": "Categoria Editar",
                   "value": {
                     "name": "AOBA"
+                  }
+                },
+                "200_Alterando_a_prioridade": {
+                  "summary": "200 Alterando a prioridade",
+                  "value": {
+                    "priority": "1"
                   }
                 }
               }
@@ -5592,6 +5604,13 @@
                       "status": "success"
                     },
                     "description": "OK"
+                  },
+                  "200_Alterando_a_prioridade": {
+                    "summary": "200 Alterando a prioridade",
+                    "value": {
+                      "status": "success"
+                    },
+                    "description": "Envia só o `priority` para mudar a posição da categoria na listagem. Os outros campos ficam como estão."
                   }
                 }
               }

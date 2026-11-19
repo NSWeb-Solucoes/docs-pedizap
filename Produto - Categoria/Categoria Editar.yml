@@ -26,6 +26,9 @@ http:
       - name: published
         value: ""
         description: '"Y" ou "N"'
+      - name: priority
+        value: ""
+        description: Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual
   auth: inherit
 
 settings:
@@ -58,6 +61,38 @@ examples:
           - name: published
             value: ""
             description: '"Y" ou "N"'
+          - name: priority
+            value: ""
+            description: Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success"}'
+  - name: 200 Alterando a prioridade
+    description: "Envia só o `priority` para mudar a posição da categoria na listagem. Os outros campos ficam como estão."
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria/:categoriaId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: categoriaId
+          value: "{{categoriaId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: priority
+            value: "1"
+            description: Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual
     response:
       status: 200
       statusText: OK
@@ -90,6 +125,9 @@ examples:
           - name: published
             value: ""
             description: '"Y" ou "N"'
+          - name: priority
+            value: ""
+            description: Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual
     response:
       status: 401
       statusText: Unauthorized
@@ -122,6 +160,9 @@ examples:
           - name: published
             value: ""
             description: '"Y" ou "N"'
+          - name: priority
+            value: ""
+            description: Posição da categoria na listagem, número inteiro (só dígitos). A menor aparece primeiro; se não for enviado, mantém a atual
     response:
       status: 422
       statusText: Unprocessable Entity
@@ -131,3 +172,10 @@ examples:
       body:
         type: text
         data: '{"status":"error","msg":"Categoria n\u00e3o informada, ou atributo \"id\" faltando."}'
+
+docs: |-
+  <p>Envie só os campos que vão mudar: os que não forem enviados mantêm o valor atual.</p>
+
+  <p><b>Ordem das categorias (<code>priority</code>):</b> número inteiro que define a posição da categoria na listagem. A menor aparece primeiro e, em caso de empate, vale a ordem de criação. Aceita só dígitos; outro valor retorna 422 com o erro em <code>errorlist.priority</code>.</p>
+
+  <p>Na inserção (<code>POST /api/categoria</code>) o <code>priority</code> é ignorado e a categoria nova vai para o fim da lista. Para mudar a posição, use este endpoint.</p>

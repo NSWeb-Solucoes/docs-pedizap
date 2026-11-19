@@ -89,6 +89,7 @@ examples:
           - name: priority
             type: text
             value: ""
+            description: Ignorado na inserção, a categoria nova vai para o fim da lista. Para mudar a posição, use o PUT /api/categoria/:categoriaId
           - name: count
             type: text
             value: ""
@@ -142,6 +143,7 @@ examples:
           - name: priority
             type: text
             value: ""
+            description: Ignorado na inserção, a categoria nova vai para o fim da lista. Para mudar a posição, use o PUT /api/categoria/:categoriaId
           - name: count
             type: text
             value: ""
@@ -195,6 +197,7 @@ examples:
           - name: priority
             type: text
             value: ""
+            description: Ignorado na inserção, a categoria nova vai para o fim da lista. Para mudar a posição, use o PUT /api/categoria/:categoriaId
           - name: count
             type: text
             value: ""
