@@ -53,6 +53,18 @@ npm run openapi:check  # falha se o openapi.json estiver desatualizado
 
 Não use o export de OpenAPI do próprio Bruno: ele descarta os exemplos de requisição, sobrescreve requisições com o mesmo método e URL e gera rotas inválidas.
 
+### Formatos do corpo
+
+Na coleção, o corpo de cada requisição pode estar em form-urlencoded, multipart ou JSON: o gerador lê qualquer um. No `openapi.json`, todo corpo sai em JSON (o formato que o Scalar abre) e nos formatos de formulário que a API aceita naquele método:
+
+| Método | Formatos |
+|---|---|
+| POST | JSON, `multipart/form-data`, `application/x-www-form-urlencoded` |
+| PUT | JSON, `application/x-www-form-urlencoded` (no PUT a API ignora multipart) |
+| DELETE | JSON |
+
+Nos formatos de formulário, listas e objetos do JSON viram campos com colchetes (`itens[0][sku]`), do jeito que o PHP monta o array. Os campos de upload (`file`, `photo_file`) só aparecem em multipart; se surgir outro, inclua o nome em `CAMPOS_ARQUIVO` no [gerador](scripts/gerar-openapi.js).
+
 ## Usando a coleção no Bruno
 
 1. Abra o [Bruno](https://www.usebruno.com/) e importe esta pasta como coleção (`opencollection.yml`).

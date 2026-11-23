@@ -17,15 +17,6 @@ http:
     - name: webhookId
       value: "{{webhookId}}"
       type: path
-  body:
-    type: form-urlencoded
-    data:
-      - name: webhook_url
-        value: ""
-      - name: module_ids
-        value: ""
-      - name: actived
-        value: ""
   auth: inherit
 
 settings:
@@ -50,15 +41,6 @@ examples:
         - name: webhookId
           value: "{{webhookId}}"
           type: path
-      body:
-        type: form-urlencoded
-        data:
-          - name: webhook_url
-            value: ""
-          - name: module_ids
-            value: ""
-          - name: actived
-            value: ""
     response:
       status: 204
       statusText: No Content
@@ -79,15 +61,6 @@ examples:
         - name: webhookId
           value: "{{webhookId}}"
           type: path
-      body:
-        type: form-urlencoded
-        data:
-          - name: webhook_url
-            value: ""
-          - name: module_ids
-            value: ""
-          - name: actived
-            value: ""
     response:
       status: 401
       statusText: Unauthorized
@@ -111,15 +84,6 @@ examples:
         - name: webhookId
           value: "{{webhookId}}"
           type: path
-      body:
-        type: form-urlencoded
-        data:
-          - name: webhook_url
-            value: ""
-          - name: module_ids
-            value: ""
-          - name: actived
-            value: ""
     response:
       status: 422
       statusText: Unprocessable Entity

@@ -4385,7 +4385,7 @@ examples:
 docs: |-
   Importa para a loja um pedido já fechado em outro sistema (ERP, PDV, balcão). O pedido entra como foi enviado: não passa pelo carrinho, não recalcula preços, não aplica cupom, promoção ou cashback e não calcula frete. A API só confere se o `total` bate com os itens.
 
-  O corpo é JSON (`Content-Type: application/json`, em UTF-8).
+  Envie o corpo em JSON (`Content-Type: application/json`, em UTF-8). Em formulário, cada item vai com colchetes: `itens[0][sku]`, `itens[0][quantidade]`.
 
   **Respostas**
 

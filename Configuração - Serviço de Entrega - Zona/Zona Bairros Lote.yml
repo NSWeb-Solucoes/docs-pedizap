@@ -180,7 +180,7 @@ examples:
 docs: |-
   <p>Substitui em lote as zonas do tipo <code>bairro</code>/<code>bairro_custom</code> do serviço pela lista enviada em <code>bairros</code> (array obrigatório, mesmo com o corpo vazio "[]" para limpar tudo). Cada item é um upsert: se já existir uma zona com o mesmo <code>id</code> (bairro_custom) ou <code>bairro_id</code> (bairro), ela é atualizada; senão é criada. Zonas existentes que não aparecerem na lista são removidas.</p>
 
-  <p>Precisa de <code>Content-Type: application/json</code> (o array de <code>bairros</code> não é representável em multipart/form-data).</p>
+  <p>Em formulário, cada bairro vai com colchetes (<code>bairros[0][bairro_id]</code>). A lista vazia só existe em JSON: para limpar tudo, envie <code>{"bairros": []}</code>.</p>
 
   <p>Campos por item de zona_tipo=bairro: <code>bairro_id</code>, <code>nome</code>, <code>prazo_unidade</code>, <code>prazo_qtde</code>, <code>frete_gratis</code>, <code>frete_gratis_minimo</code>, <code>valor</code>. Para zona_tipo=bairro_custom: <code>id</code> (se editando uma zona existente), <code>nome</code>, <code>cidade_id</code>, <code>uf</code>, mais os mesmos campos de frete/prazo/valor.</p>
 

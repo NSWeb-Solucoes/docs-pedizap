@@ -14,13 +14,35 @@ const DOMINIO_PADRAO = 'minhaloja.pedizap.com.br';
 
 const PASTAS_IGNORADAS = new Set(['environments', 'node_modules', 'scripts']);
 const HEADERS_PADRAO = new Set(['accept', 'authorization', 'content-type']);
+
+const JSON_ = 'application/json';
+const MULTIPART = 'multipart/form-data';
+const URLENCODED = 'application/x-www-form-urlencoded';
+
 const MEDIA_TYPES = {
-  json: 'application/json',
-  'form-urlencoded': 'application/x-www-form-urlencoded',
-  'multipart-form': 'multipart/form-data',
+  json: JSON_,
+  'form-urlencoded': URLENCODED,
+  'multipart-form': MULTIPART,
   text: 'text/plain',
   xml: 'application/xml'
 };
+
+// O corpo de toda requisicao vai nos formatos que a API le naquele metodo, com o JSON primeiro
+// (o Scalar abre no primeiro). No nsite, o BaseController mescla o JSON ao $_POST; no PUT o
+// PutHandler do ZF1 so interpreta urlencoded (parse_str); no DELETE o PHP nao le formulario.
+const FORMATOS_POR_METODO = {
+  post: [JSON_, MULTIPART, URLENCODED],
+  put: [JSON_, URLENCODED],
+  delete: [JSON_]
+};
+
+const AVISO_DO_METODO = {
+  put: 'No PUT a API lê o corpo em JSON ou `application/x-www-form-urlencoded`: em `multipart/form-data` os campos são ignorados.',
+  delete: 'No DELETE a API só lê o corpo em JSON.'
+};
+
+// Upload de arquivo binario so existe em multipart/form-data
+const CAMPOS_ARQUIVO = new Set(['file', 'photo_file']);
 
 const lerYaml = (arquivo) => YAML.parse(fs.readFileSync(arquivo, 'utf8'));
 
@@ -59,6 +81,32 @@ const normalizarRota = (url) => url
   .replace(/:(\w+)/g, '{$1}')
   .replace(/\{\{(\w+)\}\}/g, '{$1}')
   .replace(/\/+$/, '') || '/';
+
+const ehObjeto = (valor) => valor !== null && typeof valor === 'object' && !Array.isArray(valor);
+
+// Formulario nao tem lista nem objeto: o PHP monta o array a partir dos colchetes (itens[0][sku]).
+// Segue o http_build_query: true/false viram 1/0 e null fica de fora.
+function achatarValor(valor, prefixo = '', saida = {}) {
+  for (const [chave, item] of Object.entries(valor)) {
+    const nome = prefixo ? `${prefixo}[${chave}]` : chave;
+    if (item === null || item === undefined) continue;
+    if (typeof item === 'object') achatarValor(item, nome, saida);
+    else saida[nome] = typeof item === 'boolean' ? (item ? '1' : '0') : String(item);
+  }
+
+  return saida;
+}
+
+function achatarSchema(propriedades, prefixo = '', saida = {}) {
+  for (const [chave, schema] of Object.entries(propriedades)) {
+    const nome = prefixo ? `${prefixo}[${chave}]` : chave;
+    if (schema.type === 'object' && schema.properties) achatarSchema(schema.properties, nome, saida);
+    else if (schema.type === 'array') achatarSchema({ 0: schema.items }, nome, saida);
+    else saida[nome] = schema;
+  }
+
+  return saida;
+}
 
 const inferirSchema = (valor) => {
   if (valor === null) return { type: 'string', nullable: true };
@@ -131,24 +179,29 @@ function requisicaoDoExemplo(metodo, rota, consulta) {
   return ['**Requisição deste exemplo:**', '', '```bash', linhas.join(' \\\n  '), '```'].join('\n');
 }
 
+// Junta os campos e exemplos de todas as variantes da operacao, venham de formulario ou de JSON.
+// O requestBody so e montado no fim, em cada formato aceito pelo metodo (montarCorpo).
 function adicionarCorpo(op, body, rotulo) {
   if (!body?.data?.length) return;
 
-  op.requestBody ??= { required: true, content: {} };
-  const mediaType = MEDIA_TYPES[body.type] ?? 'text/plain';
-  const destino = (op.requestBody.content[mediaType] ??= {});
+  const corpo = (op.corpo ??= { propriedades: {}, arquivos: {}, exemplos: {} });
 
   let valor;
   if (Array.isArray(body.data)) {
-    destino.schema ??= { type: 'object', properties: {} };
     const campos = [];
 
     for (const campo of body.data) {
       const schema = { type: 'string' };
-      const exemplo = valorOuNada(campo.value);
       if (campo.description) schema.description = String(campo.description);
+
+      if (body.type === 'multipart-form' && CAMPOS_ARQUIVO.has(campo.name)) {
+        corpo.arquivos[campo.name] ??= { ...schema, format: 'binary' };
+        continue;
+      }
+
+      const exemplo = valorOuNada(campo.value);
       if (exemplo !== undefined) schema.example = exemplo;
-      destino.schema.properties[campo.name] ??= schema;
+      corpo.propriedades[campo.name] ??= schema;
       if (exemplo !== undefined && !campo.disabled) campos.push([campo.name, exemplo]);
     }
 
@@ -156,15 +209,67 @@ function adicionarCorpo(op, body, rotulo) {
     valor = Object.fromEntries(campos);
   } else {
     valor = interpretar(body.data);
-    if (typeof valor === 'object') destino.schema ??= inferirSchema(valor);
+    if (ehObjeto(valor)) {
+      for (const [chave, schema] of Object.entries(inferirSchema(valor).properties)) corpo.propriedades[chave] ??= schema;
+    }
   }
 
   // Exemplos 200 e 401 da mesma requisicao costumam repetir o corpo: mostra so uma vez
-  const exemplos = (destino.examples ??= {});
   const serializado = JSON.stringify(valor);
-  if (Object.values(exemplos).some((e) => JSON.stringify(e.value) === serializado)) return;
+  if (Object.values(corpo.exemplos).some((e) => JSON.stringify(e.value) === serializado)) return;
 
-  exemplos[chaveUnica(exemplos, slug(rotulo))] = { summary: rotulo, value: valor };
+  corpo.exemplos[chaveUnica(corpo.exemplos, slug(rotulo))] = { summary: rotulo, value: valor };
+}
+
+function descreverCorpo(metodo, propriedadesForm, arquivos, formatos) {
+  const avisos = [];
+  if (AVISO_DO_METODO[metodo]) avisos.push(AVISO_DO_METODO[metodo]);
+
+  const aninhado = Object.keys(propriedadesForm).find((nome) => nome.includes('['));
+  if (aninhado && formatos.length > 1) {
+    avisos.push(`Nos formatos de formulário, listas e objetos vão com colchetes (\`${aninhado}\`) e \`true\`/\`false\` viram \`1\`/\`0\`.`);
+  }
+
+  const nomesArquivo = Object.keys(arquivos);
+  if (nomesArquivo.length && formatos.includes(MULTIPART)) {
+    const lista = nomesArquivo.map((nome) => `\`${nome}\``).join(', ');
+    avisos.push(`O arquivo (${lista}) só vai em \`multipart/form-data\`.`);
+  }
+
+  return avisos.join('\n\n');
+}
+
+function montarCorpo(corpo, metodo) {
+  const formatos = FORMATOS_POR_METODO[metodo] ?? [JSON_];
+  const propriedadesForm = achatarSchema(corpo.propriedades);
+  const content = {};
+
+  for (const formato of formatos) {
+    const formulario = formato !== JSON_;
+    const propriedades = formulario ? { ...propriedadesForm } : corpo.propriedades;
+    if (formato === MULTIPART) Object.assign(propriedades, corpo.arquivos);
+
+    const exemplos = {};
+    for (const [chave, { summary, value }] of Object.entries(corpo.exemplos)) {
+      if (!formulario) exemplos[chave] = { summary, value };
+      else if (ehObjeto(value)) exemplos[chave] = { summary, value: achatarValor(value) };
+    }
+
+    if (!Object.keys(propriedades).length && !Object.keys(exemplos).length) continue;
+
+    content[formato] = {
+      schema: { type: 'object', properties: propriedades },
+      ...(Object.keys(exemplos).length && { examples: exemplos })
+    };
+  }
+
+  const descricao = descreverCorpo(metodo, propriedadesForm, corpo.arquivos, Object.keys(content));
+
+  return {
+    required: true,
+    ...(descricao && { description: descricao }),
+    content
+  };
 }
 
 function adicionarResposta(op, exemplo, rotulo, requisicao) {
@@ -188,9 +293,9 @@ function adicionarResposta(op, exemplo, rotulo, requisicao) {
 
 // O OpenAPI nao aceita duas operacoes com o mesmo metodo e rota: as requisicoes da colecao
 // que caem nesse caso (ex: formas de enviar foto) viram variantes de uma operacao so.
-function montarOperacao(rota, variantes) {
+function montarOperacao(metodo, rota, variantes) {
   const unificada = variantes.length > 1;
-  const op = { parametros: {}, responses: {} };
+  const op = { parametros: {}, responses: {}, corpo: null };
 
   for (const [, nome] of rota.matchAll(/\{(\w+)\}/g)) {
     op.parametros[`path:${nome}`] = { nome, local: 'path' };
@@ -234,7 +339,7 @@ function montarOperacao(rota, variantes) {
     ...(docs.length && { description: docs.join('\n\n') }),
     ...(!usaChave && { security: [] }),
     parameters: Object.values(op.parametros).map(montarParametro),
-    ...(op.requestBody && { requestBody: op.requestBody }),
+    ...(op.corpo && { requestBody: montarCorpo(op.corpo, metodo) }),
     responses: Object.keys(op.responses).length ? op.responses : { 200: { description: 'OK' } }
   };
 }
@@ -259,7 +364,7 @@ function gerarOpenApi() {
 
   const paths = {};
   for (const { metodo, rota, variantes } of operacoes.values()) {
-    (paths[rota] ??= {})[metodo] = montarOperacao(rota, variantes);
+    (paths[rota] ??= {})[metodo] = montarOperacao(metodo, rota, variantes);
   }
 
   return {
