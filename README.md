@@ -65,6 +65,12 @@ Na coleção, o corpo de cada requisição pode estar em form-urlencoded, multip
 
 Nos formatos de formulário, listas e objetos do JSON viram campos com colchetes (`itens[0][sku]`), do jeito que o PHP monta o array. Os campos de upload (`file`, `photo_file`) só aparecem em multipart; se surgir outro, inclua o nome em `CAMPOS_ARQUIVO` no [gerador](scripts/gerar-openapi.js).
 
+### Variações da mesma rota
+
+O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto Editar Imagem`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham um fragmento com o que o nome delas tem a mais (`/api/produto/{produtoId}#imagem`).
+
+O fragmento só separa a variação no Scalar e não chega à API: o navegador, o proxy do Scalar, o curl e o Guzzle o descartam ao montar a requisição. Para mudar o fragmento, renomeie a requisição no Bruno; para mudar qual variação fica com a rota sem fragmento, mude a ordem (`seq`).
+
 ## Usando a coleção no Bruno
 
 1. Abra o [Bruno](https://www.usebruno.com/) e importe esta pasta como coleção (`opencollection.yml`).

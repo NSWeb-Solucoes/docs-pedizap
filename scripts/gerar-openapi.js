@@ -291,57 +291,92 @@ function adicionarResposta(op, exemplo, rotulo, requisicao) {
   exemplos[chaveUnica(exemplos, slug(rotulo))] = entrada;
 }
 
-// O OpenAPI nao aceita duas operacoes com o mesmo metodo e rota: as requisicoes da colecao
-// que caem nesse caso (ex: formas de enviar foto) viram variantes de uma operacao so.
-function montarOperacao(metodo, rota, variantes) {
-  const unificada = variantes.length > 1;
+const avisoDoFragmento = (metodo, rota, fragmento) => `> O \`#${fragmento}\` no endereço só separa esta variação de `
+  + `\`${metodo.toUpperCase()} ${rota}\` na documentação: não faz parte da URL e não é enviado à API.`;
+
+function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, relativo }, fragmento) {
   const op = { parametros: {}, responses: {}, corpo: null };
 
-  for (const [, nome] of rota.matchAll(/\{(\w+)\}/g)) {
-    op.parametros[`path:${nome}`] = { nome, local: 'path' };
+  for (const [, parametro] of rota.matchAll(/\{(\w+)\}/g)) {
+    op.parametros[`path:${parametro}`] = { nome: parametro, local: 'path' };
   }
 
-  // O nome da requisicao so vai na frente do exemplo quando dois exemplos teriam o mesmo nome
-  const nomes = variantes.flatMap((v) => (v.examples ?? []).map((e) => e.name));
-  const repetidos = new Set(nomes.filter((nome, i) => nomes.indexOf(nome) !== i));
+  const consultaBase = consultaDe(http.params);
 
-  for (const { nome, http, examples = [] } of variantes) {
-    const consultaBase = consultaDe(http.params);
-
-    for (const p of http.params ?? []) {
-      adicionarParametro(op, p.name, p.type, { descricao: p.description, valor: p.disabled ? undefined : p.value });
-    }
-
-    for (const h of http.headers ?? []) {
-      if (!HEADERS_PADRAO.has(h.name.toLowerCase())) adicionarParametro(op, h.name, 'header', { valor: h.value });
-    }
-
-    adicionarCorpo(op, http.body, nome);
-
-    for (const exemplo of examples) {
-      const rotulo = repetidos.has(exemplo.name) ? `${nome}: ${exemplo.name}` : exemplo.name;
-      const consulta = consultaDe(exemplo.request?.params);
-      const mudou = exemplo.request && consulta.join('&') !== consultaBase.join('&');
-      const requisicao = mudou ? requisicaoDoExemplo(http.method, rota, consulta) : null;
-
-      adicionarResposta(op, exemplo, rotulo, requisicao);
-      adicionarCorpo(op, exemplo.request?.body, rotulo);
-    }
+  for (const p of http.params ?? []) {
+    adicionarParametro(op, p.name, p.type, { descricao: p.description, valor: p.disabled ? undefined : p.value });
   }
 
-  const docs = variantes.filter((v) => v.docs).map((v) => (unificada ? `### ${v.nome}\n\n${v.docs}` : v.docs));
-  const usaChave = variantes.some((v) => v.http.headers?.some((h) => h.name.toLowerCase() === 'authorization'));
+  for (const h of http.headers ?? []) {
+    if (!HEADERS_PADRAO.has(h.name.toLowerCase())) adicionarParametro(op, h.name, 'header', { valor: h.value });
+  }
+
+  adicionarCorpo(op, http.body, nome);
+
+  for (const exemplo of examples) {
+    const consulta = consultaDe(exemplo.request?.params);
+    const mudou = exemplo.request && consulta.join('&') !== consultaBase.join('&');
+    const requisicao = mudou ? requisicaoDoExemplo(http.method, rota, consulta) : null;
+
+    adicionarResposta(op, exemplo, exemplo.name, requisicao);
+    adicionarCorpo(op, exemplo.request?.body, exemplo.name);
+  }
+
+  const descricao = [fragmento && avisoDoFragmento(metodo, rota, fragmento), docs].filter(Boolean).join('\n\n');
+  const usaChave = http.headers?.some((h) => h.name.toLowerCase() === 'authorization');
 
   return {
-    summary: variantes.map((v) => v.nome).join(' / '),
-    operationId: slug(variantes[0].relativo.replace(/\.yml$/, '')),
-    tags: [...new Set(variantes.map((v) => v.tag))],
-    ...(docs.length && { description: docs.join('\n\n') }),
+    summary: nome,
+    operationId: slug(relativo.replace(/\.yml$/, '')),
+    tags: [tag],
+    ...(descricao && { description: descricao }),
     ...(!usaChave && { security: [] }),
     parameters: Object.values(op.parametros).map(montarParametro),
     ...(op.corpo && { requestBody: montarCorpo(op.corpo, metodo) }),
     responses: Object.keys(op.responses).length ? op.responses : { 200: { description: 'OK' } }
   };
+}
+
+const fragmentoDe = (texto) => String(texto)
+  .normalize('NFKD')
+  .replace(/[̀-ͯ]/g, '')
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+// O que o nome da variante tem a mais que o da base: "Produto Editar Imagem" -> "imagem"
+function fragmentoDaVariante(base, variante) {
+  const palavrasBase = base.split(/\s+/);
+  const palavras = variante.split(/\s+/);
+  let comum = 0;
+  while (comum < palavras.length - 1 && palavras[comum] === palavrasBase[comum]) comum++;
+
+  return fragmentoDe(palavras.slice(comum).join(' ')) || 'variacao';
+}
+
+// O OpenAPI nao aceita duas operacoes com o mesmo metodo e rota, mas a colecao separa variacoes
+// de uma rota (ex: Produto Editar Imagem). A primeira requisicao fica com a rota e cada uma das
+// outras ganha um fragmento na chave do path (/api/produto/{produtoId}#imagem), o que basta para o
+// Scalar lista-la separada. O fragmento nunca chega a API: o navegador, o proxy do Scalar, o curl
+// e o Guzzle o descartam ao montar a requisicao.
+function fragmentosDasVariantes(requisicoes) {
+  const grupos = Map.groupBy(requisicoes, (r) => `${r.http.method.toLowerCase()} ${normalizarRota(r.http.url)}`);
+  const fragmentos = new Map();
+
+  for (const [base, ...variantes] of grupos.values()) {
+    const usados = new Set();
+
+    for (const variante of variantes) {
+      const sugerido = fragmentoDaVariante(base.nome, variante.nome);
+      let fragmento = sugerido;
+      for (let n = 2; usados.has(fragmento); n++) fragmento = `${sugerido}-${n}`;
+
+      usados.add(fragmento);
+      fragmentos.set(variante, fragmento);
+    }
+  }
+
+  return fragmentos;
 }
 
 function tituloDaColecao() {
@@ -351,20 +386,17 @@ function tituloDaColecao() {
 
 function gerarOpenApi() {
   const pastas = carregarColecao();
-  const operacoes = new Map();
+  const requisicoes = pastas.flatMap((pasta) => pasta.requisicoes);
+  const fragmentos = fragmentosDasVariantes(requisicoes);
 
-  for (const requisicao of pastas.flatMap((pasta) => pasta.requisicoes)) {
+  // Na ordem da colecao: o Scalar lista as operacoes na ordem dos paths (e, dentro de um path, por metodo)
+  const paths = {};
+  for (const requisicao of requisicoes) {
     const metodo = requisicao.http.method.toLowerCase();
     const rota = normalizarRota(requisicao.http.url);
-    const chave = `${metodo} ${rota}`;
+    const fragmento = fragmentos.get(requisicao);
 
-    if (!operacoes.has(chave)) operacoes.set(chave, { metodo, rota, variantes: [] });
-    operacoes.get(chave).variantes.push(requisicao);
-  }
-
-  const paths = {};
-  for (const { metodo, rota, variantes } of operacoes.values()) {
-    (paths[rota] ??= {})[metodo] = montarOperacao(metodo, rota, variantes);
+    (paths[fragmento ? `${rota}#${fragmento}` : rota] ??= {})[metodo] = montarOperacao(metodo, rota, requisicao, fragmento);
   }
 
   return {
