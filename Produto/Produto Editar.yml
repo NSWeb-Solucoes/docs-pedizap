@@ -155,3 +155,5 @@ docs: |-
   <p><strong>Cuidado:</strong> um <code>code</code> amplo demais (ex: um prefixo curto seguido de <code>%</code>) pode atualizar mais produtos do que o esperado.</p>
 
   <p>Os mesmos campos de foto de <a href="./Produto%20Editar%20Imagem.yml">Produto Editar Imagem</a> (<code>photo_url</code>, <code>photo_data</code>+<code>photo_filename</code>, <code>photo_description</code>, <code>photo_featured</code>) também funcionam neste endpoint — é a mesma action.</p>
+
+  <p>Para os complementos (<code>extras_json</code>), veja <a href="./Produto%20Editar%20Complementos%20(extras_json).yml">Produto Editar Complementos (extras_json)</a>: no PUT o campo vai como string JSON e substitui a lista inteira.</p>

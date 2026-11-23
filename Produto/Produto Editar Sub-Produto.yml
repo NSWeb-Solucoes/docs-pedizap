@@ -1,7 +1,7 @@
 info:
   name: Produto Editar Sub-Produto
   type: http
-  seq: 9
+  seq: 10
   tags:
     - Produtos
 

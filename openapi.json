@@ -4058,7 +4058,7 @@
         "tags": [
           "Produto"
         ],
-        "description": "### Produto Inserir\n\n<p>Os únicos campos realmente obrigatórios são:</p>\n\n<ul>\n    <li> <strong>name:</strong> O nome do produto </li>\n    <li> <strong>category_id:</strong> O id da categoria ao qual o produto pertence </li>\n</ul>\n\n<p>Os demais campos do exemplo (<code>code, estoque_quantidade, price, price_promo, resume, published, show_price, regra_exibicao</code>) são opcionais. Também existem outros campos do formulário não presentes no exemplo, todos opcionais: <code>category_id2, mpn, gtin, ncm, genero, manufacturer_id, featured, priority, color, model, size, estoque_controle, estoque_minimo, comprimento, largura, altura, peso, prazo_entrega, prazo_unidade, prazo_usa_quantidade, content, video, cross_sell, relateds, goto, cashback_json</code>.</p>\n\n<p>É possível anexar uma foto já na criação do produto (sem precisar de uma chamada separada em <code>/api/produto/:id/fotos</code>), enviando um dos três conjuntos de campos: <code>photo_url</code> (URL da imagem), <code>photo_file</code> (upload multipart) ou <code>photo_data</code>+<code>photo_filename</code> (base64) — mais opcionalmente <code>photo_description</code> e <code>photo_featured</code> (\"S\"/\"N\"). O mesmo funciona no PUT de edição.</p>\n\n### Produto Inserir Sub-Produto\n\n<p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href=\"./Produto%20Inserir.yml\">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>\n\n<ul>\n  <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>\n  <li><code>category_id</code> não é necessário (nem usado) num sub-produto — ele pertence à mesma categoria do pai.</li>\n  <li><code>attr_1</code>, <code>attr_2</code>, <code>attr_3</code>... são os atributos de variação configurados na loja (ex: tamanho, cor) — o número de campos <code>attr_N</code> disponíveis depende de quantos atributos a loja tem cadastrados.</li>\n  <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro \"Nenhum atributo informado para o subproduto !\").</li>\n</ul>\n\n<p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href=\"./Produto%20Editar%20Sub-Produto.yml\">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>",
+        "description": "### Produto Inserir\n\n<p>Os únicos campos realmente obrigatórios são:</p>\n\n<ul>\n    <li> <strong>name:</strong> O nome do produto </li>\n    <li> <strong>category_id:</strong> O id da categoria ao qual o produto pertence </li>\n</ul>\n\n<p>Os demais campos do exemplo (<code>code, estoque_quantidade, price, price_promo, resume, published, show_price, regra_exibicao</code>) são opcionais. Também existem outros campos do formulário não presentes no exemplo, todos opcionais: <code>category_id2, mpn, gtin, ncm, genero, manufacturer_id, featured, priority, color, model, size, estoque_controle, estoque_minimo, comprimento, largura, altura, peso, prazo_entrega, prazo_unidade, prazo_usa_quantidade, content, video, cross_sell, relateds, goto, cashback_json</code>.</p>\n\n<p>É possível anexar uma foto já na criação do produto (sem precisar de uma chamada separada em <code>/api/produto/:id/fotos</code>), enviando um dos três conjuntos de campos: <code>photo_url</code> (URL da imagem), <code>photo_file</code> (upload multipart) ou <code>photo_data</code>+<code>photo_filename</code> (base64) — mais opcionalmente <code>photo_description</code> e <code>photo_featured</code> (\"S\"/\"N\"). O mesmo funciona no PUT de edição.</p>\n\n<p>O <code>extras_json</code> (complementos) aceita array, como no exemplo, ou string JSON. Todo grupo precisa de <code>category</code>, <code>required</code>, <code>min</code>, <code>max</code> e <code>items</code>; sem eles a API recusa com \"O campo extras_json não possui todos os atributos necessarios\". Por isso a referência a um grupo cadastrado (<code>reference_id</code>) só entra pelo PUT. Campos, regras e exemplos em <a href=\"./Produto%20Editar%20Complementos%20(extras_json).yml\">Produto Editar Complementos (extras_json)</a>.</p>\n\n### Produto Inserir Sub-Produto\n\n<p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href=\"./Produto%20Inserir.yml\">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>\n\n<ul>\n  <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>\n  <li><code>category_id</code> não é necessário (nem usado) num sub-produto — ele pertence à mesma categoria do pai.</li>\n  <li><code>attr_1</code>, <code>attr_2</code>, <code>attr_3</code>... são os atributos de variação configurados na loja (ex: tamanho, cor) — o número de campos <code>attr_N</code> disponíveis depende de quantos atributos a loja tem cadastrados.</li>\n  <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro \"Nenhum atributo informado para o subproduto !\").</li>\n</ul>\n\n<p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href=\"./Produto%20Editar%20Sub-Produto.yml\">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>",
         "parameters": [
           {
             "name": "parent_id",
@@ -4818,12 +4818,12 @@
         }
       },
       "put": {
-        "summary": "Produto Editar / Produto Editar Imagem / Produto Editar Sub-Produto",
+        "summary": "Produto Editar / Produto Editar Imagem / Produto Editar Complementos (extras_json) / Produto Editar Sub-Produto",
         "operationId": "Produto_Produto_Editar",
         "tags": [
           "Produto"
         ],
-        "description": "### Produto Editar\n\nPUT faz atualização **parcial**: só os campos enviados são alterados, o resto do produto continua como estava (diferente do POST de criação, que espera o formulário completo).\n\n<p><strong>Atualização em lote:</strong> esse mesmo endpoint atualiza mais de um produto de uma vez:</p>\n<ul>\n  <li><code>id</code> pode ser uma lista separada por vírgula (ex: <code>id=1,2,3</code>) — todos recebem os mesmos dados do body.</li>\n  <li>Sem <code>id</code>, usando <code>code</code> em vez disso (ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>): a busca é feita com <code>LIKE</code>, então aceita <code>%</code> como coringa e pode casar (e atualizar) vários produtos de uma vez, opcionalmente restrita por <code>parent_id</code>.</li>\n</ul>\n<p><strong>Cuidado:</strong> um <code>code</code> amplo demais (ex: um prefixo curto seguido de <code>%</code>) pode atualizar mais produtos do que o esperado.</p>\n\n<p>Os mesmos campos de foto de <a href=\"./Produto%20Editar%20Imagem.yml\">Produto Editar Imagem</a> (<code>photo_url</code>, <code>photo_data</code>+<code>photo_filename</code>, <code>photo_description</code>, <code>photo_featured</code>) também funcionam neste endpoint — é a mesma action.</p>\n\n### Produto Editar Imagem\n\nAtualização no endpoint para alterar a imagem do produto, ele sempre substituirá a imagem atual pela imagem enviada.\n\n- Imagem hostiada na internet utilizar o **photo_url**\n    \n- Imagem codificada em base64 utilizar o **photo_data** e **photo_filename**\n    \n- Imagem usando multi-part/file, não está disponivel no **PUT** somente no [POST.](https://documenter.getpostman.com/view/9735682/2s9YRFT9LL#fdcec802-1604-4fbb-818b-208374c32499)\n\nOpcionalmente também é possível enviar **photo_description** (descrição da foto) e **photo_featured** (\"S\"/\"N\", se é a foto principal).\n\n### Produto Editar Sub-Produto\n\n<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
+        "description": "### Produto Editar\n\nPUT faz atualização **parcial**: só os campos enviados são alterados, o resto do produto continua como estava (diferente do POST de criação, que espera o formulário completo).\n\n<p><strong>Atualização em lote:</strong> esse mesmo endpoint atualiza mais de um produto de uma vez:</p>\n<ul>\n  <li><code>id</code> pode ser uma lista separada por vírgula (ex: <code>id=1,2,3</code>) — todos recebem os mesmos dados do body.</li>\n  <li>Sem <code>id</code>, usando <code>code</code> em vez disso (ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>): a busca é feita com <code>LIKE</code>, então aceita <code>%</code> como coringa e pode casar (e atualizar) vários produtos de uma vez, opcionalmente restrita por <code>parent_id</code>.</li>\n</ul>\n<p><strong>Cuidado:</strong> um <code>code</code> amplo demais (ex: um prefixo curto seguido de <code>%</code>) pode atualizar mais produtos do que o esperado.</p>\n\n<p>Os mesmos campos de foto de <a href=\"./Produto%20Editar%20Imagem.yml\">Produto Editar Imagem</a> (<code>photo_url</code>, <code>photo_data</code>+<code>photo_filename</code>, <code>photo_description</code>, <code>photo_featured</code>) também funcionam neste endpoint — é a mesma action.</p>\n\n<p>Para os complementos (<code>extras_json</code>), veja <a href=\"./Produto%20Editar%20Complementos%20(extras_json).yml\">Produto Editar Complementos (extras_json)</a>: no PUT o campo vai como string JSON e substitui a lista inteira.</p>\n\n### Produto Editar Imagem\n\nAtualização no endpoint para alterar a imagem do produto, ele sempre substituirá a imagem atual pela imagem enviada.\n\n- Imagem hostiada na internet utilizar o **photo_url**\n    \n- Imagem codificada em base64 utilizar o **photo_data** e **photo_filename**\n    \n- Imagem usando multi-part/file, não está disponivel no **PUT** somente no [POST.](https://documenter.getpostman.com/view/9735682/2s9YRFT9LL#fdcec802-1604-4fbb-818b-208374c32499)\n\nOpcionalmente também é possível enviar **photo_description** (descrição da foto) e **photo_featured** (\"S\"/\"N\", se é a foto principal).\n\n### Produto Editar Complementos (extras_json)\n\nO `extras_json` guarda os **complementos** do produto: a lista de grupos que o cliente escolhe ao pedir (tamanho, sabores, adicionais etc.), cada um com seus itens.\n\n#### Como enviar\n\n- Envie o `extras_json` como **string JSON**, em form-urlencoded ou em corpo JSON (`\"extras_json\": \"[{...}]\"`, com as aspas internas escapadas).\n- **Não envie array direto no corpo JSON** (`\"extras_json\": [...]`). A API responde `success`, mas grava um valor inválido e o produto fica sem complementos. O POST de criação aceita array; o PUT, não.\n- A lista enviada **substitui** a atual, sem mesclar. Para mudar um item, leia o produto, altere a lista e reenvie a lista inteira (exemplo *Alterar um item*).\n- Sem `extras_json` no corpo, os complementos ficam como estão (o PUT é parcial).\n- O PUT não valida o conteúdo: JSON inválido é gravado como veio, e o produto aparece sem complementos na loja. Valide a lista antes de enviar.\n- Com vários ids separados por vírgula (`/api/produto/10,11,12`), a mesma lista vai para todos os produtos.\n\n#### Grupo\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `category` | string | Nome do grupo exibido ao cliente. Use nomes diferentes dentro do mesmo produto. |\n| `required` | boolean | `true` obriga o cliente a escolher neste grupo. |\n| `min` | número | Mínimo de escolhas no grupo. |\n| `max` | número | Máximo de escolhas no grupo. |\n| `rule` | string | `\"\"` (padrão): cada item escolhido soma o próprio preço. `\"price_higher\"`: todos os itens escolhidos valem o preço do mais caro, como na pizza meio a meio. |\n| `items` | array | Itens do grupo (tabela abaixo). |\n\n#### Item\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `name` | string | Nome do item. |\n| `code` | string | Código/SKU do item. É por ele que o CSV de complementos atualiza o preço. |\n| `desc` | string | Descrição curta. |\n| `price` | string | Preço com ponto decimal (`\"6.00\"`). Use `\"0.00\"` para item sem custo. |\n| `limitFree` | número | Quantas unidades do item saem de graça; as seguintes são cobradas. Não vale em grupo `price_higher`. |\n| `image` | string | URL da imagem do item (opcional). |\n| `published` | boolean | `false` esconde o item da loja sem apagá-lo. |\n\nNo `extras_json` o campo é `limitFree`; o `limit_free` é do endpoint de complemento.\n\n#### Grupo de complemento cadastrado\n\nNo lugar de um grupo completo, a lista aceita uma referência a um grupo cadastrado em [Complemento Inserir](../Produto%20-%20Complemento/Complemento%20Inserir.yml): `{\"reference_id\": \"7590\", \"name\": \"Escolha os sabores\"}`. O `reference_id` é o do grupo (o enviado na criação ou o que volta na resposta), não o `ref`/`code`. Os itens e preços ficam no grupo cadastrado, e uma alteração nele vale para todos os produtos que o usam. O `name` é opcional e troca o nome do grupo só neste produto.\n\nA referência só é aceita no PUT. O POST exige `category`, `required`, `min`, `max` e `items` em todo grupo e recusa a lista com a mensagem \"O campo extras_json não possui todos os atributos necessarios\".\n\n#### Remover os complementos\n\nEm form-urlencoded: `extras_json=[]`, `extras_json=` (vazio) ou `extras_json=null`. Em corpo JSON: `\"\"`, `\"[]\"` ou `null`.\n\n#### Ler os complementos\n\n`GET /api/produto/:produtoId` devolve o `extras_json` como string JSON, do jeito que foi gravado: decodifique antes de usar. Um grupo cadastrado vem só com `reference_id` e `name`; os itens dele estão em [Complemento Detalhe](../Produto%20-%20Complemento/Complemento%20Detalhe.yml).\n\n#### Mudar só o preço de um item\n\n[Complemento CSV - Atualizar preço em lote](../Produto%20-%20Complemento%20-%20CSV/Complemento%20CSV%20-%20Atualizar%20preço%20em%20lote.yml) muda o `price` de um item pelo `code` em todos os produtos que o têm e nos grupos cadastrados, sem reenviar a lista.\n\n### Produto Editar Sub-Produto\n\n<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
         "parameters": [
           {
             "name": "produtoId",
@@ -4881,6 +4881,11 @@
                     "type": "string",
                     "description": "\"S\"/\"N\" (default \"N\") - marca a foto como a principal/destaque do produto"
                   },
+                  "extras_json": {
+                    "type": "string",
+                    "description": "Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.",
+                    "example": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":true}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"6.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
+                  },
                   "price_promo": {
                     "type": "string",
                     "description": "Preco promocional do sub-produto",
@@ -4935,6 +4940,24 @@
                     "photo_filename": "imagem_por_base64.png"
                   }
                 },
+                "Produto_Editar_Complementos_extras_json": {
+                  "summary": "Produto Editar Complementos (extras_json)",
+                  "value": {
+                    "extras_json": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":true}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"6.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
+                  }
+                },
+                "200_Usar_um_grupo_de_complemento_cadastrado": {
+                  "summary": "200 Usar um grupo de complemento cadastrado",
+                  "value": {
+                    "extras_json": "[{\"reference_id\":\"7590\",\"name\":\"Escolha os sabores\"},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"6.00\",\"limitFree\":0,\"published\":true}]}]"
+                  }
+                },
+                "200_Remover_todos_os_complementos": {
+                  "summary": "200 Remover todos os complementos",
+                  "value": {
+                    "extras_json": "[]"
+                  }
+                },
                 "Produto_Editar_Sub_Produto": {
                   "summary": "Produto Editar Sub-Produto",
                   "value": {
@@ -4942,6 +4965,30 @@
                     "price_promo": "123",
                     "estoque_quantidade": "32",
                     "attr_1": "Azul"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "extras_json": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200_Alterar_um_item_corpo_JSON": {
+                  "summary": "200 Alterar um item (corpo JSON)",
+                  "value": {
+                    "extras_json": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":false}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"7.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
+                  }
+                },
+                "200_Remover_todos_os_complementos_corpo_JSON": {
+                  "summary": "200 Remover todos os complementos (corpo JSON)",
+                  "value": {
+                    "extras_json": ""
                   }
                 }
               }
@@ -4983,6 +5030,46 @@
                       "status": "success",
                       "affectedRows": 1
                     }
+                  },
+                  "200_Substituir_os_complementos": {
+                    "summary": "200 Substituir os complementos",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "Grava três grupos no produto: tamanho, sabores no meio a meio (`price_higher`) e adicionais, com o Orégano extra tendo 1 unidade grátis (`limitFree`). Os complementos que o produto tinha antes são descartados."
+                  },
+                  "200_Alterar_um_item_corpo_JSON": {
+                    "summary": "200 Alterar um item (corpo JSON)",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "Não existe edição de um item só: a lista enviada substitui a atual. O fluxo é ler o produto (`GET /api/produto/:produtoId`), decodificar o `extras_json` (que vem como string), alterar e reenviar a lista inteira. Neste exemplo o Bacon passou para 7.00 e o Quatro queijos foi despublicado (`\"published\": false`). Os outros grupos e itens vão iguais; se ficassem de fora, seriam apagados.\n\nEm corpo JSON, o `extras_json` também vai como string, com as aspas internas escapadas. Um array direto no campo (`\"extras_json\": [...]`) não funciona no PUT."
+                  },
+                  "200_Usar_um_grupo_de_complemento_cadastrado": {
+                    "summary": "200 Usar um grupo de complemento cadastrado",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "O primeiro grupo é uma referência ao grupo cadastrado com `reference_id` 7590 (ver Complemento Inserir): os itens e preços vêm dele, e o `name` troca o nome exibido só neste produto. O segundo é um grupo próprio do produto. Os dois tipos podem ficar na mesma lista."
+                  },
+                  "200_Remover_todos_os_complementos": {
+                    "summary": "200 Remover todos os complementos",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "Em form-urlencoded, `extras_json=[]`, `extras_json=` (vazio) e `extras_json=null` deixam o produto sem complementos. O campo precisa estar no corpo: se ficar de fora, nada muda."
+                  },
+                  "200_Remover_todos_os_complementos_corpo_JSON": {
+                    "summary": "200 Remover todos os complementos (corpo JSON)",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "Em corpo JSON, use `\"\"`, `\"[]\"` (entre aspas) ou `null`. Não use `[]` sem aspas: é o caso do array, que grava um valor inválido no lugar da lista."
                   },
                   "Produto_Editar_Sub_Produto_200_Response": {
                     "summary": "Produto Editar Sub-Produto: 200 Response",

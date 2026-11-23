@@ -1,0 +1,241 @@
+info:
+  name: Produto Editar Complementos (extras_json)
+  type: http
+  seq: 9
+  tags:
+    - Produtos
+
+http:
+  method: PUT
+  url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: produtoId
+      value: "{{produtoId}}"
+      type: path
+  body:
+    type: form-urlencoded
+    data:
+      - name: extras_json
+        value: '[{"category":"Escolha o tamanho","required":true,"rule":"","min":1,"max":1,"items":[{"name":"Média","code":"TAM-M","desc":"6 fatias","price":"0.00","published":true},{"name":"Grande","code":"TAM-G","desc":"8 fatias","price":"10.00","published":true}]},{"category":"Sabores (até 2)","required":true,"rule":"price_higher","min":1,"max":2,"items":[{"name":"Mussarela","code":"SAB-MUS","desc":"","price":"40.00","published":true},{"name":"Calabresa","code":"SAB-CAL","desc":"","price":"45.00","published":true},{"name":"Quatro queijos","code":"SAB-4Q","desc":"","price":"52.00","published":true}]},{"category":"Adicionais","required":false,"rule":"","min":0,"max":3,"items":[{"name":"Bacon","code":"ADC-BACON","desc":"","price":"6.00","limitFree":0,"published":true},{"name":"Orégano extra","code":"ADC-OREG","desc":"","price":"1.00","limitFree":1,"published":true}]}]'
+        description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Substituir os complementos
+    description: |-
+      Grava três grupos no produto: tamanho, sabores no meio a meio (`price_higher`) e adicionais, com o Orégano extra tendo 1 unidade grátis (`limitFree`). Os complementos que o produto tinha antes são descartados.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: extras_json
+            value: '[{"category":"Escolha o tamanho","required":true,"rule":"","min":1,"max":1,"items":[{"name":"Média","code":"TAM-M","desc":"6 fatias","price":"0.00","published":true},{"name":"Grande","code":"TAM-G","desc":"8 fatias","price":"10.00","published":true}]},{"category":"Sabores (até 2)","required":true,"rule":"price_higher","min":1,"max":2,"items":[{"name":"Mussarela","code":"SAB-MUS","desc":"","price":"40.00","published":true},{"name":"Calabresa","code":"SAB-CAL","desc":"","price":"45.00","published":true},{"name":"Quatro queijos","code":"SAB-4Q","desc":"","price":"52.00","published":true}]},{"category":"Adicionais","required":false,"rule":"","min":0,"max":3,"items":[{"name":"Bacon","code":"ADC-BACON","desc":"","price":"6.00","limitFree":0,"published":true},{"name":"Orégano extra","code":"ADC-OREG","desc":"","price":"1.00","limitFree":1,"published":true}]}]'
+            description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":1}'
+  - name: 200 Alterar um item (corpo JSON)
+    description: |-
+      Não existe edição de um item só: a lista enviada substitui a atual. O fluxo é ler o produto (`GET /api/produto/:produtoId`), decodificar o `extras_json` (que vem como string), alterar e reenviar a lista inteira. Neste exemplo o Bacon passou para 7.00 e o Quatro queijos foi despublicado (`"published": false`). Os outros grupos e itens vão iguais; se ficassem de fora, seriam apagados.
+
+      Em corpo JSON, o `extras_json` também vai como string, com as aspas internas escapadas. Um array direto no campo (`"extras_json": [...]`) não funciona no PUT.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "extras_json": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":false}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"7.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":1}'
+  - name: 200 Usar um grupo de complemento cadastrado
+    description: |-
+      O primeiro grupo é uma referência ao grupo cadastrado com `reference_id` 7590 (ver Complemento Inserir): os itens e preços vêm dele, e o `name` troca o nome exibido só neste produto. O segundo é um grupo próprio do produto. Os dois tipos podem ficar na mesma lista.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: extras_json
+            value: '[{"reference_id":"7590","name":"Escolha os sabores"},{"category":"Adicionais","required":false,"rule":"","min":0,"max":3,"items":[{"name":"Bacon","code":"ADC-BACON","desc":"","price":"6.00","limitFree":0,"published":true}]}]'
+            description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":1}'
+  - name: 200 Remover todos os complementos
+    description: |-
+      Em form-urlencoded, `extras_json=[]`, `extras_json=` (vazio) e `extras_json=null` deixam o produto sem complementos. O campo precisa estar no corpo: se ficar de fora, nada muda.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: extras_json
+            value: "[]"
+            description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":1}'
+  - name: 200 Remover todos os complementos (corpo JSON)
+    description: |-
+      Em corpo JSON, use `""`, `"[]"` (entre aspas) ou `null`. Não use `[]` sem aspas: é o caso do array, que grava um valor inválido no lugar da lista.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "extras_json": ""
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":1}'
+
+docs: |-
+  O `extras_json` guarda os **complementos** do produto: a lista de grupos que o cliente escolhe ao pedir (tamanho, sabores, adicionais etc.), cada um com seus itens.
+
+  #### Como enviar
+
+  - Envie o `extras_json` como **string JSON**, em form-urlencoded ou em corpo JSON (`"extras_json": "[{...}]"`, com as aspas internas escapadas).
+  - **Não envie array direto no corpo JSON** (`"extras_json": [...]`). A API responde `success`, mas grava um valor inválido e o produto fica sem complementos. O POST de criação aceita array; o PUT, não.
+  - A lista enviada **substitui** a atual, sem mesclar. Para mudar um item, leia o produto, altere a lista e reenvie a lista inteira (exemplo *Alterar um item*).
+  - Sem `extras_json` no corpo, os complementos ficam como estão (o PUT é parcial).
+  - O PUT não valida o conteúdo: JSON inválido é gravado como veio, e o produto aparece sem complementos na loja. Valide a lista antes de enviar.
+  - Com vários ids separados por vírgula (`/api/produto/10,11,12`), a mesma lista vai para todos os produtos.
+
+  #### Grupo
+
+  | Campo | Tipo | Descrição |
+  |---|---|---|
+  | `category` | string | Nome do grupo exibido ao cliente. Use nomes diferentes dentro do mesmo produto. |
+  | `required` | boolean | `true` obriga o cliente a escolher neste grupo. |
+  | `min` | número | Mínimo de escolhas no grupo. |
+  | `max` | número | Máximo de escolhas no grupo. |
+  | `rule` | string | `""` (padrão): cada item escolhido soma o próprio preço. `"price_higher"`: todos os itens escolhidos valem o preço do mais caro, como na pizza meio a meio. |
+  | `items` | array | Itens do grupo (tabela abaixo). |
+
+  #### Item
+
+  | Campo | Tipo | Descrição |
+  |---|---|---|
+  | `name` | string | Nome do item. |
+  | `code` | string | Código/SKU do item. É por ele que o CSV de complementos atualiza o preço. |
+  | `desc` | string | Descrição curta. |
+  | `price` | string | Preço com ponto decimal (`"6.00"`). Use `"0.00"` para item sem custo. |
+  | `limitFree` | número | Quantas unidades do item saem de graça; as seguintes são cobradas. Não vale em grupo `price_higher`. |
+  | `image` | string | URL da imagem do item (opcional). |
+  | `published` | boolean | `false` esconde o item da loja sem apagá-lo. |
+
+  No `extras_json` o campo é `limitFree`; o `limit_free` é do endpoint de complemento.
+
+  #### Grupo de complemento cadastrado
+
+  No lugar de um grupo completo, a lista aceita uma referência a um grupo cadastrado em [Complemento Inserir](../Produto%20-%20Complemento/Complemento%20Inserir.yml): `{"reference_id": "7590", "name": "Escolha os sabores"}`. O `reference_id` é o do grupo (o enviado na criação ou o que volta na resposta), não o `ref`/`code`. Os itens e preços ficam no grupo cadastrado, e uma alteração nele vale para todos os produtos que o usam. O `name` é opcional e troca o nome do grupo só neste produto.
+
+  A referência só é aceita no PUT. O POST exige `category`, `required`, `min`, `max` e `items` em todo grupo e recusa a lista com a mensagem "O campo extras_json não possui todos os atributos necessarios".
+
+  #### Remover os complementos
+
+  Em form-urlencoded: `extras_json=[]`, `extras_json=` (vazio) ou `extras_json=null`. Em corpo JSON: `""`, `"[]"` ou `null`.
+
+  #### Ler os complementos
+
+  `GET /api/produto/:produtoId` devolve o `extras_json` como string JSON, do jeito que foi gravado: decodifique antes de usar. Um grupo cadastrado vem só com `reference_id` e `name`; os itens dele estão em [Complemento Detalhe](../Produto%20-%20Complemento/Complemento%20Detalhe.yml).
+
+  #### Mudar só o preço de um item
+
+  [Complemento CSV - Atualizar preço em lote](../Produto%20-%20Complemento%20-%20CSV/Complemento%20CSV%20-%20Atualizar%20preço%20em%20lote.yml) muda o `price` de um item pelo `code` em todos os produtos que o têm e nos grupos cadastrados, sem reenviar a lista.
