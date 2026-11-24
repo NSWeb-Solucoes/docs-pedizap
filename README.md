@@ -67,9 +67,9 @@ Nos formatos de formulário, listas e objetos do JSON viram campos com colchetes
 
 ### Variações da mesma rota
 
-O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto Editar Imagem`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham um fragmento com o que o nome delas tem a mais (`/api/produto/{produtoId}#imagem`).
+O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto Editar Imagem`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham espaços no fim da chave do path (`"/api/produto/{produtoId} "`, depois `"/api/produto/{produtoId}  "`).
 
-O fragmento só separa a variação no Scalar e não chega à API: o navegador, o proxy do Scalar, o curl e o Guzzle o descartam ao montar a requisição. Para mudar o fragmento, renomeie a requisição no Bruno; para mudar qual variação fica com a rota sem fragmento, mude a ordem (`seq`).
+O espaço só separa a variação no Scalar: não aparece no cabeçalho nem no código de exemplo e não chega à API, porque o navegador o descarta ao montar a URL. Não apague esses espaços do `openapi.json` (ele é gerado). Para mudar qual variação fica com a chave sem espaço, mude a ordem (`seq`) no Bruno.
 
 ## Usando a coleção no Bruno
 

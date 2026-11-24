@@ -5194,14 +5194,14 @@
         }
       }
     },
-    "/api/produto#detalhe-busca-por-sku": {
+    "/api/produto ": {
       "get": {
         "summary": "Produto Detalhe (Busca por SKU)",
         "operationId": "Produto_Produto_Detalhe_Busca_por_SKU",
         "tags": [
           "Produto"
         ],
-        "description": "> O `#detalhe-busca-por-sku` no endereço só separa esta variação de `GET /api/produto` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Para buscar as informações de somente um produto, o <b>sku</b> dele deve ser adicionado ao parametro <b>code</b></p>",
+        "description": "<p>Para buscar as informações de somente um produto, o <b>sku</b> dele deve ser adicionado ao parametro <b>code</b></p>",
         "parameters": [
           {
             "name": "code",
@@ -5265,16 +5265,14 @@
             }
           }
         }
-      }
-    },
-    "/api/produto#sub-produto": {
+      },
       "post": {
         "summary": "Produto Inserir Sub-Produto",
         "operationId": "Produto_Produto_Inserir_Sub_Produto",
         "tags": [
           "Produto"
         ],
-        "description": "> O `#sub-produto` no endereço só separa esta variação de `POST /api/produto` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href=\"./Produto%20Inserir.yml\">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>\n\n<ul>\n  <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>\n  <li><code>category_id</code> não é necessário (nem usado) num sub-produto — ele pertence à mesma categoria do pai.</li>\n  <li><code>attr_1</code>, <code>attr_2</code>, <code>attr_3</code>... são os atributos de variação configurados na loja (ex: tamanho, cor) — o número de campos <code>attr_N</code> disponíveis depende de quantos atributos a loja tem cadastrados.</li>\n  <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro \"Nenhum atributo informado para o subproduto !\").</li>\n</ul>\n\n<p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href=\"./Produto%20Editar%20Sub-Produto.yml\">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>",
+        "description": "<p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href=\"./Produto%20Inserir.yml\">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>\n\n<ul>\n  <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>\n  <li><code>category_id</code> não é necessário (nem usado) num sub-produto — ele pertence à mesma categoria do pai.</li>\n  <li><code>attr_1</code>, <code>attr_2</code>, <code>attr_3</code>... são os atributos de variação configurados na loja (ex: tamanho, cor) — o número de campos <code>attr_N</code> disponíveis depende de quantos atributos a loja tem cadastrados.</li>\n  <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro \"Nenhum atributo informado para o subproduto !\").</li>\n</ul>\n\n<p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href=\"./Produto%20Editar%20Sub-Produto.yml\">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>",
         "parameters": [
           {
             "name": "parent_id",
@@ -5565,14 +5563,14 @@
         }
       }
     },
-    "/api/produto/{produtoId}#imagem": {
+    "/api/produto/{produtoId} ": {
       "put": {
         "summary": "Produto Editar Imagem",
         "operationId": "Produto_Produto_Editar_Imagem",
         "tags": [
           "Produto"
         ],
-        "description": "> O `#imagem` no endereço só separa esta variação de `PUT /api/produto/{produtoId}` na documentação: não faz parte da URL e não é enviado à API.\n\nAtualização no endpoint para alterar a imagem do produto, ele sempre substituirá a imagem atual pela imagem enviada.\n\n- Imagem hostiada na internet utilizar o **photo_url**\n    \n- Imagem codificada em base64 utilizar o **photo_data** e **photo_filename**\n    \n- Imagem usando multi-part/file, não está disponivel no **PUT** somente no [POST.](https://documenter.getpostman.com/view/9735682/2s9YRFT9LL#fdcec802-1604-4fbb-818b-208374c32499)\n\nOpcionalmente também é possível enviar **photo_description** (descrição da foto) e **photo_featured** (\"S\"/\"N\", se é a foto principal).",
+        "description": "Atualização no endpoint para alterar a imagem do produto, ele sempre substituirá a imagem atual pela imagem enviada.\n\n- Imagem hostiada na internet utilizar o **photo_url**\n    \n- Imagem codificada em base64 utilizar o **photo_data** e **photo_filename**\n    \n- Imagem usando multi-part/file, não está disponivel no **PUT** somente no [POST.](https://documenter.getpostman.com/view/9735682/2s9YRFT9LL#fdcec802-1604-4fbb-818b-208374c32499)\n\nOpcionalmente também é possível enviar **photo_description** (descrição da foto) e **photo_featured** (\"S\"/\"N\", se é a foto principal).",
         "parameters": [
           {
             "name": "produtoId",
@@ -5768,14 +5766,14 @@
         }
       }
     },
-    "/api/produto/{produtoId}#complementos-extras-json": {
+    "/api/produto/{produtoId}  ": {
       "put": {
         "summary": "Produto Editar Complementos (extras_json)",
         "operationId": "Produto_Produto_Editar_Complementos_extras_json",
         "tags": [
           "Produto"
         ],
-        "description": "> O `#complementos-extras-json` no endereço só separa esta variação de `PUT /api/produto/{produtoId}` na documentação: não faz parte da URL e não é enviado à API.\n\nO `extras_json` guarda os **complementos** do produto: a lista de grupos que o cliente escolhe ao pedir (tamanho, sabores, adicionais etc.), cada um com seus itens.\n\n#### Como enviar\n\n- Envie o `extras_json` como **string JSON**, em form-urlencoded ou em corpo JSON (`\"extras_json\": \"[{...}]\"`, com as aspas internas escapadas).\n- **Não envie array direto no corpo JSON** (`\"extras_json\": [...]`). A API responde `success`, mas grava um valor inválido e o produto fica sem complementos. O POST de criação aceita array; o PUT, não.\n- A lista enviada **substitui** a atual, sem mesclar. Para mudar um item, leia o produto, altere a lista e reenvie a lista inteira (exemplo *Alterar um item*).\n- Sem `extras_json` no corpo, os complementos ficam como estão (o PUT é parcial).\n- O PUT não valida o conteúdo: JSON inválido é gravado como veio, e o produto aparece sem complementos na loja. Valide a lista antes de enviar.\n- Com vários ids separados por vírgula (`/api/produto/10,11,12`), a mesma lista vai para todos os produtos.\n\n#### Grupo\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `category` | string | Nome do grupo exibido ao cliente. Use nomes diferentes dentro do mesmo produto. |\n| `required` | boolean | `true` obriga o cliente a escolher neste grupo. |\n| `min` | número | Mínimo de escolhas no grupo. |\n| `max` | número | Máximo de escolhas no grupo. |\n| `rule` | string | `\"\"` (padrão): cada item escolhido soma o próprio preço. `\"price_higher\"`: todos os itens escolhidos valem o preço do mais caro, como na pizza meio a meio. |\n| `items` | array | Itens do grupo (tabela abaixo). |\n\n#### Item\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `name` | string | Nome do item. |\n| `code` | string | Código/SKU do item. É por ele que o CSV de complementos atualiza o preço. |\n| `desc` | string | Descrição curta. |\n| `price` | string | Preço com ponto decimal (`\"6.00\"`). Use `\"0.00\"` para item sem custo. |\n| `limitFree` | número | Quantas unidades do item saem de graça; as seguintes são cobradas. Não vale em grupo `price_higher`. |\n| `image` | string | URL da imagem do item (opcional). |\n| `published` | boolean | `false` esconde o item da loja sem apagá-lo. |\n\nNo `extras_json` o campo é `limitFree`; o `limit_free` é do endpoint de complemento.\n\n#### Grupo de complemento cadastrado\n\nNo lugar de um grupo completo, a lista aceita uma referência a um grupo cadastrado em [Complemento Inserir](../Produto%20-%20Complemento/Complemento%20Inserir.yml): `{\"reference_id\": \"7590\", \"name\": \"Escolha os sabores\"}`. O `reference_id` é o do grupo (o enviado na criação ou o que volta na resposta), não o `ref`/`code`. Os itens e preços ficam no grupo cadastrado, e uma alteração nele vale para todos os produtos que o usam. O `name` é opcional e troca o nome do grupo só neste produto.\n\nA referência só é aceita no PUT. O POST exige `category`, `required`, `min`, `max` e `items` em todo grupo e recusa a lista com a mensagem \"O campo extras_json não possui todos os atributos necessarios\".\n\n#### Remover os complementos\n\nEm form-urlencoded: `extras_json=[]`, `extras_json=` (vazio) ou `extras_json=null`. Em corpo JSON: `\"\"`, `\"[]\"` ou `null`.\n\n#### Ler os complementos\n\n`GET /api/produto/:produtoId` devolve o `extras_json` como string JSON, do jeito que foi gravado: decodifique antes de usar. Um grupo cadastrado vem só com `reference_id` e `name`; os itens dele estão em [Complemento Detalhe](../Produto%20-%20Complemento/Complemento%20Detalhe.yml).\n\n#### Mudar só o preço de um item\n\n[Complemento CSV - Atualizar preço em lote](../Produto%20-%20Complemento%20-%20CSV/Complemento%20CSV%20-%20Atualizar%20preço%20em%20lote.yml) muda o `price` de um item pelo `code` em todos os produtos que o têm e nos grupos cadastrados, sem reenviar a lista.",
+        "description": "O `extras_json` guarda os **complementos** do produto: a lista de grupos que o cliente escolhe ao pedir (tamanho, sabores, adicionais etc.), cada um com seus itens.\n\n#### Como enviar\n\n- Envie o `extras_json` como **string JSON**, em form-urlencoded ou em corpo JSON (`\"extras_json\": \"[{...}]\"`, com as aspas internas escapadas).\n- **Não envie array direto no corpo JSON** (`\"extras_json\": [...]`). A API responde `success`, mas grava um valor inválido e o produto fica sem complementos. O POST de criação aceita array; o PUT, não.\n- A lista enviada **substitui** a atual, sem mesclar. Para mudar um item, leia o produto, altere a lista e reenvie a lista inteira (exemplo *Alterar um item*).\n- Sem `extras_json` no corpo, os complementos ficam como estão (o PUT é parcial).\n- O PUT não valida o conteúdo: JSON inválido é gravado como veio, e o produto aparece sem complementos na loja. Valide a lista antes de enviar.\n- Com vários ids separados por vírgula (`/api/produto/10,11,12`), a mesma lista vai para todos os produtos.\n\n#### Grupo\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `category` | string | Nome do grupo exibido ao cliente. Use nomes diferentes dentro do mesmo produto. |\n| `required` | boolean | `true` obriga o cliente a escolher neste grupo. |\n| `min` | número | Mínimo de escolhas no grupo. |\n| `max` | número | Máximo de escolhas no grupo. |\n| `rule` | string | `\"\"` (padrão): cada item escolhido soma o próprio preço. `\"price_higher\"`: todos os itens escolhidos valem o preço do mais caro, como na pizza meio a meio. |\n| `items` | array | Itens do grupo (tabela abaixo). |\n\n#### Item\n\n| Campo | Tipo | Descrição |\n|---|---|---|\n| `name` | string | Nome do item. |\n| `code` | string | Código/SKU do item. É por ele que o CSV de complementos atualiza o preço. |\n| `desc` | string | Descrição curta. |\n| `price` | string | Preço com ponto decimal (`\"6.00\"`). Use `\"0.00\"` para item sem custo. |\n| `limitFree` | número | Quantas unidades do item saem de graça; as seguintes são cobradas. Não vale em grupo `price_higher`. |\n| `image` | string | URL da imagem do item (opcional). |\n| `published` | boolean | `false` esconde o item da loja sem apagá-lo. |\n\nNo `extras_json` o campo é `limitFree`; o `limit_free` é do endpoint de complemento.\n\n#### Grupo de complemento cadastrado\n\nNo lugar de um grupo completo, a lista aceita uma referência a um grupo cadastrado em [Complemento Inserir](../Produto%20-%20Complemento/Complemento%20Inserir.yml): `{\"reference_id\": \"7590\", \"name\": \"Escolha os sabores\"}`. O `reference_id` é o do grupo (o enviado na criação ou o que volta na resposta), não o `ref`/`code`. Os itens e preços ficam no grupo cadastrado, e uma alteração nele vale para todos os produtos que o usam. O `name` é opcional e troca o nome do grupo só neste produto.\n\nA referência só é aceita no PUT. O POST exige `category`, `required`, `min`, `max` e `items` em todo grupo e recusa a lista com a mensagem \"O campo extras_json não possui todos os atributos necessarios\".\n\n#### Remover os complementos\n\nEm form-urlencoded: `extras_json=[]`, `extras_json=` (vazio) ou `extras_json=null`. Em corpo JSON: `\"\"`, `\"[]\"` ou `null`.\n\n#### Ler os complementos\n\n`GET /api/produto/:produtoId` devolve o `extras_json` como string JSON, do jeito que foi gravado: decodifique antes de usar. Um grupo cadastrado vem só com `reference_id` e `name`; os itens dele estão em [Complemento Detalhe](../Produto%20-%20Complemento/Complemento%20Detalhe.yml).\n\n#### Mudar só o preço de um item\n\n[Complemento CSV - Atualizar preço em lote](../Produto%20-%20Complemento%20-%20CSV/Complemento%20CSV%20-%20Atualizar%20preço%20em%20lote.yml) muda o `price` de um item pelo `code` em todos os produtos que o têm e nos grupos cadastrados, sem reenviar a lista.",
         "parameters": [
           {
             "name": "produtoId",
@@ -5933,14 +5931,14 @@
         }
       }
     },
-    "/api/produto/{produtoId}#sub-produto": {
+    "/api/produto/{produtoId}   ": {
       "put": {
         "summary": "Produto Editar Sub-Produto",
         "operationId": "Produto_Produto_Editar_Sub_Produto",
         "tags": [
           "Produto"
         ],
-        "description": "> O `#sub-produto` no endereço só separa esta variação de `PUT /api/produto/{produtoId}` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
+        "description": "<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
         "parameters": [
           {
             "name": "produtoId",
@@ -8504,14 +8502,14 @@
         }
       }
     },
-    "/api/produto/{produtoId}/fotos#http-upload": {
+    "/api/produto/{produtoId}/fotos ": {
       "post": {
         "summary": "Galeria Inserir Foto por HTTP Upload",
         "operationId": "Produto_Galeria_Galeria_Inserir_Foto_por_HTTP_Upload",
         "tags": [
           "Produto - Galeria"
         ],
-        "description": "> O `#http-upload` no endereço só separa esta variação de `POST /api/produto/{produtoId}/fotos` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Campo opcional <code>featured</code> (\"S\"/\"N\", default \"N\") marca a foto como a principal/destaque do produto.</p>",
+        "description": "<p>Campo opcional <code>featured</code> (\"S\"/\"N\", default \"N\") marca a foto como a principal/destaque do produto.</p>",
         "parameters": [
           {
             "name": "produtoId",
@@ -8643,14 +8641,14 @@
         }
       }
     },
-    "/api/produto/{produtoId}/fotos#url": {
+    "/api/produto/{produtoId}/fotos  ": {
       "post": {
         "summary": "Galeria Inserir Foto por URL",
         "operationId": "Produto_Galeria_Galeria_Inserir_Foto_por_URL",
         "tags": [
           "Produto - Galeria"
         ],
-        "description": "> O `#url` no endereço só separa esta variação de `POST /api/produto/{produtoId}/fotos` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Campo opcional <code>featured</code> (\"S\"/\"N\", default \"N\") marca a foto como a principal/destaque do produto.</p>",
+        "description": "<p>Campo opcional <code>featured</code> (\"S\"/\"N\", default \"N\") marca a foto como a principal/destaque do produto.</p>",
         "parameters": [
           {
             "name": "produtoId",
@@ -10218,14 +10216,14 @@
         }
       }
     },
-    "/api/pricetable/{precoId}/prices#multiplos-precos-json": {
+    "/api/pricetable/{precoId}/prices ": {
       "post": {
         "summary": "Preço por Tabela Inserir Múltiplos Preços (JSON)",
         "operationId": "Tabela_de_Preco_Precos_Preco_por_Tabela_Inserir_Multiplos_Precos_JSON",
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "> O `#multiplos-precos-json` no endereço só separa esta variação de `POST /api/pricetable/{precoId}/prices` na documentação: não faz parte da URL e não é enviado à API.\n\nEste endpoint permite enviar um **JSON** contendo um array prices com múltiplos registros de preço, conforme o exemplo de payload abaixo.\n\nOpcionalmente, é possível incluir o parâmetro removeAll.\n\n- Quando removeAll for definido como **true**, todos os registros de preço existentes na tabela serão excluídos **antes** de importar os novos valores.",
+        "description": "Este endpoint permite enviar um **JSON** contendo um array prices com múltiplos registros de preço, conforme o exemplo de payload abaixo.\n\nOpcionalmente, é possível incluir o parâmetro removeAll.\n\n- Quando removeAll for definido como **true**, todos os registros de preço existentes na tabela serão excluídos **antes** de importar os novos valores.",
         "parameters": [
           {
             "name": "precoId",
@@ -29159,14 +29157,14 @@
         }
       }
     },
-    "/api/pedido#importar-ultimos": {
+    "/api/pedido ": {
       "get": {
         "summary": "Pedidos Listagem (Importar Últimos)",
         "operationId": "Pedidos_Pedidos_Listagem_Importar_Ultimos",
         "tags": [
           "Pedidos"
         ],
-        "description": "> O `#importar-ultimos` no endereço só separa esta variação de `GET /api/pedido` na documentação: não faz parte da URL e não é enviado à API.\n\nSegue abaixo os filtros disponíveis para a pesquisa de pedidos:\n\n<ul><li><p><b>lastid:</b> Filtra os pedidos realizados após o ID informado.</p></li><li><p><b>data:</b> Filtra os pedidos pela data da confirmação, usando os modificadores abaixo. Sozinho, não filtra.</p></li><li><p><b>lastupdate:</b> Filtra os pedidos pela data da última atualização.</p></li><li><p><b>created:</b> Filtra os pedidos pela data de criação do registro.<br></p><p>Os parâmetros <code>data</code>, <code>lastupdate</code> e <code>created</code> funcionam com os modificadores gte (maior ou igual) e lte (menor ou igual). Ex: &amp;lastupdate_gte=2019-08-22 é igual a <code>lastupdate</code> &gt;= 2019-08-22.</p></li><li><p><b>pago:</b> Filtra os pedidos pagos <code>pago=S</code> ou não pagos <code>pago=N</code>.</p></li><li><p><b>status:</b> Filtra os pedidos pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora. Segue abaixo a tabela de situações:<br></p><table><tbody><tr><td><b>Status</b></td><td><b>Descrição</b></td></tr><tr><td>1</td><td>Aberto</td></tr><tr><td>2</td><td>Confirmado</td></tr><tr><td>3</td><td>Cancelado</td></tr><tr><td>4</td><td>Pendente</td></tr><tr><td>5</td><td>Postado</td></tr><tr><td>6</td><td>Finalizado</td></tr><tr><td>7</td><td>Carrinho</td></tr></tbody></table></li><li><p><b>order:</b> Ordena os resultados pela coluna informada. Aceita as seguintes opções: <code>id</code>, <code>data</code>, <code>created</code>, <code>lastupdate</code>, <code>valor</code> e o modificador ASC/DESC em seguida. Padrão <code>id DESC</code>.</p></li></ul>\n\n<p><b>Tabela de métodos de entrega (<code>entrega_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pedido sem entrega definida (ex.: PDV/balcão)</td></tr><tr><td><code>retirar_loja</code></td><td>Retirar na loja</td></tr><tr><td><code>retirar_custom</code></td><td>Retirada em ponto/zona configurada</td></tr><tr><td><code>frete_fixo</code></td><td>Frete fixo (ou &quot;A Combinar&quot;, quando a loja estiver configurada assim)</td></tr><tr><td><code>custom</code></td><td>Entrega própria (zona/bairro cadastrado na loja)</td></tr><tr><td><code>correios</code></td><td>Correios</td></tr><tr><td><code>expfacil</code></td><td>Correios Exporta Fácil</td></tr><tr><td><code>jadlog</code></td><td>JadLog</td></tr><tr><td><code>tnt</code></td><td>TNT</td></tr><tr><td><code>jamef</code></td><td>Jamef</td></tr><tr><td><code>gollog</code></td><td>GolLog</td></tr><tr><td><code>azulbauru</code></td><td>Azul Bauru</td></tr><tr><td><code>braspress</code></td><td>Braspress</td></tr><tr><td><code>melhorenvio</code></td><td>Melhor Envio</td></tr><tr><td><code>ifood</code></td><td>Entrega parceira iFood</td></tr><tr><td><code>opendelivery</code></td><td>Entrega parceira OpenDelivery</td></tr><tr><td><code>machine</code></td><td>Entrega parceira Machine</td></tr></tbody></table>\n\n<p>O campo <code>entrega_servico</code> complementa o método (código do serviço da transportadora, ou o ID do serviço/zona no caso de entrega própria) e <code>entrega_descricao</code> traz o nome exibido ao cliente.</p>\n\n<p><b>Tabela de métodos de pagamento (<code>pagto_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td><td><b>Momento</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pagamento ainda não escolhido (carrinho ou pedido aberto)</td><td>&mdash;</td></tr><tr><td><code>pix</code></td><td>PIX QRCode</td><td>Online</td></tr><tr><td><code>cartao</code></td><td>Cartão de crédito pelo gateway configurado na loja</td><td>Online</td></tr><tr><td><code>boleto</code></td><td>Boleto bancário</td><td>Online</td></tr><tr><td><code>mercadopago</code></td><td>MercadoPago</td><td>Online</td></tr><tr><td><code>pagseguro</code></td><td>PagSeguro</td><td>Online</td></tr><tr><td><code>pagbank</code></td><td>PagBank</td><td>Online</td></tr><tr><td><code>paypal</code></td><td>PayPal</td><td>Online</td></tr><tr><td><code>payzen</code></td><td>Payzen</td><td>Online</td></tr><tr><td><code>pagtoifood</code></td><td>Pagar ao receber via parceiro iFood</td><td>Online</td></tr><tr><td><code>opendelivery</code></td><td>Pedido recebido já pago pelo parceiro OpenDelivery</td><td>Online</td></tr><tr><td><code>deposito</code></td><td>Transferência/Depósito (exibido como &quot;PIX / Transferência&quot; quando a loja tem contas PIX cadastradas)</td><td>Presencial</td></tr><tr><td><code>pagtoentrega</code></td><td>Pagar ao receber</td><td>Presencial</td></tr><tr><td><code>custom</code></td><td>Forma de pagamento personalizada da loja</td><td>Presencial</td></tr><tr><td><code>gratis</code></td><td>Pedido gratuito (promoção/cashback), sem cobrança</td><td>&mdash;</td></tr></tbody></table>\n\n<p>Os métodos online só aparecem quando o gateway correspondente está habilitado na loja.</p><p>Quando <code>pagto_metodo</code> = <code>pagtoentrega</code>, o campo <code>pagto_metododesc</code> detalha a forma escolhida para pagar na entrega: <code>dinheiro</code>, <code>credito</code>, <code>debito</code>, <code>vale</code> ou <code>pix</code>. A lista ativa da loja (com as bandeiras aceitas) pode ser consultada em <code>GET /api/pedido/getpagtoentregametodos</code>. O campo <code>pagto_bandeira</code> traz a bandeira do cartão quando aplicável.</p>",
+        "description": "Segue abaixo os filtros disponíveis para a pesquisa de pedidos:\n\n<ul><li><p><b>lastid:</b> Filtra os pedidos realizados após o ID informado.</p></li><li><p><b>data:</b> Filtra os pedidos pela data da confirmação, usando os modificadores abaixo. Sozinho, não filtra.</p></li><li><p><b>lastupdate:</b> Filtra os pedidos pela data da última atualização.</p></li><li><p><b>created:</b> Filtra os pedidos pela data de criação do registro.<br></p><p>Os parâmetros <code>data</code>, <code>lastupdate</code> e <code>created</code> funcionam com os modificadores gte (maior ou igual) e lte (menor ou igual). Ex: &amp;lastupdate_gte=2019-08-22 é igual a <code>lastupdate</code> &gt;= 2019-08-22.</p></li><li><p><b>pago:</b> Filtra os pedidos pagos <code>pago=S</code> ou não pagos <code>pago=N</code>.</p></li><li><p><b>status:</b> Filtra os pedidos pelo status. Aceita um valor por vez. Sem esse filtro, só o Carrinho (7) fica de fora. Segue abaixo a tabela de situações:<br></p><table><tbody><tr><td><b>Status</b></td><td><b>Descrição</b></td></tr><tr><td>1</td><td>Aberto</td></tr><tr><td>2</td><td>Confirmado</td></tr><tr><td>3</td><td>Cancelado</td></tr><tr><td>4</td><td>Pendente</td></tr><tr><td>5</td><td>Postado</td></tr><tr><td>6</td><td>Finalizado</td></tr><tr><td>7</td><td>Carrinho</td></tr></tbody></table></li><li><p><b>order:</b> Ordena os resultados pela coluna informada. Aceita as seguintes opções: <code>id</code>, <code>data</code>, <code>created</code>, <code>lastupdate</code>, <code>valor</code> e o modificador ASC/DESC em seguida. Padrão <code>id DESC</code>.</p></li></ul>\n\n<p><b>Tabela de métodos de entrega (<code>entrega_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pedido sem entrega definida (ex.: PDV/balcão)</td></tr><tr><td><code>retirar_loja</code></td><td>Retirar na loja</td></tr><tr><td><code>retirar_custom</code></td><td>Retirada em ponto/zona configurada</td></tr><tr><td><code>frete_fixo</code></td><td>Frete fixo (ou &quot;A Combinar&quot;, quando a loja estiver configurada assim)</td></tr><tr><td><code>custom</code></td><td>Entrega própria (zona/bairro cadastrado na loja)</td></tr><tr><td><code>correios</code></td><td>Correios</td></tr><tr><td><code>expfacil</code></td><td>Correios Exporta Fácil</td></tr><tr><td><code>jadlog</code></td><td>JadLog</td></tr><tr><td><code>tnt</code></td><td>TNT</td></tr><tr><td><code>jamef</code></td><td>Jamef</td></tr><tr><td><code>gollog</code></td><td>GolLog</td></tr><tr><td><code>azulbauru</code></td><td>Azul Bauru</td></tr><tr><td><code>braspress</code></td><td>Braspress</td></tr><tr><td><code>melhorenvio</code></td><td>Melhor Envio</td></tr><tr><td><code>ifood</code></td><td>Entrega parceira iFood</td></tr><tr><td><code>opendelivery</code></td><td>Entrega parceira OpenDelivery</td></tr><tr><td><code>machine</code></td><td>Entrega parceira Machine</td></tr></tbody></table>\n\n<p>O campo <code>entrega_servico</code> complementa o método (código do serviço da transportadora, ou o ID do serviço/zona no caso de entrega própria) e <code>entrega_descricao</code> traz o nome exibido ao cliente.</p>\n\n<p><b>Tabela de métodos de pagamento (<code>pagto_metodo</code>):</b></p><table><tbody><tr><td><b>Valor</b></td><td><b>Descrição</b></td><td><b>Momento</b></td></tr><tr><td><i>(vazio / null)</i></td><td>Pagamento ainda não escolhido (carrinho ou pedido aberto)</td><td>&mdash;</td></tr><tr><td><code>pix</code></td><td>PIX QRCode</td><td>Online</td></tr><tr><td><code>cartao</code></td><td>Cartão de crédito pelo gateway configurado na loja</td><td>Online</td></tr><tr><td><code>boleto</code></td><td>Boleto bancário</td><td>Online</td></tr><tr><td><code>mercadopago</code></td><td>MercadoPago</td><td>Online</td></tr><tr><td><code>pagseguro</code></td><td>PagSeguro</td><td>Online</td></tr><tr><td><code>pagbank</code></td><td>PagBank</td><td>Online</td></tr><tr><td><code>paypal</code></td><td>PayPal</td><td>Online</td></tr><tr><td><code>payzen</code></td><td>Payzen</td><td>Online</td></tr><tr><td><code>pagtoifood</code></td><td>Pagar ao receber via parceiro iFood</td><td>Online</td></tr><tr><td><code>opendelivery</code></td><td>Pedido recebido já pago pelo parceiro OpenDelivery</td><td>Online</td></tr><tr><td><code>deposito</code></td><td>Transferência/Depósito (exibido como &quot;PIX / Transferência&quot; quando a loja tem contas PIX cadastradas)</td><td>Presencial</td></tr><tr><td><code>pagtoentrega</code></td><td>Pagar ao receber</td><td>Presencial</td></tr><tr><td><code>custom</code></td><td>Forma de pagamento personalizada da loja</td><td>Presencial</td></tr><tr><td><code>gratis</code></td><td>Pedido gratuito (promoção/cashback), sem cobrança</td><td>&mdash;</td></tr></tbody></table>\n\n<p>Os métodos online só aparecem quando o gateway correspondente está habilitado na loja.</p><p>Quando <code>pagto_metodo</code> = <code>pagtoentrega</code>, o campo <code>pagto_metododesc</code> detalha a forma escolhida para pagar na entrega: <code>dinheiro</code>, <code>credito</code>, <code>debito</code>, <code>vale</code> ou <code>pix</code>. A lista ativa da loja (com as bandeiras aceitas) pode ser consultada em <code>GET /api/pedido/getpagtoentregametodos</code>. O campo <code>pagto_bandeira</code> traz a bandeira do cartão quando aplicável.</p>",
         "parameters": [
           {
             "name": "lastid",
@@ -37120,14 +37118,14 @@
         }
       }
     },
-    "/api/content/{conteudoId}/fotos#http-upload": {
+    "/api/content/{conteudoId}/fotos ": {
       "post": {
         "summary": "Galeria Inserir Foto por HTTP Upload",
         "operationId": "Conteudo_Galeria_Galeria_Inserir_Foto_por_HTTP_Upload",
         "tags": [
           "Conteúdo - Galeria"
         ],
-        "description": "> O `#http-upload` no endereço só separa esta variação de `POST /api/content/{conteudoId}/fotos` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>Extensões aceitas: <code>gif</code>, <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>webp</code>.</p>",
+        "description": "<p>Extensões aceitas: <code>gif</code>, <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>webp</code>.</p>",
         "parameters": [
           {
             "name": "conteudoId",
@@ -37246,14 +37244,13 @@
         }
       }
     },
-    "/api/content/{conteudoId}/fotos#base64-encode": {
+    "/api/content/{conteudoId}/fotos  ": {
       "post": {
         "summary": "Galeria Inserir Foto por Base64 encode",
         "operationId": "Conteudo_Galeria_Galeria_Inserir_Foto_por_Base64_encode",
         "tags": [
           "Conteúdo - Galeria"
         ],
-        "description": "> O `#base64-encode` no endereço só separa esta variação de `POST /api/content/{conteudoId}/fotos` na documentação: não faz parte da URL e não é enviado à API.",
         "parameters": [
           {
             "name": "conteudoId",
@@ -38786,14 +38783,14 @@
         }
       }
     },
-    "/api/media#http-upload": {
+    "/api/media ": {
       "post": {
         "summary": "Mídia Enviar Arquivo por HTTP Upload",
         "operationId": "Galeria_de_Midia_Midia_Enviar_Arquivo_por_HTTP_Upload",
         "tags": [
           "Galeria de Mídia"
         ],
-        "description": "> O `#http-upload` no endereço só separa esta variação de `POST /api/media` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>\n\n<p>O nome original do arquivo é preservado. As extensões <code>php</code>, <code>php3</code>,\n<code>exe</code>, <code>perl</code> e <code>sh</code> são bloqueadas.</p>",
+        "description": "<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>\n\n<p>O nome original do arquivo é preservado. As extensões <code>php</code>, <code>php3</code>,\n<code>exe</code>, <code>perl</code> e <code>sh</code> são bloqueadas.</p>",
         "parameters": [
           {
             "name": "path",
@@ -38882,14 +38879,14 @@
         }
       }
     },
-    "/api/media#base64-encode": {
+    "/api/media  ": {
       "post": {
         "summary": "Mídia Enviar Arquivo por Base64 encode",
         "operationId": "Galeria_de_Midia_Midia_Enviar_Arquivo_por_Base64_encode",
         "tags": [
           "Galeria de Mídia"
         ],
-        "description": "> O `#base64-encode` no endereço só separa esta variação de `POST /api/media` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>",
+        "description": "<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>",
         "parameters": [
           {
             "name": "path",
@@ -39037,14 +39034,14 @@
         }
       }
     },
-    "/api/media#criar-pasta": {
+    "/api/media   ": {
       "post": {
         "summary": "Mídia Criar Pasta",
         "operationId": "Galeria_de_Midia_Midia_Criar_Pasta",
         "tags": [
           "Galeria de Mídia"
         ],
-        "description": "> O `#criar-pasta` no endereço só separa esta variação de `POST /api/media` na documentação: não faz parte da URL e não é enviado à API.\n\n<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>",
+        "description": "<p>O parâmetro <code>path</code> indica a pasta dentro da galeria de mídia do site. Sem ele, a operação\nacontece na raiz.</p>\n\n<p>As pastas usadas internamente pelos módulos (<code>album</code>, <code>product</code>,\n<code>banner</code>, <code>cadastro</code>, <code>anuncio</code>, <code>header</code>,\n<code>wishlist</code>, <code>xml</code>, <code>import-files</code>) não aparecem na galeria.\nAs fotos do álbum de conteúdo são gerenciadas por <code>/api/content/:id/fotos</code>.</p>",
         "parameters": [
           {
             "name": "path",

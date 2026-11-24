@@ -291,10 +291,7 @@ function adicionarResposta(op, exemplo, rotulo, requisicao) {
   exemplos[chaveUnica(exemplos, slug(rotulo))] = entrada;
 }
 
-const avisoDoFragmento = (metodo, rota, fragmento) => `> O \`#${fragmento}\` no endereço só separa esta variação de `
-  + `\`${metodo.toUpperCase()} ${rota}\` na documentação: não faz parte da URL e não é enviado à API.`;
-
-function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, relativo }, fragmento) {
+function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, relativo }) {
   const op = { parametros: {}, responses: {}, corpo: null };
 
   for (const [, parametro] of rota.matchAll(/\{(\w+)\}/g)) {
@@ -322,14 +319,13 @@ function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, re
     adicionarCorpo(op, exemplo.request?.body, exemplo.name);
   }
 
-  const descricao = [fragmento && avisoDoFragmento(metodo, rota, fragmento), docs].filter(Boolean).join('\n\n');
   const usaChave = http.headers?.some((h) => h.name.toLowerCase() === 'authorization');
 
   return {
     summary: nome,
     operationId: slug(relativo.replace(/\.yml$/, '')),
     tags: [tag],
-    ...(descricao && { description: descricao }),
+    ...(docs && { description: docs }),
     ...(!usaChave && { security: [] }),
     parameters: Object.values(op.parametros).map(montarParametro),
     ...(op.corpo && { requestBody: montarCorpo(op.corpo, metodo) }),
@@ -337,46 +333,21 @@ function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, re
   };
 }
 
-const fragmentoDe = (texto) => String(texto)
-  .normalize('NFKD')
-  .replace(/[̀-ͯ]/g, '')
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-+|-+$/g, '');
-
-// O que o nome da variante tem a mais que o da base: "Produto Editar Imagem" -> "imagem"
-function fragmentoDaVariante(base, variante) {
-  const palavrasBase = base.split(/\s+/);
-  const palavras = variante.split(/\s+/);
-  let comum = 0;
-  while (comum < palavras.length - 1 && palavras[comum] === palavrasBase[comum]) comum++;
-
-  return fragmentoDe(palavras.slice(comum).join(' ')) || 'variacao';
-}
-
 // O OpenAPI nao aceita duas operacoes com o mesmo metodo e rota, mas a colecao separa variacoes
 // de uma rota (ex: Produto Editar Imagem). A primeira requisicao fica com a rota e cada uma das
-// outras ganha um fragmento na chave do path (/api/produto/{produtoId}#imagem), o que basta para o
-// Scalar lista-la separada. O fragmento nunca chega a API: o navegador, o proxy do Scalar, o curl
-// e o Guzzle o descartam ao montar a requisicao.
-function fragmentosDasVariantes(requisicoes) {
+// outras ganha espacos no fim da chave do path ("/api/produto/{produtoId} ", depois "...  "), o que
+// basta para o Scalar lista-la separada. O espaco nao aparece no cabecalho nem no codigo de exemplo
+// e nao chega a API: o parser de URL do navegador descarta espaco no fim. Fragmento (#imagem)
+// apareceria no codigo de exemplo; tab e barra dupla quebram o link direto da operacao.
+function sufixosDasVariantes(requisicoes) {
   const grupos = Map.groupBy(requisicoes, (r) => `${r.http.method.toLowerCase()} ${normalizarRota(r.http.url)}`);
-  const fragmentos = new Map();
+  const sufixos = new Map();
 
-  for (const [base, ...variantes] of grupos.values()) {
-    const usados = new Set();
-
-    for (const variante of variantes) {
-      const sugerido = fragmentoDaVariante(base.nome, variante.nome);
-      let fragmento = sugerido;
-      for (let n = 2; usados.has(fragmento); n++) fragmento = `${sugerido}-${n}`;
-
-      usados.add(fragmento);
-      fragmentos.set(variante, fragmento);
-    }
+  for (const [, ...variantes] of grupos.values()) {
+    variantes.forEach((variante, i) => sufixos.set(variante, ' '.repeat(i + 1)));
   }
 
-  return fragmentos;
+  return sufixos;
 }
 
 function tituloDaColecao() {
@@ -387,16 +358,15 @@ function tituloDaColecao() {
 function gerarOpenApi() {
   const pastas = carregarColecao();
   const requisicoes = pastas.flatMap((pasta) => pasta.requisicoes);
-  const fragmentos = fragmentosDasVariantes(requisicoes);
+  const sufixos = sufixosDasVariantes(requisicoes);
 
   // Na ordem da colecao: o Scalar lista as operacoes na ordem dos paths (e, dentro de um path, por metodo)
   const paths = {};
   for (const requisicao of requisicoes) {
     const metodo = requisicao.http.method.toLowerCase();
     const rota = normalizarRota(requisicao.http.url);
-    const fragmento = fragmentos.get(requisicao);
 
-    (paths[fragmento ? `${rota}#${fragmento}` : rota] ??= {})[metodo] = montarOperacao(metodo, rota, requisicao, fragmento);
+    (paths[rota + (sufixos.get(requisicao) ?? '')] ??= {})[metodo] = montarOperacao(metodo, rota, requisicao);
   }
 
   return {
