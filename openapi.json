@@ -465,8 +465,8 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Sem_filtros": {
+                    "summary": "200 Sem filtros",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 10,
@@ -1199,11 +1199,10 @@
                           }
                         ]
                       }
-                    },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    }
                   },
-                  "200_Search": {
-                    "summary": "200 Search",
+                  "200_Buscar_por_texto": {
+                    "summary": "200 Buscar por texto",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 2,
@@ -1374,10 +1373,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_q": {
-                    "summary": "200 q",
+                  "200_Buscar_por_texto_com_q": {
+                    "summary": "200 Buscar por texto com q",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 2,
@@ -1548,10 +1547,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "`q` faz a mesma busca que `search` e só vale quando `search` não é enviado.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'q=Teste descrição teste' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_SearchLike": {
-                    "summary": "200 SearchLike",
+                  "200_Buscar_com_LIKE": {
+                    "summary": "200 Buscar com LIKE",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 10,
@@ -2285,10 +2284,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "`searchlike=1` troca a busca de `search`/`q` (FULLTEXT) por `LIKE` em `name`, `code` e `resume`, o que evita o cache do FULLTEXT. Sem `search` ou `q` ele não filtra nada, como neste exemplo.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'searchlike=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_Pids": {
-                    "summary": "200 Pids",
+                  "200_Filtrar_por_IDs": {
+                    "summary": "200 Filtrar por IDs",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 0,
@@ -2300,10 +2299,10 @@
                         "produto": []
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'pids=55,85,78,963' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_hideids": {
-                    "summary": "200 hideids",
+                  "200_Esconder_IDs": {
+                    "summary": "200 Esconder IDs",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 10,
@@ -3037,10 +3036,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'hideids=10,20,30' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_Promo": {
-                    "summary": "200 Promo",
+                  "200_Filtrar_produtos_em_promocao": {
+                    "summary": "200 Filtrar produtos em promoção",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 2,
@@ -3211,10 +3210,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'promo=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_featured": {
-                    "summary": "200 featured",
+                  "200_Filtrar_produtos_em_destaque": {
+                    "summary": "200 Filtrar produtos em destaque",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 0,
@@ -3226,10 +3225,10 @@
                         "produto": []
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'featured=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_Onlysubprod": {
-                    "summary": "200 Onlysubprod",
+                  "200_Filtrar_so_sub_produtos": {
+                    "summary": "200 Filtrar só sub-produtos",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 0,
@@ -3241,10 +3240,10 @@
                         "produto": []
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'onlysubprod=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_Subprod": {
-                    "summary": "200 Subprod",
+                  "200_Incluir_sub_produtos": {
+                    "summary": "200 Incluir sub-produtos",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 10,
@@ -3978,10 +3977,10 @@
                         ]
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'subprod=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   },
-                  "200_Code": {
-                    "summary": "200 Code",
+                  "200_Filtrar_por_SKU": {
+                    "summary": "200 Filtrar por SKU",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 0,
@@ -3993,7 +3992,7 @@
                         "produto": []
                       }
                     },
-                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'code=re25df478e' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -4010,7 +4009,7 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     },
-                    "description": "Unauthorized\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'search=Teste descrição teste' \\\n  --url-query 'q=Teste descrição teste' \\\n  --url-query 'searchlike=1' \\\n  --url-query 'pids=55,85,78,963' \\\n  --url-query 'hideids=10,20,30' \\\n  --url-query 'promo=1' \\\n  --url-query 'featured=1' \\\n  --url-query 'onlysubprod=1' \\\n  --url-query 'subprod=1' \\\n  --url-query 'code=re25df478e' \\\n  --url-query 'preco=30-80' \\\n  --url-query 'marca=5' \\\n  --url-query 'fabricante=5' \\\n  --url-query 'genero=M' \\\n  --url-query 'category=52' \\\n  --url-query 'c=52' \\\n  --url-query 'grupo=12' \\\n  --url-query 'lastupdate_lte=01/12/2024' \\\n  --url-query 'lastupdate_gte=01/12/2023' \\\n  --url-query 'created_lte=01/12/2024' \\\n  --url-query 'created_gte=01/12/2023' \\\n  --url-query 'limit=50' \\\n  --url-query 'page=3' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "Unauthorized"
                   }
                 }
               }
