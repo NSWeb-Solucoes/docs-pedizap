@@ -270,4 +270,4 @@ docs: |-
     <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro "Nenhum atributo informado para o subproduto !").</li>
   </ul>
 
-  <p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href="./Produto%20Editar%20Sub-Produto.yml">Produto Editar Sub-Produto</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>
+  <p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href="./Produto%20-%20Sub-Produto%20Editar.yml">Produto - Sub-Produto Editar</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>

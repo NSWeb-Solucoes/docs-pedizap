@@ -151,10 +151,10 @@ docs: |-
   <p><strong>Atualização em lote:</strong> esse mesmo endpoint atualiza mais de um produto de uma vez:</p>
   <ul>
     <li><code>id</code> pode ser uma lista separada por vírgula (ex: <code>id=1,2,3</code>) — todos recebem os mesmos dados do body.</li>
-    <li>Sem <code>id</code>, usando <code>code</code> em vez disso (ver <a href="./Produto%20Editar%20(Busca%20por%20SKU).yml">Produto Editar (Busca por SKU)</a>): a busca é feita com <code>LIKE</code>, então aceita <code>%</code> como coringa e pode casar (e atualizar) vários produtos de uma vez, opcionalmente restrita por <code>parent_id</code>.</li>
+    <li>Sem <code>id</code>, usando <code>code</code> em vez disso (ver <a href="./Produto%20-%20Por%20SKU%20Editar.yml">Produto - Por SKU Editar</a>): a busca é feita com <code>LIKE</code>, então aceita <code>%</code> como coringa e pode casar (e atualizar) vários produtos de uma vez, opcionalmente restrita por <code>parent_id</code>.</li>
   </ul>
   <p><strong>Cuidado:</strong> um <code>code</code> amplo demais (ex: um prefixo curto seguido de <code>%</code>) pode atualizar mais produtos do que o esperado.</p>
 
-  <p>Os mesmos campos de foto de <a href="./Produto%20Editar%20Imagem.yml">Produto Editar Imagem</a> (<code>photo_url</code>, <code>photo_data</code>+<code>photo_filename</code>, <code>photo_description</code>, <code>photo_featured</code>) também funcionam neste endpoint — é a mesma action.</p>
+  <p>Os mesmos campos de foto de <a href="./Produto%20-%20Imagem%20Editar.yml">Produto - Imagem Editar</a> (<code>photo_url</code>, <code>photo_data</code>+<code>photo_filename</code>, <code>photo_description</code>, <code>photo_featured</code>) também funcionam neste endpoint — é a mesma action.</p>
 
-  <p>Para os complementos (<code>extras_json</code>), veja <a href="./Produto%20Editar%20Complementos%20(extras_json).yml">Produto Editar Complementos (extras_json)</a>: no PUT o campo vai como string JSON e substitui a lista inteira.</p>
+  <p>Para os complementos (<code>extras_json</code>), veja <a href="./Produto%20-%20Complementos%20Editar%20(extras_json).yml">Produto - Complementos Editar (extras_json)</a>: no PUT o campo vai como string JSON e substitui a lista inteira.</p>

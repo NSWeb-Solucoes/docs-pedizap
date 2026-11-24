@@ -334,7 +334,7 @@ function montarOperacao(metodo, rota, { nome, http, examples = [], docs, tag, re
 }
 
 // O OpenAPI nao aceita duas operacoes com o mesmo metodo e rota, mas a colecao separa variacoes
-// de uma rota (ex: Produto Editar Imagem). A primeira requisicao fica com a rota e cada uma das
+// de uma rota (ex: Produto - Imagem Editar). A primeira requisicao fica com a rota e cada uma das
 // outras ganha espacos no fim da chave do path ("/api/produto/{produtoId} ", depois "...  "), o que
 // basta para o Scalar lista-la separada. O espaco nao aparece no cabecalho nem no codigo de exemplo
 // e nao chega a API: o parser de URL do navegador descarta espaco no fim. Fragmento (#imagem)
@@ -350,6 +350,40 @@ function sufixosDasVariantes(requisicoes) {
   return sufixos;
 }
 
+// Mesmo slugify do Scalar (@scalar/helpers/string/slugify), que monta o link direto da operacao
+const slugDoScalar = (texto) => String(texto)
+  .slice(0, 255)
+  .trim()
+  .normalize('NFC')
+  .toLowerCase()
+  .replace(/[^\p{L}\p{M}\p{N}\s_-]/gu, '')
+  .replace(/[\s_-]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+// Link direto da operacao no Scalar: #tag/<tag>/<METODO><chave do path>, com os espacos das
+// variantes (sufixosDasVariantes) codificados como %20, do jeito que o proprio Scalar grava na URL
+function ancoraDaOperacao(tag, metodo, chave) {
+  const url = new URL('http://scalar');
+  url.hash = `tag/${slugDoScalar(tag)}/${metodo.toUpperCase()}${chave}`;
+  return url.hash;
+}
+
+// Na colecao um texto cita outra requisicao pelo arquivo dela (./Produto%20Editar.yml), o que no
+// Scalar vira uma URL inexistente ao lado do index.html. Aqui o link passa a ser a ancora da operacao.
+function trocarLinksDaColecao(texto, relativo, ancoras) {
+  const ancoraDe = (alvo) => {
+    const arquivo = path.posix.join(path.posix.dirname(relativo), decodeURIComponent(alvo)).normalize('NFC');
+    const ancora = ancoras.get(arquivo);
+    if (!ancora) throw new Error(`${relativo}: o link "${alvo}" não aponta para nenhuma requisição da coleção`);
+
+    return ancora;
+  };
+
+  return texto
+    .replace(/href="([^"#:]+\.yml)"/g, (_, alvo) => `href="${ancoraDe(alvo)}"`)
+    .replace(/\]\(((?:[^()\s:#]|\([^()\s]*\))+\.yml)\)/g, (_, alvo) => `](${ancoraDe(alvo)})`);
+}
+
 function tituloDaColecao() {
   const arquivo = path.join(RAIZ, 'opencollection.yml');
   return fs.existsSync(arquivo) ? lerYaml(arquivo).info.name : 'Pedizap - API';
@@ -360,13 +394,24 @@ function gerarOpenApi() {
   const requisicoes = pastas.flatMap((pasta) => pasta.requisicoes);
   const sufixos = sufixosDasVariantes(requisicoes);
 
-  // Na ordem da colecao: o Scalar lista as operacoes na ordem dos paths (e, dentro de um path, por metodo)
-  const paths = {};
-  for (const requisicao of requisicoes) {
+  const operacoes = requisicoes.map((requisicao) => {
     const metodo = requisicao.http.method.toLowerCase();
     const rota = normalizarRota(requisicao.http.url);
 
-    (paths[rota + (sufixos.get(requisicao) ?? '')] ??= {})[metodo] = montarOperacao(metodo, rota, requisicao);
+    return { requisicao, metodo, rota, chave: rota + (sufixos.get(requisicao) ?? '') };
+  });
+
+  const ancoras = new Map(operacoes.map(({ requisicao, metodo, chave }) => [
+    requisicao.relativo.normalize('NFC'),
+    ancoraDaOperacao(requisicao.tag, metodo, chave)
+  ]));
+
+  // Na ordem da colecao: o Scalar lista as operacoes na ordem dos paths (e, dentro de um path, por metodo)
+  const paths = {};
+  for (const { requisicao, metodo, rota, chave } of operacoes) {
+    const docs = requisicao.docs && trocarLinksDaColecao(requisicao.docs, requisicao.relativo, ancoras);
+
+    (paths[chave] ??= {})[metodo] = montarOperacao(metodo, rota, { ...requisicao, docs });
   }
 
   return {

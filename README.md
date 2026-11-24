@@ -67,9 +67,20 @@ Nos formatos de formulário, listas e objetos do JSON viram campos com colchetes
 
 ### Variações da mesma rota
 
-O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto Editar Imagem`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham espaços no fim da chave do path (`"/api/produto/{produtoId} "`, depois `"/api/produto/{produtoId}  "`).
+O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto - Imagem Editar`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham espaços no fim da chave do path (`"/api/produto/{produtoId} "`, depois `"/api/produto/{produtoId}  "`).
 
 O espaço só separa a variação no Scalar: não aparece no cabeçalho nem no código de exemplo e não chega à API, porque o navegador o descarta ao montar a URL. Não apague esses espaços do `openapi.json` (ele é gerado). Para mudar qual variação fica com a chave sem espaço, mude a ordem (`seq`) no Bruno.
+
+### Links entre requisições
+
+Para citar outra requisição na documentação (`docs`), aponte para o arquivo `.yml` dela com caminho relativo ao arquivo atual, com os espaços como `%20`:
+
+```html
+<a href="./Produto%20-%20Imagem%20Editar.yml">Produto - Imagem Editar</a>
+<a href="../Produto%20-%20Complemento/Complemento%20Detalhe.yml">Complemento Detalhe</a>
+```
+
+O link em markdown (`[Complemento Detalhe](../Produto%20-%20Complemento/Complemento%20Detalhe.yml)`) também vale. Na página publicada esse caminho não existe; o gerador troca o link pelo endereço da operação no Scalar (`#tag/produto/PUT/api/produto/{produtoId}`). Se o arquivo não existir (por exemplo, depois de renomear uma requisição), `npm run openapi` falha e diz qual link corrigir.
 
 ## Usando a coleção no Bruno
 
