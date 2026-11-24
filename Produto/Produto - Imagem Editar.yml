@@ -1,7 +1,7 @@
 info:
   name: Produto - Imagem Editar
   type: http
-  seq: 10
+  seq: 8
   tags:
     - Produtos
 

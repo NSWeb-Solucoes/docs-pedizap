@@ -19,6 +19,8 @@
       Scalar.createApiReference('#app', {
         // The URL of the OpenAPI/Swagger document
         url: 'openapi.json',
+        // O gerador (scripts/gerar-openapi.js) usa este slug para fixar a ordem do menu
+        slug: 'api-1',
         // Avoid CORS issues
         proxyUrl: 'https://proxy.scalar.com',
 

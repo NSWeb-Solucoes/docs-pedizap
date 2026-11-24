@@ -1,7 +1,7 @@
 info:
-  name: "Produto - Sub-Produto Editar "
+  name: Sub-Produto Editar
   type: http
-  seq: 9
+  seq: 3
   tags:
     - Produtos
 
@@ -195,7 +195,7 @@ examples:
         data: '{"status":"error","msg":"Produto n\u00e3o encontrado."}'
 
 docs: |-
-  <p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href="./Produto%20-%20Por%20SKU%20Editar.yml">Produto - Por SKU Editar</a>.</p>
+  <p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href="../Produto/Produto%20-%20Por%20SKU%20Editar.yml">Produto - Por SKU Editar</a>.</p>
 
   <p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>
 

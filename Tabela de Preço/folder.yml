@@ -1,7 +1,7 @@
 info:
   name: Tabela de Preço
   type: folder
-  seq: 9
+  seq: 10
 
 request:
   auth: inherit

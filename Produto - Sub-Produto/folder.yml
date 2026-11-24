@@ -1,0 +1,7 @@
+info:
+  name: Produto - Sub-Produto
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit

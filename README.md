@@ -23,7 +23,7 @@ Cada pasta de recurso corresponde a uma área da API:
 |---|---|
 | `OAuth` | Autenticação (obtenção e renovação de token) |
 | `Cliente` | Cadastro de clientes |
-| `Produto`, `Produto - Categoria`, `Produto - Marca`, `Produto - Complemento`, `Produto - Galeria`, `Produto - CSV`, `Produto - Complemento - CSV` | Catálogo de produtos e seus relacionamentos |
+| `Produto`, `Produto - Sub-Produto`, `Produto - Categoria`, `Produto - Marca`, `Produto - Complemento`, `Produto - Galeria`, `Produto - CSV`, `Produto - Complemento - CSV` | Catálogo de produtos e seus relacionamentos |
 | `Pedidos` | Criação, importação (ERP/PDV), consulta, edição e status de pedidos |
 | `Tabela de Preço`, `Tabela de Preço - Preços` | Tabelas de preço |
 | `Configuração`, `Configuração - Webhook` | Configurações gerais da loja e webhooks |
@@ -70,6 +70,10 @@ Nos formatos de formulário, listas e objetos do JSON viram campos com colchetes
 O OpenAPI não aceita duas operações com o mesmo método e rota, mas a coleção separa variações de uma rota (ex.: `Produto Editar` e `Produto - Imagem Editar`, ambas `PUT /api/produto/{produtoId}`). No `openapi.json` cada requisição continua sendo uma operação própria: a primeira na ordem da coleção fica com a rota, e as outras ganham espaços no fim da chave do path (`"/api/produto/{produtoId} "`, depois `"/api/produto/{produtoId}  "`).
 
 O espaço só separa a variação no Scalar: não aparece no cabeçalho nem no código de exemplo e não chega à API, porque o navegador o descarta ao montar a URL. Não apague esses espaços do `openapi.json` (ele é gerado). Para mudar qual variação fica com a chave sem espaço, mude a ordem (`seq`) no Bruno.
+
+### Ordem do menu
+
+O menu do Scalar segue a ordem da coleção: as pastas e as requisições pelo `seq` do Bruno. Sozinho, o Scalar ordenaria cada grupo pela ordem das chaves em `paths`, que mistura as variações da mesma rota. Por isso o gerador grava em cada tag a ordem das operações (`x-scalar-order`), com o id que o Scalar dá a cada uma. Esse id começa pelo slug do documento (`api-1`), que precisa ser o mesmo no [index.html](index.html) e em `SLUG_DO_DOCUMENTO` no [gerador](scripts/gerar-openapi.js).
 
 ### Links entre requisições
 

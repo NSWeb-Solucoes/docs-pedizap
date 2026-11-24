@@ -1,0 +1,105 @@
+info:
+  name: Sub-Produto Remover
+  type: http
+  seq: 4
+  tags:
+    - Produtos
+
+http:
+  method: DELETE
+  url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+  headers:
+    - name: Authorization
+      value: "{{token}}"
+    - name: Accept
+      value: "{{format}}"
+  params:
+    - name: produtoId
+      value: "{{produtoId}}"
+      type: path
+      description: Id do sub-produto
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Response
+    description: Unprocessable Entity
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      body:
+        type: text
+        data: ""
+
+docs: |-
+  <p>Remove um sub-produto (variação). É o mesmo <code>DELETE /api/produto/:produtoId</code> de <a href="../Produto/Produto%20Remover.yml">Produto Remover</a>, com o id do sub-produto na URL.</p>
+
+  <ul>
+    <li>Junto com o sub-produto saem as fotos e os valores de atributo dele.</li>
+    <li>Depois da remoção, o produto pai é recalculado com os sub-produtos que restaram: a quantidade de sub-produtos, o estoque (soma dos estoques) e o <code>price</code>/<code>price_promo</code> (o menor entre os sub-produtos publicados).</li>
+    <li><strong>Atenção:</strong> se o id for de um produto principal, a API remove o produto e todos os sub-produtos dele.</li>
+    <li>Sucesso devolve <code>204</code> sem corpo. Se o id não existir, a resposta é <code>422</code>, também sem corpo.</li>
+  </ul>
+
+  <p>Para encontrar o id do sub-produto, veja <a href="./Sub-Produto%20Listagem.yml">Sub-Produto Listagem</a>.</p>

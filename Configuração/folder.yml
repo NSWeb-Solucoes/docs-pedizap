@@ -1,7 +1,7 @@
 info:
   name: Configuração
   type: folder
-  seq: 19
+  seq: 20
 
 request:
   auth: inherit

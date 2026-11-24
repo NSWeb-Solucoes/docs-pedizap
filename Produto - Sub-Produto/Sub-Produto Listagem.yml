@@ -1,0 +1,108 @@
+info:
+  name: Sub-Produto Listagem
+  type: http
+  seq: 1
+  tags:
+    - Produtos
+
+http:
+  method: GET
+  url: "{{proto}}://{{domain}}/api/produto?onlysubprod=1"
+  headers:
+    - name: Accept
+      value: "{{format}}"
+    - name: Authorization
+      value: "{{token}}"
+  params:
+    - name: onlysubprod
+      value: "1"
+      type: query
+      description: Boolean - Lista somente os sub-produtos (parent_id maior que 0)
+    - name: limit
+      value: "50"
+      type: query
+      description: String - Optional - Quantidade de items por pagina
+      disabled: true
+    - name: page
+      value: "2"
+      type: query
+      description: String - Opcional - Numero da pagina a ser buscada
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 200 Listar sub-produtos
+    request:
+      url: "{{proto}}://{{domain}}/api/produto?onlysubprod=1"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Lista somente os sub-produtos (parent_id maior que 0)
+        - name: limit
+          value: "50"
+          type: query
+          description: String - Optional - Quantidade de items por pagina
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: String - Opcional - Numero da pagina a ser buscada
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"produtos":{"produto":[]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto?onlysubprod=1"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: onlysubprod
+          value: "1"
+          type: query
+          description: Boolean - Lista somente os sub-produtos (parent_id maior que 0)
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+
+docs: |-
+  <p>Lista só os sub-produtos (variações) da loja. É o mesmo <code>GET /api/produto</code> de <a href="../Produto/Produto%20Listagem.yml">Produto Listagem</a> com <code>onlysubprod=1</code>: sem ele, a listagem traz só os produtos principais (<code>parent_id</code> igual a 0).</p>
+
+  <ul>
+    <li>Cada sub-produto vem com <code>parent_id</code> apontando para o produto pai.</li>
+    <li>Não há filtro por produto pai: a listagem traz os sub-produtos de todos os produtos da loja. Para paginar, use <code>limit</code> e <code>page</code>.</li>
+    <li>Para listar produtos e sub-produtos juntos, use <code>subprod=1</code> em <a href="../Produto/Produto%20Listagem.yml">Produto Listagem</a>.</li>
+  </ul>
+
+  <p>Para criar ou editar um sub-produto, veja <a href="./Sub-Produto%20Inserir.yml">Sub-Produto Inserir</a> e <a href="./Sub-Produto%20Editar.yml">Sub-Produto Editar</a>.</p>

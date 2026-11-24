@@ -1,7 +1,7 @@
 info:
-  name: Produto - Sub-Produto Inserir
+  name: Sub-Produto Inserir
   type: http
-  seq: 8
+  seq: 2
   tags:
     - Produtos
 
@@ -261,7 +261,7 @@ examples:
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
 
 docs: |-
-  <p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href="./Produto%20Inserir.yml">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>
+  <p>Cria um sub-produto (variação) de um produto pai já existente. É o mesmo <code>POST /api/produto</code> de <a href="../Produto/Produto%20Inserir.yml">Produto Inserir</a>, mas com o parâmetro <code>parent_id</code> (query ou body) apontando pro id do produto pai — isso troca o formulário usado no servidor e muda o comportamento:</p>
 
   <ul>
     <li><code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai quando omitidos; podem ser sobrescritos enviando-os no body.</li>
@@ -270,4 +270,4 @@ docs: |-
     <li>Um sub-produto não pode ter o mesmo id do produto pai, e precisa de ao menos um atributo informado (senão a API retorna erro "Nenhum atributo informado para o subproduto !").</li>
   </ul>
 
-  <p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href="./Produto%20-%20Sub-Produto%20Editar.yml">Produto - Sub-Produto Editar</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>
+  <p>Para editar um sub-produto já criado, ou pra herdar comportamento de PUT, veja <a href="./Sub-Produto%20Editar.yml">Sub-Produto Editar</a> — atualizar um sub-produto é sempre por PUT, nunca por esse endpoint de criação.</p>

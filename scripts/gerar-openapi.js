@@ -11,6 +11,8 @@ const YAML = require('yaml');
 const RAIZ = path.resolve(__dirname, '..');
 const SAIDA = path.join(RAIZ, 'openapi.json');
 const DOMINIO_PADRAO = 'minhaloja.pedizap.com.br';
+// Mesmo slug do index.html: o Scalar prefixa com ele o id de cada item do menu
+const SLUG_DO_DOCUMENTO = 'api-1';
 
 const PASTAS_IGNORADAS = new Set(['environments', 'node_modules', 'scripts']);
 const HEADERS_PADRAO = new Set(['accept', 'authorization', 'content-type']);
@@ -360,11 +362,14 @@ const slugDoScalar = (texto) => String(texto)
   .replace(/[\s_-]+/g, '-')
   .replace(/^-+|-+$/g, '');
 
-// Link direto da operacao no Scalar: #tag/<tag>/<METODO><chave do path>, com os espacos das
-// variantes (sufixosDasVariantes) codificados como %20, do jeito que o proprio Scalar grava na URL
+// Id da operacao no Scalar: tag/<tag>/<METODO><chave do path>, com os espacos das variantes
+// (sufixosDasVariantes) no fim da chave
+const idDaOperacao = (tag, metodo, chave) => `tag/${slugDoScalar(tag)}/${metodo.toUpperCase()}${chave}`;
+
+// Link direto da operacao, com os espacos codificados como %20, do jeito que o Scalar grava na URL
 function ancoraDaOperacao(tag, metodo, chave) {
   const url = new URL('http://scalar');
-  url.hash = `tag/${slugDoScalar(tag)}/${metodo.toUpperCase()}${chave}`;
+  url.hash = idDaOperacao(tag, metodo, chave);
   return url.hash;
 }
 
@@ -425,7 +430,14 @@ function gerarOpenApi() {
       }
     }],
     security: [{ chaveApi: [] }],
-    tags: pastas.map((pasta) => ({ name: pasta.nome })),
+    // O Scalar ordena o menu de cada tag pela ordem das chaves em paths, e uma variante reaproveita
+    // a chave de outra requisicao (sufixosDasVariantes). O x-scalar-order fixa a ordem da colecao.
+    tags: pastas.map((pasta) => ({
+      name: pasta.nome,
+      'x-scalar-order': operacoes
+        .filter(({ requisicao }) => requisicao.tag === pasta.nome)
+        .map(({ requisicao, metodo, chave }) => `${SLUG_DO_DOCUMENTO}/${idDaOperacao(requisicao.tag, metodo, chave)}`)
+    })),
     paths,
     components: {
       securitySchemes: {

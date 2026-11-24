@@ -90,3 +90,8 @@ examples:
       body:
         type: text
         data: ""
+
+docs: |-
+  <p>Remove um produto. Se ele for um produto principal, os sub-produtos dele também são removidos. Para remover só uma variação, veja <a href="../Produto%20-%20Sub-Produto/Sub-Produto%20Remover.yml">Sub-Produto Remover</a>.</p>
+
+  <p>Sucesso devolve <code>204</code> sem corpo. Se o id não existir, a resposta é <code>422</code>, também sem corpo.</p>

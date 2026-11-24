@@ -1,7 +1,7 @@
 info:
   name: Produto - Complementos Editar (extras_json)
   type: http
-  seq: 11
+  seq: 9
   tags:
     - Produtos
 
