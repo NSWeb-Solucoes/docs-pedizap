@@ -1,7 +1,7 @@
 info:
-  name: Produto Editar Imagem
+  name: Produto - Imagem Editar
   type: http
-  seq: 8
+  seq: 10
   tags:
     - Produtos
 
@@ -50,6 +50,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

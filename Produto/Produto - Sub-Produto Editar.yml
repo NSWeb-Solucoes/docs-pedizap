@@ -1,7 +1,7 @@
 info:
-  name: Produto Editar Sub-Produto
+  name: "Produto - Sub-Produto Editar "
   type: http
-  seq: 10
+  seq: 9
   tags:
     - Produtos
 
@@ -49,6 +49,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

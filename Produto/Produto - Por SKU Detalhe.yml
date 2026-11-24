@@ -1,13 +1,13 @@
 info:
-  name: Produto Detalhe (Busca por SKU)
+  name: Produto - Por SKU Detalhe
   type: http
-  seq: 3
+  seq: 6
   tags:
     - Produtos
 
 http:
   method: GET
-  url: "{{proto}}://{{domain}}/api/produto/"
+  url: "{{proto}}://{{domain}}/api/produto?code={{produtoSKU}}"
   headers:
     - name: Authorization
       value: "{{token}}"
@@ -20,7 +20,7 @@ http:
     - name: detail_photos
       value: "1"
       type: query
-      description: String - Opcional - Retornar o array detalhado de fotos
+      disabled: true
   auth: inherit
 
 settings:
@@ -28,6 +28,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Response

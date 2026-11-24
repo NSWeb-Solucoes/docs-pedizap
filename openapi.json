@@ -4700,8 +4700,8 @@
         }
       },
       "put": {
-        "summary": "Produto Editar (Busca por SKU)",
-        "operationId": "Produto_Produto_Editar_Busca_por_SKU",
+        "summary": "Produto - Por SKU Editar",
+        "operationId": "Produto_Produto_Por_SKU_Editar",
         "tags": [
           "Produto"
         ],
@@ -4751,8 +4751,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Busca_por_SKU": {
-                  "summary": "Produto Editar (Busca por SKU)",
+                "Produto_Por_SKU_Editar": {
+                  "summary": "Produto - Por SKU Editar",
                   "value": {
                     "price": "10",
                     "price_promo": "5.5",
@@ -4793,8 +4793,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Busca_por_SKU": {
-                  "summary": "Produto Editar (Busca por SKU)",
+                "Produto_Por_SKU_Editar": {
+                  "summary": "Produto - Por SKU Editar",
                   "value": {
                     "price": "10",
                     "price_promo": "5.5",
@@ -5196,8 +5196,8 @@
     },
     "/api/produto ": {
       "get": {
-        "summary": "Produto Detalhe (Busca por SKU)",
-        "operationId": "Produto_Produto_Detalhe_Busca_por_SKU",
+        "summary": "Produto - Por SKU Detalhe",
+        "operationId": "Produto_Produto_Por_SKU_Detalhe",
         "tags": [
           "Produto"
         ],
@@ -5217,9 +5217,7 @@
             "required": false,
             "schema": {
               "type": "string"
-            },
-            "description": "String - Opcional - Retornar o array detalhado de fotos",
-            "example": "1"
+            }
           }
         ],
         "responses": {
@@ -5241,7 +5239,7 @@
                         "produto": []
                       }
                     },
-                    "description": "OK"
+                    "description": "OK\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'detail_photos=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -5258,7 +5256,7 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     },
-                    "description": "Unauthorized"
+                    "description": "Unauthorized\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'detail_photos=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -5267,8 +5265,8 @@
         }
       },
       "post": {
-        "summary": "Produto Inserir Sub-Produto",
-        "operationId": "Produto_Produto_Inserir_Sub_Produto",
+        "summary": "Produto - Sub-Produto Inserir",
+        "operationId": "Produto_Produto_Sub_Produto_Inserir",
         "tags": [
           "Produto"
         ],
@@ -5328,8 +5326,8 @@
                 }
               },
               "examples": {
-                "Produto_Inserir_Sub_Produto": {
-                  "summary": "Produto Inserir Sub-Produto",
+                "Produto_Sub_Produto_Inserir": {
+                  "summary": "Produto - Sub-Produto Inserir",
                   "value": {
                     "code": "12345ab",
                     "price": "32",
@@ -5384,8 +5382,8 @@
                 }
               },
               "examples": {
-                "Produto_Inserir_Sub_Produto": {
-                  "summary": "Produto Inserir Sub-Produto",
+                "Produto_Sub_Produto_Inserir": {
+                  "summary": "Produto - Sub-Produto Inserir",
                   "value": {
                     "code": "12345ab",
                     "price": "32",
@@ -5440,8 +5438,8 @@
                 }
               },
               "examples": {
-                "Produto_Inserir_Sub_Produto": {
-                  "summary": "Produto Inserir Sub-Produto",
+                "Produto_Sub_Produto_Inserir": {
+                  "summary": "Produto - Sub-Produto Inserir",
                   "value": {
                     "code": "12345ab",
                     "price": "32",
@@ -5565,8 +5563,187 @@
     },
     "/api/produto/{produtoId} ": {
       "put": {
-        "summary": "Produto Editar Imagem",
-        "operationId": "Produto_Produto_Editar_Imagem",
+        "summary": "Produto - Sub-Produto Editar ",
+        "operationId": "Produto_Produto_Sub_Produto_Editar",
+        "tags": [
+          "Produto"
+        ],
+        "description": "<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
+        "parameters": [
+          {
+            "name": "produtoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "No PUT a API lê o corpo em JSON ou `application/x-www-form-urlencoded`: em `multipart/form-data` os campos são ignorados.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "price": {
+                    "type": "string",
+                    "description": "Preco base do sub-produto",
+                    "example": "124"
+                  },
+                  "price_promo": {
+                    "type": "string",
+                    "description": "Preco promocional do sub-produto",
+                    "example": "123"
+                  },
+                  "estoque_quantidade": {
+                    "type": "string",
+                    "description": "Quantidade em estoque disponivel",
+                    "example": "32"
+                  },
+                  "parent_id": {
+                    "type": "string",
+                    "description": "Ignorado nesta rota (PUT edita um sub-produto ja existente; o produto pai nao pode ser trocado por aqui)"
+                  },
+                  "attr_1": {
+                    "type": "string",
+                    "description": "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja",
+                    "example": "Azul"
+                  },
+                  "attr_2": {
+                    "type": "string",
+                    "description": "Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado"
+                  },
+                  "attr_3": {
+                    "type": "string",
+                    "description": "Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado"
+                  }
+                }
+              },
+              "examples": {
+                "Produto_Sub_Produto_Editar": {
+                  "summary": "Produto - Sub-Produto Editar ",
+                  "value": {
+                    "price": "124",
+                    "price_promo": "123",
+                    "estoque_quantidade": "32",
+                    "attr_1": "Azul"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "price": {
+                    "type": "string",
+                    "description": "Preco base do sub-produto",
+                    "example": "124"
+                  },
+                  "price_promo": {
+                    "type": "string",
+                    "description": "Preco promocional do sub-produto",
+                    "example": "123"
+                  },
+                  "estoque_quantidade": {
+                    "type": "string",
+                    "description": "Quantidade em estoque disponivel",
+                    "example": "32"
+                  },
+                  "parent_id": {
+                    "type": "string",
+                    "description": "Ignorado nesta rota (PUT edita um sub-produto ja existente; o produto pai nao pode ser trocado por aqui)"
+                  },
+                  "attr_1": {
+                    "type": "string",
+                    "description": "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja",
+                    "example": "Azul"
+                  },
+                  "attr_2": {
+                    "type": "string",
+                    "description": "Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado"
+                  },
+                  "attr_3": {
+                    "type": "string",
+                    "description": "Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado"
+                  }
+                }
+              },
+              "examples": {
+                "Produto_Sub_Produto_Editar": {
+                  "summary": "Produto - Sub-Produto Editar ",
+                  "value": {
+                    "price": "124",
+                    "price_promo": "123",
+                    "estoque_quantidade": "32",
+                    "attr_1": "Azul"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "200_Response": {
+                    "summary": "200 Response",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 1
+                    },
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Response": {
+                    "summary": "422 Response",
+                    "value": {
+                      "status": "error",
+                      "msg": "Produto não encontrado."
+                    },
+                    "description": "Unprocessable Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/produto/{produtoId}  ": {
+      "put": {
+        "summary": "Produto - Imagem Editar",
+        "operationId": "Produto_Produto_Imagem_Editar",
         "tags": [
           "Produto"
         ],
@@ -5617,8 +5794,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Imagem": {
-                  "summary": "Produto Editar Imagem",
+                "Produto_Imagem_Editar": {
+                  "summary": "Produto - Imagem Editar",
                   "value": {
                     "category_id": "1"
                   }
@@ -5672,8 +5849,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Imagem": {
-                  "summary": "Produto Editar Imagem",
+                "Produto_Imagem_Editar": {
+                  "summary": "Produto - Imagem Editar",
                   "value": {
                     "category_id": "1"
                   }
@@ -5766,10 +5943,10 @@
         }
       }
     },
-    "/api/produto/{produtoId}  ": {
+    "/api/produto/{produtoId}   ": {
       "put": {
-        "summary": "Produto Editar Complementos (extras_json)",
-        "operationId": "Produto_Produto_Editar_Complementos_extras_json",
+        "summary": "Produto - Complementos Editar (extras_json)",
+        "operationId": "Produto_Produto_Complementos_Editar_extras_json",
         "tags": [
           "Produto"
         ],
@@ -5800,8 +5977,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Complementos_extras_json": {
-                  "summary": "Produto Editar Complementos (extras_json)",
+                "Produto_Complementos_Editar_extras_json": {
+                  "summary": "Produto - Complementos Editar (extras_json)",
                   "value": {
                     "extras_json": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":true}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"6.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
                   }
@@ -5844,8 +6021,8 @@
                 }
               },
               "examples": {
-                "Produto_Editar_Complementos_extras_json": {
-                  "summary": "Produto Editar Complementos (extras_json)",
+                "Produto_Complementos_Editar_extras_json": {
+                  "summary": "Produto - Complementos Editar (extras_json)",
                   "value": {
                     "extras_json": "[{\"category\":\"Escolha o tamanho\",\"required\":true,\"rule\":\"\",\"min\":1,\"max\":1,\"items\":[{\"name\":\"Média\",\"code\":\"TAM-M\",\"desc\":\"6 fatias\",\"price\":\"0.00\",\"published\":true},{\"name\":\"Grande\",\"code\":\"TAM-G\",\"desc\":\"8 fatias\",\"price\":\"10.00\",\"published\":true}]},{\"category\":\"Sabores (até 2)\",\"required\":true,\"rule\":\"price_higher\",\"min\":1,\"max\":2,\"items\":[{\"name\":\"Mussarela\",\"code\":\"SAB-MUS\",\"desc\":\"\",\"price\":\"40.00\",\"published\":true},{\"name\":\"Calabresa\",\"code\":\"SAB-CAL\",\"desc\":\"\",\"price\":\"45.00\",\"published\":true},{\"name\":\"Quatro queijos\",\"code\":\"SAB-4Q\",\"desc\":\"\",\"price\":\"52.00\",\"published\":true}]},{\"category\":\"Adicionais\",\"required\":false,\"rule\":\"\",\"min\":0,\"max\":3,\"items\":[{\"name\":\"Bacon\",\"code\":\"ADC-BACON\",\"desc\":\"\",\"price\":\"6.00\",\"limitFree\":0,\"published\":true},{\"name\":\"Orégano extra\",\"code\":\"ADC-OREG\",\"desc\":\"\",\"price\":\"1.00\",\"limitFree\":1,\"published\":true}]}]"
                   }
@@ -5923,185 +6100,6 @@
                       "affectedRows": 1
                     },
                     "description": "Em corpo JSON, use `\"\"`, `\"[]\"` (entre aspas) ou `null`. Não use `[]` sem aspas: é o caso do array, que grava um valor inválido no lugar da lista."
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/produto/{produtoId}   ": {
-      "put": {
-        "summary": "Produto Editar Sub-Produto",
-        "operationId": "Produto_Produto_Editar_Sub_Produto",
-        "tags": [
-          "Produto"
-        ],
-        "description": "<p>Esse PUT edita um sub-produto (variação) <strong>já existente</strong> — preço, estoque e atributos. Como em qualquer PUT de produto, é possível editar por id na URL ou por <code>code</code> (SKU), ver <a href=\"./Produto%20Editar%20(Busca%20por%20SKU).yml\">Produto Editar (Busca por SKU)</a>.</p>\n\n<p><strong>Atenção:</strong> <code>parent_id</code> está no body por referência, mas é ignorado nessa edição — o PUT nunca reatribui o produto pai de um sub-produto já criado.</p>\n\n<p><strong>Criar</strong> um novo sub-produto é diferente: é feito via <code>POST /api/produto</code> com o parâmetro <code>parent_id</code> (query ou body) apontando pro produto pai. Nesse caso <code>code</code>, <code>price</code> e <code>price_promo</code> são herdados automaticamente do produto pai (podem ser sobrescritos no próprio POST).</p>",
-        "parameters": [
-          {
-            "name": "produtoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "description": "No PUT a API lê o corpo em JSON ou `application/x-www-form-urlencoded`: em `multipart/form-data` os campos são ignorados.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "price": {
-                    "type": "string",
-                    "description": "Preco base do sub-produto",
-                    "example": "124"
-                  },
-                  "price_promo": {
-                    "type": "string",
-                    "description": "Preco promocional do sub-produto",
-                    "example": "123"
-                  },
-                  "estoque_quantidade": {
-                    "type": "string",
-                    "description": "Quantidade em estoque disponivel",
-                    "example": "32"
-                  },
-                  "parent_id": {
-                    "type": "string",
-                    "description": "Ignorado nesta rota (PUT edita um sub-produto ja existente; o produto pai nao pode ser trocado por aqui)"
-                  },
-                  "attr_1": {
-                    "type": "string",
-                    "description": "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja",
-                    "example": "Azul"
-                  },
-                  "attr_2": {
-                    "type": "string",
-                    "description": "Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado"
-                  },
-                  "attr_3": {
-                    "type": "string",
-                    "description": "Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado"
-                  }
-                }
-              },
-              "examples": {
-                "Produto_Editar_Sub_Produto": {
-                  "summary": "Produto Editar Sub-Produto",
-                  "value": {
-                    "price": "124",
-                    "price_promo": "123",
-                    "estoque_quantidade": "32",
-                    "attr_1": "Azul"
-                  }
-                }
-              }
-            },
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "price": {
-                    "type": "string",
-                    "description": "Preco base do sub-produto",
-                    "example": "124"
-                  },
-                  "price_promo": {
-                    "type": "string",
-                    "description": "Preco promocional do sub-produto",
-                    "example": "123"
-                  },
-                  "estoque_quantidade": {
-                    "type": "string",
-                    "description": "Quantidade em estoque disponivel",
-                    "example": "32"
-                  },
-                  "parent_id": {
-                    "type": "string",
-                    "description": "Ignorado nesta rota (PUT edita um sub-produto ja existente; o produto pai nao pode ser trocado por aqui)"
-                  },
-                  "attr_1": {
-                    "type": "string",
-                    "description": "Valor do 1o atributo dinamico do sub-produto (ex: tamanho/cor), conforme configurado em Model_Loja_Attribute da loja",
-                    "example": "Azul"
-                  },
-                  "attr_2": {
-                    "type": "string",
-                    "description": "Valor do 2o atributo dinamico do sub-produto, se a loja tiver configurado"
-                  },
-                  "attr_3": {
-                    "type": "string",
-                    "description": "Valor do 3o atributo dinamico do sub-produto, se a loja tiver configurado"
-                  }
-                }
-              },
-              "examples": {
-                "Produto_Editar_Sub_Produto": {
-                  "summary": "Produto Editar Sub-Produto",
-                  "value": {
-                    "price": "124",
-                    "price_promo": "123",
-                    "estoque_quantidade": "32",
-                    "attr_1": "Azul"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/json;charset=UTF-8": {
-                "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
-                    "value": {
-                      "status": "success",
-                      "affectedRows": 1
-                    },
-                    "description": "OK"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "text/json;charset=UTF-8": {
-                "examples": {
-                  "401_Response": {
-                    "summary": "401 Response",
-                    "value": {
-                      "status": "401",
-                      "msg": "Chave de autenticação inválida."
-                    },
-                    "description": "Unauthorized"
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "text/json;charset=UTF-8": {
-                "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
-                    "value": {
-                      "status": "error",
-                      "msg": "Produto não encontrado."
-                    },
-                    "description": "Unprocessable Entity"
                   }
                 }
               }

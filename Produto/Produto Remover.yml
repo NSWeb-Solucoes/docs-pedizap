@@ -1,7 +1,7 @@
 info:
   name: Produto Remover
   type: http
-  seq: 11
+  seq: 5
   tags:
     - Produtos
 
@@ -24,6 +24,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 204 Response

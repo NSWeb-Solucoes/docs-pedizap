@@ -1,7 +1,7 @@
 info:
-  name: Produto Editar Complementos (extras_json)
+  name: Produto - Complementos Editar (extras_json)
   type: http
-  seq: 9
+  seq: 11
   tags:
     - Produtos
 
@@ -30,11 +30,11 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 200 Substituir os complementos
-    description: |-
-      Grava três grupos no produto: tamanho, sabores no meio a meio (`price_higher`) e adicionais, com o Orégano extra tendo 1 unidade grátis (`limitFree`). Os complementos que o produto tinha antes são descartados.
+    description: "Grava três grupos no produto: tamanho, sabores no meio a meio (`price_higher`) e adicionais, com o Orégano extra tendo 1 unidade grátis (`limitFree`). Os complementos que o produto tinha antes são descartados."
     request:
       url: "{{proto}}://{{domain}}/api/produto/:produtoId"
       method: PUT
@@ -95,8 +95,7 @@ examples:
         type: text
         data: '{"status":"success","affectedRows":1}'
   - name: 200 Usar um grupo de complemento cadastrado
-    description: |-
-      O primeiro grupo é uma referência ao grupo cadastrado com `reference_id` 7590 (ver Complemento Inserir): os itens e preços vêm dele, e o `name` troca o nome exibido só neste produto. O segundo é um grupo próprio do produto. Os dois tipos podem ficar na mesma lista.
+    description: "O primeiro grupo é uma referência ao grupo cadastrado com `reference_id` 7590 (ver Complemento Inserir): os itens e preços vêm dele, e o `name` troca o nome exibido só neste produto. O segundo é um grupo próprio do produto. Os dois tipos podem ficar na mesma lista."
     request:
       url: "{{proto}}://{{domain}}/api/produto/:produtoId"
       method: PUT
@@ -125,8 +124,7 @@ examples:
         type: text
         data: '{"status":"success","affectedRows":1}'
   - name: 200 Remover todos os complementos
-    description: |-
-      Em form-urlencoded, `extras_json=[]`, `extras_json=` (vazio) e `extras_json=null` deixam o produto sem complementos. O campo precisa estar no corpo: se ficar de fora, nada muda.
+    description: "Em form-urlencoded, `extras_json=[]`, `extras_json=` (vazio) e `extras_json=null` deixam o produto sem complementos. O campo precisa estar no corpo: se ficar de fora, nada muda."
     request:
       url: "{{proto}}://{{domain}}/api/produto/:produtoId"
       method: PUT
@@ -155,8 +153,7 @@ examples:
         type: text
         data: '{"status":"success","affectedRows":1}'
   - name: 200 Remover todos os complementos (corpo JSON)
-    description: |-
-      Em corpo JSON, use `""`, `"[]"` (entre aspas) ou `null`. Não use `[]` sem aspas: é o caso do array, que grava um valor inválido no lugar da lista.
+    description: 'Em corpo JSON, use `""`, `"[]"` (entre aspas) ou `null`. Não use `[]` sem aspas: é o caso do array, que grava um valor inválido no lugar da lista.'
     request:
       url: "{{proto}}://{{domain}}/api/produto/:produtoId"
       method: PUT

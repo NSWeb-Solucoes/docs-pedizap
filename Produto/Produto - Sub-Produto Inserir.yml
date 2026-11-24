@@ -1,7 +1,7 @@
 info:
-  name: Produto Inserir Sub-Produto
+  name: Produto - Sub-Produto Inserir
   type: http
-  seq: 5
+  seq: 8
   tags:
     - Produtos
 
@@ -48,6 +48,7 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
 
 examples:
   - name: 201 Response
