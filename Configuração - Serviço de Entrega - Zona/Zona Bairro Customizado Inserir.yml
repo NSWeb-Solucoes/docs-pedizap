@@ -139,7 +139,8 @@ examples:
               }
             ]
           }
-  - name: 404 Response
+  - name: 404 Serviço não encontrado
+    description: Não existe serviço de entrega com esse `servicoId` na loja.
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"
       method: POST
@@ -175,34 +176,11 @@ examples:
       status: 404
       statusText: Not Found
       headers:
-        - name: server
-          value: nginx/1.14.1
-        - name: date
-          value: Thu, 30 Jul 2026 13:14:16 GMT
-        - name: content-type
-          value: text/html
-        - name: transfer-encoding
-          value: chunked
-        - name: connection
-          value: keep-alive
-        - name: vary
-          value: Accept-Encoding
+        - name: Content-Type
+          value: application/json
       body:
-        type: html
-        data: |-
-          <html>
-              <head>
-                  <title>404 Not Found</title>
-              </head>
-              <body bgcolor="white">
-                  <center>
-                      <h1>404 Not Found</h1>
-                  </center>
-                  <hr>
-                      <center>nginx/1.14.1</center>
-                  </hr>
-              </body>
-          </html>
+        type: text
+        data: '{"status":"error","msg":"Servico nao encontrado."}'
   - name: 401 Response
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairrocustom"

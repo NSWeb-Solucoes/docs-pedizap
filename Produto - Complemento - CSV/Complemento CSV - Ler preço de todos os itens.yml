@@ -21,6 +21,52 @@ settings:
   followRedirects: true
   maxRedirects: 5
 
+examples:
+  - name: 200 CSV dos itens
+    description: Uma linha por item de complemento, com `code` e `price`, no mesmo formato aceito pelo POST.
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/csv;charset=ISO-8859-1
+      body:
+        type: text
+        data: |-
+          "code";"price"
+          "456789";"6"
+          "12356";"8.5"
+          "BORDA-SEM";"0"
+          "BORDA-CAT";"8"
+          "BORDA-CHE";"8"
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+
 docs: |-
   <p>Retorna uma string CSV contendo as colunas <code>code;price</code> de todos os itens de complemento (<code>product_extras_item</code>) do site.</p>
 

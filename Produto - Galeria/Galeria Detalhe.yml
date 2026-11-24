@@ -29,8 +29,60 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 200 Foto encontrada
+    description: A foto vem em `photos.photo`, como lista de um item, com os mesmos campos de Galeria Listagem.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+        - name: produtoId
+          value: "{{produtoid}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"photos":{"photo":[{"id":"5","site_id":"5095","product_id":"6","description":null,"file_name":"photo_66a3425bdb1c5e.jpg","file_name_import":null,"featured":"Y","published":"Y","priority":"1"}]}}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos/:fotoId"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: fotoId
+          value: "{{fotoId}}"
+          type: path
+        - name: produtoId
+          value: "{{produtoid}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Foto não encontrada
+    description: A foto não existe ou é de outro produto.
     request:
       url: "{{proto}}://{{domain}}/api/produto/:produtoId/fotos/:fotoId"
       method: GET

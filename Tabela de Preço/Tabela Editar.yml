@@ -44,7 +44,7 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 200 Tabela alterada
     description: OK
     request:
       url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
@@ -100,6 +100,88 @@ examples:
               "rows": "0"
             }
           }
+  - name: 200 Tabela não encontrada
+    description: "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: oi
+            description: Nome da tabela de preco (obrigatorio, ate 50 caracteres)
+          - name: description
+            value: ""
+            description: Descricao livre da tabela de preco (opcional)
+          - name: price_fixed
+            value: Y
+            description: '"Y" ou "N" (default "N"). Quando "Y", os precos nao vem de registros individuais e sim de um desconto percentual (price_perc) aplicado sobre o preco atual do produto'
+          - name: products_fixed
+            value: Y
+            description: '"Y" ou "N" (default "N"). Quando "Y", restringe o cliente a comprar somente os produtos cadastrados nesta tabela; independente de price_fixed'
+          - name: price_perc
+            value: ""
+            description: Percentual de desconto aplicado sobre o preco do produto; usado somente quando price_fixed = "Y"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Tabela de preço não encontrada"}'
+  - name: 200 Nome vazio
+    description: "`name` é obrigatório. Cada mensagem de `erros` vem como `Campo: mensagem`. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ""
+            description: Nome da tabela de preco (obrigatorio, ate 50 caracteres)
+          - name: description
+            value: ""
+            description: Descricao livre da tabela de preco (opcional)
+          - name: price_fixed
+            value: Y
+            description: '"Y" ou "N" (default "N"). Quando "Y", os precos nao vem de registros individuais e sim de um desconto percentual (price_perc) aplicado sobre o preco atual do produto'
+          - name: products_fixed
+            value: Y
+            description: '"Y" ou "N" (default "N"). Quando "Y", restringe o cliente a comprar somente os produtos cadastrados nesta tabela; independente de price_fixed'
+          - name: price_perc
+            value: ""
+            description: Percentual de desconto aplicado sobre o preco do produto; usado somente quando price_fixed = "Y"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Dados inválidos","erros":["Nome: Nome não informado"]}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -142,4 +224,7 @@ examples:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
 
-docs: Atualiza as informações de uma tabela de preço já existente
+docs: |-
+  Atualiza as informações de uma tabela de preço já existente
+
+  <p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>

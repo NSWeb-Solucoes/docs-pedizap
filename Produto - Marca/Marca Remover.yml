@@ -46,8 +46,31 @@ examples:
       body:
         type: text
         data: ""
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/marca/:marcaId"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: marcaId
+          value: "{{marcaId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Marca não encontrada
+    description: O `marcaId` não existe na loja. Neste DELETE, o erro volta sem corpo.
     request:
       url: "{{proto}}://{{domain}}/api/marca/:marcaId"
       method: DELETE
@@ -66,3 +89,8 @@ examples:
       body:
         type: text
         data: ""
+
+docs: |-
+  <p>Remove a marca. A resposta é <code>204</code>, sem corpo.</p>
+
+  <p>Os produtos da marca não são alterados: continuam com o <code>manufacturer_id</code> da marca removida. Para desvincular, edite os produtos antes.</p>

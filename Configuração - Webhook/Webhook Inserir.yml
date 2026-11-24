@@ -65,7 +65,7 @@ examples:
           value: text/json;charset=UTF-8
       body:
         type: text
-        data: '{"msg":"A Webhook foi salvo com sucesso!","status":"success"}'
+        data: '{"msg":"Destino de evento salvo com sucesso!","status":"success"}'
   - name: 401 Response
     description: Unauthorized
     request:

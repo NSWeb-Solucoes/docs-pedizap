@@ -19,6 +19,14 @@ http:
       - name: name
         value: Ferrari
         description: Nome da marca (obrigatorio, ate 50 caracteres)
+      - name: image
+        value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+        description: Endereço da imagem da marca (opcional, texto livre)
+        disabled: true
+      - name: id
+        value: "10"
+        description: Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.
+        disabled: true
   auth: inherit
 
 settings:
@@ -28,8 +36,8 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 201 Response
-    description: Created
+  - name: 201 Marca criada
+    description: "A marca é criada publicada e vai para o fim da lista: `priority` é o maior da loja mais 1. O endereço da nova marca volta no header `Location` (`/api/marca/{id}`)."
     request:
       url: "{{proto}}://{{domain}}/api/marca"
       method: POST
@@ -44,6 +52,14 @@ examples:
           - name: name
             value: ""
             description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: id
+            value: "10"
+            description: Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.
+            disabled: true
     response:
       status: 201
       statusText: Created
@@ -64,8 +80,41 @@ examples:
               "published": "Y"
             }
           }
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/marca"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: Ferrari
+            description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: id
+            value: "10"
+            description: Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.
+            disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Nome não informado
+    description: "`name` é obrigatório e tem até 50 caracteres."
     request:
       url: "{{proto}}://{{domain}}/api/marca"
       method: POST
@@ -80,6 +129,14 @@ examples:
           - name: name
             value: ""
             description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: id
+            value: "10"
+            description: Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.
+            disabled: true
     response:
       status: 422
       statusText: Unprocessable Entity
@@ -97,3 +154,44 @@ examples:
               ]
             }
           }
+  - name: 422 Id já existe
+    description: O `id` enviado já pertence a outra marca.
+    request:
+      url: "{{proto}}://{{domain}}/api/marca"
+      method: POST
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: Kibon
+            description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: id
+            value: "1"
+            description: Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"ID já existe"}'
+
+docs: |-
+  <p>Cria uma marca. Só <code>name</code> é obrigatório.</p>
+
+  <ul>
+    <li>A marca é criada publicada (<code>published=Y</code>) e com <code>priority</code> igual ao maior da loja mais 1. A API ignora <code>priority</code> e <code>published</code> enviados no corpo.</li>
+    <li>Com <code>id</code>, a marca é criada com esse id. Se ele já existir, a API responde <code>422</code>.</li>
+    <li>A resposta é <code>201</code>, com a marca criada em <code>marca</code> e o endereço dela no header <code>Location</code>.</li>
+  </ul>

@@ -25,7 +25,7 @@ http:
     - name: min
       value: "0"
       type: query
-      description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+      description: Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.
     - name: max
       value: "1"
       type: query
@@ -41,6 +41,27 @@ http:
     - name: returnLayout
       value: new,items
       type: query
+      description: "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
+    - name: result_order
+      value: category
+      type: query
+      description: String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número.
+      disabled: true
+    - name: reverte_order
+      value: "1"
+      type: query
+      description: Boolean - Opcional - Com 1, inverte a ordenação (decrescente).
+      disabled: true
+    - name: limit
+      value: "50"
+      type: query
+      description: Integer - Opcional - Grupos por página (padrão 200).
+      disabled: true
+    - name: page
+      value: "2"
+      type: query
+      description: Integer - Opcional - Página da busca (padrão 1).
+      disabled: true
   auth: inherit
 
 settings:
@@ -51,8 +72,82 @@ settings:
   forwardAuthorizationHeader: true
 
 examples:
-  - name: 200 Response
-    description: OK
+  - name: 200 Sem filtros
+    description: Todos os grupos da loja, por ordem de `id`. Com `returnLayout=new,items`, cada grupo vem com todos os campos e com os itens.
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/categoria?name=Escolha sua Bor&sku=&min=0&max=1&required=Y&rule=price_higher&returnLayout=new,items"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: name
+          value: Escolha sua Bor
+          type: query
+          description: String - Optional - Nome do grupo de complementos (atencao, o parametro e "name", nao "nome")
+          disabled: true
+        - name: sku
+          value: ""
+          type: query
+          description: String - Optional - Filtra por code (SKU) exato da categoria
+          disabled: true
+        - name: min
+          value: "0"
+          type: query
+          description: Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.
+          disabled: true
+        - name: max
+          value: "1"
+          type: query
+          description: Integer - Optional - Maximo de items a serem escolhidos (grupo.max <= max)
+          disabled: true
+        - name: required
+          value: Y
+          type: query
+          description: Enum('Y', 'N') - Optional - É obrigatório a escolha de items
+          disabled: true
+        - name: rule
+          value: price_higher
+          type: query
+          description: Enum('price_higher') - Optional - Usar regra adicional no valor dos items. Disponivel apenas 'price_higher', para usar em pizzas meia
+          disabled: true
+        - name: returnLayout
+          value: new,items
+          type: query
+          description: "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
+        - name: result_order
+          value: category
+          type: query
+          description: String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número.
+          disabled: true
+        - name: reverte_order
+          value: "1"
+          type: query
+          description: Boolean - Opcional - Com 1, inverte a ordenação (decrescente).
+          disabled: true
+        - name: limit
+          value: "50"
+          type: query
+          description: Integer - Opcional - Grupos por página (padrão 200).
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Integer - Opcional - Página da busca (padrão 1).
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","grupos":[{"id":"12","site_id":"5095","category":"Que tal um Adicional para deixar seu pedido ainda melhor?","reference_id":"7590","code":"adw","min":"0","max":"4","rule":"","required":"0","priority":"0","items":[{"id":"31","site_id":"5095","extras_category_id":"12","name":"Adicionar Calabresa","code":"456789","desc":"","price":"6","limit_free":"0","image":"","published":"1","priority":"0"},{"id":"32","site_id":"5095","extras_category_id":"12","name":"Adicionar Hamburguer","code":"12356","desc":"","price":"8.5","limit_free":"0","image":"","published":"1","priority":"1"}]},{"id":"13","site_id":"5095","category":"Bordas recheadas","reference_id":"7591","code":"BORDA","min":"0","max":"1","rule":"price_higher","required":"1","priority":"1","items":[{"id":"33","site_id":"5095","extras_category_id":"13","name":"Sem borda","code":"BORDA-SEM","desc":"","price":"0","limit_free":"0","image":"","published":"1","priority":"0"},{"id":"34","site_id":"5095","extras_category_id":"13","name":"Borda de Catupiry","code":"BORDA-CAT","desc":"","price":"8","limit_free":"0","image":"","published":"1","priority":"1"},{"id":"35","site_id":"5095","extras_category_id":"13","name":"Borda de Cheddar","code":"BORDA-CHE","desc":"Cheddar cremoso","price":"8","limit_free":"0","image":"","published":"1","priority":"2"}]}]}'
+  - name: 200 Nenhum grupo encontrado
+    description: "Nenhum grupo atende aos filtros: `grupos` vem vazia."
     request:
       url: "{{proto}}://{{domain}}/api/complemento/categoria"
       method: GET
@@ -69,7 +164,7 @@ examples:
         - name: min
           value: "0"
           type: query
-          description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+          description: Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.
         - name: max
           value: "1"
           type: query
@@ -85,6 +180,27 @@ examples:
         - name: returnLayout
           value: new,items
           type: query
+          description: "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
+        - name: result_order
+          value: category
+          type: query
+          description: String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número.
+          disabled: true
+        - name: reverte_order
+          value: "1"
+          type: query
+          description: Boolean - Opcional - Com 1, inverte a ordenação (decrescente).
+          disabled: true
+        - name: limit
+          value: "50"
+          type: query
+          description: Integer - Opcional - Grupos por página (padrão 200).
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Integer - Opcional - Página da busca (padrão 1).
+          disabled: true
     response:
       status: 200
       statusText: OK
@@ -94,6 +210,80 @@ examples:
       body:
         type: text
         data: '{"status":"success","pagina":1,"totalRegistros":0,"totalGeralRegistros":"0","totalPaginas":1,"registroInicio":0,"registroFim":0,"grupos":[]}'
+  - name: 200 Filtrar por nome
+    description: "`name` busca por parte do nome do grupo. Sem `returnLayout`, o grupo vem no formato padrão (`items`)."
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/categoria?name=Escolha sua Bor&sku=&min=0&max=1&required=Y&rule=price_higher&returnLayout=new,items"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: name
+          value: Borda
+          type: query
+          description: String - Optional - Nome do grupo de complementos (atencao, o parametro e "name", nao "nome")
+        - name: sku
+          value: ""
+          type: query
+          description: String - Optional - Filtra por code (SKU) exato da categoria
+          disabled: true
+        - name: min
+          value: "0"
+          type: query
+          description: Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.
+          disabled: true
+        - name: max
+          value: "1"
+          type: query
+          description: Integer - Optional - Maximo de items a serem escolhidos (grupo.max <= max)
+          disabled: true
+        - name: required
+          value: Y
+          type: query
+          description: Enum('Y', 'N') - Optional - É obrigatório a escolha de items
+          disabled: true
+        - name: rule
+          value: price_higher
+          type: query
+          description: Enum('price_higher') - Optional - Usar regra adicional no valor dos items. Disponivel apenas 'price_higher', para usar em pizzas meia
+          disabled: true
+        - name: returnLayout
+          value: new,items
+          type: query
+          description: "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
+          disabled: true
+        - name: result_order
+          value: category
+          type: query
+          description: String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número.
+          disabled: true
+        - name: reverte_order
+          value: "1"
+          type: query
+          description: Boolean - Opcional - Com 1, inverte a ordenação (decrescente).
+          disabled: true
+        - name: limit
+          value: "50"
+          type: query
+          description: Integer - Opcional - Grupos por página (padrão 200).
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Integer - Opcional - Página da busca (padrão 1).
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","pagina":1,"totalRegistros":1,"totalGeralRegistros":"1","totalPaginas":1,"registroInicio":1,"registroFim":"1","grupos":[{"category":"Bordas recheadas","reference_id":"7591","min":"0","max":"1","rule":"price_higher","required":true,"items":[{"name":"Sem borda","code":"BORDA-SEM","desc":"","price":"0","image":"","published":true,"limitFree":0},{"name":"Borda de Catupiry","code":"BORDA-CAT","desc":"","price":"8","image":"","published":true,"limitFree":0},{"name":"Borda de Cheddar","code":"BORDA-CHE","desc":"Cheddar cremoso","price":"8","image":"","published":true,"limitFree":0}],"ref":"BORDA"}]}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -112,7 +302,7 @@ examples:
         - name: min
           value: "0"
           type: query
-          description: Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)
+          description: Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.
         - name: max
           value: "1"
           type: query
@@ -128,6 +318,27 @@ examples:
         - name: returnLayout
           value: new,items
           type: query
+          description: "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
+        - name: result_order
+          value: category
+          type: query
+          description: String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número.
+          disabled: true
+        - name: reverte_order
+          value: "1"
+          type: query
+          description: Boolean - Opcional - Com 1, inverte a ordenação (decrescente).
+          disabled: true
+        - name: limit
+          value: "50"
+          type: query
+          description: Integer - Opcional - Grupos por página (padrão 200).
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Integer - Opcional - Página da busca (padrão 1).
+          disabled: true
     response:
       status: 401
       statusText: Unauthorized

@@ -23,6 +23,14 @@ http:
       - name: name
         value: OLA MEUS AMIIIGOS
         description: Nome da marca (obrigatorio, ate 50 caracteres)
+      - name: image
+        value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+        description: Endereço da imagem da marca (opcional, texto livre)
+        disabled: true
+      - name: priority
+        value: "1"
+        description: Ordem de exibição da marca (opcional)
+        disabled: true
   auth: inherit
 
 settings:
@@ -32,8 +40,8 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
-    description: OK
+  - name: 200 Marca alterada
+    description: Só os campos enviados mudam; os outros ficam como estão.
     request:
       url: "{{proto}}://{{domain}}/api/marca/:marcaId"
       method: PUT
@@ -52,6 +60,14 @@ examples:
           - name: name
             value: ""
             description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: priority
+            value: "1"
+            description: Ordem de exibição da marca (opcional)
+            disabled: true
     response:
       status: 200
       statusText: OK
@@ -64,8 +80,45 @@ examples:
           {
             "status": "success"
           }
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/marca/:marcaId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: marcaId
+          value: "{{marcaId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: OLA MEUS AMIIIGOS
+            description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: priority
+            value: "1"
+            description: Ordem de exibição da marca (opcional)
+            disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Marca não encontrada
+    description: O `marcaId` não existe na loja.
     request:
       url: "{{proto}}://{{domain}}/api/marca/:marcaId"
       method: PUT
@@ -84,6 +137,14 @@ examples:
           - name: name
             value: ""
             description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: priority
+            value: "1"
+            description: Ordem de exibição da marca (opcional)
+            disabled: true
     response:
       status: 422
       statusText: Unprocessable Entity
@@ -97,3 +158,45 @@ examples:
             "status": "error",
             "msg": "Marca não informada, ou atributo \"id\" faltando."
           }
+  - name: 422 Nome vazio
+    description: "`name` não pode ficar vazio."
+    request:
+      url: "{{proto}}://{{domain}}/api/marca/:marcaId"
+      method: PUT
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: marcaId
+          value: "{{marcaId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: name
+            value: ""
+            description: Nome da marca (obrigatorio, ate 50 caracteres)
+          - name: image
+            value: https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png
+            description: Endereço da imagem da marca (opcional, texto livre)
+            disabled: true
+          - name: priority
+            value: "1"
+            description: Ordem de exibição da marca (opcional)
+            disabled: true
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","errorlist":{"name":["Nome não informado"]}}'
+
+docs: |-
+  <p>Altera uma marca. Envie só os campos que quer mudar (<code>name</code>, <code>image</code>, <code>priority</code>): os outros ficam como estão.</p>
+
+  <p>A API não altera <code>published</code>. Se a marca não existir, ela responde <code>422</code>.</p>

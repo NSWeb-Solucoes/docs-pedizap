@@ -77,7 +77,8 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 201 Período criado
+    description: O período entra no fim da agenda do serviço (`priority` é o maior mais 1) e publicado, a não ser que `published=N` seja enviado.
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
       method: POST
@@ -142,8 +143,8 @@ examples:
             description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
             disabled: true
     response:
-      status: 200
-      statusText: OK
+      status: 201
+      statusText: Created
       headers:
         - name: server
           value: nginx/1.14.1
@@ -292,3 +293,151 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 404 Serviço não encontrado
+    description: Não existe serviço de entrega com esse `servicoId` na loja.
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: hora_ini
+            type: text
+            value: 21:00
+            description: Hora de inicio do periodo, formato HH:mm
+          - name: hora_fim
+            type: text
+            value: 22:00
+            description: Hora de fim do periodo, formato HH:mm
+          - name: descricao
+            type: text
+            value: awdawdadwadwadw
+            description: Descricao do periodo (obrigatorio)
+          - name: dom
+            type: text
+            value: ""
+            description: '"1" disponivel aos domingos; "0"/vazio indisponivel'
+          - name: seg
+            type: text
+            value: ""
+            description: '"1" disponivel as segundas; "0"/vazio indisponivel'
+            disabled: true
+          - name: ter
+            type: text
+            value: ""
+            description: '"1" disponivel as tercas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qua
+            type: text
+            value: ""
+            description: '"1" disponivel as quartas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qui
+            type: text
+            value: ""
+            description: '"1" disponivel as quintas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sex
+            type: text
+            value: ""
+            description: '"1" disponivel as sextas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sab
+            type: text
+            value: ""
+            description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
+            disabled: true
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Servico nao encontrado."}'
+  - name: 422 Descrição curta
+    description: "`descricao` precisa ter de 3 a 100 caracteres, e `hora_ini` e `hora_fim` vão no formato `HH:mm`."
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+      body:
+        type: multipart-form
+        data:
+          - name: hora_ini
+            type: text
+            value: 21:00
+            description: Hora de inicio do periodo, formato HH:mm
+          - name: hora_fim
+            type: text
+            value: 22:00
+            description: Hora de fim do periodo, formato HH:mm
+          - name: descricao
+            type: text
+            value: ab
+            description: Descricao do periodo (obrigatorio)
+          - name: dom
+            type: text
+            value: ""
+            description: '"1" disponivel aos domingos; "0"/vazio indisponivel'
+          - name: seg
+            type: text
+            value: ""
+            description: '"1" disponivel as segundas; "0"/vazio indisponivel'
+            disabled: true
+          - name: ter
+            type: text
+            value: ""
+            description: '"1" disponivel as tercas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qua
+            type: text
+            value: ""
+            description: '"1" disponivel as quartas; "0"/vazio indisponivel'
+            disabled: true
+          - name: qui
+            type: text
+            value: ""
+            description: '"1" disponivel as quintas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sex
+            type: text
+            value: ""
+            description: '"1" disponivel as sextas; "0"/vazio indisponivel'
+            disabled: true
+          - name: sab
+            type: text
+            value: ""
+            description: '"1" disponivel aos sabados; "0"/vazio indisponivel'
+            disabled: true
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Dados invalidos.","errorlist":{"descricao":["Deve ter de 3 até 100 caractéres."]}}'

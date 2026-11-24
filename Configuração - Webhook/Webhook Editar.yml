@@ -39,8 +39,78 @@ settings:
   forwardAuthorizationHeader: true
 
 examples:
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 200 Webhook alterado
+    description: Só os campos enviados mudam. A URL continua precisando ser única entre os webhooks da loja.
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: webhookId
+          value: "{{webhookId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: webhook_url
+            value: https://meusistema.com.br/webhook/pedizap
+            description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
+          - name: module_ids
+            value: "11"
+            description: "IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site"
+          - name: actived
+            value: Y
+            description: '"Y" (ativo) ou "N" (inativo)'
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"msg":"Destino de evento salvo com sucesso!","status":"success"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: webhookId
+          value: "{{webhookId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: webhook_url
+            value: https://meusistema.com.br/webhook/pedizap
+            description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
+          - name: module_ids
+            value: "11"
+            description: "IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site"
+          - name: actived
+            value: Y
+            description: '"Y" (ativo) ou "N" (inativo)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 URL vazia
+    description: "`webhook_url` enviado vazio. Para não mudar a URL, não envie o campo."
     request:
       url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
       method: PUT
@@ -74,5 +144,43 @@ examples:
       body:
         type: text
         data: '{"status":"error","msg":"N\u00e3o foi possivel validar o PUT!","errorlist":{"webhook_url":"URL obrigatoria para destino push."}}'
+  - name: 422 Webhook não encontrado
+    description: O `webhookId` não existe na loja.
+    request:
+      url: "{{proto}}://{{domain}}/api/webhook/:webhookId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: webhookId
+          value: "{{webhookId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: webhook_url
+            value: https://meusistema.com.br/webhook/pedizap
+            description: URL de destino que recebe via POST os eventos do webhook; obrigatorio, e precisa ser unica (nao pode repetir a de outro destino do mesmo site)
+          - name: module_ids
+            value: "11"
+            description: "IDs dos modulos que disparam esse webhook, separados por virgula (ex: 1=conteudo, 7=produto, 9=cliente, 11=pedido, 19=formularios); use GET /api/webhook/module para a lista real de modulos disponiveis no site"
+          - name: actived
+            value: Y
+            description: '"Y" (ativo) ou "N" (inativo)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"msg":"Nao existe destino de evento com o ID informado","status":"error"}'
 
-docs: Endpoint para editar os webhooks.
+docs: |-
+  <p>Altera um webhook. Envie só os campos que quer mudar (<code>webhook_url</code>, <code>module_ids</code>, <code>actived</code>): os outros ficam como estão.</p>
+
+  <p>Não envie <code>webhook_url</code> vazio, porque a API recusa com <code>422</code>. Se o <code>webhookId</code> não existir, a resposta também é <code>422</code>.</p>

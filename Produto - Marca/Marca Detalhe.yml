@@ -26,6 +26,29 @@ settings:
   maxRedirects: 5
 
 examples:
+  - name: 200 Marca encontrada
+    description: A marca vem em `marcas.marca`, como objeto (não como lista).
+    request:
+      url: "{{proto}}://{{domain}}/api/marca/:marcaId"
+      method: GET
+      headers:
+        - name: Accept
+          value: "{{format}}"
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: marcaId
+          value: "{{marcaId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"marcas":{"marca":{"id":"1","site_id":"5095","name":"Kibon","image":null,"priority":"1","published":"Y"}}}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -49,8 +72,8 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 422 Marca não encontrada
+    description: O `marcaId` não existe na loja.
     request:
       url: "{{proto}}://{{domain}}/api/marca/:marcaId"
       method: GET
@@ -72,3 +95,8 @@ examples:
       body:
         type: text
         data: '{"status":"error","msg":"Marca n\u00e3o informada, ou atributo \"id\" faltando."}'
+
+docs: |-
+  <p>Busca uma marca pelo id. A resposta traz a marca em <code>marcas.marca</code>, com os mesmos campos de <a href="./Marca%20Listagem.yml">Marca Listagem</a>.</p>
+
+  <p>Se a marca não existir, a API responde <code>422</code> com <code>status</code> <code>error</code>.</p>

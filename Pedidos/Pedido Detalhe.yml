@@ -17,6 +17,11 @@ http:
     - name: pedidoId
       value: "{{pedidoId}}"
       type: path
+    - name: returnLayout
+      value: cliente
+      type: query
+      description: "STRING - Opcional - Blocos de dados de cada pedido, separados por vírgula: `cliente` (objeto `cadastro`) e `itens`. Padrão: `cliente,itens`."
+      disabled: true
   auth: inherit
 
 settings:

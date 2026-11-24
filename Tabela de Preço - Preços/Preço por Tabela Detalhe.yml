@@ -29,7 +29,7 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 200 Preço encontrado
     description: OK
     request:
       url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices/:preco"
@@ -64,6 +64,32 @@ examples:
             "price": "235.57",
             "price_promo": "0"
           }
+  - name: 200 Preço não encontrado
+    description: "O preço não existe ou é de outra tabela. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices/:preco"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: preco
+          value: "{{preco}}"
+          type: path
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Preço não encontrado"}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -91,4 +117,7 @@ examples:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
 
-docs: Detalha um registro específico de preço dentro da tabela.
+docs: |-
+  Detalha um registro específico de preço dentro da tabela.
+
+  <p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>

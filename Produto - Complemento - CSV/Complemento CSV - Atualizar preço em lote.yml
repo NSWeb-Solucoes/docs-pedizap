@@ -18,7 +18,11 @@ http:
     data:
       - name: csvdata
         type: text
-        value: "123"
+        value: "\"code\";\"price\"
+
+          \"456789\";\"6.00\"
+
+          \"12356\";\"8.50\""
         description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
   auth: inherit
 
@@ -27,6 +31,122 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: 200 Preços atualizados
+    description: Cada `code` atualiza o preço de todos os itens de complemento com esse SKU. `affectedRows` vem sempre 0 neste endpoint, mesmo quando os preços mudam.
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: csvdata
+            type: text
+            value: |-
+              "code";"price"
+              "456789";"6.00"
+              "12356";"8.50"
+            description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"success","affectedRows":0}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: csvdata
+            type: text
+            value: |-
+              "code";"price"
+              "456789";"6.00"
+              "12356";"8.50"
+            description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Coluna não permitida
+    description: O cabeçalho só aceita `code` e `price`.
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: csvdata
+            type: text
+            value: |-
+              "code";"price";"price_promo"
+              "456789";"6.00";"5.00"
+            description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Campo price_promo não é válido ou permitido."}'
+  - name: 422 Sem a coluna price
+    description: "`code` e `price` são obrigatórios no cabeçalho."
+    request:
+      url: "{{proto}}://{{domain}}/api/complemento/csv"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: csvdata
+            type: text
+            value: |-
+              "code"
+              "456789"
+            description: 'String CSV (separador ";"), 1a linha com o cabecalho: code e price (ambas obrigatorias)'
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Campo price não informado."}'
 
 docs: |-
   <p>Processa uma string CSV (parâmetro <code>csvdata</code>, separador <code>;</code>) contendo as colunas <code>code;price</code> pra atualizar em lote o preço de itens de complemento (<code>product_extras_item</code>).</p>

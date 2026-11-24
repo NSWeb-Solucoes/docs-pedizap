@@ -125,7 +125,7 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 201 Serviço criado
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico"
       method: POST
@@ -216,8 +216,8 @@ examples:
             value: ""
             description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
     response:
-      status: 200
-      statusText: OK
+      status: 201
+      statusText: Created
       headers:
         - name: server
           value: nginx/1.14.1
@@ -405,7 +405,7 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
-  - name: 200 Inserir Entrega por Geolocalização
+  - name: 201 Entrega por geolocalização
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico"
       method: POST
@@ -665,7 +665,7 @@ examples:
               "cep_exclusao": null
             }
           }
-  - name: 200 inserir Entrega por Geolocalização com Agendamento
+  - name: 201 Entrega por geolocalização com agendamento
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico"
       method: POST
@@ -922,3 +922,248 @@ examples:
               "cep_exclusao": null
             }
           }
+  - name: 422 Nome não informado
+    description: "`nome` é obrigatório. Cada campo com erro aparece em `errorlist`."
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: ""
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: ""
+            description: Descricao livre do servico (opcional)
+            disabled: true
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+            disabled: true
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+            disabled: true
+          - name: retirada
+            type: text
+            value: N
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+            disabled: true
+          - name: peso_min
+            type: text
+            value: "0"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "10"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+            disabled: true
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+            disabled: true
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+            disabled: true
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+            disabled: true
+          - name: ativo
+            type: text
+            value: S
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+            disabled: true
+          - name: agendamento_diasexibidos
+            type: text
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+            disabled: true
+          - name: agendamento_maxdia
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+            disabled: true
+          - name: agendamento_maxperiodo
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+            disabled: true
+          - name: cep_exclusao
+            type: text
+            value: ""
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+            disabled: true
+          - name: polygoncenter
+            type: text
+            value: '{"lat": -22.325147349455,"lng": -49.063353538513}'
+          - name: polygonatendida
+            type: text
+            value: '[[{"lat":-22.325147349455285,"lng":-49.00065735115292},{"lat":-22.305369023747357,"lng":-49.00442739442359},{"lat":-22.287976256016805,"lng":-49.01528280137725},{"lat":-22.27506687074185,"lng":-49.03191424972655},{"lat":-22.268197930308876,"lng":-49.05231574134652},{"lat":-22.268197930308876,"lng":-49.07402655525384},{"lat":-22.27506687074185,"lng":-49.09442804687381},{"lat":-22.287976256016805,"lng":-49.1110594952231},{"lat":-22.305369023747357,"lng":-49.12191490217677},{"lat":-22.325147349455285,"lng":-49.12568494544744},{"lat":-22.344925675163218,"lng":-49.12191490217677},{"lat":-22.362318442893766,"lng":-49.1110594952231},{"lat":-22.375227828168725,"lng":-49.09442804687381},{"lat":-22.382096768601695,"lng":-49.07402655525384},{"lat":-22.382096768601695,"lng":-49.05231574134652},{"lat":-22.375227828168725,"lng":-49.03191424972655},{"lat":-22.362318442893766,"lng":-49.01528280137725},{"lat":-22.344925675163218,"lng":-49.00442739442359},{"lat":-22.325147349455285,"lng":-49.00065735115292}]]'
+          - name: polygonsuspensa
+            type: text
+            value: "[]"
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Dados invalidos.","errorlist":{"nome":["Desculpe, nome não preenchido !"]}}'
+  - name: 422 CEP de exclusão inválido
+    description: Cada linha de `cep_exclusao` tem um CEP (`NNNNN-NNN` ou `NNNNNNNN`) ou uma faixa `cepInicial|cepFinal`, com o inicial menor que o final. Cada linha inválida gera uma mensagem.
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico"
+      method: POST
+      headers:
+        - name: Content-Type
+          value: multipart/form-data
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: Serviço Geolocalização
+            description: Nome do servico de entrega (obrigatorio)
+          - name: descricao
+            type: text
+            value: ""
+            description: Descricao livre do servico (opcional)
+            disabled: true
+          - name: icon
+            type: text
+            value: ""
+            description: URL/link de um icone pequeno para o servico (recomendado 80x30)
+            disabled: true
+          - name: zona_tipo
+            type: text
+            value: polygon
+            description: '"cep" (faixa de CEPs), "km" (por distancia em KM), "bairro" (por bairro), "bairro_custom" (bairro digitado livremente) ou "polygon" (por geolocalizacao) - as opcoes disponiveis dependem da config de calculo de frete da loja; default "cep"'
+          - name: km_cep_origem
+            type: text
+            value: "17063280"
+            description: CEP de origem usado para calcular a distancia em KM da entrega (8 digitos, sem mascara)
+            disabled: true
+          - name: retirada
+            type: text
+            value: N
+            description: '"N" (Entrega) ou "S" (Retirada)'
+          - name: retirada_endereco
+            type: text
+            value: Rua adalberto
+            description: Endereco de retirada, usado quando retirada = "S"
+            disabled: true
+          - name: peso_min
+            type: text
+            value: "0"
+            description: Peso minimo aceito em KG (ou KM minimo quando zona_tipo=polygon)
+          - name: peso_max
+            type: text
+            value: "10"
+            description: Peso maximo aceito em KG (ou KM maximo quando zona_tipo=polygon)
+          - name: seguro
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - inclui valor de seguro no calculo do frete'
+            disabled: true
+          - name: seguro_acrescimo
+            type: text
+            value: "12"
+            description: Percentual de seguro cobrado sobre o valor dos produtos (default 50)
+            disabled: true
+          - name: calcular_cubagem
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - considera o peso cubico (volumetrico) no calculo do frete'
+            disabled: true
+          - name: fator_cubagem
+            type: text
+            value: ""
+            description: Fator usado no calculo do peso cubico quando calcular_cubagem = "S" (peso_cubico = altura*comprimento*largura/fator_cubagem, em cm); se vazio, o sistema usa 3333 como padrao
+            disabled: true
+          - name: ativo
+            type: text
+            value: S
+            description: '"S" ou "N" (default "N") - ativa/desativa o servico'
+          - name: agendamento
+            type: text
+            value: ""
+            description: '"S" ou "N" (default "N") - permite agendar a entrega em um Periodo cadastrado'
+            disabled: true
+          - name: agendamento_diasexibidos
+            type: text
+            value: ""
+            description: Quantidade de dias exibidos para escolha na hora de agendar a entrega; se vazio/0, o sistema usa 10 dias, com teto de 60
+            disabled: true
+          - name: agendamento_maxdia
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por dia
+            disabled: true
+          - name: agendamento_maxperiodo
+            type: text
+            value: ""
+            description: Quantidade maxima de agendamentos permitidos por Periodo (janela de horario)
+            disabled: true
+          - name: cep_exclusao
+            type: text
+            value: |-
+              1706328
+              17064000|17063000
+            description: Um CEP ou uma faixa "cepIni|cepFim" por linha, no formato NNNNN-NNN ou NNNNNNNN; pedidos com CEP dentro da lista/faixa nao usam esse servico
+          - name: polygoncenter
+            type: text
+            value: '{"lat": -22.325147349455,"lng": -49.063353538513}'
+          - name: polygonatendida
+            type: text
+            value: '[[{"lat":-22.325147349455285,"lng":-49.00065735115292},{"lat":-22.305369023747357,"lng":-49.00442739442359},{"lat":-22.287976256016805,"lng":-49.01528280137725},{"lat":-22.27506687074185,"lng":-49.03191424972655},{"lat":-22.268197930308876,"lng":-49.05231574134652},{"lat":-22.268197930308876,"lng":-49.07402655525384},{"lat":-22.27506687074185,"lng":-49.09442804687381},{"lat":-22.287976256016805,"lng":-49.1110594952231},{"lat":-22.305369023747357,"lng":-49.12191490217677},{"lat":-22.325147349455285,"lng":-49.12568494544744},{"lat":-22.344925675163218,"lng":-49.12191490217677},{"lat":-22.362318442893766,"lng":-49.1110594952231},{"lat":-22.375227828168725,"lng":-49.09442804687381},{"lat":-22.382096768601695,"lng":-49.07402655525384},{"lat":-22.382096768601695,"lng":-49.05231574134652},{"lat":-22.375227828168725,"lng":-49.03191424972655},{"lat":-22.362318442893766,"lng":-49.01528280137725},{"lat":-22.344925675163218,"lng":-49.00442739442359},{"lat":-22.325147349455285,"lng":-49.00065735115292}]]'
+          - name: polygonsuspensa
+            type: text
+            value: "[]"
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Dados invalidos.","errorlist":{"cep_exclusao":["Linha 1: CEP \"1706328\" invalido.","Linha 2: a faixa de CEP e invalida."]}}'

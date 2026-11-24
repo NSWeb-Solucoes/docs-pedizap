@@ -47,8 +47,31 @@ examples:
       body:
         type: text
         data: ""
-  - name: 422 Response
-    description: Unprocessable Entity
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
+      method: DELETE
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: pedidoId
+          value: "{{pedidoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Pedido não encontrado
+    description: O `pedidoId` não existe na loja. Neste DELETE, o erro volta sem corpo.
     request:
       url: "{{proto}}://{{domain}}/api/pedido/:pedidoId"
       method: DELETE

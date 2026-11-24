@@ -153,6 +153,56 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Nome não informado
+    description: "`nome` é sempre obrigatório. Outros campos podem ser obrigatórios conforme a configuração de cadastro da loja; cada campo com erro aparece em `errorlist`."
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: multipart-form
+        data:
+          - name: nome
+            type: text
+            value: ""
+            description: Nome completo do cliente
+          - name: tipo_pessoa
+            type: text
+            value: ""
+            description: '"F" para pessoa fisica ou "J" para pessoa juridica'
+          - name: cpfcnpj
+            type: text
+            value: ""
+            description: CPF (pessoa fisica) ou CNPJ (pessoa juridica), sem mascara
+          - name: rgie
+            type: text
+            value: ""
+            description: RG (pessoa fisica) ou Inscricao Estadual (pessoa juridica)
+          - name: fone_ddd
+            type: text
+            value: ""
+            description: DDD do telefone fixo
+          - name: fone
+            type: text
+            value: ""
+            description: Numero do telefone fixo, sem o DDD
+          - name: email
+            type: text
+            value: ""
+            description: E-mail do cliente
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","errorlist":{"nome":["Por favor preencha o Nome"]}}'
 
 docs: |-
   <p> Para inserir novos clientes, os campos a seguir devem ser passados pelo body </p>

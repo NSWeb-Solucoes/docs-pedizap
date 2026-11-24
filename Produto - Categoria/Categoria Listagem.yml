@@ -13,6 +13,32 @@ http:
       value: "{{token}}"
     - name: Accept
       value: "{{format}}"
+  params:
+    - name: parent_id
+      value: "12"
+      type: query
+      description: "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+      disabled: true
+    - name: lastupdate_gte
+      value: 2026-07-01
+      type: query
+      description: Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: lastupdate_lte
+      value: 2026-07-31 23:59:59
+      type: query
+      description: Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: created_gte
+      value: 2026-06-01
+      type: query
+      description: Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: created_lte
+      value: 2026-06-18
+      type: query
+      description: Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
   auth: inherit
 
 settings:
@@ -22,8 +48,8 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
-    description: OK
+  - name: 200 Categorias principais
+    description: Sem filtros, a listagem traz as categorias do primeiro nível (`parent_id` 0), publicadas ou não, ordenadas por `priority`. Nenhuma destas tem subcategorias, então o campo `subcategories` não aparece.
     request:
       url: "{{proto}}://{{domain}}/api/categoria/"
       method: GET
@@ -41,6 +67,183 @@ examples:
       body:
         type: text
         data: '{"categoria":[{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picol\u00e9s","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},{"id":"2","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Milkshakes","friendly_url":"milkshakes","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"2","prodqtde":"3","prodqtde_active":"3","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:10","lastupdate":"2026-06-18 14:07:10"},{"id":"3","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Sorvetes","friendly_url":"sorvetes","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"3","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:10","lastupdate":"2026-06-18 14:07:11"},{"id":"4","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"A\u00e7ai","friendly_url":"aaai","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"4","prodqtde":"4","prodqtde_active":"4","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:12","lastupdate":"2026-06-18 14:07:12"},{"id":"5","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Baldes","friendly_url":"baldes","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"6","prodqtde":"6","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:12","lastupdate":"2026-06-18 14:07:12"},{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"}]}'
+  - name: 200 Categoria com subcategorias
+    description: "Em outra loja, a categoria Pizzas tem duas filhas, que vêm dentro de `subcategories.category` com os mesmos campos (e assim por diante, em todos os níveis). Em Pizzas, `subqtde` conta as subcategorias de todos os níveis abaixo e `subqtde_active` só as publicadas: Pizzas Doces está despublicada. Nas filhas, `parent_id_path` traz os ids das categorias acima e `friendly_url_path` o caminho de URLs amigáveis."
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria/"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "12"
+          type: query
+          description: "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+          disabled: true
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-06-01
+          type: query
+          description: Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-06-18
+          type: query
+          description: Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"categoria":[{"id":"12","site_id":"582","parent_id":"0","parent_id_path":null,"name":"Pizzas","friendly_url":"pizzas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"1","prodqtde":"0","prodqtde_active":"0","subqtde":"2","subqtde_active":"1","published":"Y","created":"2026-08-03 10:12:40","lastupdate":"2026-08-05 18:02:11","subcategories":{"category":[{"id":"13","site_id":"582","parent_id":"12","parent_id_path":"12","name":"Pizzas Salgadas","friendly_url":"pizzas-salgadas","friendly_url_path":"pizzas/pizzas-salgadas","icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"2","prodqtde":"18","prodqtde_active":"16","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-08-03 10:14:02","lastupdate":"2026-08-03 10:20:15"},{"id":"14","site_id":"582","parent_id":"12","parent_id_path":"12","name":"Pizzas Doces","friendly_url":"pizzas-doces","friendly_url_path":"pizzas/pizzas-doces","icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"3","prodqtde":"6","prodqtde_active":"0","subqtde":"0","subqtde_active":"0","published":"N","created":"2026-08-03 10:14:30","lastupdate":"2026-08-05 18:02:11"}]}},{"id":"15","site_id":"582","parent_id":"0","parent_id_path":null,"name":"Bebidas","friendly_url":"bebidas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"4","prodqtde":"12","prodqtde_active":"12","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-08-03 10:15:51","lastupdate":"2026-08-03 10:15:51"}]}'
+  - name: 200 Subcategorias de uma categoria
+    description: "`parent_id=12` lista só as filhas diretas da categoria 12, publicadas ou não. Se a categoria não tiver filhas ou não existir, `categoria` vem vazia."
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria/"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "12"
+          type: query
+          description: "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-06-01
+          type: query
+          description: Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-06-18
+          type: query
+          description: Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"categoria":[{"id":"13","site_id":"582","parent_id":"12","parent_id_path":"12","name":"Pizzas Salgadas","friendly_url":"pizzas-salgadas","friendly_url_path":"pizzas/pizzas-salgadas","icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"2","prodqtde":"18","prodqtde_active":"16","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-08-03 10:14:02","lastupdate":"2026-08-03 10:20:15"},{"id":"14","site_id":"582","parent_id":"12","parent_id_path":"12","name":"Pizzas Doces","friendly_url":"pizzas-doces","friendly_url_path":"pizzas/pizzas-doces","icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":"name ASC","count":"0","priority":"3","prodqtde":"6","prodqtde_active":"0","subqtde":"0","subqtde_active":"0","published":"N","created":"2026-08-03 10:14:30","lastupdate":"2026-08-05 18:02:11"}]}'
+  - name: 200 Alteradas a partir de uma data
+    description: "`lastupdate_gte` traz as categorias alteradas a partir da data informada (aqui, desde 01/07/2026 00:00:00). Os filtros de data valem só para o nível listado: as subcategorias de uma categoria encontrada vêm todas."
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria/"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "12"
+          type: query
+          description: "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+          disabled: true
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-06-01
+          type: query
+          description: Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-06-18
+          type: query
+          description: Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"categoria":[{"id":"1","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Picolés","friendly_url":"picolas","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"1","prodqtde":"10","prodqtde_active":"10","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:09","lastupdate":"2026-07-17 09:35:21"},{"id":"6","site_id":"5095","parent_id":"0","parent_id_path":null,"name":"Acompanhamentos","friendly_url":"acompanhamentos","friendly_url_path":null,"icon":null,"image":null,"description":null,"google_category":null,"cashback_multiplier":null,"result_order":null,"count":"0","priority":"7","prodqtde":"8","prodqtde_active":"6","subqtde":"0","subqtde_active":"0","published":"Y","created":"2026-06-18 14:07:13","lastupdate":"2026-07-03 15:22:54"}]}'
+  - name: 200 Data sem hora no _lte
+    description: "Data sem hora vale como meia-noite: `created_lte=2026-06-18` compara com `2026-06-18 00:00:00` e deixa de fora as categorias criadas ao longo do dia 18 (todas desta loja foram criadas às 14:07). Para incluir o dia inteiro, envie `2026-06-18 23:59:59`."
+    request:
+      url: "{{proto}}://{{domain}}/api/categoria/"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: parent_id
+          value: "12"
+          type: query
+          description: "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+          disabled: true
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-06-01
+          type: query
+          description: Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-06-18
+          type: query
+          description: Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"categoria":[]}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -60,3 +263,23 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Lista as categorias de produto da loja, publicadas ou não (<code>published</code> <code>Y</code>/<code>N</code>), ordenadas por <code>priority</code>. A lista não é paginada.</p>
+
+  <ul>
+    <li>Sem <code>parent_id</code>, traz as categorias do primeiro nível (<code>parent_id</code> 0). Com <code>parent_id</code>, traz só as filhas diretas daquela categoria; se ela não tiver filhas ou não existir, <code>categoria</code> vem vazia.</li>
+    <li>Cada categoria que tem filhas traz as subcategorias em <code>subcategories.category</code>, com os mesmos campos, em todos os níveis abaixo. Sem filhas, o campo <code>subcategories</code> não aparece.</li>
+    <li>Os filtros de data (<code>lastupdate_gte</code>, <code>lastupdate_lte</code>, <code>created_gte</code> e <code>created_lte</code>) valem só para o nível listado: as subcategorias de uma categoria encontrada vêm todas. Eles aceitam <code>AAAA-MM-DD</code>, <code>AAAA-MM-DD HH:MM:SS</code> ou <code>DD/MM/AAAA</code>. Data sem hora vale como meia-noite; para incluir o dia inteiro no <code>_lte</code>, envie <code>23:59:59</code>.</li>
+  </ul>
+
+  <p>Campos de contagem e de caminho:</p>
+
+  <ul>
+    <li><code>prodqtde</code> e <code>prodqtde_active</code>: produtos vinculados à categoria (todos e só os publicados), sem contar sub-produtos.</li>
+    <li><code>subqtde</code> e <code>subqtde_active</code>: subcategorias de todos os níveis abaixo (todas e só as publicadas).</li>
+    <li><code>parent_id_path</code>: em uma subcategoria, os ids das categorias acima, do primeiro nível até a mãe, separados por vírgula. No primeiro nível, <code>null</code>.</li>
+    <li><code>friendly_url_path</code>: em uma subcategoria, o caminho de URLs amigáveis desde o primeiro nível (<code>pizzas/pizzas-doces</code>). No primeiro nível, <code>null</code>.</li>
+  </ul>
+
+  <p>Para uma categoria só, use <a href="./Categoria%20Detalhe.yml">Categoria Detalhe</a>.</p>

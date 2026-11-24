@@ -162,5 +162,51 @@ examples:
               }
             ]
           }
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 404 Serviço não encontrado
+    description: Não existe serviço de entrega com esse `servicoId` na loja.
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/periodo"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Servico nao encontrado."}'
 
 docs: '<p>Período de agenda (horário/dias da semana) de um serviço, usado quando o serviço tem <code>agendamento="S"</code>. A prioridade (<code>priority</code>) de exibição é controlada pelo servidor: novos períodos entram sempre no final da lista.</p>'

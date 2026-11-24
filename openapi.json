@@ -5162,6 +5162,16 @@
                       }
                     },
                     "description": "OK\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto/{produtoId}' \\\n  --url-query 'detail_photos=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Produto_nao_encontrado": {
+                    "summary": "200 Produto não encontrado",
+                    "value": {
+                      "totalRegistros": 0,
+                      "produtos": {
+                        "produto": []
+                      }
+                    },
+                    "description": "Se o `produtoId` não existir, a resposta é 200 com `totalRegistros` 0 e a lista `produtos.produto` vazia."
                   }
                 }
               }
@@ -5403,8 +5413,106 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Produto_encontrado": {
+                    "summary": "200 Produto encontrado",
+                    "value": {
+                      "pagina": 1,
+                      "totalRegistros": 1,
+                      "totalGeralRegistros": "1",
+                      "totalPaginas": 1,
+                      "registroInicio": 1,
+                      "registroFim": "1",
+                      "produtos": {
+                        "produto": [
+                          {
+                            "id": "1",
+                            "site_id": "5095",
+                            "parent_id": "0",
+                            "kit": "N",
+                            "attribute_json": null,
+                            "category_id": "1",
+                            "category_id2": null,
+                            "category_path": "1",
+                            "manufacturer_id": "0",
+                            "genero": null,
+                            "code": "prod-000032",
+                            "mpn": null,
+                            "gtin": null,
+                            "name": "Picolé Açai",
+                            "resume": "Sem descrição",
+                            "price": "8",
+                            "price_promo": null,
+                            "ncm": null,
+                            "content": null,
+                            "featured": "N",
+                            "file_name": "",
+                            "video": null,
+                            "color": null,
+                            "model": null,
+                            "size": null,
+                            "priority": "0",
+                            "published": "Y",
+                            "regra_exibicao": "A",
+                            "show_price": "Y",
+                            "estoque_controle": "S",
+                            "estoque_quantidade": "0",
+                            "estoque_minimo": "0",
+                            "estoque_reserva": "0",
+                            "comprimento": null,
+                            "largura": null,
+                            "altura": null,
+                            "peso": null,
+                            "prazo_entrega": "0",
+                            "prazo_unidade": "dia",
+                            "prazo_usa_quantidade": "N",
+                            "photo_id": null,
+                            "upsell": null,
+                            "cross_sell": null,
+                            "relateds": null,
+                            "subprods": "0",
+                            "extras_json": "[{\"ref\":\"b9e96ef6-5e7e-4ec1-9d01-ed0374b31d63\",\"category\":\"Escolha seu sabor\",\"rule\":\"\",\"required\":true,\"min\":1,\"max\":1,\"items\":[{\"ref\":\"ab74f10c-4c1e-4858-a561-3cf8725abd82\",\"code\":\"comp-000151\",\"image\":\"\",\"name\":\"A\\u00e7ai\",\"desc\":\"\",\"price\":0,\"published\":true}]}]",
+                            "horarios_json": null,
+                            "created": "2026-06-18 14:07:09",
+                            "lastupdate": null,
+                            "cashback_json": null,
+                            "category": {
+                              "id": "1",
+                              "site_id": "5095",
+                              "parent_id": "0",
+                              "parent_id_path": null,
+                              "name": "Picolés",
+                              "friendly_url": "picolas",
+                              "friendly_url_path": null,
+                              "icon": null,
+                              "image": null,
+                              "description": null,
+                              "google_category": null,
+                              "cashback_multiplier": null,
+                              "result_order": null,
+                              "count": "0",
+                              "priority": "1",
+                              "prodqtde": "11",
+                              "prodqtde_active": "11",
+                              "subqtde": "0",
+                              "subqtde_active": "0",
+                              "published": "Y",
+                              "created": "2026-06-18 14:07:09",
+                              "lastupdate": "2026-06-18 14:15:12"
+                            },
+                            "category2": [],
+                            "manufacturer": [],
+                            "link": "https://cardapio.pedizap.com.br/site/produtos/1-picole-acai.html",
+                            "photos": {
+                              "photo": []
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "description": "O produto vem com os mesmos campos de Produto Detalhe, dentro da estrutura paginada da listagem (`produtos.produto` é uma lista).\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'code=prod-000032' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_SKU_nao_encontrado": {
+                    "summary": "200 SKU não encontrado",
                     "value": {
                       "pagina": 1,
                       "totalRegistros": 0,
@@ -5416,7 +5524,7 @@
                         "produto": []
                       }
                     },
-                    "description": "OK\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'detail_photos=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                    "description": "Nenhum produto com esse SKU: a resposta é 200 com `totalRegistros` 0 e `produtos.produto` vazia.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/produto' \\\n  --url-query 'detail_photos=1' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -6146,6 +6254,40 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Produto_nao_encontrado": {
+                    "summary": "422 Produto não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Produto não encontrado."
+                    },
+                    "description": "O `produtoId` não existe na loja."
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -6418,15 +6560,62 @@
         "tags": [
           "Produto - Categoria"
         ],
-        "parameters": [],
+        "description": "<p>Lista as categorias de produto da loja, publicadas ou não (<code>published</code> <code>Y</code>/<code>N</code>), ordenadas por <code>priority</code>. A lista não é paginada.</p>\n\n<ul>\n  <li>Sem <code>parent_id</code>, traz as categorias do primeiro nível (<code>parent_id</code> 0). Com <code>parent_id</code>, traz só as filhas diretas daquela categoria; se ela não tiver filhas ou não existir, <code>categoria</code> vem vazia.</li>\n  <li>Cada categoria que tem filhas traz as subcategorias em <code>subcategories.category</code>, com os mesmos campos, em todos os níveis abaixo. Sem filhas, o campo <code>subcategories</code> não aparece.</li>\n  <li>Os filtros de data (<code>lastupdate_gte</code>, <code>lastupdate_lte</code>, <code>created_gte</code> e <code>created_lte</code>) valem só para o nível listado: as subcategorias de uma categoria encontrada vêm todas. Eles aceitam <code>AAAA-MM-DD</code>, <code>AAAA-MM-DD HH:MM:SS</code> ou <code>DD/MM/AAAA</code>. Data sem hora vale como meia-noite; para incluir o dia inteiro no <code>_lte</code>, envie <code>23:59:59</code>.</li>\n</ul>\n\n<p>Campos de contagem e de caminho:</p>\n\n<ul>\n  <li><code>prodqtde</code> e <code>prodqtde_active</code>: produtos vinculados à categoria (todos e só os publicados), sem contar sub-produtos.</li>\n  <li><code>subqtde</code> e <code>subqtde_active</code>: subcategorias de todos os níveis abaixo (todas e só as publicadas).</li>\n  <li><code>parent_id_path</code>: em uma subcategoria, os ids das categorias acima, do primeiro nível até a mãe, separados por vírgula. No primeiro nível, <code>null</code>.</li>\n  <li><code>friendly_url_path</code>: em uma subcategoria, o caminho de URLs amigáveis desde o primeiro nível (<code>pizzas/pizzas-doces</code>). No primeiro nível, <code>null</code>.</li>\n</ul>\n\n<p>Para uma categoria só, use <a href=\"#tag/produto-categoria/GET/api/categoria/{categoriaId}\">Categoria Detalhe</a>.</p>",
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Integer - Opcional - Id da categoria mãe: lista só as filhas diretas dela, cada uma com as próprias subcategorias. Sem ele, lista as categorias do primeiro nível."
+          },
+          {
+            "name": "lastupdate_gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Alteradas a partir desta data/hora (lastupdate >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "lastupdate_lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Alteradas até esta data/hora (lastupdate <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "created_gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Criadas a partir desta data/hora (created >= valor). Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "created_lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Criadas até esta data/hora (created <= valor). Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Categorias_principais": {
+                    "summary": "200 Categorias principais",
                     "value": {
                       "categoria": [
                         {
@@ -6575,7 +6764,234 @@
                         }
                       ]
                     },
-                    "description": "OK"
+                    "description": "Sem filtros, a listagem traz as categorias do primeiro nível (`parent_id` 0), publicadas ou não, ordenadas por `priority`. Nenhuma destas tem subcategorias, então o campo `subcategories` não aparece."
+                  },
+                  "200_Categoria_com_subcategorias": {
+                    "summary": "200 Categoria com subcategorias",
+                    "value": {
+                      "categoria": [
+                        {
+                          "id": "12",
+                          "site_id": "582",
+                          "parent_id": "0",
+                          "parent_id_path": null,
+                          "name": "Pizzas",
+                          "friendly_url": "pizzas",
+                          "friendly_url_path": null,
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": "name ASC",
+                          "count": "0",
+                          "priority": "1",
+                          "prodqtde": "0",
+                          "prodqtde_active": "0",
+                          "subqtde": "2",
+                          "subqtde_active": "1",
+                          "published": "Y",
+                          "created": "2026-08-03 10:12:40",
+                          "lastupdate": "2026-08-05 18:02:11",
+                          "subcategories": {
+                            "category": [
+                              {
+                                "id": "13",
+                                "site_id": "582",
+                                "parent_id": "12",
+                                "parent_id_path": "12",
+                                "name": "Pizzas Salgadas",
+                                "friendly_url": "pizzas-salgadas",
+                                "friendly_url_path": "pizzas/pizzas-salgadas",
+                                "icon": null,
+                                "image": null,
+                                "description": null,
+                                "google_category": null,
+                                "cashback_multiplier": null,
+                                "result_order": "name ASC",
+                                "count": "0",
+                                "priority": "2",
+                                "prodqtde": "18",
+                                "prodqtde_active": "16",
+                                "subqtde": "0",
+                                "subqtde_active": "0",
+                                "published": "Y",
+                                "created": "2026-08-03 10:14:02",
+                                "lastupdate": "2026-08-03 10:20:15"
+                              },
+                              {
+                                "id": "14",
+                                "site_id": "582",
+                                "parent_id": "12",
+                                "parent_id_path": "12",
+                                "name": "Pizzas Doces",
+                                "friendly_url": "pizzas-doces",
+                                "friendly_url_path": "pizzas/pizzas-doces",
+                                "icon": null,
+                                "image": null,
+                                "description": null,
+                                "google_category": null,
+                                "cashback_multiplier": null,
+                                "result_order": "name ASC",
+                                "count": "0",
+                                "priority": "3",
+                                "prodqtde": "6",
+                                "prodqtde_active": "0",
+                                "subqtde": "0",
+                                "subqtde_active": "0",
+                                "published": "N",
+                                "created": "2026-08-03 10:14:30",
+                                "lastupdate": "2026-08-05 18:02:11"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "15",
+                          "site_id": "582",
+                          "parent_id": "0",
+                          "parent_id_path": null,
+                          "name": "Bebidas",
+                          "friendly_url": "bebidas",
+                          "friendly_url_path": null,
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": "name ASC",
+                          "count": "0",
+                          "priority": "4",
+                          "prodqtde": "12",
+                          "prodqtde_active": "12",
+                          "subqtde": "0",
+                          "subqtde_active": "0",
+                          "published": "Y",
+                          "created": "2026-08-03 10:15:51",
+                          "lastupdate": "2026-08-03 10:15:51"
+                        }
+                      ]
+                    },
+                    "description": "Em outra loja, a categoria Pizzas tem duas filhas, que vêm dentro de `subcategories.category` com os mesmos campos (e assim por diante, em todos os níveis). Em Pizzas, `subqtde` conta as subcategorias de todos os níveis abaixo e `subqtde_active` só as publicadas: Pizzas Doces está despublicada. Nas filhas, `parent_id_path` traz os ids das categorias acima e `friendly_url_path` o caminho de URLs amigáveis."
+                  },
+                  "200_Subcategorias_de_uma_categoria": {
+                    "summary": "200 Subcategorias de uma categoria",
+                    "value": {
+                      "categoria": [
+                        {
+                          "id": "13",
+                          "site_id": "582",
+                          "parent_id": "12",
+                          "parent_id_path": "12",
+                          "name": "Pizzas Salgadas",
+                          "friendly_url": "pizzas-salgadas",
+                          "friendly_url_path": "pizzas/pizzas-salgadas",
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": "name ASC",
+                          "count": "0",
+                          "priority": "2",
+                          "prodqtde": "18",
+                          "prodqtde_active": "16",
+                          "subqtde": "0",
+                          "subqtde_active": "0",
+                          "published": "Y",
+                          "created": "2026-08-03 10:14:02",
+                          "lastupdate": "2026-08-03 10:20:15"
+                        },
+                        {
+                          "id": "14",
+                          "site_id": "582",
+                          "parent_id": "12",
+                          "parent_id_path": "12",
+                          "name": "Pizzas Doces",
+                          "friendly_url": "pizzas-doces",
+                          "friendly_url_path": "pizzas/pizzas-doces",
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": "name ASC",
+                          "count": "0",
+                          "priority": "3",
+                          "prodqtde": "6",
+                          "prodqtde_active": "0",
+                          "subqtde": "0",
+                          "subqtde_active": "0",
+                          "published": "N",
+                          "created": "2026-08-03 10:14:30",
+                          "lastupdate": "2026-08-05 18:02:11"
+                        }
+                      ]
+                    },
+                    "description": "`parent_id=12` lista só as filhas diretas da categoria 12, publicadas ou não. Se a categoria não tiver filhas ou não existir, `categoria` vem vazia.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/categoria' \\\n  --url-query 'parent_id=12' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Alteradas_a_partir_de_uma_data": {
+                    "summary": "200 Alteradas a partir de uma data",
+                    "value": {
+                      "categoria": [
+                        {
+                          "id": "1",
+                          "site_id": "5095",
+                          "parent_id": "0",
+                          "parent_id_path": null,
+                          "name": "Picolés",
+                          "friendly_url": "picolas",
+                          "friendly_url_path": null,
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": null,
+                          "count": "0",
+                          "priority": "1",
+                          "prodqtde": "10",
+                          "prodqtde_active": "10",
+                          "subqtde": "0",
+                          "subqtde_active": "0",
+                          "published": "Y",
+                          "created": "2026-06-18 14:07:09",
+                          "lastupdate": "2026-07-17 09:35:21"
+                        },
+                        {
+                          "id": "6",
+                          "site_id": "5095",
+                          "parent_id": "0",
+                          "parent_id_path": null,
+                          "name": "Acompanhamentos",
+                          "friendly_url": "acompanhamentos",
+                          "friendly_url_path": null,
+                          "icon": null,
+                          "image": null,
+                          "description": null,
+                          "google_category": null,
+                          "cashback_multiplier": null,
+                          "result_order": null,
+                          "count": "0",
+                          "priority": "7",
+                          "prodqtde": "8",
+                          "prodqtde_active": "6",
+                          "subqtde": "0",
+                          "subqtde_active": "0",
+                          "published": "Y",
+                          "created": "2026-06-18 14:07:13",
+                          "lastupdate": "2026-07-03 15:22:54"
+                        }
+                      ]
+                    },
+                    "description": "`lastupdate_gte` traz as categorias alteradas a partir da data informada (aqui, desde 01/07/2026 00:00:00). Os filtros de data valem só para o nível listado: as subcategorias de uma categoria encontrada vêm todas.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/categoria' \\\n  --url-query 'lastupdate_gte=2026-07-01' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Data_sem_hora_no_lte": {
+                    "summary": "200 Data sem hora no _lte",
+                    "value": {
+                      "categoria": []
+                    },
+                    "description": "Data sem hora vale como meia-noite: `created_lte=2026-06-18` compara com `2026-06-18 00:00:00` e deixa de fora as categorias criadas ao longo do dia 18 (todas desta loja foram criadas às 14:07). Para incluir o dia inteiro, envie `2026-06-18 23:59:59`.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/categoria' \\\n  --url-query 'created_lte=2026-06-18' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -6852,6 +7268,7 @@
         "tags": [
           "Produto - Categoria"
         ],
+        "description": "<p>Busca uma categoria de produto pelo id. A resposta traz a categoria em <code>categorias.categoria</code>, com os mesmos campos de <a href=\"#tag/produto-categoria/GET/api/categoria\">Categoria Listagem</a>; se ela tiver filhas, elas vêm em <code>subcategories.category</code>.</p>\n\n<p>Se a categoria não existir, a API responde <code>422</code> com <code>status</code> <code>error</code>.</p>",
         "parameters": [
           {
             "name": "categoriaId",
@@ -7141,6 +7558,7 @@
         "tags": [
           "Produto - Marca"
         ],
+        "description": "<p>Lista as marcas (fabricantes) da loja, publicadas ou não, dentro de <code>marca</code>.</p>\n\n<ul>\n  <li>Não há filtros nem paginação: a resposta traz todas as marcas de uma vez.</li>\n  <li>A lista não vem ordenada por <code>priority</code>. Para exibir na ordem da loja, ordene pelo <code>priority</code> do seu lado.</li>\n</ul>\n\n<p>Campos de cada marca:</p>\n\n<ul>\n  <li><code>id</code>: id da marca, usado no <code>manufacturer_id</code> do produto.</li>\n  <li><code>site_id</code>: id da loja.</li>\n  <li><code>name</code>: nome, com até 50 caracteres.</li>\n  <li><code>image</code>: endereço da imagem da marca, em texto livre (a API não valida), ou <code>null</code>.</li>\n  <li><code>priority</code>: ordem de exibição.</li>\n  <li><code>published</code>: <code>Y</code> (publicada) ou <code>N</code> (despublicada).</li>\n</ul>\n\n<p>Para buscar uma marca pelo id, use <a href=\"#tag/produto-marca/GET/api/marca/{marcaId}\">Marca Detalhe</a>. Para listar os produtos de uma marca, use o filtro <code>marca</code> em <a href=\"#tag/produto/GET/api/produto\">Produto Listagem</a>.</p>",
         "parameters": [],
         "responses": {
           "200": {
@@ -7148,12 +7566,44 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Listar_marcas": {
+                    "summary": "200 Listar marcas",
+                    "value": {
+                      "marca": [
+                        {
+                          "id": "1",
+                          "site_id": "5095",
+                          "name": "Kibon",
+                          "image": null,
+                          "priority": "1",
+                          "published": "Y"
+                        },
+                        {
+                          "id": "2",
+                          "site_id": "5095",
+                          "name": "Nestlé",
+                          "image": null,
+                          "priority": "2",
+                          "published": "Y"
+                        },
+                        {
+                          "id": "3",
+                          "site_id": "5095",
+                          "name": "Fabricação própria",
+                          "image": null,
+                          "priority": "3",
+                          "published": "N"
+                        }
+                      ]
+                    },
+                    "description": "Todas as marcas da loja vêm de uma vez em `marca`, publicadas ou não: a terceira está despublicada (`published=N`)."
+                  },
+                  "200_Nenhuma_marca_cadastrada": {
+                    "summary": "200 Nenhuma marca cadastrada",
                     "value": {
                       "marca": []
                     },
-                    "description": "OK"
+                    "description": "Sem marcas cadastradas, `marca` vem como lista vazia."
                   }
                 }
               }
@@ -7184,6 +7634,7 @@
         "tags": [
           "Produto - Marca"
         ],
+        "description": "<p>Cria uma marca. Só <code>name</code> é obrigatório.</p>\n\n<ul>\n  <li>A marca é criada publicada (<code>published=Y</code>) e com <code>priority</code> igual ao maior da loja mais 1. A API ignora <code>priority</code> e <code>published</code> enviados no corpo.</li>\n  <li>Com <code>id</code>, a marca é criada com esse id. Se ele já existir, a API responde <code>422</code>.</li>\n  <li>A resposta é <code>201</code>, com a marca criada em <code>marca</code> e o endereço dela no header <code>Location</code>.</li>\n</ul>",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -7196,6 +7647,16 @@
                     "type": "string",
                     "description": "Nome da marca (obrigatorio, ate 50 caracteres)",
                     "example": "Ferrari"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Endereço da imagem da marca (opcional, texto livre)",
+                    "example": "https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.",
+                    "example": "10"
                   }
                 }
               },
@@ -7204,6 +7665,13 @@
                   "summary": "Marca Inserir",
                   "value": {
                     "name": "Ferrari"
+                  }
+                },
+                "422_Id_ja_existe": {
+                  "summary": "422 Id já existe",
+                  "value": {
+                    "name": "Kibon",
+                    "id": "1"
                   }
                 }
               }
@@ -7216,6 +7684,16 @@
                     "type": "string",
                     "description": "Nome da marca (obrigatorio, ate 50 caracteres)",
                     "example": "Ferrari"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Endereço da imagem da marca (opcional, texto livre)",
+                    "example": "https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.",
+                    "example": "10"
                   }
                 }
               },
@@ -7224,6 +7702,13 @@
                   "summary": "Marca Inserir",
                   "value": {
                     "name": "Ferrari"
+                  }
+                },
+                "422_Id_ja_existe": {
+                  "summary": "422 Id já existe",
+                  "value": {
+                    "name": "Kibon",
+                    "id": "1"
                   }
                 }
               }
@@ -7236,6 +7721,16 @@
                     "type": "string",
                     "description": "Nome da marca (obrigatorio, ate 50 caracteres)",
                     "example": "Ferrari"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Endereço da imagem da marca (opcional, texto livre)",
+                    "example": "https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Id da marca (opcional). Sem ele, o id é gerado; se já existir uma marca com esse id, a API responde 422.",
+                    "example": "10"
                   }
                 }
               },
@@ -7244,6 +7739,13 @@
                   "summary": "Marca Inserir",
                   "value": {
                     "name": "Ferrari"
+                  }
+                },
+                "422_Id_ja_existe": {
+                  "summary": "422 Id já existe",
+                  "value": {
+                    "name": "Kibon",
+                    "id": "1"
                   }
                 }
               }
@@ -7256,8 +7758,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "201_Response": {
-                    "summary": "201 Response",
+                  "201_Marca_criada": {
+                    "summary": "201 Marca criada",
                     "value": {
                       "status": "success",
                       "marca": {
@@ -7269,7 +7771,24 @@
                         "published": "Y"
                       }
                     },
-                    "description": "Created"
+                    "description": "A marca é criada publicada e vai para o fim da lista: `priority` é o maior da loja mais 1. O endereço da nova marca volta no header `Location` (`/api/marca/{id}`)."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
                   }
                 }
               }
@@ -7280,8 +7799,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_Nome_nao_informado": {
+                    "summary": "422 Nome não informado",
                     "value": {
                       "status": "error",
                       "errorlist": {
@@ -7290,7 +7809,19 @@
                         ]
                       }
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "`name` é obrigatório e tem até 50 caracteres."
+                  }
+                }
+              },
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Id_ja_existe": {
+                    "summary": "422 Id já existe",
+                    "value": {
+                      "status": "error",
+                      "msg": "ID já existe"
+                    },
+                    "description": "O `id` enviado já pertence a outra marca."
                   }
                 }
               }
@@ -7306,6 +7837,7 @@
         "tags": [
           "Produto - Marca"
         ],
+        "description": "<p>Busca uma marca pelo id. A resposta traz a marca em <code>marcas.marca</code>, com os mesmos campos de <a href=\"#tag/produto-marca/GET/api/marca\">Marca Listagem</a>.</p>\n\n<p>Se a marca não existir, a API responde <code>422</code> com <code>status</code> <code>error</code>.</p>",
         "parameters": [
           {
             "name": "marcaId",
@@ -7317,6 +7849,31 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "200_Marca_encontrada": {
+                    "summary": "200 Marca encontrada",
+                    "value": {
+                      "marcas": {
+                        "marca": {
+                          "id": "1",
+                          "site_id": "5095",
+                          "name": "Kibon",
+                          "image": null,
+                          "priority": "1",
+                          "published": "Y"
+                        }
+                      }
+                    },
+                    "description": "A marca vem em `marcas.marca`, como objeto (não como lista)."
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -7339,13 +7896,13 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_Marca_nao_encontrada": {
+                    "summary": "422 Marca não encontrada",
                     "value": {
                       "status": "error",
                       "msg": "Marca não informada, ou atributo \"id\" faltando."
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "O `marcaId` não existe na loja."
                   }
                 }
               }
@@ -7359,6 +7916,7 @@
         "tags": [
           "Produto - Marca"
         ],
+        "description": "<p>Altera uma marca. Envie só os campos que quer mudar (<code>name</code>, <code>image</code>, <code>priority</code>): os outros ficam como estão.</p>\n\n<p>A API não altera <code>published</code>. Se a marca não existir, ela responde <code>422</code>.</p>",
         "parameters": [
           {
             "name": "marcaId",
@@ -7381,6 +7939,16 @@
                     "type": "string",
                     "description": "Nome da marca (obrigatorio, ate 50 caracteres)",
                     "example": "OLA MEUS AMIIIGOS"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Endereço da imagem da marca (opcional, texto livre)",
+                    "example": "https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png"
+                  },
+                  "priority": {
+                    "type": "string",
+                    "description": "Ordem de exibição da marca (opcional)",
+                    "example": "1"
                   }
                 }
               },
@@ -7401,6 +7969,16 @@
                     "type": "string",
                     "description": "Nome da marca (obrigatorio, ate 50 caracteres)",
                     "example": "OLA MEUS AMIIIGOS"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Endereço da imagem da marca (opcional, texto livre)",
+                    "example": "https://minhaloja.pedizap.com.br/arquivos/marcas/kibon.png"
+                  },
+                  "priority": {
+                    "type": "string",
+                    "description": "Ordem de exibição da marca (opcional)",
+                    "example": "1"
                   }
                 }
               },
@@ -7421,12 +7999,29 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Marca_alterada": {
+                    "summary": "200 Marca alterada",
                     "value": {
                       "status": "success"
                     },
-                    "description": "OK"
+                    "description": "Só os campos enviados mudam; os outros ficam como estão."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
                   }
                 }
               }
@@ -7437,13 +8032,29 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_Marca_nao_encontrada": {
+                    "summary": "422 Marca não encontrada",
                     "value": {
                       "status": "error",
                       "msg": "Marca não informada, ou atributo \"id\" faltando."
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "O `marcaId` não existe na loja."
+                  }
+                }
+              },
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Nome_vazio": {
+                    "summary": "422 Nome vazio",
+                    "value": {
+                      "status": "error",
+                      "errorlist": {
+                        "name": [
+                          "Nome não informado"
+                        ]
+                      }
+                    },
+                    "description": "`name` não pode ficar vazio."
                   }
                 }
               }
@@ -7457,6 +8068,7 @@
         "tags": [
           "Produto - Marca"
         ],
+        "description": "<p>Remove a marca. A resposta é <code>204</code>, sem corpo.</p>\n\n<p>Os produtos da marca não são alterados: continuam com o <code>manufacturer_id</code> da marca removida. Para desvincular, edite os produtos antes.</p>",
         "parameters": [
           {
             "name": "marcaId",
@@ -7470,6 +8082,23 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
           },
           "422": {
             "description": "Unprocessable Entity"
@@ -7512,7 +8141,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Integer - Optional - Minimo de items a serem escolhidos (grupo.min >= min)",
+            "description": "Integer - Optional - Grupos com mínimo de itens maior ou igual a este (grupo.min >= min). 0 não filtra.",
             "example": "0"
           },
           {
@@ -7552,7 +8181,44 @@
             "schema": {
               "type": "string"
             },
+            "description": "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens.",
             "example": "new,items"
+          },
+          {
+            "name": "result_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - Coluna da ordenação (padrão `id`). Com `code`, ordena o SKU como número."
+          },
+          {
+            "name": "reverte_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boolean - Opcional - Com 1, inverte a ordenação (decrescente)."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Integer - Opcional - Grupos por página (padrão 200)."
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Integer - Opcional - Página da busca (padrão 1)."
           }
         ],
         "responses": {
@@ -7561,8 +8227,116 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Sem_filtros": {
+                    "summary": "200 Sem filtros",
+                    "value": {
+                      "status": "success",
+                      "pagina": 1,
+                      "totalRegistros": 2,
+                      "totalGeralRegistros": "2",
+                      "totalPaginas": 1,
+                      "registroInicio": 1,
+                      "registroFim": "2",
+                      "grupos": [
+                        {
+                          "id": "12",
+                          "site_id": "5095",
+                          "category": "Que tal um Adicional para deixar seu pedido ainda melhor?",
+                          "reference_id": "7590",
+                          "code": "adw",
+                          "min": "0",
+                          "max": "4",
+                          "rule": "",
+                          "required": "0",
+                          "priority": "0",
+                          "items": [
+                            {
+                              "id": "31",
+                              "site_id": "5095",
+                              "extras_category_id": "12",
+                              "name": "Adicionar Calabresa",
+                              "code": "456789",
+                              "desc": "",
+                              "price": "6",
+                              "limit_free": "0",
+                              "image": "",
+                              "published": "1",
+                              "priority": "0"
+                            },
+                            {
+                              "id": "32",
+                              "site_id": "5095",
+                              "extras_category_id": "12",
+                              "name": "Adicionar Hamburguer",
+                              "code": "12356",
+                              "desc": "",
+                              "price": "8.5",
+                              "limit_free": "0",
+                              "image": "",
+                              "published": "1",
+                              "priority": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "13",
+                          "site_id": "5095",
+                          "category": "Bordas recheadas",
+                          "reference_id": "7591",
+                          "code": "BORDA",
+                          "min": "0",
+                          "max": "1",
+                          "rule": "price_higher",
+                          "required": "1",
+                          "priority": "1",
+                          "items": [
+                            {
+                              "id": "33",
+                              "site_id": "5095",
+                              "extras_category_id": "13",
+                              "name": "Sem borda",
+                              "code": "BORDA-SEM",
+                              "desc": "",
+                              "price": "0",
+                              "limit_free": "0",
+                              "image": "",
+                              "published": "1",
+                              "priority": "0"
+                            },
+                            {
+                              "id": "34",
+                              "site_id": "5095",
+                              "extras_category_id": "13",
+                              "name": "Borda de Catupiry",
+                              "code": "BORDA-CAT",
+                              "desc": "",
+                              "price": "8",
+                              "limit_free": "0",
+                              "image": "",
+                              "published": "1",
+                              "priority": "1"
+                            },
+                            {
+                              "id": "35",
+                              "site_id": "5095",
+                              "extras_category_id": "13",
+                              "name": "Borda de Cheddar",
+                              "code": "BORDA-CHE",
+                              "desc": "Cheddar cremoso",
+                              "price": "8",
+                              "limit_free": "0",
+                              "image": "",
+                              "published": "1",
+                              "priority": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "description": "Todos os grupos da loja, por ordem de `id`. Com `returnLayout=new,items`, cada grupo vem com todos os campos e com os itens.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/complemento/categoria' \\\n  --url-query 'returnLayout=new,items' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Nenhum_grupo_encontrado": {
+                    "summary": "200 Nenhum grupo encontrado",
                     "value": {
                       "status": "success",
                       "pagina": 1,
@@ -7573,7 +8347,60 @@
                       "registroFim": 0,
                       "grupos": []
                     },
-                    "description": "OK"
+                    "description": "Nenhum grupo atende aos filtros: `grupos` vem vazia."
+                  },
+                  "200_Filtrar_por_nome": {
+                    "summary": "200 Filtrar por nome",
+                    "value": {
+                      "status": "success",
+                      "pagina": 1,
+                      "totalRegistros": 1,
+                      "totalGeralRegistros": "1",
+                      "totalPaginas": 1,
+                      "registroInicio": 1,
+                      "registroFim": "1",
+                      "grupos": [
+                        {
+                          "category": "Bordas recheadas",
+                          "reference_id": "7591",
+                          "min": "0",
+                          "max": "1",
+                          "rule": "price_higher",
+                          "required": true,
+                          "items": [
+                            {
+                              "name": "Sem borda",
+                              "code": "BORDA-SEM",
+                              "desc": "",
+                              "price": "0",
+                              "image": "",
+                              "published": true,
+                              "limitFree": 0
+                            },
+                            {
+                              "name": "Borda de Catupiry",
+                              "code": "BORDA-CAT",
+                              "desc": "",
+                              "price": "8",
+                              "image": "",
+                              "published": true,
+                              "limitFree": 0
+                            },
+                            {
+                              "name": "Borda de Cheddar",
+                              "code": "BORDA-CHE",
+                              "desc": "Cheddar cremoso",
+                              "price": "8",
+                              "image": "",
+                              "published": true,
+                              "limitFree": 0
+                            }
+                          ],
+                          "ref": "BORDA"
+                        }
+                      ]
+                    },
+                    "description": "`name` busca por parte do nome do grupo. Sem `returnLayout`, o grupo vem no formato padrão (`items`).\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/complemento/categoria' \\\n  --url-query 'name=Borda' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -8241,6 +9068,7 @@
         "tags": [
           "Produto - Complemento"
         ],
+        "description": "<p>Remove o grupo de complementos e todos os itens dele. Informe a referência do grupo em <code>reference_id</code>, no corpo JSON.</p>\n\n<p>A resposta é <code>204</code>, sem corpo. Sem <code>reference_id</code>, a API responde <code>422</code> com a mensagem do erro; se o grupo não existir, responde <code>422</code> sem corpo.</p>",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -8260,6 +9088,16 @@
                   "summary": "Complemento Remover",
                   "value": {
                     "reference_id": "74545"
+                  }
+                },
+                "422_Referencia_nao_informada": {
+                  "summary": "422 Referência não informada",
+                  "value": {}
+                },
+                "422_Grupo_nao_encontrado": {
+                  "summary": "422 Grupo não encontrado",
+                  "value": {
+                    "reference_id": "99999"
                   }
                 }
               }
@@ -8286,6 +9124,23 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Referencia_nao_informada": {
+                    "summary": "422 Referência não informada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Referência da categoria é obrigatória"
+                    },
+                    "description": "O corpo precisa ter a referência do grupo em `reference_id`."
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -8305,6 +9160,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "returnLayout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - Formato do grupo, separado por vírgula. Padrão `items`: grupo com os itens, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`. Com `new`, o grupo vem com todos os campos gravados (`id`, `code`, `priority`...), e com `new,items` também os itens."
           }
         ],
         "responses": {
@@ -8313,19 +9177,88 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Grupo_encontrado": {
+                    "summary": "200 Grupo encontrado",
                     "value": {
                       "status": "success",
-                      "pagina": 1,
-                      "totalRegistros": 0,
-                      "totalGeralRegistros": "0",
-                      "totalPaginas": 1,
-                      "registroInicio": 0,
-                      "registroFim": 0,
-                      "grupos": []
+                      "grupo": {
+                        "category": "Que tal um Adicional para deixar seu pedido ainda melhor?",
+                        "reference_id": "7590",
+                        "min": "0",
+                        "max": "4",
+                        "rule": "",
+                        "required": false,
+                        "items": [
+                          {
+                            "name": "Adicionar Calabresa",
+                            "code": "456789",
+                            "desc": "",
+                            "price": "6",
+                            "image": "",
+                            "published": true,
+                            "limitFree": 0
+                          },
+                          {
+                            "name": "Adicionar Hamburguer",
+                            "code": "12356",
+                            "desc": "",
+                            "price": "8.5",
+                            "image": "",
+                            "published": true,
+                            "limitFree": 0
+                          }
+                        ],
+                        "ref": "adw"
+                      }
                     },
-                    "description": "OK"
+                    "description": "Sem `returnLayout`, o grupo vem com os itens em `items`, sem ids, com `required` e `published` booleanos e o SKU do grupo em `ref`."
+                  },
+                  "200_Grupo_com_todos_os_campos": {
+                    "summary": "200 Grupo com todos os campos",
+                    "value": {
+                      "status": "success",
+                      "grupo": {
+                        "id": "12",
+                        "site_id": "5095",
+                        "category": "Que tal um Adicional para deixar seu pedido ainda melhor?",
+                        "reference_id": "7590",
+                        "code": "adw",
+                        "min": "0",
+                        "max": "4",
+                        "rule": "",
+                        "required": "0",
+                        "priority": "0",
+                        "items": [
+                          {
+                            "id": "31",
+                            "site_id": "5095",
+                            "extras_category_id": "12",
+                            "name": "Adicionar Calabresa",
+                            "code": "456789",
+                            "desc": "",
+                            "price": "6",
+                            "limit_free": "0",
+                            "image": "",
+                            "published": "1",
+                            "priority": "0"
+                          },
+                          {
+                            "id": "32",
+                            "site_id": "5095",
+                            "extras_category_id": "12",
+                            "name": "Adicionar Hamburguer",
+                            "code": "12356",
+                            "desc": "",
+                            "price": "8.5",
+                            "limit_free": "0",
+                            "image": "",
+                            "published": "1",
+                            "priority": "1"
+                          }
+                        ]
+                      }
+                    },
+                    "description": "`returnLayout=new,items` traz o grupo e os itens com todos os campos gravados, como na listagem.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/complemento/categoria/{categoriaRef}' \\\n  --url-query 'returnLayout=new,items' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -8353,13 +9286,13 @@
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_Grupo_nao_encontrado": {
+                    "summary": "422 Grupo não encontrado",
                     "value": {
                       "status": "error",
                       "msg": "Categoria não encontrada"
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "Não existe grupo de complementos com essa referência (`reference_id`)."
                   }
                 }
               }
@@ -8379,7 +9312,35 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/csv;charset=ISO-8859-1": {
+                "examples": {
+                  "200_CSV_dos_itens": {
+                    "summary": "200 CSV dos itens",
+                    "value": "\"code\";\"price\"\n\"456789\";\"6\"\n\"12356\";\"8.5\"\n\"BORDA-SEM\";\"0\"\n\"BORDA-CAT\";\"8\"\n\"BORDA-CHE\";\"8\"",
+                    "description": "Uma linha por item de complemento, com `code` e `price`, no mesmo formato aceito pelo POST."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -8401,7 +9362,7 @@
                   "csvdata": {
                     "type": "string",
                     "description": "String CSV (separador \";\"), 1a linha com o cabecalho: code e price (ambas obrigatorias)",
-                    "example": "123"
+                    "example": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
                   }
                 }
               },
@@ -8409,7 +9370,19 @@
                 "Complemento_CSV_Atualizar_preco_em_lote": {
                   "summary": "Complemento CSV - Atualizar preço em lote",
                   "value": {
-                    "csvdata": "123"
+                    "csvdata": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
+                  }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"price_promo\"\n\"456789\";\"6.00\";\"5.00\""
+                  }
+                },
+                "422_Sem_a_coluna_price": {
+                  "summary": "422 Sem a coluna price",
+                  "value": {
+                    "csvdata": "\"code\"\n\"456789\""
                   }
                 }
               }
@@ -8421,7 +9394,7 @@
                   "csvdata": {
                     "type": "string",
                     "description": "String CSV (separador \";\"), 1a linha com o cabecalho: code e price (ambas obrigatorias)",
-                    "example": "123"
+                    "example": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
                   }
                 }
               },
@@ -8429,7 +9402,19 @@
                 "Complemento_CSV_Atualizar_preco_em_lote": {
                   "summary": "Complemento CSV - Atualizar preço em lote",
                   "value": {
-                    "csvdata": "123"
+                    "csvdata": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
+                  }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"price_promo\"\n\"456789\";\"6.00\";\"5.00\""
+                  }
+                },
+                "422_Sem_a_coluna_price": {
+                  "summary": "422 Sem a coluna price",
+                  "value": {
+                    "csvdata": "\"code\"\n\"456789\""
                   }
                 }
               }
@@ -8441,7 +9426,7 @@
                   "csvdata": {
                     "type": "string",
                     "description": "String CSV (separador \";\"), 1a linha com o cabecalho: code e price (ambas obrigatorias)",
-                    "example": "123"
+                    "example": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
                   }
                 }
               },
@@ -8449,7 +9434,19 @@
                 "Complemento_CSV_Atualizar_preco_em_lote": {
                   "summary": "Complemento CSV - Atualizar preço em lote",
                   "value": {
-                    "csvdata": "123"
+                    "csvdata": "\"code\";\"price\"\n\"456789\";\"6.00\"\n\"12356\";\"8.50\""
+                  }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"price_promo\"\n\"456789\";\"6.00\";\"5.00\""
+                  }
+                },
+                "422_Sem_a_coluna_price": {
+                  "summary": "422 Sem a coluna price",
+                  "value": {
+                    "csvdata": "\"code\"\n\"456789\""
                   }
                 }
               }
@@ -8458,7 +9455,63 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "200_Precos_atualizados": {
+                    "summary": "200 Preços atualizados",
+                    "value": {
+                      "status": "success",
+                      "affectedRows": 0
+                    },
+                    "description": "Cada `code` atualiza o preço de todos os itens de complemento com esse SKU. `affectedRows` vem sempre 0 neste endpoint, mesmo quando os preços mudam."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Coluna_nao_permitida": {
+                    "summary": "422 Coluna não permitida",
+                    "value": {
+                      "status": "error",
+                      "msg": "Campo price_promo não é válido ou permitido."
+                    },
+                    "description": "O cabeçalho só aceita `code` e `price`."
+                  },
+                  "422_Sem_a_coluna_price": {
+                    "summary": "422 Sem a coluna price",
+                    "value": {
+                      "status": "error",
+                      "msg": "Campo price não informado."
+                    },
+                    "description": "`code` e `price` são obrigatórios no cabeçalho."
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -8783,18 +9836,65 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "200_Foto_encontrada": {
+                    "summary": "200 Foto encontrada",
+                    "value": {
+                      "photos": {
+                        "photo": [
+                          {
+                            "id": "5",
+                            "site_id": "5095",
+                            "product_id": "6",
+                            "description": null,
+                            "file_name": "photo_66a3425bdb1c5e.jpg",
+                            "file_name_import": null,
+                            "featured": "Y",
+                            "published": "Y",
+                            "priority": "1"
+                          }
+                        ]
+                      }
+                    },
+                    "description": "A foto vem em `photos.photo`, como lista de um item, com os mesmos campos de Galeria Listagem."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
           "422": {
             "description": "Unprocessable Entity",
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_Foto_nao_encontrada": {
+                    "summary": "422 Foto não encontrada",
                     "value": {
                       "status": "error",
                       "msg": "ID de foto ou produto não encontrado ou faltando."
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "A foto não existe ou é de outro produto."
                   }
                 }
               }
@@ -9168,6 +10268,18 @@
                   "value": {
                     "csvdata": "\"code\";\"price\";\"price_promo\";\"estoque_quantidade\"\n\"00000000000000000010\";\"124\";\"123\";\"32\""
                   }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"custo\"\n\"prod-000032\";\"6.50\";\"3.10\""
+                  }
+                },
+                "422_Colunas_e_valores_diferentes": {
+                  "summary": "422 Colunas e valores diferentes",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"estoque_quantidade\"\n\"prod-000032\";\"6.50\""
+                  }
                 }
               }
             },
@@ -9188,6 +10300,18 @@
                   "value": {
                     "csvdata": "\"code\";\"price\";\"price_promo\";\"estoque_quantidade\"\n\"00000000000000000010\";\"124\";\"123\";\"32\""
                   }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"custo\"\n\"prod-000032\";\"6.50\";\"3.10\""
+                  }
+                },
+                "422_Colunas_e_valores_diferentes": {
+                  "summary": "422 Colunas e valores diferentes",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"estoque_quantidade\"\n\"prod-000032\";\"6.50\""
+                  }
                 }
               }
             },
@@ -9207,6 +10331,18 @@
                   "summary": "CSV - Atualizar estoque e preço em lote",
                   "value": {
                     "csvdata": "\"code\";\"price\";\"price_promo\";\"estoque_quantidade\"\n\"00000000000000000010\";\"124\";\"123\";\"32\""
+                  }
+                },
+                "422_Coluna_nao_permitida": {
+                  "summary": "422 Coluna não permitida",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"custo\"\n\"prod-000032\";\"6.50\";\"3.10\""
+                  }
+                },
+                "422_Colunas_e_valores_diferentes": {
+                  "summary": "422 Colunas e valores diferentes",
+                  "value": {
+                    "csvdata": "\"code\";\"price\";\"estoque_quantidade\"\n\"prod-000032\";\"6.50\""
                   }
                 }
               }
@@ -9243,6 +10379,31 @@
                       "msg": "Chave de autenticação inválida."
                     },
                     "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Coluna_nao_permitida": {
+                    "summary": "422 Coluna não permitida",
+                    "value": {
+                      "status": "error",
+                      "msg": "Campo custo não é válido ou permitido."
+                    },
+                    "description": "O cabeçalho só aceita `code`, `price`, `price_promo` e `estoque_quantidade`."
+                  },
+                  "422_Colunas_e_valores_diferentes": {
+                    "summary": "422 Colunas e valores diferentes",
+                    "value": {
+                      "status": "error",
+                      "msg": "Quantidade de colunas não correspondem com a de valores."
+                    },
+                    "description": "A primeira linha de valores precisa ter a mesma quantidade de colunas do cabeçalho."
                   }
                 }
               }
@@ -9325,7 +10486,7 @@
         "tags": [
           "Tabela de Preço"
         ],
-        "description": "Cria uma nova tabela de preço no sistema.",
+        "description": "Cria uma nova tabela de preço no sistema.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -9366,6 +10527,15 @@
                   "summary": "Tabela Inserir",
                   "value": {
                     "name": "OLA MEUS AMIIIIGOS",
+                    "description": "awdadw",
+                    "price_fixed": "N",
+                    "products_fixed": "N",
+                    "price_perc": "32"
+                  }
+                },
+                "200_Nome_nao_informado": {
+                  "summary": "200 Nome não informado",
+                  "value": {
                     "description": "awdadw",
                     "price_fixed": "N",
                     "products_fixed": "N",
@@ -9415,6 +10585,15 @@
                     "products_fixed": "N",
                     "price_perc": "32"
                   }
+                },
+                "200_Nome_nao_informado": {
+                  "summary": "200 Nome não informado",
+                  "value": {
+                    "description": "awdadw",
+                    "price_fixed": "N",
+                    "products_fixed": "N",
+                    "price_perc": "32"
+                  }
                 }
               }
             },
@@ -9459,6 +10638,15 @@
                     "products_fixed": "N",
                     "price_perc": "32"
                   }
+                },
+                "200_Nome_nao_informado": {
+                  "summary": "200 Nome não informado",
+                  "value": {
+                    "description": "awdadw",
+                    "price_fixed": "N",
+                    "products_fixed": "N",
+                    "price_perc": "32"
+                  }
                 }
               }
             }
@@ -9470,8 +10658,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Tabela_criada": {
+                    "summary": "200 Tabela criada",
                     "value": {
                       "status": "success",
                       "priceTable": {
@@ -9487,7 +10675,18 @@
                         "rows": "0"
                       }
                     },
-                    "description": "OK"
+                    "description": "A tabela criada volta em `priceTable`, com HTTP 200 (não 201)."
+                  },
+                  "200_Nome_nao_informado": {
+                    "summary": "200 Nome não informado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados inválidos",
+                      "erros": [
+                        "Nome: Nome não informado"
+                      ]
+                    },
+                    "description": "`name` é obrigatório. Cada mensagem de `erros` vem como `Campo: mensagem`. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -9520,7 +10719,7 @@
         "tags": [
           "Tabela de Preço"
         ],
-        "description": "Lista todos os preços cadastradas dentro da tabela de preço.",
+        "description": "Lista todos os preços cadastradas dentro da tabela de preço.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -9537,8 +10736,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Tabela_encontrada": {
+                    "summary": "200 Tabela encontrada",
                     "value": {
                       "id": "1",
                       "site_id": "6",
@@ -9551,6 +10750,14 @@
                       "lastupdate_user": "1",
                       "rows": "33"
                     }
+                  },
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Tabela de preço não encontrada"
+                    },
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -9580,7 +10787,7 @@
         "tags": [
           "Tabela de Preço"
         ],
-        "description": "Atualiza as informações de uma tabela de preço já existente",
+        "description": "Atualiza as informações de uma tabela de preço já existente\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -9632,6 +10839,13 @@
                     "price_fixed": "Y",
                     "products_fixed": "Y"
                   }
+                },
+                "200_Nome_vazio": {
+                  "summary": "200 Nome vazio",
+                  "value": {
+                    "price_fixed": "Y",
+                    "products_fixed": "Y"
+                  }
                 }
               }
             },
@@ -9672,6 +10886,13 @@
                     "price_fixed": "Y",
                     "products_fixed": "Y"
                   }
+                },
+                "200_Nome_vazio": {
+                  "summary": "200 Nome vazio",
+                  "value": {
+                    "price_fixed": "Y",
+                    "products_fixed": "Y"
+                  }
                 }
               }
             }
@@ -9683,8 +10904,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Tabela_alterada": {
+                    "summary": "200 Tabela alterada",
                     "value": {
                       "status": "success",
                       "priceTable": {
@@ -9701,6 +10922,25 @@
                       }
                     },
                     "description": "OK"
+                  },
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Tabela de preço não encontrada"
+                    },
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+                  },
+                  "200_Nome_vazio": {
+                    "summary": "200 Nome vazio",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados inválidos",
+                      "erros": [
+                        "Nome: Nome não informado"
+                      ]
+                    },
+                    "description": "`name` é obrigatório. Cada mensagem de `erros` vem como `Campo: mensagem`. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -9731,7 +10971,7 @@
         "tags": [
           "Tabela de Preço"
         ],
-        "description": "Remove uma tabela de preço e os registros de preço vinculados a ela.",
+        "description": "Remove uma tabela de preço e os registros de preço vinculados a ela.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -9748,13 +10988,13 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
                     "value": {
                       "status": "error",
                       "msg": "Tabela de preço não encontrada"
                     },
-                    "description": "OK"
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -9790,7 +11030,7 @@
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "Lista todos os preços cadastradas dentro da tabela de preço.",
+        "description": "<p>Lista os preços cadastrados na tabela de preço, com o nome e o SKU de cada produto.</p>\n\n<ul>\n  <li>A resposta traz no máximo 50 preços, a primeira página: esta rota não lê <code>page</code> nem <code>limit</code>. Em <code>infoPager</code>, <code>totalRows</code> é o total de preços encontrados.</li>\n  <li><code>filter_string</code> filtra por parte do texto no id, no SKU (<code>code</code>) e no nome do produto, e no nome da tabela.</li>\n</ul>\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -9799,6 +11039,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "filter_string",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - Busca por parte do texto no id, no SKU (code) e no nome do produto, e no nome da tabela."
           }
         ],
         "responses": {
@@ -9807,8 +11056,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Precos_da_tabela": {
+                    "summary": "200 Preços da tabela",
                     "value": {
                       "status": "success",
                       "prices": [
@@ -10217,7 +11466,93 @@
                         "startRow": 1,
                         "endRow": "33"
                       }
-                    }
+                    },
+                    "description": "Os preços vêm do mais recente para o mais antigo, com o nome e o SKU do produto (`product_name`, `code`) e o nome da tabela (`pricetable_name`). `infoPager` traz a paginação: no máximo 50 preços por resposta."
+                  },
+                  "200_Buscar_por_produto": {
+                    "summary": "200 Buscar por produto",
+                    "value": {
+                      "status": "success",
+                      "prices": [
+                        {
+                          "id": "12",
+                          "site_id": "6",
+                          "pricetable_id": "1",
+                          "product_code": "fdb9427a",
+                          "product_id": "12",
+                          "price": "7.32",
+                          "price_promo": "0",
+                          "product_name": "Refrigerante Coca-Cola sem Açúcar 350 Ml",
+                          "code": "fdb9427a",
+                          "pricetable_name": "Filial Bauru"
+                        },
+                        {
+                          "id": "11",
+                          "site_id": "6",
+                          "pricetable_id": "1",
+                          "product_code": "5f904d58",
+                          "product_id": "11",
+                          "price": "12.54",
+                          "price_promo": "0",
+                          "product_name": "Coca-Cola sem Açúcar 1l",
+                          "code": "5f904d58",
+                          "pricetable_name": "Filial Bauru"
+                        },
+                        {
+                          "id": "10",
+                          "site_id": "6",
+                          "pricetable_id": "1",
+                          "product_code": "0fe147c5",
+                          "product_id": "10",
+                          "price": "12.54",
+                          "price_promo": "0",
+                          "product_name": "Coca-Cola Original 1l",
+                          "code": "0fe147c5",
+                          "pricetable_name": "Filial Bauru"
+                        },
+                        {
+                          "id": "9",
+                          "site_id": "6",
+                          "pricetable_id": "1",
+                          "product_code": "f3154c31",
+                          "product_id": "9",
+                          "price": "17.09",
+                          "price_promo": "0",
+                          "product_name": "Coca-Cola sem Açúcar 2l",
+                          "code": "f3154c31",
+                          "pricetable_name": "Filial Bauru"
+                        },
+                        {
+                          "id": "8",
+                          "site_id": "6",
+                          "pricetable_id": "1",
+                          "product_code": "537e4039",
+                          "product_id": "8",
+                          "price": "17.09",
+                          "price_promo": "0",
+                          "product_name": "Coca-Cola Original 2l",
+                          "code": "537e4039",
+                          "pricetable_name": "Filial Bauru"
+                        }
+                      ],
+                      "infoPager": {
+                        "itemsPerPage": 50,
+                        "totalRows": "5",
+                        "totalPages": 1,
+                        "currentPage": 1,
+                        "startRow": 1,
+                        "endRow": "5"
+                      }
+                    },
+                    "description": "`filter_string` busca por parte do texto no id, no SKU e no nome do produto, e também no nome da tabela (buscar `Bauru` traria todos os preços da tabela Filial Bauru).\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/pricetable/{precoId}/prices' \\\n  --url-query 'filter_string=Coca-Cola' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Tabela de preço não encontrada"
+                    },
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -10248,7 +11583,7 @@
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "Esse outro faz a edição simples, por registro, criando ou atualizando o registro conforme necessário.",
+        "description": "Esse outro faz a edição simples, por registro, criando ou atualizando o registro conforme necessário.\n\n<p>Sem <code>product_id</code> ou sem <code>price</code> (ou com <code>price</code> 0), nada é gravado e a resposta vem vazia, com HTTP <code>200</code>.</p>\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -10366,15 +11701,23 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Preco_gravado": {
+                    "summary": "200 Preço gravado",
                     "value": {
                       "status": "success",
                       "msg": "Operação realizada com sucesso",
                       "created_count": 0,
                       "updated_count": 1
                     },
-                    "description": "OK"
+                    "description": "O produto já tinha preço nesta tabela, então ele foi substituído (`updated_count` 1). Sem `price_promo`, a promoção fica 0."
+                  },
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Tabela de preço não encontrada"
+                    },
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -10407,7 +11750,7 @@
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "Detalha um registro específico de preço dentro da tabela.",
+        "description": "Detalha um registro específico de preço dentro da tabela.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -10432,8 +11775,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Preco_encontrado": {
+                    "summary": "200 Preço encontrado",
                     "value": {
                       "id": "1",
                       "site_id": "5095",
@@ -10444,6 +11787,14 @@
                       "price_promo": "0"
                     },
                     "description": "OK"
+                  },
+                  "200_Preco_nao_encontrado": {
+                    "summary": "200 Preço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Preço não encontrado"
+                    },
+                    "description": "O preço não existe ou é de outra tabela. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -10474,7 +11825,7 @@
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "Esse endpoint remove um registro de preço da tabela. Caso deseje remover vários registros em uma única requisição, use o metodo de edição JSON com o parâmetro removeAll e mande o array \"prices\" vazio.",
+        "description": "Esse endpoint remove um registro de preço da tabela. Caso deseje remover vários registros em uma única requisição, use o metodo de edição JSON com o parâmetro removeAll e mande o array \"prices\" vazio.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -10494,6 +11845,23 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "200_Preco_nao_encontrado": {
+                    "summary": "200 Preço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Preço não encontrado"
+                    },
+                    "description": "O preço não existe ou é de outra tabela. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+                  }
+                }
+              }
+            }
+          },
           "204": {
             "description": "No Content"
           },
@@ -10524,7 +11892,7 @@
         "tags": [
           "Tabela de Preço - Preços"
         ],
-        "description": "Este endpoint permite enviar um **JSON** contendo um array prices com múltiplos registros de preço, conforme o exemplo de payload abaixo.\n\nOpcionalmente, é possível incluir o parâmetro removeAll.\n\n- Quando removeAll for definido como **true**, todos os registros de preço existentes na tabela serão excluídos **antes** de importar os novos valores.",
+        "description": "Este endpoint permite enviar um **JSON** contendo um array prices com múltiplos registros de preço, conforme o exemplo de payload abaixo.\n\nOpcionalmente, é possível incluir o parâmetro removeAll.\n\n- Quando removeAll for definido como **true**, todos os registros de preço existentes na tabela serão excluídos **antes** de importar os novos valores.\n\n<p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>",
         "parameters": [
           {
             "name": "precoId",
@@ -10593,6 +11961,18 @@
                       }
                     ]
                   }
+                },
+                "200_Formato_invalido": {
+                  "summary": "200 Formato inválido",
+                  "value": {
+                    "removeAll": false,
+                    "prices": [
+                      {
+                        "product_id": 1970,
+                        "price": 235.57
+                      }
+                    ]
+                  }
                 }
               }
             },
@@ -10631,6 +12011,14 @@
                     "prices[3][product_id]": "1969",
                     "prices[3][price]": "235.56",
                     "prices[3][price_promo]": "0"
+                  }
+                },
+                "200_Formato_invalido": {
+                  "summary": "200 Formato inválido",
+                  "value": {
+                    "removeAll": "0",
+                    "prices[0][product_id]": "1970",
+                    "prices[0][price]": "235.57"
                   }
                 }
               }
@@ -10671,6 +12059,14 @@
                     "prices[3][price]": "235.56",
                     "prices[3][price_promo]": "0"
                   }
+                },
+                "200_Formato_invalido": {
+                  "summary": "200 Formato inválido",
+                  "value": {
+                    "removeAll": "0",
+                    "prices[0][product_id]": "1970",
+                    "prices[0][price]": "235.57"
+                  }
                 }
               }
             }
@@ -10682,15 +12078,31 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "200_Precos_gravados": {
+                    "summary": "200 Preços gravados",
                     "value": {
                       "status": "success",
                       "msg": "Operação realizada com sucesso",
                       "created_count": 4,
                       "updated_count": 0
                     },
-                    "description": "OK"
+                    "description": "`created_count` conta os produtos que ainda não tinham preço nesta tabela e `updated_count` os que já tinham (o preço é substituído)."
+                  },
+                  "200_Formato_invalido": {
+                    "summary": "200 Formato inválido",
+                    "value": {
+                      "status": "error",
+                      "msg": "Formato de objeto price dentro do JSON inválido."
+                    },
+                    "description": "Cada item de `prices` precisa ter `product_id`, `price` e `price_promo` (a API confere as chaves do primeiro item). A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+                  },
+                  "200_Tabela_nao_encontrada": {
+                    "summary": "200 Tabela não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Tabela de preço não encontrada"
+                    },
+                    "description": "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
                   }
                 }
               }
@@ -10723,6 +12135,7 @@
         "tags": [
           "Cliente"
         ],
+        "description": "<p>Lista os clientes da loja, do mais recente para o mais antigo, em páginas de 10 (até 100 com <code>limit</code>).</p>\n\n<ul>\n  <li>Todos os filtros são opcionais e se combinam (E).</li>\n  <li><code>q</code> faz uma busca textual nos dados do cliente; <code>alfa</code> filtra pela primeira letra do nome.</li>\n  <li><code>email</code> e <code>cpfcnpj</code> buscam o valor exato, sem diferenciar maiúsculas, e aceitam <code>%</code> como curinga.</li>\n  <li><code>nascimento</code> no formato <code>DD/MM</code> traz os aniversariantes do dia.</li>\n  <li><code>fields</code> escolhe os campos de cada cliente na resposta.</li>\n</ul>\n\n<p>Na resposta, <code>totalRegistros</code> conta os clientes desta página, <code>totalGeralRegistros</code> o total da busca e <code>totalPaginas</code> quantas páginas existem.</p>",
         "parameters": [
           {
             "name": "filter_tipo",
@@ -10761,13 +12174,58 @@
             "description": "ID do vendedor do cliente"
           },
           {
+            "name": "cpfcnpj",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga."
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga."
+          },
+          {
+            "name": "ativo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N)."
+          },
+          {
+            "name": "nascimento",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          },
+          {
             "name": "limit",
             "in": "query",
             "required": false,
             "schema": {
               "type": "string"
             },
-            "description": "Quantidade de resultados por página"
+            "description": "Quantidade de clientes por página (padrão 10, máximo 100)"
           },
           {
             "name": "page",
@@ -10777,6 +12235,42 @@
               "type": "string"
             },
             "description": "Número da página referente a paginação de resultados"
+          },
+          {
+            "name": "lastupdate_gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "lastupdate_lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "created_gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
+          },
+          {
+            "name": "created_lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`."
           }
         ],
         "responses": {
@@ -11324,6 +12818,50 @@
                       }
                     },
                     "description": "**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/cliente' \\\n  --url-query 'filter_tipo=1' \\\n  --url-query 'alfa=r' \\\n  --url-query 'vendedor=524' \\\n  --url-query 'page=2' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
+                  },
+                  "200_Filtrar_por_e_mail": {
+                    "summary": "200 Filtrar por e-mail",
+                    "value": {
+                      "pagina": 1,
+                      "totalRegistros": 2,
+                      "totalGeralRegistros": "2",
+                      "totalPaginas": 1,
+                      "registroInicio": 1,
+                      "registroFim": "2",
+                      "clientes": {
+                        "cliente": [
+                          {
+                            "id": "92",
+                            "cadastro_tipo": "1",
+                            "tipo_pessoa": "F",
+                            "nome": "Fulano da Silva",
+                            "cpfcnpj": "",
+                            "data_nascimento": null,
+                            "sexo": "M",
+                            "fone_ddd": "14",
+                            "fone": "981157879",
+                            "celular_ddd": "",
+                            "celular": "",
+                            "email": "emailcliente@provedor.com.br"
+                          },
+                          {
+                            "id": "74",
+                            "cadastro_tipo": "1",
+                            "tipo_pessoa": "F",
+                            "nome": "Fulano da Sílva",
+                            "cpfcnpj": "",
+                            "data_nascimento": null,
+                            "sexo": "",
+                            "fone_ddd": "18",
+                            "fone": "981157879",
+                            "celular_ddd": "",
+                            "celular": "",
+                            "email": "emailcliente@provedor.com.br"
+                          }
+                        ]
+                      }
+                    },
+                    "description": "`email` busca o e-mail exato, sem diferenciar maiúsculas. Dois cadastros usam o mesmo e-mail, então os dois vêm. O mesmo vale para `cpfcnpj`.\n\n**Requisição deste exemplo:**\n\n```bash\ncurl 'https://minhaloja.pedizap.com.br/api/cliente' \\\n  --url-query 'email=emailcliente@provedor.com.br' \\\n  --header 'Authorization: SUA_CHAVE'\n```"
                   }
                 }
               }
@@ -11578,6 +13116,27 @@
                       "msg": "Chave de autenticação inválida."
                     },
                     "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Nome_nao_informado": {
+                    "summary": "422 Nome não informado",
+                    "value": {
+                      "status": "error",
+                      "errorlist": {
+                        "nome": [
+                          "Por favor preencha o Nome"
+                        ]
+                      }
+                    },
+                    "description": "`nome` é sempre obrigatório. Outros campos podem ser obrigatórios conforme a configuração de cadastro da loja; cada campo com erro aparece em `errorlist`."
                   }
                 }
               }
@@ -11947,7 +13506,8 @@
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           },
           {
             "name": "lastid",
@@ -11957,6 +13517,15 @@
               "type": "string"
             },
             "description": "INT - Opcional - Retorna os pedidos com ID maior que o informado."
+          },
+          {
+            "name": "pedidoId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "INT - Opcional - Traz só o pedido com esse id."
           },
           {
             "name": "order",
@@ -11993,6 +13562,24 @@
               "type": "string"
             },
             "description": "STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data"
+          },
+          {
+            "name": "data_gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00."
+          },
+          {
+            "name": "data_lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00."
           },
           {
             "name": "lastupdate_gte",
@@ -12045,7 +13632,26 @@
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'."
+          },
+          {
+            "name": "pagto_metodo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo."
+          },
+          {
+            "name": "pagto_codigo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado."
           },
           {
             "name": "status",
@@ -12053,7 +13659,8 @@
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7)."
           },
           {
             "name": "limit",
@@ -12061,7 +13668,8 @@
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100)."
           }
         ],
         "responses": {
@@ -30351,6 +31959,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "returnLayout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "STRING - Opcional - Blocos de dados de cada pedido, separados por vírgula: `cliente` (objeto `cadastro`) e `itens`. Padrão: `cliente,itens`."
           }
         ],
         "responses": {
@@ -34524,6 +36141,13 @@
                     "value": {
                       "status": "success"
                     }
+                  },
+                  "200_Pedido_nao_encontrado": {
+                    "summary": "200 Pedido não encontrado",
+                    "value": {
+                      "status": "success"
+                    },
+                    "description": "A API responde `success` mesmo quando o `pedidoId` não existe: nada é alterado. Para confirmar a alteração, consulte o pedido em Pedido Detalhe."
                   }
                 }
               }
@@ -34567,6 +36191,23 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
           },
           "422": {
             "description": "Unprocessable Entity"
@@ -39957,6 +41598,25 @@
                   "config_PIX_CHAVE": {
                     "type": "string",
                     "description": "Chave PIX usada para recebimento via deposito/transferencia"
+                  },
+                  "frete": {
+                    "type": "string",
+                    "example": "gratis"
+                  }
+                }
+              },
+              "examples": {
+                "422_Campo_nao_aceito": {
+                  "summary": "422 Campo não aceito",
+                  "value": {
+                    "pagamento_metodos[]": "pix",
+                    "frete": "gratis"
+                  }
+                },
+                "422_Metodo_de_pagamento_inexistente": {
+                  "summary": "422 Método de pagamento inexistente",
+                  "value": {
+                    "pagamento_metodos[]": "bitcoin"
                   }
                 }
               }
@@ -39988,6 +41648,25 @@
                   "config_PIX_CHAVE": {
                     "type": "string",
                     "description": "Chave PIX usada para recebimento via deposito/transferencia"
+                  },
+                  "frete": {
+                    "type": "string",
+                    "example": "gratis"
+                  }
+                }
+              },
+              "examples": {
+                "422_Campo_nao_aceito": {
+                  "summary": "422 Campo não aceito",
+                  "value": {
+                    "pagamento_metodos[]": "pix",
+                    "frete": "gratis"
+                  }
+                },
+                "422_Metodo_de_pagamento_inexistente": {
+                  "summary": "422 Método de pagamento inexistente",
+                  "value": {
+                    "pagamento_metodos[]": "bitcoin"
                   }
                 }
               }
@@ -40019,6 +41698,25 @@
                   "config_PIX_CHAVE": {
                     "type": "string",
                     "description": "Chave PIX usada para recebimento via deposito/transferencia"
+                  },
+                  "frete": {
+                    "type": "string",
+                    "example": "gratis"
+                  }
+                }
+              },
+              "examples": {
+                "422_Campo_nao_aceito": {
+                  "summary": "422 Campo não aceito",
+                  "value": {
+                    "pagamento_metodos[]": "pix",
+                    "frete": "gratis"
+                  }
+                },
+                "422_Metodo_de_pagamento_inexistente": {
+                  "summary": "422 Método de pagamento inexistente",
+                  "value": {
+                    "pagamento_metodos[]": "bitcoin"
                   }
                 }
               }
@@ -40163,6 +41861,31 @@
                       "msg": "Chave de autenticação inválida."
                     },
                     "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "422_Campo_nao_aceito": {
+                    "summary": "422 Campo não aceito",
+                    "value": {
+                      "status": "error",
+                      "msg": "O corpo da requisição está incorreto. É aceito somente: pagamento_metodos, pagtoentrega_metodos, pagtoentrega_bandeiras_credito, pagtoentrega_bandeiras_debito, pagtoentrega_bandeiras_vale, config_PIX_CHAVE"
+                    },
+                    "description": "O corpo só aceita os campos listados na mensagem. Qualquer outro campo faz a requisição inteira ser recusada, sem gravar nada."
+                  },
+                  "422_Metodo_de_pagamento_inexistente": {
+                    "summary": "422 Método de pagamento inexistente",
+                    "value": {
+                      "status": "error",
+                      "msg": "Valor no pagamento_metodos não exite no sistema"
+                    },
+                    "description": "Cada valor de `pagamento_metodos` e de `pagtoentrega_metodos` precisa existir no sistema. Consulte os métodos em Tabela de métodos de pagamento (`GET /api/conf/ordermethods`)."
                   }
                 }
               }
@@ -40725,8 +42448,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_Response": {
-                  "summary": "200 Response",
+                "201_Servico_criado": {
+                  "summary": "201 Serviço criado",
                   "value": {
                     "nome": "opa",
                     "descricao": "awd",
@@ -40738,8 +42461,8 @@
                     "seguro_acrescimo": "12"
                   }
                 },
-                "200_Inserir_Entrega_por_Geolocalizacao": {
-                  "summary": "200 Inserir Entrega por Geolocalização",
+                "201_Entrega_por_geolocalizacao": {
+                  "summary": "201 Entrega por geolocalização",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -40753,8 +42476,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_inserir_Entrega_por_Geolocalizacao_com_Agendamento": {
-                  "summary": "200 inserir Entrega por Geolocalização com Agendamento",
+                "201_Entrega_por_geolocalizacao_com_agendamento": {
+                  "summary": "201 Entrega por geolocalização com agendamento",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -40766,6 +42489,34 @@
                     "agendamento_diasexibidos": "6",
                     "agendamento_maxdia": "10",
                     "agendamento_maxperiodo": "5",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
+                },
+                "422_Nome_nao_informado": {
+                  "summary": "422 Nome não informado",
+                  "value": {
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
+                },
+                "422_CEP_de_exclusao_invalido": {
+                  "summary": "422 CEP de exclusão inválido",
+                  "value": {
+                    "nome": "Serviço Geolocalização",
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "cep_exclusao": "1706328\n17064000|17063000",
                     "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
                     "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
                     "polygonsuspensa": "[]"
@@ -40891,8 +42642,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_Response": {
-                  "summary": "200 Response",
+                "201_Servico_criado": {
+                  "summary": "201 Serviço criado",
                   "value": {
                     "nome": "opa",
                     "descricao": "awd",
@@ -40904,8 +42655,8 @@
                     "seguro_acrescimo": "12"
                   }
                 },
-                "200_Inserir_Entrega_por_Geolocalizacao": {
-                  "summary": "200 Inserir Entrega por Geolocalização",
+                "201_Entrega_por_geolocalizacao": {
+                  "summary": "201 Entrega por geolocalização",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -40919,8 +42670,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_inserir_Entrega_por_Geolocalizacao_com_Agendamento": {
-                  "summary": "200 inserir Entrega por Geolocalização com Agendamento",
+                "201_Entrega_por_geolocalizacao_com_agendamento": {
+                  "summary": "201 Entrega por geolocalização com agendamento",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -40932,6 +42683,34 @@
                     "agendamento_diasexibidos": "6",
                     "agendamento_maxdia": "10",
                     "agendamento_maxperiodo": "5",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
+                },
+                "422_Nome_nao_informado": {
+                  "summary": "422 Nome não informado",
+                  "value": {
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
+                },
+                "422_CEP_de_exclusao_invalido": {
+                  "summary": "422 CEP de exclusão inválido",
+                  "value": {
+                    "nome": "Serviço Geolocalização",
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "cep_exclusao": "1706328\n17064000|17063000",
                     "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
                     "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
                     "polygonsuspensa": "[]"
@@ -41057,8 +42836,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_Response": {
-                  "summary": "200 Response",
+                "201_Servico_criado": {
+                  "summary": "201 Serviço criado",
                   "value": {
                     "nome": "opa",
                     "descricao": "awd",
@@ -41070,8 +42849,8 @@
                     "seguro_acrescimo": "12"
                   }
                 },
-                "200_Inserir_Entrega_por_Geolocalizacao": {
-                  "summary": "200 Inserir Entrega por Geolocalização",
+                "201_Entrega_por_geolocalizacao": {
+                  "summary": "201 Entrega por geolocalização",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -41085,8 +42864,8 @@
                     "polygonsuspensa": "[]"
                   }
                 },
-                "200_inserir_Entrega_por_Geolocalizacao_com_Agendamento": {
-                  "summary": "200 inserir Entrega por Geolocalização com Agendamento",
+                "201_Entrega_por_geolocalizacao_com_agendamento": {
+                  "summary": "201 Entrega por geolocalização com agendamento",
                   "value": {
                     "nome": "Serviço Geolocalização",
                     "zona_tipo": "polygon",
@@ -41102,19 +42881,47 @@
                     "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
                     "polygonsuspensa": "[]"
                   }
+                },
+                "422_Nome_nao_informado": {
+                  "summary": "422 Nome não informado",
+                  "value": {
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
+                },
+                "422_CEP_de_exclusao_invalido": {
+                  "summary": "422 CEP de exclusão inválido",
+                  "value": {
+                    "nome": "Serviço Geolocalização",
+                    "zona_tipo": "polygon",
+                    "retirada": "N",
+                    "peso_min": "0",
+                    "peso_max": "10",
+                    "ativo": "S",
+                    "cep_exclusao": "1706328\n17064000|17063000",
+                    "polygoncenter": "{\"lat\": -22.325147349455,\"lng\": -49.063353538513}",
+                    "polygonatendida": "[[{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292},{\"lat\":-22.305369023747357,\"lng\":-49.00442739442359},{\"lat\":-22.287976256016805,\"lng\":-49.01528280137725},{\"lat\":-22.27506687074185,\"lng\":-49.03191424972655},{\"lat\":-22.268197930308876,\"lng\":-49.05231574134652},{\"lat\":-22.268197930308876,\"lng\":-49.07402655525384},{\"lat\":-22.27506687074185,\"lng\":-49.09442804687381},{\"lat\":-22.287976256016805,\"lng\":-49.1110594952231},{\"lat\":-22.305369023747357,\"lng\":-49.12191490217677},{\"lat\":-22.325147349455285,\"lng\":-49.12568494544744},{\"lat\":-22.344925675163218,\"lng\":-49.12191490217677},{\"lat\":-22.362318442893766,\"lng\":-49.1110594952231},{\"lat\":-22.375227828168725,\"lng\":-49.09442804687381},{\"lat\":-22.382096768601695,\"lng\":-49.07402655525384},{\"lat\":-22.382096768601695,\"lng\":-49.05231574134652},{\"lat\":-22.375227828168725,\"lng\":-49.03191424972655},{\"lat\":-22.362318442893766,\"lng\":-49.01528280137725},{\"lat\":-22.344925675163218,\"lng\":-49.00442739442359},{\"lat\":-22.325147349455285,\"lng\":-49.00065735115292}]]",
+                    "polygonsuspensa": "[]"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "201_Servico_criado": {
+                    "summary": "201 Serviço criado",
                     "value": {
                       "status": "success",
                       "servico": {
@@ -41149,18 +42956,9 @@
                         "cep_exclusao": ""
                       }
                     }
-                  }
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "200_Inserir_Entrega_por_Geolocalizacao": {
-                    "summary": "200 Inserir Entrega por Geolocalização",
+                  },
+                  "201_Entrega_por_geolocalizacao": {
+                    "summary": "201 Entrega por geolocalização",
                     "value": {
                       "status": "success",
                       "servico": {
@@ -41278,8 +43076,8 @@
                       }
                     }
                   },
-                  "200_inserir_Entrega_por_Geolocalizacao_com_Agendamento": {
-                    "summary": "200 inserir Entrega por Geolocalização com Agendamento",
+                  "201_Entrega_por_geolocalizacao_com_agendamento": {
+                    "summary": "201 Entrega por geolocalização com agendamento",
                     "value": {
                       "status": "success",
                       "servico": {
@@ -41412,6 +43210,42 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "422_Nome_nao_informado": {
+                    "summary": "422 Nome não informado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados invalidos.",
+                      "errorlist": {
+                        "nome": [
+                          "Desculpe, nome não preenchido !"
+                        ]
+                      }
+                    },
+                    "description": "`nome` é obrigatório. Cada campo com erro aparece em `errorlist`."
+                  },
+                  "422_CEP_de_exclusao_invalido": {
+                    "summary": "422 CEP de exclusão inválido",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados invalidos.",
+                      "errorlist": {
+                        "cep_exclusao": [
+                          "Linha 1: CEP \"1706328\" invalido.",
+                          "Linha 2: a faixa de CEP e invalida."
+                        ]
+                      }
+                    },
+                    "description": "Cada linha de `cep_exclusao` tem um CEP (`NNNNN-NNN` ou `NNNNNNNN`) ou uma faixa `cepInicial|cepFinal`, com o inicial menor que o final. Cada linha inválida gera uma mensagem."
                   }
                 }
               }
@@ -41630,6 +43464,12 @@
                     "zona_tipo": "bairro_custom"
                   }
                 },
+                "200_Servico_alterado": {
+                  "summary": "200 Serviço alterado",
+                  "value": {
+                    "nome": "Motoboy Centro"
+                  }
+                },
                 "401_Response": {
                   "summary": "401 Response",
                   "value": {
@@ -41731,6 +43571,12 @@
                     "zona_tipo": "bairro_custom"
                   }
                 },
+                "200_Servico_alterado": {
+                  "summary": "200 Serviço alterado",
+                  "value": {
+                    "nome": "Motoboy Centro"
+                  }
+                },
                 "401_Response": {
                   "summary": "401 Response",
                   "value": {
@@ -41743,6 +43589,53 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "200_Servico_alterado": {
+                    "summary": "200 Serviço alterado",
+                    "value": {
+                      "status": "success",
+                      "servico": {
+                        "id": "18",
+                        "site_id": "582",
+                        "nome": "Motoboy Centro",
+                        "descricao": "",
+                        "icon": "",
+                        "zona_tipo": "cep",
+                        "km_cep_origem": "",
+                        "retirada": "N",
+                        "retirada_endereco": "",
+                        "polygonatendida": null,
+                        "polygonsuspensa": null,
+                        "polygoncenter": null,
+                        "peso_min": "0",
+                        "peso_max": "50",
+                        "aceita_volumosos": "S",
+                        "comprimento_max": "0",
+                        "largura_max": "0",
+                        "altura_max": "0",
+                        "soma_max": "0",
+                        "ativo": "N",
+                        "calcular_cubagem": "N",
+                        "fator_cubagem": "0",
+                        "seguro": "N",
+                        "seguro_acrescimo": "50",
+                        "agendamento": "N",
+                        "agendamento_diasexibidos": "0",
+                        "agendamento_maxdia": "0",
+                        "agendamento_maxperiodo": "0",
+                        "cep_exclusao": null
+                      }
+                    },
+                    "description": "Só os campos enviados mudam; os outros ficam como estão. A resposta traz o serviço inteiro, já alterado. Se o serviço já tem zonas cadastradas, `zona_tipo` não muda: o valor enviado é ignorado."
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -41827,6 +43720,23 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
                   }
                 }
               }
@@ -42111,6 +44021,23 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -42205,6 +44132,17 @@
                     "frete_gratis_produtoregra": "N",
                     "produtoregra": "N"
                   }
+                },
+                "422_Prazo_nao_informado": {
+                  "summary": "422 Prazo não informado",
+                  "value": {
+                    "nome": "Ate 2 Km",
+                    "km": "2",
+                    "valor": "5.0",
+                    "prazo_unidade": "minuto",
+                    "frete_gratis_produtoregra": "N",
+                    "produtoregra": "N"
+                  }
                 }
               }
             },
@@ -42276,6 +44214,17 @@
                     "km": "2",
                     "valor": "5.0",
                     "prazo_qtde": "75",
+                    "prazo_unidade": "minuto",
+                    "frete_gratis_produtoregra": "N",
+                    "produtoregra": "N"
+                  }
+                },
+                "422_Prazo_nao_informado": {
+                  "summary": "422 Prazo não informado",
+                  "value": {
+                    "nome": "Ate 2 Km",
+                    "km": "2",
+                    "valor": "5.0",
                     "prazo_unidade": "minuto",
                     "frete_gratis_produtoregra": "N",
                     "produtoregra": "N"
@@ -42355,19 +44304,30 @@
                     "frete_gratis_produtoregra": "N",
                     "produtoregra": "N"
                   }
+                },
+                "422_Prazo_nao_informado": {
+                  "summary": "422 Prazo não informado",
+                  "value": {
+                    "nome": "Ate 2 Km",
+                    "km": "2",
+                    "valor": "5.0",
+                    "prazo_unidade": "minuto",
+                    "frete_gratis_produtoregra": "N",
+                    "produtoregra": "N"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "201_Zona_criada": {
+                    "summary": "201 Zona criada",
                     "value": {
                       "status": "success",
                       "zona": {
@@ -42395,7 +44355,64 @@
                         "valor_fixo": "S",
                         "valor": "5"
                       }
-                    }
+                    },
+                    "description": "Em serviço por distância (`zona_tipo` `km` ou `polygon`), o nome da zona é sempre gerado pela distância (`Ate 2 KM`): o `nome` enviado é ignorado."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "422_Prazo_nao_informado": {
+                    "summary": "422 Prazo não informado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados invalidos.",
+                      "errorlist": {
+                        "prazo_qtde": [
+                          "Prazo inválido !"
+                        ]
+                      }
+                    },
+                    "description": "`prazo_qtde`, `prazo_unidade` e `produtoregra` são obrigatórios em todo tipo de zona. Os outros campos obrigatórios dependem do `zona_tipo` do serviço (ex.: `cep_ini` e `cep_fim` na zona por CEP, `bairro_id` na zona por bairro)."
                   }
                 }
               }
@@ -42481,6 +44498,23 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Zona_nao_encontrada": {
+                    "summary": "404 Zona não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Zona nao encontrada."
+                    },
+                    "description": "A zona não existe nesse serviço. Se o próprio serviço não existir, a mensagem é `Servico nao encontrado.`"
                   }
                 }
               }
@@ -42674,11 +44708,37 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "text/html": {
+              "application/json": {
                 "examples": {
-                  "404_Response": {
-                    "summary": "404 Response",
-                    "value": "<html>\n    <head>\n        <title>404 Not Found</title>\n    </head>\n    <body bgcolor=\"white\">\n        <center>\n            <h1>404 Not Found</h1>\n        </center>\n        <hr>\n            <center>nginx/1.14.1</center>\n        </hr>\n    </body>\n</html>"
+                  "404_Zona_nao_encontrada": {
+                    "summary": "404 Zona não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Zona nao encontrada."
+                    },
+                    "description": "A zona não existe nesse serviço. Se o próprio serviço não existir, a mensagem é `Servico nao encontrado.`"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "422_Prazo_vazio": {
+                    "summary": "422 Prazo vazio",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados invalidos.",
+                      "errorlist": {
+                        "prazo_qtde": [
+                          "Prazo inválido !"
+                        ]
+                      }
+                    },
+                    "description": "`prazo_qtde` é obrigatório e não pode ser apagado. Cada campo com erro aparece em `errorlist`."
                   }
                 }
               }
@@ -42725,6 +44785,23 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Zona_nao_encontrada": {
+                    "summary": "404 Zona não encontrada",
+                    "value": {
+                      "status": "error",
+                      "msg": "Zona nao encontrada."
+                    },
+                    "description": "A zona não existe nesse serviço. Se o próprio serviço não existir, a mensagem é `Servico nao encontrado.`"
                   }
                 }
               }
@@ -42806,6 +44883,12 @@
                       }
                     ]
                   }
+                },
+                "422_bairros_nao_e_uma_lista": {
+                  "summary": "422 bairros não é uma lista",
+                  "value": {
+                    "bairros": "[{\"bairro_id\":123,\"valor\":8}]"
+                  }
                 }
               }
             },
@@ -42847,6 +44930,12 @@
                     "bairros[0][frete_gratis]": "N",
                     "bairros[0][frete_gratis_minimo]": "0",
                     "bairros[0][valor]": "8"
+                  }
+                },
+                "422_bairros_nao_e_uma_lista": {
+                  "summary": "422 bairros não é uma lista",
+                  "value": {
+                    "bairros": "[{\"bairro_id\":123,\"valor\":8}]"
                   }
                 }
               }
@@ -42890,6 +44979,12 @@
                     "bairros[0][frete_gratis_minimo]": "0",
                     "bairros[0][valor]": "8"
                   }
+                },
+                "422_bairros_nao_e_uma_lista": {
+                  "summary": "422 bairros não é uma lista",
+                  "value": {
+                    "bairros": "[{\"bairro_id\":123,\"valor\":8}]"
+                  }
                 }
               }
             }
@@ -42923,6 +45018,40 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "422_bairros_nao_e_uma_lista": {
+                    "summary": "422 bairros não é uma lista",
+                    "value": {
+                      "status": "error",
+                      "msg": "Campo \"bairros\" e obrigatorio e deve ser um array."
+                    },
+                    "description": "`bairros` precisa ser uma lista JSON. Aqui ela foi enviada como texto (a lista dentro de uma string)."
                   }
                 }
               }
@@ -43111,11 +45240,15 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "text/html": {
+              "application/json": {
                 "examples": {
-                  "404_Response": {
-                    "summary": "404 Response",
-                    "value": "<html>\n    <head>\n        <title>404 Not Found</title>\n    </head>\n    <body bgcolor=\"white\">\n        <center>\n            <h1>404 Not Found</h1>\n        </center>\n        <hr>\n            <center>nginx/1.14.1</center>\n        </hr>\n    </body>\n</html>"
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
                   }
                 }
               }
@@ -45794,14 +47927,35 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
-              "text/html": {
+              "application/json": {
                 "examples": {
-                  "404_Response": {
-                    "summary": "404 Response",
-                    "value": "<html>\n    <head>\n        <title>404 Not Found</title>\n    </head>\n    <body bgcolor=\"white\">\n        <center>\n            <h1>404 Not Found</h1>\n        </center>\n        <hr>\n            <center>nginx/1.14.1</center>\n        </hr>\n    </body>\n</html>"
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
                   }
                 }
               }
@@ -45930,6 +48084,40 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -46016,6 +48204,14 @@
                     "hora_fim": "22:00",
                     "descricao": "awdawdadwadwadw"
                   }
+                },
+                "422_Descricao_curta": {
+                  "summary": "422 Descrição curta",
+                  "value": {
+                    "hora_ini": "21:00",
+                    "hora_fim": "22:00",
+                    "descricao": "ab"
+                  }
                 }
               }
             },
@@ -46082,6 +48278,14 @@
                   "value": {
                     "hora_fim": "22:00",
                     "descricao": "awdawdadwadwadw"
+                  }
+                },
+                "422_Descricao_curta": {
+                  "summary": "422 Descrição curta",
+                  "value": {
+                    "hora_ini": "21:00",
+                    "hora_fim": "22:00",
+                    "descricao": "ab"
                   }
                 }
               }
@@ -46150,19 +48354,27 @@
                     "hora_fim": "22:00",
                     "descricao": "awdawdadwadwadw"
                   }
+                },
+                "422_Descricao_curta": {
+                  "summary": "422 Descrição curta",
+                  "value": {
+                    "hora_ini": "21:00",
+                    "hora_fim": "22:00",
+                    "descricao": "ab"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "examples": {
-                  "200_Response": {
-                    "summary": "200 Response",
+                  "201_Periodo_criado": {
+                    "summary": "201 Período criado",
                     "value": {
                       "status": "success",
                       "periodo": {
@@ -46182,7 +48394,8 @@
                         "published": "Y",
                         "priority": "0"
                       }
-                    }
+                    },
+                    "description": "O período entra no fim da agenda do serviço (`priority` é o maior mais 1) e publicado, a não ser que `published=N` seja enviado."
                   }
                 }
               }
@@ -46199,6 +48412,45 @@
                       "status": "401",
                       "msg": "Chave de autenticação inválida."
                     }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404_Servico_nao_encontrado": {
+                    "summary": "404 Serviço não encontrado",
+                    "value": {
+                      "status": "error",
+                      "msg": "Servico nao encontrado."
+                    },
+                    "description": "Não existe serviço de entrega com esse `servicoId` na loja."
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "422_Descricao_curta": {
+                    "summary": "422 Descrição curta",
+                    "value": {
+                      "status": "error",
+                      "msg": "Dados invalidos.",
+                      "errorlist": {
+                        "descricao": [
+                          "Deve ter de 3 até 100 caractéres."
+                        ]
+                      }
+                    },
+                    "description": "`descricao` precisa ter de 3 a 100 caracteres, e `hora_ini` e `hora_fim` vão no formato `HH:mm`."
                   }
                 }
               }
@@ -47171,7 +49423,7 @@
                   "200_Response": {
                     "summary": "200 Response",
                     "value": {
-                      "msg": "A Webhook foi salvo com sucesso!",
+                      "msg": "Destino de evento salvo com sucesso!",
                       "status": "success"
                     },
                     "description": "OK"
@@ -47309,7 +49561,7 @@
         "tags": [
           "Configuração - Webhook"
         ],
-        "description": "Endpoint para editar os webhooks.",
+        "description": "<p>Altera um webhook. Envie só os campos que quer mudar (<code>webhook_url</code>, <code>module_ids</code>, <code>actived</code>): os outros ficam como estão.</p>\n\n<p>Não envie <code>webhook_url</code> vazio, porque a API recusa com <code>422</code>. Se o <code>webhookId</code> não existir, a resposta também é <code>422</code>.</p>",
         "parameters": [
           {
             "name": "webhookId",
@@ -47341,6 +49593,16 @@
                     "description": "\"Y\" (ativo) ou \"N\" (inativo)"
                   }
                 }
+              },
+              "examples": {
+                "200_Webhook_alterado": {
+                  "summary": "200 Webhook alterado",
+                  "value": {
+                    "webhook_url": "https://meusistema.com.br/webhook/pedizap",
+                    "module_ids": "11",
+                    "actived": "Y"
+                  }
+                }
               }
             },
             "application/x-www-form-urlencoded": {
@@ -47360,18 +49622,62 @@
                     "description": "\"Y\" (ativo) ou \"N\" (inativo)"
                   }
                 }
+              },
+              "examples": {
+                "200_Webhook_alterado": {
+                  "summary": "200 Webhook alterado",
+                  "value": {
+                    "webhook_url": "https://meusistema.com.br/webhook/pedizap",
+                    "module_ids": "11",
+                    "actived": "Y"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "200_Webhook_alterado": {
+                    "summary": "200 Webhook alterado",
+                    "value": {
+                      "msg": "Destino de evento salvo com sucesso!",
+                      "status": "success"
+                    },
+                    "description": "Só os campos enviados mudam. A URL continua precisando ser única entre os webhooks da loja."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/json;charset=UTF-8": {
+                "examples": {
+                  "401_Response": {
+                    "summary": "401 Response",
+                    "value": {
+                      "status": "401",
+                      "msg": "Chave de autenticação inválida."
+                    },
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
           "422": {
             "description": "Unprocessable Entity",
             "content": {
               "text/json;charset=UTF-8": {
                 "examples": {
-                  "422_Response": {
-                    "summary": "422 Response",
+                  "422_URL_vazia": {
+                    "summary": "422 URL vazia",
                     "value": {
                       "status": "error",
                       "msg": "Não foi possivel validar o PUT!",
@@ -47379,7 +49685,15 @@
                         "webhook_url": "URL obrigatoria para destino push."
                       }
                     },
-                    "description": "Unprocessable Entity"
+                    "description": "`webhook_url` enviado vazio. Para não mudar a URL, não envie o campo."
+                  },
+                  "422_Webhook_nao_encontrado": {
+                    "summary": "422 Webhook não encontrado",
+                    "value": {
+                      "msg": "Nao existe destino de evento com o ID informado",
+                      "status": "error"
+                    },
+                    "description": "O `webhookId` não existe na loja."
                   }
                 }
               }

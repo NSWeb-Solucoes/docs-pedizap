@@ -34,15 +34,60 @@ http:
       type: query
       description: ID do vendedor do cliente
       disabled: true
+    - name: cpfcnpj
+      value: "12345678909"
+      type: query
+      description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+      disabled: true
+    - name: email
+      value: emailcliente@provedor.com.br
+      type: query
+      description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+      disabled: true
+    - name: ativo
+      value: S
+      type: query
+      description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+      disabled: true
+    - name: nascimento
+      value: 25/12
+      type: query
+      description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+      disabled: true
+    - name: fields
+      value: id,nome,email,celular_ddd,celular
+      type: query
+      description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+      disabled: true
     - name: limit
       value: ""
       type: query
-      description: Quantidade de resultados por página
+      description: Quantidade de clientes por página (padrão 10, máximo 100)
       disabled: true
     - name: page
       value: "2"
       type: query
       description: Número da página referente a paginação de resultados
+      disabled: true
+    - name: lastupdate_gte
+      value: 2026-07-01
+      type: query
+      description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: lastupdate_lte
+      value: 2026-07-31 23:59:59
+      type: query
+      description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: created_gte
+      value: 2026-07-01
+      type: query
+      description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+      disabled: true
+    - name: created_lte
+      value: 2026-07-31 23:59:59
+      type: query
+      description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
       disabled: true
   auth: inherit
 
@@ -80,15 +125,60 @@ examples:
           value: "524"
           type: query
           description: ID do vendedor do cliente
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+          disabled: true
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
         - name: limit
           value: ""
           type: query
-          description: Quantidade de resultados por página
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
           disabled: true
         - name: page
           value: "2"
           type: query
           description: Número da página referente a paginação de resultados
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
     response:
       status: 200
       statusText: OK
@@ -125,15 +215,60 @@ examples:
           value: "524"
           type: query
           description: ID do vendedor do cliente
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+          disabled: true
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
         - name: limit
           value: ""
           type: query
-          description: Quantidade de resultados por página
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
           disabled: true
         - name: page
           value: "2"
           type: query
           description: Número da página referente a paginação de resultados
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
     response:
       status: 200
       statusText: OK
@@ -170,15 +305,60 @@ examples:
           value: "524"
           type: query
           description: ID do vendedor do cliente
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+          disabled: true
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
         - name: limit
           value: ""
           type: query
-          description: Quantidade de resultados por página
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
           disabled: true
         - name: page
           value: "2"
           type: query
           description: Número da página referente a paginação de resultados
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
     response:
       status: 200
       statusText: OK
@@ -215,15 +395,60 @@ examples:
           value: "524"
           type: query
           description: ID do vendedor do cliente
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+          disabled: true
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
         - name: limit
           value: ""
           type: query
-          description: Quantidade de resultados por página
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
           disabled: true
         - name: page
           value: "2"
           type: query
           description: Número da página referente a paginação de resultados
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
     response:
       status: 200
       statusText: OK
@@ -233,6 +458,100 @@ examples:
       body:
         type: text
         data: '{"pagina":2,"totalRegistros":10,"totalGeralRegistros":"29","totalPaginas":3,"registroInicio":11,"registroFim":20,"clientes":{"cliente":[{"id":"74","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da S\u00edlva","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"18","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"},{"id":"71","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Carlos Gardel","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"996415347","email":null},{"id":"70","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Thiago Pilastre","cpfcnpj":null,"data_nascimento":null,"sexo":"M","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"997799538","email":null},{"id":"69","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Jose NS","cpfcnpj":null,"data_nascimento":null,"sexo":"O","fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"991046924","email":null},{"id":"68","cadastro_tipo":"0","tipo_pessoa":"F","nome":"craudete","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"35","celular":"99401023","email":""},{"id":"67","cadastro_tipo":"1","tipo_pessoa":"","nome":"Craudin","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"","fone":"","celular_ddd":"","celular":"","email":""},{"id":"63","cadastro_tipo":null,"tipo_pessoa":"J","nome":"Bruno","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998749808","email":null},{"id":"61","cadastro_tipo":null,"tipo_pessoa":"F","nome":null,"cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"91","celular":"984645268","email":null},{"id":"60","cadastro_tipo":null,"tipo_pessoa":"F","nome":"Junior","cpfcnpj":null,"data_nascimento":null,"sexo":null,"fone_ddd":null,"fone":null,"celular_ddd":"14","celular":"998961404","email":null},{"id":"59","cadastro_tipo":"0","tipo_pessoa":"F","nome":"Humberto","cpfcnpj":"","data_nascimento":null,"sexo":"M","fone_ddd":"","fone":"","celular_ddd":"55","celular":"96752216","email":"contato@nsweb.com.br"}]}}'
+  - name: 200 Filtrar por e-mail
+    description: "`email` busca o e-mail exato, sem diferenciar maiúsculas. Dois cadastros usam o mesmo e-mail, então os dois vêm. O mesmo vale para `cpfcnpj`."
+    request:
+      url: "{{proto}}://{{domain}}/api/cliente"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: filter_tipo
+          value: "1"
+          type: query
+          description: Filtrando o ID do tipo de cadastro
+          disabled: true
+        - name: q
+          value: ""
+          type: query
+          description: Pesquisa textual nos dados do cliente.
+          disabled: true
+        - name: alfa
+          value: r
+          type: query
+          description: "Primeira letra do nome a ser pesquisado. Ex: a"
+          disabled: true
+        - name: vendedor
+          value: "524"
+          type: query
+          description: ID do vendedor do cliente
+          disabled: true
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
+        - name: limit
+          value: ""
+          type: query
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
+          disabled: true
+        - name: page
+          value: "2"
+          type: query
+          description: Número da página referente a paginação de resultados
+          disabled: true
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"pagina":1,"totalRegistros":2,"totalGeralRegistros":"2","totalPaginas":1,"registroInicio":1,"registroFim":"2","clientes":{"cliente":[{"id":"92","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da Silva","cpfcnpj":"","data_nascimento":null,"sexo":"M","fone_ddd":"14","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"},{"id":"74","cadastro_tipo":"1","tipo_pessoa":"F","nome":"Fulano da Sílva","cpfcnpj":"","data_nascimento":null,"sexo":"","fone_ddd":"18","fone":"981157879","celular_ddd":"","celular":"","email":"emailcliente@provedor.com.br"}]}}'
   - name: 401 Response
     description: Unauthorized
     request:
@@ -261,15 +580,60 @@ examples:
           value: "524"
           type: query
           description: ID do vendedor do cliente
+        - name: cpfcnpj
+          value: "12345678909"
+          type: query
+          description: String - Opcional - CPF ou CNPJ exato, como está gravado (normalmente só números). Aceita `%` como curinga.
+          disabled: true
+        - name: email
+          value: emailcliente@provedor.com.br
+          type: query
+          description: String - Opcional - E-mail exato (sem diferenciar maiúsculas). Aceita `%` como curinga.
+          disabled: true
+        - name: ativo
+          value: S
+          type: query
+          description: Enum('S', 'N') - Opcional - Só clientes ativos (S) ou inativos (N).
+          disabled: true
+        - name: nascimento
+          value: 25/12
+          type: query
+          description: "String (DD/MM) - Opcional - Aniversariantes do dia: filtra pelo dia e mês de `data_nascimento`."
+          disabled: true
+        - name: fields
+          value: id,nome,email,celular_ddd,celular
+          type: query
+          description: "String - Opcional - Campos de cada cliente na resposta, separados por vírgula. Padrão: id,cadastro_tipo,tipo_pessoa,nome,sexo,data_nascimento,cpfcnpj,email,fone_ddd,fone,celular_ddd,celular. Os campos extras do cadastro vêm sempre."
+          disabled: true
         - name: limit
           value: ""
           type: query
-          description: Quantidade de resultados por página
+          description: Quantidade de clientes por página (padrão 10, máximo 100)
           disabled: true
         - name: page
           value: "2"
           type: query
           description: Número da página referente a paginação de resultados
+        - name: lastupdate_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Alterados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: lastupdate_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Alterados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_gte
+          value: 2026-07-01
+          type: query
+          description: Date - Opcional - Cadastrados a partir desta data/hora. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
+        - name: created_lte
+          value: 2026-07-31 23:59:59
+          type: query
+          description: Date - Opcional - Cadastrados até esta data/hora. Data sem hora vale como 00:00:00. Aceita `AAAA-MM-DD`, `AAAA-MM-DD HH:MM:SS` ou `DD/MM/AAAA`.
+          disabled: true
     response:
       status: 401
       statusText: Unauthorized
@@ -279,3 +643,16 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+
+docs: |-
+  <p>Lista os clientes da loja, do mais recente para o mais antigo, em páginas de 10 (até 100 com <code>limit</code>).</p>
+
+  <ul>
+    <li>Todos os filtros são opcionais e se combinam (E).</li>
+    <li><code>q</code> faz uma busca textual nos dados do cliente; <code>alfa</code> filtra pela primeira letra do nome.</li>
+    <li><code>email</code> e <code>cpfcnpj</code> buscam o valor exato, sem diferenciar maiúsculas, e aceitam <code>%</code> como curinga.</li>
+    <li><code>nascimento</code> no formato <code>DD/MM</code> traz os aniversariantes do dia.</li>
+    <li><code>fields</code> escolhe os campos de cada cliente na resposta.</li>
+  </ul>
+
+  <p>Na resposta, <code>totalRegistros</code> conta os clientes desta página, <code>totalGeralRegistros</code> o total da busca e <code>totalPaginas</code> quantas páginas existem.</p>

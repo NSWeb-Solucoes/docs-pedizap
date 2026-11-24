@@ -2749,7 +2749,37 @@ examples:
             "status": "error",
             "message": "Nenhum parametro foi informado"
           }
-  - name: 404 Response
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu?uf={{uf}}&cidade={{cidadeId}}"
+      method: GET
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: uf
+          value: "{{uf}}"
+          type: query
+        - name: cidade
+          value: "{{cidadeId}}"
+          type: query
+        - name: servicoId
+          value: "{{servicoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 404 Serviço não encontrado
+    description: Não existe serviço de entrega com esse `servicoId` na loja.
     request:
       url: "{{proto}}://{{domain}}/api/entrega/servico/:servicoId/zona/bairromenu?uf={{uf}}&cidade={{cidadeId}}"
       method: GET
@@ -2772,34 +2802,11 @@ examples:
       status: 404
       statusText: Not Found
       headers:
-        - name: server
-          value: nginx/1.14.1
-        - name: date
-          value: Thu, 30 Jul 2026 13:18:47 GMT
-        - name: content-type
-          value: text/html
-        - name: transfer-encoding
-          value: chunked
-        - name: connection
-          value: keep-alive
-        - name: vary
-          value: Accept-Encoding
+        - name: Content-Type
+          value: application/json
       body:
-        type: html
-        data: |-
-          <html>
-              <head>
-                  <title>404 Not Found</title>
-              </head>
-              <body bgcolor="white">
-                  <center>
-                      <h1>404 Not Found</h1>
-                  </center>
-                  <hr>
-                      <center>nginx/1.14.1</center>
-                  </hr>
-              </body>
-          </html>
+        type: text
+        data: '{"status":"error","msg":"Servico nao encontrado."}'
 
 docs: |-
   <p>Lookup de cidades/bairros para descobrir <code>bairro_id</code> (zona_tipo=bairro) ou os bairros já cadastrados (zona_tipo=bairro_custom) antes de criar uma zona.</p>

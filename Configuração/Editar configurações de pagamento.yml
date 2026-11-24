@@ -129,6 +129,98 @@ examples:
       body:
         type: text
         data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
+  - name: 422 Campo não aceito
+    description: O corpo só aceita os campos listados na mensagem. Qualquer outro campo faz a requisição inteira ser recusada, sem gravar nada.
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/pagamento"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: pagamento_metodos[]
+            value: pix
+            description: Metodo de pagamento a habilitar/desabilitar na loja; envie um campo pagamento_metodos[] por metodo (veja valores possiveis nos docs abaixo)
+          - name: pagtoentrega_metodos[]
+            value: ""
+            description: Forma aceita no pagamento feito na entrega (dinheiro, credito, debito, vale ou pix); requer pagtoentrega habilitado em pagamento_metodos
+            disabled: true
+          - name: pagtoentrega_bandeiras_credito[]
+            value: ""
+            description: Bandeira de cartao de credito aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: pagtoentrega_bandeiras_debito[]
+            value: ""
+            description: Bandeira de cartao de debito aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: pagtoentrega_bandeiras_vale[]
+            value: ""
+            description: Bandeira de vale (refeicao/alimentacao) aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: config_PIX_CHAVE
+            value: ""
+            description: Chave PIX usada para recebimento via deposito/transferencia
+            disabled: true
+          - name: frete
+            value: gratis
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"O corpo da requisição está incorreto. É aceito somente: pagamento_metodos, pagtoentrega_metodos, pagtoentrega_bandeiras_credito, pagtoentrega_bandeiras_debito, pagtoentrega_bandeiras_vale, config_PIX_CHAVE"}'
+  - name: 422 Método de pagamento inexistente
+    description: Cada valor de `pagamento_metodos` e de `pagtoentrega_metodos` precisa existir no sistema. Consulte os métodos em Tabela de métodos de pagamento (`GET /api/conf/ordermethods`).
+    request:
+      url: "{{proto}}://{{domain}}/api/conf/pagamento"
+      method: POST
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      body:
+        type: form-urlencoded
+        data:
+          - name: pagamento_metodos[]
+            value: bitcoin
+            description: Metodo de pagamento a habilitar/desabilitar na loja; envie um campo pagamento_metodos[] por metodo (veja valores possiveis nos docs abaixo)
+          - name: pagtoentrega_metodos[]
+            value: ""
+            description: Forma aceita no pagamento feito na entrega (dinheiro, credito, debito, vale ou pix); requer pagtoentrega habilitado em pagamento_metodos
+            disabled: true
+          - name: pagtoentrega_bandeiras_credito[]
+            value: ""
+            description: Bandeira de cartao de credito aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: pagtoentrega_bandeiras_debito[]
+            value: ""
+            description: Bandeira de cartao de debito aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: pagtoentrega_bandeiras_vale[]
+            value: ""
+            description: Bandeira de vale (refeicao/alimentacao) aceita no pagamento na entrega (texto livre, uma por campo)
+            disabled: true
+          - name: config_PIX_CHAVE
+            value: ""
+            description: Chave PIX usada para recebimento via deposito/transferencia
+            disabled: true
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Valor no pagamento_metodos não exite no sistema"}'
 
 docs: |-
   Endpoint criado para configurar o pagamento.

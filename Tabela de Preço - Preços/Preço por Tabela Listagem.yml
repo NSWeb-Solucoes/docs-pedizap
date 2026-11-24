@@ -17,6 +17,11 @@ http:
     - name: precoId
       value: "{{precoId}}"
       type: path
+    - name: filter_string
+      value: Coca-Cola
+      type: query
+      description: String - Opcional - Busca por parte do texto no id, no SKU (code) e no nome do produto, e no nome da tabela.
+      disabled: true
   auth: inherit
 
 settings:
@@ -26,30 +31,8 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 401 Response
-    description: Unauthorized
-    request:
-      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
-      method: GET
-      headers:
-        - name: Accept
-          value: application/json
-        - name: Authorization
-          value: "{{token}}"
-      params:
-        - name: precoId
-          value: "{{precoId}}"
-          type: path
-    response:
-      status: 401
-      statusText: Unauthorized
-      headers:
-        - name: Content-Type
-          value: text/json;charset=UTF-8
-      body:
-        type: text
-        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
-  - name: 200 Response
+  - name: 200 Preços da tabela
+    description: "Os preços vêm do mais recente para o mais antigo, com o nome e o SKU do produto (`product_name`, `code`) e o nome da tabela (`pricetable_name`). `infoPager` traz a paginação: no máximo 50 preços por resposta."
     request:
       url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
       method: GET
@@ -504,5 +487,91 @@ examples:
               "endRow": "33"
             }
           }
+  - name: 200 Buscar por produto
+    description: "`filter_string` busca por parte do texto no id, no SKU e no nome do produto, e também no nome da tabela (buscar `Bauru` traria todos os preços da tabela Filial Bauru)."
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+        - name: filter_string
+          value: Coca-Cola
+          type: query
+          description: String - Opcional - Busca por parte do texto no id, no SKU (code) e no nome do produto, e no nome da tabela.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"success","prices":[{"id":"12","site_id":"6","pricetable_id":"1","product_code":"fdb9427a","product_id":"12","price":"7.32","price_promo":"0","product_name":"Refrigerante Coca-Cola sem Açúcar 350 Ml","code":"fdb9427a","pricetable_name":"Filial Bauru"},{"id":"11","site_id":"6","pricetable_id":"1","product_code":"5f904d58","product_id":"11","price":"12.54","price_promo":"0","product_name":"Coca-Cola sem Açúcar 1l","code":"5f904d58","pricetable_name":"Filial Bauru"},{"id":"10","site_id":"6","pricetable_id":"1","product_code":"0fe147c5","product_id":"10","price":"12.54","price_promo":"0","product_name":"Coca-Cola Original 1l","code":"0fe147c5","pricetable_name":"Filial Bauru"},{"id":"9","site_id":"6","pricetable_id":"1","product_code":"f3154c31","product_id":"9","price":"17.09","price_promo":"0","product_name":"Coca-Cola sem Açúcar 2l","code":"f3154c31","pricetable_name":"Filial Bauru"},{"id":"8","site_id":"6","pricetable_id":"1","product_code":"537e4039","product_id":"8","price":"17.09","price_promo":"0","product_name":"Coca-Cola Original 2l","code":"537e4039","pricetable_name":"Filial Bauru"}],"infoPager":{"itemsPerPage":50,"totalRows":"5","totalPages":1,"currentPage":1,"startRow":1,"endRow":"5"}}'
+  - name: 200 Tabela não encontrada
+    description: "Não existe tabela de preço com esse id. A resposta vem com HTTP 200: o erro está só no `status` do corpo."
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+        - name: filter_string
+          value: Coca-Cola
+          type: query
+          description: String - Opcional - Busca por parte do texto no id, no SKU (code) e no nome do produto, e no nome da tabela.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: text
+        data: '{"status":"error","msg":"Tabela de preço não encontrada"}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/pricetable/:precoId/prices"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+        - name: Authorization
+          value: "{{token}}"
+      params:
+        - name: precoId
+          value: "{{precoId}}"
+          type: path
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autentica\u00e7\u00e3o inv\u00e1lida."}'
 
-docs: Lista todos os preços cadastradas dentro da tabela de preço.
+docs: |-
+  <p>Lista os preços cadastrados na tabela de preço, com o nome e o SKU de cada produto.</p>
+
+  <ul>
+    <li>A resposta traz no máximo 50 preços, a primeira página: esta rota não lê <code>page</code> nem <code>limit</code>. Em <code>infoPager</code>, <code>totalRows</code> é o total de preços encontrados.</li>
+    <li><code>filter_string</code> filtra por parte do texto no id, no SKU (<code>code</code>) e no nome do produto, e no nome da tabela.</li>
+  </ul>
+
+  <p><strong>Atenção:</strong> nesta rota a API responde HTTP <code>200</code> também nos erros (tabela ou preço não encontrado, dados inválidos). Confira o campo <code>status</code> do corpo: <code>success</code> ou <code>error</code>.</p>

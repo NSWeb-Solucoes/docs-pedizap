@@ -181,6 +181,64 @@ examples:
       body:
         type: text
         data: '{"status":"success","affectedRows":1}'
+  - name: 401 Response
+    description: Unauthorized
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: extras_json
+            value: '[{"category":"Escolha o tamanho","required":true,"rule":"","min":1,"max":1,"items":[{"name":"Média","code":"TAM-M","desc":"6 fatias","price":"0.00","published":true},{"name":"Grande","code":"TAM-G","desc":"8 fatias","price":"10.00","published":true}]},{"category":"Sabores (até 2)","required":true,"rule":"price_higher","min":1,"max":2,"items":[{"name":"Mussarela","code":"SAB-MUS","desc":"","price":"40.00","published":true},{"name":"Calabresa","code":"SAB-CAL","desc":"","price":"45.00","published":true},{"name":"Quatro queijos","code":"SAB-4Q","desc":"","price":"52.00","published":true}]},{"category":"Adicionais","required":false,"rule":"","min":0,"max":3,"items":[{"name":"Bacon","code":"ADC-BACON","desc":"","price":"6.00","limitFree":0,"published":true},{"name":"Orégano extra","code":"ADC-OREG","desc":"","price":"1.00","limitFree":1,"published":true}]}]'
+            description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"401","msg":"Chave de autenticação inválida."}'
+  - name: 422 Produto não encontrado
+    description: O `produtoId` não existe na loja.
+    request:
+      url: "{{proto}}://{{domain}}/api/produto/:produtoId"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: "{{token}}"
+        - name: Accept
+          value: "{{format}}"
+      params:
+        - name: produtoId
+          value: "{{produtoId}}"
+          type: path
+      body:
+        type: form-urlencoded
+        data:
+          - name: extras_json
+            value: '[{"category":"Escolha o tamanho","required":true,"rule":"","min":1,"max":1,"items":[{"name":"Média","code":"TAM-M","desc":"6 fatias","price":"0.00","published":true},{"name":"Grande","code":"TAM-G","desc":"8 fatias","price":"10.00","published":true}]},{"category":"Sabores (até 2)","required":true,"rule":"price_higher","min":1,"max":2,"items":[{"name":"Mussarela","code":"SAB-MUS","desc":"","price":"40.00","published":true},{"name":"Calabresa","code":"SAB-CAL","desc":"","price":"45.00","published":true},{"name":"Quatro queijos","code":"SAB-4Q","desc":"","price":"52.00","published":true}]},{"category":"Adicionais","required":false,"rule":"","min":0,"max":3,"items":[{"name":"Bacon","code":"ADC-BACON","desc":"","price":"6.00","limitFree":0,"published":true},{"name":"Orégano extra","code":"ADC-OREG","desc":"","price":"1.00","limitFree":1,"published":true}]}]'
+            description: Lista de grupos de complementos, enviada como string JSON. Substitui a lista atual inteira.
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: text/json;charset=UTF-8
+      body:
+        type: text
+        data: '{"status":"error","msg":"Produto não encontrado."}'
 
 docs: |-
   O `extras_json` guarda os **complementos** do produto: a lista de grupos que o cliente escolhe ao pedir (tamanho, sabores, adicionais etc.), cada um com seus itens.

@@ -17,11 +17,17 @@ http:
     - name: qrcode
       value: "1"
       type: query
+      description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
       disabled: true
     - name: lastid
       value: "2670"
       type: query
       description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+      disabled: true
+    - name: pedidoId
+      value: "34695"
+      type: query
+      description: INT - Opcional - Traz só o pedido com esse id.
       disabled: true
     - name: order
       value: created DESC
@@ -42,6 +48,16 @@ http:
       value: 2026-10-23
       type: query
       description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+      disabled: true
+    - name: data_gte
+      value: 2026-10-01 00:00:00
+      type: query
+      description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+      disabled: true
+    - name: data_lte
+      value: 2026-10-31 23:59:59
+      type: query
+      description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
       disabled: true
     - name: lastupdate_gte
       value: 2025-10-22
@@ -71,14 +87,27 @@ http:
     - name: pago
       value: y
       type: query
+      description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+      disabled: true
+    - name: pagto_metodo
+      value: pix
+      type: query
+      description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+      disabled: true
+    - name: pagto_codigo
+      value: PAY-12
+      type: query
+      description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
       disabled: true
     - name: status
       value: "2"
       type: query
+      description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
       disabled: true
     - name: limit
       value: "2"
       type: query
+      description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
       disabled: true
   auth: inherit
 
@@ -103,11 +132,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -128,6 +163,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -157,14 +202,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -189,11 +247,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -212,6 +276,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -241,14 +315,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
     response:
       status: 200
       statusText: OK
@@ -524,11 +611,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -549,6 +642,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -577,14 +680,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -965,11 +1081,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -990,6 +1112,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1018,14 +1150,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1412,11 +1557,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1437,6 +1588,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1466,13 +1627,26 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
+          disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1496,11 +1670,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1521,6 +1701,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1550,13 +1740,26 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1580,10 +1783,16 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1604,6 +1813,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1633,14 +1852,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1664,11 +1896,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
+          disabled: true
         - name: order
           value: created DESC
           type: query
@@ -1688,6 +1926,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1717,14 +1965,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1748,11 +2009,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1772,6 +2039,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1801,14 +2078,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1832,11 +2122,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1857,6 +2153,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
           type: query
@@ -1885,14 +2191,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -1916,11 +2235,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -1941,6 +2266,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -1969,14 +2304,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -2000,11 +2348,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -2025,6 +2379,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -2053,14 +2417,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -2084,11 +2461,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -2109,6 +2492,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -2137,14 +2530,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -2168,11 +2574,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -2193,6 +2605,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -2221,14 +2643,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 200
@@ -2253,11 +2688,17 @@ examples:
         - name: qrcode
           value: "1"
           type: query
+          description: "INT - Opcional - 1: todos os pedidos, com ou sem QRCode; 2: só os pedidos feitos pelo QRCode. Sem ele, segue a compatibilidade da loja (veja 'Opções QRCode' abaixo)."
           disabled: true
         - name: lastid
           value: "2670"
           type: query
           description: INT - Opcional - Retorna os pedidos com ID maior que o informado.
+          disabled: true
+        - name: pedidoId
+          value: "34695"
+          type: query
+          description: INT - Opcional - Traz só o pedido com esse id.
           disabled: true
         - name: order
           value: created DESC
@@ -2278,6 +2719,16 @@ examples:
           value: 2026-10-23
           type: query
           description: STRING (yyyy-mm-dd) - Opcional - Filtra os pedidos pela data de realização. Menor ou igual a data
+          disabled: true
+        - name: data_gte
+          value: 2026-10-01 00:00:00
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Maior ou igual. Data sem hora vale como 00:00:00.
+          disabled: true
+        - name: data_lte
+          value: 2026-10-31 23:59:59
+          type: query
+          description: STRING (yyyy-mm-dd HH:MM:SS) - Opcional - Filtra pela data/hora de realização do pedido. Menor ou igual. Data sem hora vale como 00:00:00.
           disabled: true
         - name: lastupdate_gte
           value: 2025-10-22
@@ -2307,14 +2758,27 @@ examples:
         - name: pago
           value: y
           type: query
+          description: Enum('Y', 'N') - Opcional - Só pedidos pagos (Y) ou não pagos (N). 'S' vale como 'Y'.
+          disabled: true
+        - name: pagto_metodo
+          value: pix
+          type: query
+          description: STRING - Opcional - Filtra pelo método de pagamento (`pix`, `cartao`, `pagtoentrega`...). Veja a tabela de métodos de pagamento abaixo.
+          disabled: true
+        - name: pagto_codigo
+          value: PAY-12
+          type: query
+          description: STRING - Opcional - Pedidos cujo código de pagamento (`pagto_codigo`) começa com o valor informado.
           disabled: true
         - name: status
           value: "2"
           type: query
+          description: INT - Opcional - Só pedidos com esse status (1 a 7, veja a tabela abaixo). Sem ele, vêm todos menos os carrinhos (status 7).
           disabled: true
         - name: limit
           value: "2"
           type: query
+          description: INT - Opcional - Quantidade de pedidos por página (padrão 10, máximo 100).
           disabled: true
     response:
       status: 401

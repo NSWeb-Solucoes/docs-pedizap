@@ -95,3 +95,8 @@ examples:
       body:
         type: text
         data: '{"status":"error","msg":"Categoria n\u00e3o informada, ou atributo \"id\" faltando."}'
+
+docs: |-
+  <p>Busca uma categoria de produto pelo id. A resposta traz a categoria em <code>categorias.categoria</code>, com os mesmos campos de <a href="./Categoria%20Listagem.yml">Categoria Listagem</a>; se ela tiver filhas, elas vêm em <code>subcategories.category</code>.</p>
+
+  <p>Se a categoria não existir, a API responde <code>422</code> com <code>status</code> <code>error</code>.</p>
